@@ -66,6 +66,14 @@
       color: #fbbf24 !important;
     }
   </style>
+  <!-- Botón "Inicio" del portal (componente compartido, idéntico en todas las páginas) -->
+  <style>
+    .ue-home{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:10px;color:inherit;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.32);text-decoration:none;transition:background-color .2s,border-color .2s}
+    .ue-home:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.65)}
+    .ue-home:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
+    .ue-home svg{width:20px;height:20px;display:block}
+    @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
+  </style>
 </head>
 <body class="dark bg-darkbg text-slate-100 min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950" id="app-body">
 
@@ -97,6 +105,9 @@
       
       <!-- Título de la Suite -->
       <div class="flex items-center gap-3">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+        </a>
         <div class="p-2 bg-cyan-500 text-slate-950 rounded-lg shadow-md" aria-hidden="true">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.243.58 1.8l-3.97 2.88a1 1 0 00-.364 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.971-2.88a1 1 0 00-1.18 0l-3.97 2.88c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.364-1.118l-3.97-2.88c-.781-.557-.383-1.8.58-1.8h4.908a1 1 0 00.95-.69l1.519-4.674z"></path>
@@ -277,7 +288,7 @@
               <!-- Botón interactivo adicional -->
               <div class="pt-2 border-t border-slate-800/80">
                 <a 
-                  href="https://astro.unl.edu/naap/motion2/animations/ce_hc.html#" 
+                  href="http://astro.unl.edu/naap/motion2/animations/ce_hc.html" 
                   target="_blank" 
                   class="flex items-center justify-center gap-2 w-full px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-lg transition-colors"
                 >
@@ -1175,5 +1186,8 @@
     };
   </script>
 
+<!-- Código de analítica GoatCounter -->
+<script data-goatcounter="https://danielgastelu.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

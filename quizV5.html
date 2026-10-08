@@ -37,6 +37,14 @@
             to { opacity: 1; transform: scale(1); }
         }
     </style>
+  <!-- Botón "Inicio" del portal (componente compartido, idéntico en todas las páginas) -->
+  <style>
+    .ue-home{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:10px;color:inherit;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.32);text-decoration:none;transition:background-color .2s,border-color .2s}
+    .ue-home:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.65)}
+    .ue-home:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
+    .ue-home svg{width:20px;height:20px;display:block}
+    @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
+  </style>
 </head>
 <body class="star-bg text-white select-none min-h-screen font-sans">
 
@@ -51,6 +59,11 @@
 
     <!-- PANTALLA 1: MENÚ DE CONFIGURACIÓN Y CARGA -->
     <div id="menu-screen" class="hidden min-h-screen flex flex-col justify-between p-4">
+        <nav aria-label="Portal" class="text-slate-100">
+          <a href="index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+          </a>
+        </nav>
         <div class="flex-grow flex items-center justify-center py-6">
             <div class="max-w-2xl w-full bg-blue-950/85 backdrop-blur-md p-6 md:p-10 rounded-3xl border-4 border-blue-800 shadow-2xl text-center">
                 <h1 class="text-4xl md:text-6xl font-extrabold uppercase tracking-widest text-yellow-400 text-shadow-glow mb-2">
@@ -944,5 +957,8 @@
             });
         });
     </script>
+<!-- Código de analítica GoatCounter -->
+<script data-goatcounter="https://danielgastelu.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
