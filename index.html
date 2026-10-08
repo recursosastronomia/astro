@@ -24,6 +24,30 @@
     .text-shadow-glow {
       text-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
     }
+    /* Cinta diagonal "Nuevo" (esquina superior derecha) */
+    .ribbon-new {
+      position: absolute;
+      top: 18px;
+      right: -38px;
+      z-index: 10;
+      width: 150px;
+      padding: 5px 0;
+      transform: rotate(45deg);
+      background: #15803d;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-align: center;
+      box-shadow: 0 0 14px rgba(34, 197, 94, .55), 0 2px 6px rgba(0, 0, 0, .45);
+      border-top: 1px solid rgba(134, 239, 172, .6);
+      border-bottom: 1px solid rgba(20, 83, 45, .9);
+      pointer-events: none;
+    }
+    .ribbon-new[hidden] { display: none; }
+    /* Deja libre la esquina para la cinta mientras está visible */
+    .has-ribbon .card-emoji { margin-right: 2.75rem; }
     .card-zoom:hover img {
       transform: scale(1.05);
     }
@@ -97,6 +121,28 @@
     <!-- Rejilla de Recursos -->
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="resources-grid">
       
+      <!-- Helios - Laboratorio de actividad solar (app en mhp/) -->
+      <article data-category="simuladores" data-new-until="2026-11-07" class="resource-card relative group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
+        <!-- Cinta "Nuevo": oculta por defecto; el script la muestra hasta la fecha de data-new-until (inclusive) -->
+        <span class="ribbon-new" hidden>Nuevo</span>
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 rounded-md border border-amber-500/20">Laboratorio interactivo</span>
+            <span class="card-emoji text-3xl" aria-hidden="true">☀️</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Helios - Laboratorio de actividad solar</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Observa imágenes reales del Sol tomadas por satélites de la NASA, marca manchas y grupos solares y calcula el número de Wolf. Compara tus registros con la serie histórica de SILSO, descubre el ciclo solar y gana medallas. Funciona sin conexión y en seis idiomas.
+          </p>
+        </div>
+        <div class="px-6 pb-6 pt-2">
+          <a href="mhp/index.html" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-sky-500 hover:text-slate-950 text-white text-xs font-bold rounded-xl transition-all shadow-md group-hover:shadow-sky-500/5">
+            <span>Iniciar Misión Helios</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          </a>
+        </div>
+      </article>
+
       <!-- Fases Lunares -->
       <article data-category="simuladores" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
@@ -237,26 +283,6 @@
         </div>
       </article>
 
-      <!-- Helios - Laboratorio de actividad solar (app en mhp/) -->
-      <article data-category="simuladores" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
-        <div class="p-6">
-          <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 rounded-md border border-amber-500/20">Laboratorio interactivo</span>
-            <span class="text-3xl" aria-hidden="true">☀️</span>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Helios - Laboratorio de actividad solar</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Observa imágenes reales del Sol tomadas por satélites de la NASA, marca manchas y grupos solares y calcula el número de Wolf. Compara tus registros con la serie histórica de SILSO, descubre el ciclo solar y gana medallas. Funciona sin conexión y en seis idiomas.
-          </p>
-        </div>
-        <div class="px-6 pb-6 pt-2">
-          <a href="mhp/index.html" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-sky-500 hover:text-slate-950 text-white text-xs font-bold rounded-xl transition-all shadow-md group-hover:shadow-sky-500/5">
-            <span>Iniciar Misión Helios</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-          </a>
-        </div>
-      </article>
-
       <!-- Quiz Show -->
       <article data-category="evaluaciones" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
@@ -300,6 +326,19 @@
     </section>
 
   </main>
+
+  <!-- Cinta "Nuevo": visible hasta el final del día indicado en data-new-until (hora local) -->
+  <script>
+    document.querySelectorAll('[data-new-until]').forEach(card => {
+      const [y, m, d] = card.dataset.newUntil.split('-').map(Number);
+      const expires = new Date(y, m - 1, d + 1); // inicio del día siguiente
+      const ribbon = card.querySelector('.ribbon-new');
+      if (ribbon && new Date() < expires) {
+        ribbon.hidden = false;
+        card.classList.add('has-ribbon');
+      }
+    });
+  </script>
 
   <!-- Lógica de Filtrado -->
   <script>
