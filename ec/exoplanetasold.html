@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exoplanetas: Nuevos mundos más allá de nuestro Sol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Paleta de Colores Globales en CSS Nativo */
+        :root {
+            --space-950: #030712;
+            --space-900: #0b0f19;
+            --space-800: #111827;
+            --space-700: #1f2937;
+            --space-deep: #05050d;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-300: #cbd5e1;
+            --slate-400: #94a3b8;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+            --neon-cyan: #06b6d4;
+            --neon-blue: #3b82f6;
+            --neon-purple: #a855f7;
+            --neon-gold: #f59e0b;
+        }
+
+        /* Estilos Base Globales */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--space-950);
+            color: var(--slate-100);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+        
+        ::selection {
+            background-color: var(--neon-cyan);
+            color: var(--space-950);
+        }
+
+        /* Fondo Animado Estrellado */
+        .stars {
+            position: relative;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            animation: backgroundMove 120s linear infinite;
+        }
+        @keyframes backgroundMove {
+            from { background-position: 0 0, 40px 60px, 130px 270px; }
+            to { background-position: 550px 1100px, 400px 760px, 380px 1370px; }
+        }
+
+        /* Nebulosas Decorativas de Fondo */
+        .nebula-layer {
+            position: absolute;
+            pointer-events: none;
+            z-index: -10;
+            border-radius: 50%;
+        }
+        .nebula-1 {
+            top: 0; left: 0; width: 100%; height: 1000px;
+            filter: blur(140px);
+            background: radial-gradient(circle, rgba(6,182,212,0.15) 0%, transparent 70%);
+        }
+
+        /* Estructuras de Maquetación */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        @media(min-width: 768px) {
+            .grid-md-2 { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        }
+        
+        /* MAQUETACIÓN ESTRICTA DEL SIMULADOR */
+        .grid-sim {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        @media(min-width: 992px) {
+            .grid-sim {
+                grid-template-columns: 7fr 5fr;
+                align-items: start;
+            }
+        }
+
+        /* Paneles Estilo Glassmorphism */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(30, 41, 59, 0.6);
+            padding: 1rem 0;
+        }
+        .header-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 800;
+            font-size: 1.125rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #fff, var(--slate-400));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        nav {
+            display: none;
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            nav { display: flex; }
+        }
+        nav a {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--slate-300);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: var(--neon-cyan); }
+
+        /* Botonera */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-cyan));
+            color: var(--space-950);
+            box-shadow: 0 4px 14px rgba(6, 182, 212, 0.2);
+        }
+        .btn-primary:hover { transform: scale(1.03); }
+        .btn-large { padding: 1rem 2rem; border-radius: 0.75rem; font-size: 0.95rem; }
+        .btn-dark { background: var(--slate-900); color: white; border: 1px solid var(--slate-700); }
+
+        /* Hero */
+        .hero {
+            min-height: 45vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3rem 0;
+        }
+        .pill-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.85rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+        .pill-dot { width: 0.5rem; height: 0.5rem; background-color: var(--neon-cyan); border-radius: 50%; }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        @media(min-width: 768px) { .hero h1 { font-size: 4rem; } }
+        .hero h1 span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 0.75rem;
+            background: linear-gradient(to right, var(--neon-cyan), var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Secciones */
+        section.py { padding: 4.5rem 0; }
+        .bg-strip { background-color: rgba(11, 15, 25, 0.5); border-top: 1px solid var(--slate-800); border-bottom: 1px solid var(--slate-800); }
+        .sec-tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .tag-purple { color: var(--neon-purple); }
+        .tag-cyan { color: var(--neon-cyan); }
+        .sec-title { font-size: 1.875rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .text-center { text-align: center; }
+        .max-w-3xl { max-width: 48rem; margin: 0 auto; }
+
+        /* Estilos de Contenido Didáctico y Reflexión */
+        .didactic-text { font-size: 0.95rem; color: var(--slate-300); margin-bottom: 1rem; }
+        .reflection-container { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+        .reflection-card {
+            background: rgba(30, 41, 59, 0.3);
+            border-left: 4px solid var(--neon-cyan);
+            border-radius: 0 1rem 1rem 0;
+            padding: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--neon-cyan);
+        }
+        .reflection-card h4 { font-size: 1rem; font-weight: 700; color: var(--slate-100); margin-bottom: 0.5rem; }
+        .reflection-card p { font-size: 0.875rem; color: var(--slate-300); }
+
+        /* Componentes del Laboratorio de Controles */
+        .form-group { margin-bottom: 1.25rem; }
+        .form-label-wrap { display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.35rem; }
+        .form-select {
+            width: 100%;
+            background: var(--slate-900);
+            border: 1px solid var(--slate-700);
+            border-radius: 0.75rem;
+            padding: 0.65rem 1rem;
+            color: var(--slate-200);
+            font-size: 0.875rem;
+            outline: none;
+        }
+        input[type="range"] {
+            width: 100%;
+            background: var(--slate-800);
+            border-radius: 0.5rem;
+            height: 0.5rem;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+        .help-text { font-size: 0.72rem; color: var(--slate-400); margin-top: 0.25rem; line-height: 1.3; }
+
+        /* Canvas Containers */
+        .canvas-container {
+            background: var(--space-deep);
+            border: 1px solid var(--slate-800);
+            border-radius: 1rem;
+            overflow: hidden;
+            width: 100%;
+        }
+        .simulation-box { aspect-ratio: 2 / 1; min-height: 250px; }
+        .chart-box { height: 130px; margin-top: 0.5rem; padding: 0.5rem; }
+        canvas { width: 100%; height: 100%; display: block; }
+
+        /* Telemetría */
+        .telemetry-box {
+            background: linear-gradient(to bottom right, rgba(30, 27, 75, 0.4), var(--space-950));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        .telemetry-list { margin-top: 0.5rem; font-size: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem; }
+
+        /* Elementos Gráficos Estáticos Auxiliares */
+        .image-container {
+            width: 100%; height: 200px; border-radius: 1rem; overflow: hidden; margin-bottom: 1rem; background: var(--space-deep);
+        }
+        .image-container img { width: 100%; height: 100%; object-fit: cover; }
+        .italic-cap { font-size: 0.7rem; color: var(--slate-400); font-style: italic; }
+
+        /* Secciones de Trivia Especializada */
+        .quiz-intro, .quiz-question, .quiz-result { display: flex; flex-direction: column; gap: 1rem; text-align: center; }
+        .quiz-title { font-size: 1.3rem; font-weight: 700; color: var(--slate-100); }
+        .options-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
+        .option-btn {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--slate-700);
+            border-radius: 0.75rem;
+            padding: 0.95rem 1.25rem;
+            color: var(--slate-200);
+            text-align: left;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover:not(:disabled) { border-color: var(--neon-cyan); background: rgba(6, 182, 212, 0.05); }
+        .option-btn:disabled { cursor: not-allowed; }
+        .quiz-emoji { font-size: 3rem; }
+        .hidden { display: none !important; }
+
+        /* Pie de página nativo */
+        .main-footer {
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            z-index: 20;
+        }
+        .footer-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            max-width: 900px;
+            width: 100%;
+            padding: 1.25rem 2rem;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 1.25rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .footer-card:hover {
+            border-color: rgba(245, 158, 11, 0.35);
+            background: rgba(15, 23, 42, 0.55);
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.04);
+        }
+        .footer-logo {
+            height: 44px;
+            width: auto;
+            object-fit: contain;
+            opacity: 0.75;
+            transition: opacity 0.3s ease;
+        }
+        .footer-card:hover .footer-logo { opacity: 1; }
+        .footer-text {
+            font-size: 0.75rem;
+            color: rgba(148, 163, 184, 0.7);
+            text-align: center;
+            line-height: 1.6;
+            letter-spacing: 0.01em;
+            transition: color 0.3s ease;
+        }
+        .footer-card:hover .footer-text { color: var(--slate-200); }
+        @media (min-width: 640px) {
+            .footer-card { flex-direction: row; text-align: left; gap: 1.75rem; }
+            .footer-text { text-align: left; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body class="stars">
+
+    <div class="nebula-layer nebula-1"></div>
+
+    <header>
+        <div class="container header-wrap">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2">
+                    <path d="M10.05 13.95L3 21M13.95 10.05L21 3M14 21h-4v-4h4v4zM19 13.5L13.5 19" stroke-linecap="round"/>
+                    <circle cx="9.5" cy="9.5" r="5.5" stroke-dasharray="2 2"/>
+                </svg>
+                <span>ExoMundo</span>
+            </div>
+            <nav>
+                <a href="#que-es">¿Qué son?</a>
+                <a href="#didactica">Guía Didáctica</a>
+                <a href="#simulador">Laboratorio</a>
+                <a href="#trivia-section">Trivia</a>
+            </nav>
+            <a href="#simulador" class="btn btn-primary">Probar Simulador</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="pill-badge"><span class="pill-dot"></span> Laboratorio Espacial</div>
+            <h1>Exoplanetas<span>Mundos en estrellas lejanas</span></h1>
+            <p style="max-width: 600px; margin: 0 auto; color: var(--slate-300);">Monitorea y altera propiedades de estrellas distantes. Observa los cambios fotométricos a la izquierda modificando el panel de control a la derecha.</p>
+        </div>
+    </section>
+
+    <section id="que-es" class="py">
+        <div class="container grid-2">
+            <div>
+                <div class="sec-tag tag-purple">Detección Fotométrica</div>
+                <h2 class="sec-title">¿Qué es un Exoplaneta?</h2>
+                <p style="color: var(--slate-300); margin-bottom: 1.5rem;">Un exoplaneta es cualquier mundo que orbita una estrella diferente a nuestro Sol. Al estar a distancias descomunales, analizamos la bajada de luz que producen al cruzar frente a su astro rey.</p>
+                <div class="glass-panel" style="padding: 1rem; display: flex; gap: 1rem;">
+                    <div style="flex: 1; text-align: center;"><h3 class="tag-cyan" style="font-size: 1.5rem;">1992</h3><p style="font-size: 0.75rem; color: var(--slate-400);">Primer hallazgo</p></div>
+                    <div style="flex: 1; text-align: center;"><h3 class="tag-purple" style="font-size: 1.5rem;">+5000</h3><p style="font-size: 0.75rem; color: var(--slate-400);">Confirmados</p></div>
+                </div>
+            </div>
+            <div>
+                <div class="glass-panel">
+                    <div class="image-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Kepler186f-ComparisonGraphic-20140417.jpg" alt="Kepler">
+                    </div>
+                    <h3 style="margin-bottom: 0.25rem;">Kepler-186f</h3>
+                    <div class="italic-cap">Planeta descubierto en la franja habitable exterior.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="didactica" class="py bg-strip">
+        <div class="container">
+            <div class="text-center max-w-3xl" style="margin-bottom: 2.5rem;">
+                <div class="sec-tag tag-purple">Manual del Joven Astrónomo</div>
+                <h2 class="sec-title">Guía de exploración de exoplanetas</h2>
+            </div>
+
+            <div class="grid-md-2" style="display: grid;">
+                <div class="glass-panel">
+                    <h3 style="font-size: 1.15rem; margin-bottom: 1rem; color: var(--neon-cyan);">Conceptos Clave para Investigar</h3>
+                    <p class="didactic-text">
+                        <strong>1. ¿En qué consiste un exoplaneta?</strong><br>
+                        Es un planeta que se encuentra fuera de nuestro sistema solar, orbitando una estrella lejana. Dado que las estrellas brillan millones de veces más que sus planetas, los astrónomos usan telescopios espaciales sensibles para registrar el momento exacto en el que el brillo estelar disminuye debido al bloqueo mecánico que ejerce el planeta al cruzar por delante.
+                    </p>
+                    <p class="didactic-text">
+                        <strong>2. La Zona "Ricitos de Oro" (Zona Habitable)</strong><br>
+                        Se define como la región alrededor de una estrella donde el flujo de radiación térmica permite que un planeta rocoso mantenga una temperatura óptima en su superficie: ni tan caliente como para evaporar las atmósferas, ni tan helada como para congelar los océanos. El agua líquida es el pilar de la biología tal como la conocemos.
+                    </p>
+                    <p class="didactic-text">
+                        <strong>3. Relación con la Emisión Energética</strong><br>
+                        La ubicación de esta zona templada depende de la masa y temperatura de la estrella central. Las estrellas masivas y calientes (como las <em>Gigantes Azules</em>) emiten tanta energía que su zona habitable se sitúa a distancias gigantescas. Por el contrario, las estrellas frías y compactas (como las <em>Enanas Rojas</em>) emiten tan poca energía que su zona "Ricitos de Oro" se localiza sumamente cerca de ellas.
+                    </p>
+                </div>
+
+                <div class="glass-panel" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h3 style="font-size: 1.15rem; margin-bottom: 1rem; color: var(--neon-purple);">Preguntas para Reflexionar</h3>
+                        <div class="reflection-container">
+                            <div class="reflection-card">
+                                <h4>💡 ¿Qué ocurre con la curva de luz si el planeta está muy cerca o muy lejos de la estrella?</h4>
+                                <p>Si el planeta está muy cerca, completa su traslación velozmente (su año dura pocos días), haciendo que las caídas de brillo en el gráfico fotométrico sean muy frecuentes. Si se encuentra lejos, las caídas de luz tardarán meses o años en registrarse de nuevo.</p>
+                            </div>
+                            <div class="reflection-card">
+                                <h4>💡 ¿Siempre es detectable un exoplaneta mediante la técnica del tránsito?</h4>
+                                <p>No, existe una severa limitación geométrica. Solo podemos registrar tránsitos si la órbita del planeta está perfectamente alineada de canto (a 0 grados de inclinación) con nuestra línea de visión desde la Tierra. Si la órbita está inclinada, el exoplaneta pasa por arriba o por abajo de la estrella sin eclipsarla, volviéndose invisible para esta técnica.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="simulador" class="py">
+        <div class="container">
+            <div class="text-center max-w-3xl" style="margin-bottom: 3rem;">
+                <div class="pill-badge">Análisis en Vivo</div>
+                <h2 class="sec-title">Laboratorio de Tránsitos y Habitabilidad</h2>
+                <p style="color: var(--slate-300);">Visualiza de forma interactiva el comportamiento de un planeta en torno a una estrella. Ajusta inclinación, órbita y tamaños de estrella principal y del planeta en el menú de parámetros.</p>
+            </div>
+
+            <div class="grid-sim">
+                
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="glass-panel" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 0.75rem; font-weight:700; color: var(--slate-400);">🔴 MONITOR TELESCÓPICO OPTIMIZADO</span>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button id="btn-play" class="btn btn-primary" style="border-radius: 0.5rem; padding: 0.4rem 1rem;">Pausar</button>
+                                <button id="btn-reset" class="btn btn-dark" style="border-radius: 0.5rem; padding: 0.4rem 1rem;">Reiniciar</button>
+                            </div>
+                        </div>
+                        
+                        <div class="canvas-container simulation-box">
+                            <canvas id="canvas-simulation"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel">
+                        <span style="font-size: 0.75rem; font-weight:700; color: var(--slate-400); display: block; margin-bottom: 0.25rem;">📉 REGISTRO FOTOMÉTRICO (CURVA DE LUZ)</span>
+                        <div class="canvas-container chart-box">
+                            <canvas id="canvas-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="glass-panel">
+                        <h3 style="font-size: 1rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--slate-800); padding-bottom: 0.5rem; color: var(--slate-200);">Controles del Sistema</h3>
+
+                        <div class="form-group">
+                            <div class="form-label-wrap">
+                                <span>Inclinación Órbita (i)</span>
+                                <span id="val-orbit-incl" class="tag-cyan" style="font-weight: 700;">20°</span>
+                            </div>
+                            <input id="slider-orbit-incl" type="range" min="0" max="30" value="20">
+                            <p class="help-text">Ángulo respecto al observador. En valor 0° pasa exactamente por el frente de la estrella central.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-label-wrap">
+                                <span>Distancia de la Estrella</span>
+                                <span id="val-orbit-dist" class="tag-purple" style="font-weight: 700;">Media</span>
+                            </div>
+                            <input id="slider-orbit-dist" type="range" min="40" max="170" value="100">
+                            <p class="help-text">Modifica el radio orbital. Determina qué tan expuesto está el planeta a la radiación térmica.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-label-wrap">
+                                <span>Diámetro del Exoplaneta</span>
+                                <span id="val-planet-size" style="color: var(--neon-gold); font-weight: 700;">Mediano</span>
+                            </div>
+                            <input id="slider-planet-size" type="range" min="6" max="22" value="13">
+                            <p class="help-text">Planetas de mayor masa bloquean una fracción de fotones más notable.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label-wrap">Clase Lumínica de Estrella</label>
+                            <select id="select-star-type" class="form-select">
+                                <option value="sun" selected>Enana Amarilla (Tipo Sol - Zonas Estándar)</option>
+                                <option value="red">Enana Roja (Pequeña/Fría - Zonas Contraídas)</option>
+                                <option value="blue">Gigante Azul (Masiva/Caliente - Zonas Expandidas)</option>
+                            </select>
+                            <p class="help-text">Cambiar el tamaño y masa de la estrella recalcula automáticamente los límites templados (verde).</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel telemetry-box">
+                        <h4 class="sec-tag tag-cyan">Lecturas de Instrumentos</h4>
+                        <div class="telemetry-list">
+                            <div>📉 <strong>Caída de Brillo:</strong> <span id="telemetry-dip" class="tag-cyan" style="font-weight:700;">0.00%</span></div>
+                            <div>🌡️ <strong>Condición Térmica:</strong> <span id="telemetry-zone" style="font-weight:700; padding: 0.1rem 0.4rem; border-radius:4px;">Analizando...</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="trivia-section" class="py bg-strip">
+        <div class="container" style="max-width: 680px;">
+            <div class="glass-panel">
+                <div id="trivia-intro" class="quiz-intro">
+                    <div class="quiz-emoji">🚀</div>
+                    <h3 class="quiz-title">Desafío de autoevaluación</h3>
+                    <p style="font-size: 0.9rem; color: var(--slate-300);">Pon a prueba tus conocimientos sobre fotometría astronómica, órbitas y habitabilidad estelar extrasolar.</p>
+                    <button id="btn-start-trivia" class="btn btn-primary" style="margin-top: 0.5rem; padding: 0.8rem 2rem;">Comenzar Misión</button>
+                </div>
+
+                <div id="trivia-question" class="quiz-question hidden">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--slate-400);">
+                        <span id="trivia-progress">Pregunta 1 de 7</span>
+                        <span id="trivia-score-live">Puntuación: 0</span>
+                    </div>
+                    <h3 id="trivia-text" class="quiz-title" style="text-align: left; margin-top: 0.5rem; font-size: 1.15rem; line-height: 1.4;">Cargando...</h3>
+                    <div id="trivia-options" class="options-list"></div>
+                    
+                    <div id="trivia-feedback" class="hidden" style="margin-top: 1.25rem; padding: 1rem 1.25rem; border-radius: 0.75rem; font-size: 0.88rem; text-align: left; line-height: 1.45;"></div>
+                    
+                    <button id="btn-next-trivia" class="btn btn-primary hidden" style="margin-top: 1rem; width: 100%; padding: 0.8rem; border-radius: 0.5rem;">Siguiente pregunta ➡️</button>
+                </div>
+
+                <div id="trivia-result" class="quiz-result hidden">
+                    <div id="trivia-result-emoji" class="quiz-emoji">🏆</div>
+                    <h3 id="trivia-result-title" class="quiz-title">Evaluación Completa</h3>
+                    <p id="trivia-result-text" style="font-size: 0.95rem; color: var(--slate-300); margin-bottom: 1rem; line-height: 1.5;"></p>
+                    <button id="btn-restart-trivia" class="btn btn-dark" style="padding: 0.75rem 1.75rem; border-radius: 0.5rem;">Reiniciar Trivia 🔄</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer container">
+        <a href="https://edytic.ces.edu.uy/" target="_blank" rel="noopener noreferrer" class="footer-card">
+          <img 
+            src="https://danielgastelu.github.io/web/logos/logoueblanco-removebg.png" 
+            alt="Logo Uruguay Educa" 
+            class="footer-logo"
+            onerror="this.onerror=null; this.style.display='none';"
+          />
+          <p class="footer-text">
+            Portal Uruguay Educa (ANEP-DGES-EDyTIC) — Contenidistas de Astronomía 2026. Herramienta educativa interactiva de uso libre desarrollada con asistencia de IA.
+          </p>
+        </a>
+    </footer>
+
+    <script>
+        const canvasSim = document.getElementById('canvas-simulation');
+        const ctxSim = canvasSim.getContext('2d');
+        const canvasChart = document.getElementById('canvas-chart');
+        const ctxChart = canvasChart.getContext('2d');
+
+        // Controles de interfaz
+        const sliderIncl = document.getElementById('slider-orbit-incl');
+        const sliderDist = document.getElementById('slider-orbit-dist');
+        const sliderSize = document.getElementById('slider-planet-size');
+        const selectStar = document.getElementById('select-star-type');
+        const btnPlay = document.getElementById('btn-play');
+        const btnReset = document.getElementById('btn-reset');
+
+        // Etiquetas informativas
+        const lblIncl = document.getElementById('val-orbit-incl');
+        const lblDist = document.getElementById('val-orbit-dist');
+        const lblSize = document.getElementById('val-planet-size');
+        const telemetryDip = document.getElementById('telemetry-dip');
+        const telemetryZone = document.getElementById('telemetry-zone');
+
+        // Ajuste fluido de lienzos canvas
+        function resizeLayout() {
+            canvasSim.width = canvasSim.parentElement.clientWidth;
+            canvasSim.height = canvasSim.parentElement.clientHeight;
+            canvasChart.width = canvasChart.parentElement.clientWidth;
+            canvasChart.height = canvasChart.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeLayout);
+        resizeLayout();
+
+        // Estados del sistema físico
+        let isRunning = true;
+        let planetAngle = 0;
+        let lightHistory = [];
+        const maxHistoryPoints = 150;
+
+        let orbitIncl = parseInt(sliderIncl.value);
+        let orbitRadius = parseInt(sliderDist.value);
+        let planetRadius = parseInt(sliderSize.value);
+        let starType = selectStar.value;
+
+        // Escuchadores de Sliders
+        sliderIncl.addEventListener('input', (e) => {
+            orbitIncl = parseInt(e.target.value);
+            lblIncl.textContent = `${orbitIncl}°`;
+        });
+
+        sliderDist.addEventListener('input', (e) => {
+            orbitRadius = parseInt(e.target.value);
+            if(orbitRadius < 75) lblDist.textContent = "Cercana";
+            else if(orbitRadius < 130) lblDist.textContent = "Media";
+            else lblDist.textContent = "Lejana";
+        });
+
+        sliderSize.addEventListener('input', (e) => {
+            planetRadius = parseInt(e.target.value);
+            if(planetRadius < 11) lblSize.textContent = "Tipo Mercurio";
+            else if(planetRadius < 17) lblSize.textContent = "Tipo Tierra";
+            else lblSize.textContent = "Tipo Júpiter";
+        });
+
+        selectStar.addEventListener('change', (e) => {
+            starType = e.target.value;
+        });
+
+        btnPlay.addEventListener('click', () => {
+            isRunning = !isRunning;
+            btnPlay.textContent = isRunning ? "Pausar" : "Reanudar";
+        });
+
+        btnReset.addEventListener('click', () => {
+            planetAngle = 0;
+            lightHistory = [];
+        });
+
+        // Bucle Principal de Renderizado Animado
+        function drawSystemLoop() {
+            if (isRunning) {
+                let speedFactor = 0.12 * Math.pow(90 / orbitRadius, 1.5);
+                planetAngle += speedFactor;
+                if (planetAngle > Math.PI * 2) planetAngle -= Math.PI * 2;
+            }
+
+            const cx = canvasSim.width / 2;
+            const cy = canvasSim.height / 2;
+            ctxSim.clearRect(0, 0, canvasSim.width, canvasSim.height);
+
+            let starRadius = 40;
+            let starColor = "#f59e0b"; 
+            let zoneCalienteMax = 70;
+            let zoneHabitableMax = 120;
+            let zoneFriaMax = 180;
+
+            if (starType === 'red') {
+                starRadius = 22;
+                starColor = "#ef4444"; 
+                zoneCalienteMax = 40;
+                zoneHabitableMax = 75;
+                zoneFriaMax = 120;
+            } else if (starType === 'blue') {
+                starRadius = 58;
+                starColor = "#3b82f6"; 
+                zoneCalienteMax = 115;
+                zoneHabitableMax = 160;
+                zoneFriaMax = 220;
+            }
+
+            const inclRad = (orbitIncl * Math.PI) / 180;
+            const aspectY = Math.sin(inclRad); 
+
+            if (aspectY > 0) {
+                ctxSim.beginPath();
+                ctxSim.ellipse(cx, cy, zoneCalienteMax, zoneCalienteMax * aspectY, 0, 0, Math.PI * 2);
+                ctxSim.fillStyle = 'rgba(239, 68, 68, 0.12)';
+                ctxSim.fill();
+
+                ctxSim.beginPath();
+                ctxSim.ellipse(cx, cy, zoneHabitableMax, zoneHabitableMax * aspectY, 0, 0, Math.PI * 2);
+                ctxSim.fillStyle = 'rgba(16, 185, 129, 0.15)';
+                ctxSim.fill();
+                
+                ctxSim.globalCompositeOperation = 'destination-out';
+                ctxSim.beginPath();
+                ctxSim.ellipse(cx, cy, zoneCalienteMax, zoneCalienteMax * aspectY, 0, 0, Math.PI * 2);
+                ctxSim.fill();
+                ctxSim.globalCompositeOperation = 'source-over';
+
+                ctxSim.beginPath();
+                ctxSim.ellipse(cx, cy, zoneFriaMax, zoneFriaMax * aspectY, 0, 0, Math.PI * 2);
+                ctxSim.strokeStyle = 'rgba(59, 130, 246, 0.1)';
+                ctxSim.lineWidth = 12;
+                ctxSim.stroke();
+            } else {
+                ctxSim.lineWidth = 8;
+                ctxSim.strokeStyle = 'rgba(239, 68, 68, 0.2)';
+                ctxSim.beginPath(); ctxSim.moveTo(cx - zoneCalienteMax, cy); ctxSim.lineTo(cx + zoneCalienteMax, cy); ctxSim.stroke();
+                
+                ctxSim.strokeStyle = 'rgba(16, 185, 129, 0.3)';
+                ctxSim.beginPath(); ctxSim.moveTo(cx - zoneHabitableMax, cy); ctxSim.lineTo(cx - zoneCalienteMax, cy); ctxSim.stroke();
+                ctxSim.beginPath(); ctxSim.moveTo(cx + zoneCalienteMax, cy); ctxSim.lineTo(cx + zoneHabitableMax, cy); ctxSim.stroke();
+            }
+
+            ctxSim.beginPath();
+            if (aspectY > 0) {
+                ctxSim.ellipse(cx, cy, orbitRadius, orbitRadius * aspectY, 0, 0, Math.PI * 2);
+            } else {
+                ctxSim.moveTo(cx - orbitRadius, cy);
+                ctxSim.lineTo(cx + orbitRadius, cy);
+            }
+            ctxSim.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+            ctxSim.lineWidth = 1.5;
+            ctxSim.stroke();
+
+            const planetX = cx + Math.cos(planetAngle) * orbitRadius;
+            const planetY = cy + Math.sin(planetAngle) * orbitRadius * aspectY;
+
+            const isBehindStar = Math.sin(planetAngle) < 0;
+
+            if (isBehindStar) {
+                renderPlanet(ctxSim, planetX, planetY, planetRadius);
+                renderCentralStar(ctxSim, cx, cy, starRadius, starColor);
+            } else {
+                renderCentralStar(ctxSim, cx, cy, starRadius, starColor);
+                renderPlanet(ctxSim, planetX, planetY, planetRadius);
+            }
+
+            let brightnessValue = 1.0;
+
+            if (!isBehindStar) {
+                const distanceToCore = Math.hypot(planetX - cx, planetY - cy);
+                const contactRadius = starRadius + planetRadius;
+
+                if (distanceToCore < contactRadius) {
+                    const overlapRatio = Math.max(0, Math.min(1, (contactRadius - distanceToCore) / (planetRadius * 2)));
+                    const maxPossibleDip = (planetRadius * planetRadius) / (starRadius * starRadius);
+                    brightnessValue = 1.0 - (maxPossibleDip * overlapRatio * 0.95);
+                }
+            }
+
+            if (brightnessValue < 0.15) brightnessValue = 0.15;
+
+            if (isRunning) {
+                lightHistory.push(brightnessValue);
+                if (lightHistory.length > maxHistoryPoints) lightHistory.shift();
+            }
+
+            renderLightCurveChart(ctxChart, canvasChart.width, canvasChart.height, lightHistory);
+
+            const totalDipPct = ((1.0 - brightnessValue) * 100).toFixed(2);
+            telemetryDip.textContent = `${totalDipPct}%`;
+
+            if (orbitRadius <= zoneCalienteMax) {
+                telemetryZone.textContent = "🔥 Zona Caliente (Inhabitable)";
+                telemetryZone.style.backgroundColor = "rgba(239, 68, 68, 0.2)";
+                telemetryZone.style.color = "#ef4444";
+            } else if (orbitRadius > zoneCalienteMax && orbitRadius <= zoneHabitableMax) {
+                telemetryZone.textContent = "🍀 Zona Ricitos de Oro (Habitable)";
+                telemetryZone.style.backgroundColor = "rgba(16, 185, 129, 0.2)";
+                telemetryZone.style.color = "#34d399";
+            } else {
+                telemetryZone.textContent = "❄️ Zona Fría (Inhabitable)";
+                telemetryZone.style.backgroundColor = "rgba(59, 130, 246, 0.2)";
+                telemetryZone.style.color = "#60a5fa";
+            }
+
+            requestAnimationFrame(drawSystemLoop);
+        }
+
+        function renderCentralStar(ctx, x, y, radius, color) {
+            ctx.shadowBlur = 25;
+            ctx.shadowColor = color;
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+
+        function renderPlanet(ctx, x, y, radius) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = "#a855f7";
+            ctx.fill();
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
+
+        function renderLightCurveChart(ctx, w, h, history) {
+            ctx.clearRect(0, 0, w, h);
+            ctx.beginPath();
+            ctx.moveTo(0, h * 0.2);
+            ctx.lineTo(w, h * 0.2);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
+            ctx.setLineDash([4, 4]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            if (history.length === 0) return;
+
+            ctx.beginPath();
+            const pxStep = w / maxHistoryPoints;
+
+            for (let i = 0; i < history.length; i++) {
+                const lx = i * pxStep;
+                const value = history[i];
+                const ly = h * 0.2 + (1.0 - value) * (h * 2.2);
+
+                if (i === 0) ctx.moveTo(lx, ly);
+                else ctx.lineTo(lx, ly);
+            }
+
+            ctx.strokeStyle = "var(--neon-cyan)";
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+        }
+
+        requestAnimationFrame(drawSystemLoop);
+
+
+        // --- ACTUALIZACIÓN DE LA TRIVIA INTERACTIVA (7 PREGUNTAS CON RETROALIMENTACIÓN) ---
+        const triviaData = [
+            {
+                q: "¿Qué representa rigurosamente una 'curva de luz' en la investigación de exoplanetas?",
+                a: [
+                    "Un gráfico astronómico que muestra cómo cambia el brillo percibido de una estrella a lo largo del tiempo.",
+                    "El arco brillante de plasma que se desprende de una gigante gaseosa.",
+                    "La estela refractada al analizar la atmósfera de un cometa helado."
+                ],
+                correct: 0,
+                exp: "La curva de luz registra la fotometría de la estrella. Cuando un planeta cruza frente a ella, bloquea mecánicamente parte de sus fotones, generando una caída medible."
+            },
+            {
+                q: "¿Qué ocurre con las caídas en la curva de luz si el exoplaneta está sumamente cerca de su estrella?",
+                a: [
+                    "Son muy poco frecuentes debido a que el año del exoplaneta es larguísimo.",
+                    "Son muy frecuentes y repetitivas, ya que completa su órbita en muy poco tiempo.",
+                    "La curva de luz se mantiene plana porque la gravedad de la estrella absorbe el planeta."
+                ],
+                correct: 1,
+                exp: "A menor distancia orbital, mayor es la velocidad según las leyes de Kepler. Su año dura pocos días y, por tanto, transita con una frecuencia muy alta."
+            },
+            {
+                q: "¿Por qué hay exoplanetas reales que no pueden ser detectados por el método del tránsito?",
+                a: [
+                    "Porque las estrellas bloquean la señal electromagnética de radio.",
+                    "Se debe a que el exoplaneta está compuesto únicamente de gases pesados transparentes.",
+                    "Porque sus órbitas están inclinadas respecto a la visual terrestre y nunca bloquean la luz de su estrella desde nuestra perspectiva."
+                ],
+                correct: 2,
+                exp: "Limitación geométrica: si la órbita está inclinada desde nuestra perspectiva en la Tierra, el planeta pasará por arriba o por debajo del disco estelar sin eclipsarlo."
+            },
+            {
+                q: "¿Cómo se desplaza la posición de la Zona Ricitos de Oro en una estrella Gigante Azul?",
+                a: [
+                    "Se expande hacia órbitas muy lejanas debido a la inmensa cantidad de energía térmica que irradia esa estrella.",
+                    "Se contrae pegándose a la superficie de la estrella porque es muy fría.",
+                    "Desaparece por completo del sistema solar debido a la radiación ultravioleta."
+                ],
+                correct: 0,
+                exp: "Al ser astros hipercalientes y masivos que emiten flujos energéticos colosales, la distancia de seguridad térmica para albergar agua líquida se aleja radicalmente."
+            },
+            {
+                q: "¿De qué manera influye directamente el radio (tamaño) del exoplaneta en el gráfico fotométrico?",
+                a: [
+                    "Un planeta con mayor radio genera una caída de brillo mucho más profunda en la curva de luz.",
+                    "Los planetas de gran envergadura aumentan el brillo estelar por efecto espejo.",
+                    "El tamaño del planeta solo altera el color de la estrella, no la intensidad lumínica."
+                ],
+                correct: 0,
+                exp: "Cuanto más grande sea el planeta, mayor porción del disco estelar cubrirá durante el tránsito, restando un porcentaje de luz más amplio y visible."
+            },
+            {
+                q: "¿A qué hace referencia científica la expresión popular de la zona \"Ricitos de Oro\"?",
+                a: [
+                    "A los yacimientos abundantes de metales pesados áureos en la corteza planetaria.",
+                    "A planetas cuyas órbitas reflejan un destello dorado visible a través de filtros cromáticos.",
+                    "A la franja orbital donde las condiciones climáticas no son ni muy calientes ni muy frías, sino ideales para el agua líquida."
+                ],
+                correct: 2,
+                exp: "Proviene del famoso cuento infantil. Representa el equilibrio perfecto de irradiación térmica para impedir tanto la congelación como la evaporación de los océanos."
+            },
+            {
+                q: "Si analizamos una estrella Enana Roja (pequeña y de baja emisión), ¿dónde se ubicará su zona habitable?",
+                a: [
+                    "En una órbita extremadamente cercana a la estrella, mucho más comprimida que en nuestro Sistema Solar.",
+                    "A la misma distancia exacta que separa a la Tierra de nuestro Sol (1 UA).",
+                    "En los bordes externos del sistema, más allá de los cinturones de asteroides congelados."
+                ],
+                correct: 0,
+                exp: "Debido a que las enanas rojas irradian muy poca energía térmica, los exoplanetas deben orbitar sumamente cerca de ellas para calentarse lo suficiente."
+            }
+        ];
+
+        let currentTriviaIdx = 0;
+        let triviaScore = 0;
+
+        const triviaIntro = document.getElementById('trivia-intro');
+        const triviaQuestion = document.getElementById('trivia-question');
+        const triviaResult = document.getElementById('trivia-result');
+        
+        const btnStartTrivia = document.getElementById('btn-start-trivia');
+        const btnNextTrivia = document.getElementById('btn-next-trivia');
+        const btnRestartTrivia = document.getElementById('btn-restart-trivia');
+        
+        const triviaText = document.getElementById('trivia-text');
+        const triviaOptions = document.getElementById('trivia-options');
+        const triviaProgress = document.getElementById('trivia-progress');
+        const triviaScoreLive = document.getElementById('trivia-score-live');
+        const triviaFeedback = document.getElementById('trivia-feedback');
+
+        btnStartTrivia.addEventListener('click', () => {
+            triviaIntro.classList.add('hidden');
+            triviaQuestion.classList.remove('hidden');
+            loadTriviaQuestion();
+        });
+
+        function loadTriviaQuestion() {
+            const current = triviaData[currentTriviaIdx];
+            triviaProgress.textContent = `Pregunta ${currentTriviaIdx + 1} de ${triviaData.length}`;
+            triviaScoreLive.textContent = `Puntuación: ${triviaScore}`;
+            triviaText.textContent = current.q;
+            
+            // Limpiar estados previos
+            triviaFeedback.classList.add('hidden');
+            btnNextTrivia.classList.add('hidden');
+            triviaOptions.innerHTML = '';
+            
+            current.a.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.addEventListener('click', () => checkTriviaAnswer(index));
+                triviaOptions.appendChild(button);
+            });
+        }
+
+        function checkTriviaAnswer(selectedIdx) {
+            const current = triviaData[currentTriviaIdx];
+            const buttons = triviaOptions.querySelectorAll('.option-btn');
+            
+            // Bloquear clics adicionales
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === current.correct) {
+                    // Confirmación visual de la respuesta correcta siempre en VERDE
+                    btn.style.backgroundColor = "rgba(16, 185, 129, 0.25)";
+                    btn.style.borderColor = "var(--neon-cyan)";
+                    btn.style.color = "#34d399";
+                }
+            });
+
+            if (selectedIdx === current.correct) {
+                triviaScore++;
+                triviaFeedback.style.backgroundColor = "rgba(16, 185, 129, 0.1)";
+                triviaFeedback.style.border = "1px solid rgba(16, 185, 129, 0.3)";
+                triviaFeedback.style.color = "#34d399";
+                triviaFeedback.innerHTML = `<strong>✨ ¡Respuesta Correcta!</strong><br>${current.exp}`;
+            } else {
+                // Confirmación visual de respuesta incorrecta en ROJO
+                buttons[selectedIdx].style.backgroundColor = "rgba(239, 68, 68, 0.25)";
+                buttons[selectedIdx].style.borderColor = "#ef4444";
+                buttons[selectedIdx].style.color = "#f87171";
+                
+                triviaFeedback.style.backgroundColor = "rgba(239, 68, 68, 0.1)";
+                triviaFeedback.style.border = "1px solid rgba(239, 68, 68, 0.3)";
+                triviaFeedback.style.color = "#f87171";
+                triviaFeedback.innerHTML = `<strong>❌ Respuesta Incorrecta</strong><br>${current.exp}`;
+            }
+
+            // Mostrar la devolución y activar la opción de pasar de diapositiva
+            triviaFeedback.classList.remove('hidden');
+            btnNextTrivia.classList.remove('hidden');
+            triviaScoreLive.textContent = `Puntuación: ${triviaScore}`;
+        }
+
+        btnNextTrivia.addEventListener('click', () => {
+            currentTriviaIdx++;
+            if (currentTriviaIdx < triviaData.length) {
+                loadTriviaQuestion();
+            } else {
+                showTriviaResults();
+            }
+        });
+
+        function showTriviaResults() {
+            triviaQuestion.classList.add('hidden');
+            triviaResult.classList.remove('hidden');
+
+            const emoji = document.getElementById('trivia-result-emoji');
+            const title = document.getElementById('trivia-result-title');
+            const text = document.getElementById('trivia-result-text');
+
+            // Mecanismo evaluativo condicional estricto
+            if (triviaScore < 4) {
+                emoji.textContent = "📡🛰️";
+                title.textContent = "Misión Incompleta";
+                text.textContent = `Has obtenido ${triviaScore} de ${triviaData.length} aciertos. Te recomendamos volver a revisar el contenido didáctico de la guía, experimentar con las variables físicas en el laboratorio interactivo e intentarlo nuevamente para mejorar tus marcas.`;
+            } else if (triviaScore === 4 || triviaScore === 5) {
+                emoji.textContent = "🚀🌌";
+                title.textContent = "¡Buen trabajo!";
+                text.textContent = `¡Felicidades! Lograste un total de ${triviaScore} de ${triviaData.length} aciertos. Demuestras un gran entendimiento sobre la mecánica geométrica de los eclipses y el cálculo térmico estelar.`;
+            } else {
+                // Felicitación vigorosa (6 o 7 aciertos)
+                emoji.textContent = "🏆🛸🪐";
+                title.textContent = "¡Magnífico! ¡Nivel Astrofísico de Élite!";
+                text.textContent = `¡Impresionante desempeño! Has completado con éxito ${triviaScore} de ${triviaData.length} aciertos perfectos. Recibe una felicitación vigorosa por dominar con absoluta precisión el comportamiento lumínico, el impacto de la inclinación órbita-observador y las zonas habitables del cosmos.`;
+            }
+        }
+
+        btnRestartTrivia.addEventListener('click', () => {
+            currentTriviaIdx = 0;
+            triviaScore = 0;
+            triviaResult.classList.add('hidden');
+            triviaIntro.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
