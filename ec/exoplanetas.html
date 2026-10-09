@@ -104,6 +104,8 @@
                 align-items: start;
             }
         }
+        /* Evita que el contenido (lienzos, selector) ensanche las columnas más allá de la pantalla */
+        .grid-sim > * { min-width: 0; }
 
         /* Paneles Estilo Glassmorphism */
         .glass-panel {
@@ -271,7 +273,31 @@
             -webkit-appearance: none;
             cursor: pointer;
         }
-        .help-text { font-size: 0.72rem; color: var(--slate-400); margin-top: 0.25rem; line-height: 1.3; }
+        /* Control deslizante de 24 px: cómodo para arrastrar con el dedo */
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            box-sizing: border-box;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            border: 3px solid var(--slate-900);
+            box-shadow: 0 0 0 2px var(--neon-cyan);
+            cursor: pointer;
+        }
+        input[type="range"]::-moz-range-thumb {
+            box-sizing: border-box;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            border: 3px solid var(--slate-900);
+            box-shadow: 0 0 0 2px var(--neon-cyan);
+            cursor: pointer;
+        }
+        input[type="range"]:focus-visible { outline: 2px solid var(--neon-cyan); outline-offset: 6px; }
+        .help-text { font-size: 0.8rem; color: var(--slate-400); margin-top: 0.35rem; line-height: 1.4; }
 
         /* Canvas Containers */
         .canvas-container {
@@ -281,7 +307,8 @@
             overflow: hidden;
             width: 100%;
         }
-        .simulation-box { aspect-ratio: 2 / 1; min-height: 250px; }
+        /* Sin alto mínimo: junto con la proporción 2:1 obligaba a 500 px de ancho y desbordaba en celulares */
+        .simulation-box { aspect-ratio: 2 / 1; }
         .chart-box { height: 130px; margin-top: 0.5rem; padding: 0.5rem; }
         canvas { width: 100%; height: 100%; display: block; }
 
@@ -371,13 +398,86 @@
             .footer-card { flex-direction: row; text-align: left; gap: 1.75rem; }
             .footer-text { text-align: left; font-size: 0.8rem; }
         }
+
+        /* Menú de secciones en celulares (debajo de 768 px) */
+        .header-wrap { position: relative; gap: 0.75rem; }
+        .nav-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            color: var(--slate-200);
+            background: rgba(148, 163, 184, 0.12);
+            border: 1px solid rgba(148, 163, 184, 0.32);
+            cursor: pointer;
+        }
+        .nav-toggle:hover { background: rgba(6, 182, 212, 0.18); border-color: rgba(6, 182, 212, 0.65); }
+        .nav-toggle:focus-visible, nav a:focus-visible { outline: 2px solid var(--neon-cyan); outline-offset: 2px; }
+        .nav-toggle svg { width: 22px; height: 22px; }
+        .nav-toggle .icon-close { display: none; }
+        .nav-toggle[aria-expanded="true"] .icon-open { display: none; }
+        .nav-toggle[aria-expanded="true"] .icon-close { display: block; }
+        @media (min-width: 768px) {
+            .nav-toggle { display: none; }
+        }
+        @media (max-width: 767px) {
+            /* "Laboratorio" del menú cumple la misma función que este botón */
+            .header-cta { display: none; }
+            nav.is-open {
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+                position: absolute;
+                top: calc(100% + 1rem);
+                left: 1.5rem;
+                right: 1.5rem;
+                padding: 0.5rem;
+                background: #0b1222;
+                border: 1px solid var(--slate-800);
+                border-radius: 1rem;
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+            }
+            nav.is-open a { display: block; padding: 0.85rem 1rem; border-radius: 0.6rem; font-size: 1rem; }
+            nav.is-open a:hover { background: rgba(6, 182, 212, 0.12); }
+        }
+
+        /* Rendimiento en celulares: sin desenfoques de fondo ni animación del cielo, que obligan a redibujar toda la pantalla */
+        @media (max-width: 767px) {
+            .stars { animation: none; }
+            .nebula-1 { filter: blur(60px); }
+            header { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(3, 7, 18, 0.96); }
+            .glass-panel { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(15, 23, 42, 0.9); }
+            .footer-card { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(15, 23, 42, 0.85); }
+        }
+
+        /* Preferencia del sistema "reducir movimiento" */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .stars { animation: none; }
+            .btn-primary:hover { transform: none; }
+        }
     </style>
-  <!-- Botón "Inicio" del portal (componente compartido, idéntico en todas las páginas) -->
+  <!-- Encabezado del portal: botón "Inicio" + marca "Astronomía para todos · DGES - EDyTIC" (componente compartido, idéntico en todas las actividades) -->
   <style>
     .ue-home{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:10px;color:inherit;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.32);text-decoration:none;transition:background-color .2s,border-color .2s}
     .ue-home:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.65)}
     .ue-home:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
     .ue-home svg{width:20px;height:20px;display:block}
+    .ue-brand-row{display:flex;align-items:center;gap:12px;min-width:0}
+    .ue-brand{display:flex;align-items:center;gap:12px;padding:7px 14px;border-radius:12px;background:#0f172a;border:1px solid rgba(148,163,184,.28);box-shadow:0 2px 10px rgba(0,0,0,.25);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;text-align:left;-webkit-text-fill-color:initial}
+    .ue-brand-logo{display:block;height:26px;width:auto;max-width:none;margin:0;border:0;border-radius:0;box-shadow:none}
+    .ue-brand-sep{flex:none;width:1px;align-self:stretch;background:rgba(148,163,184,.35)}
+    .ue-brand-text{display:flex;flex-direction:column;line-height:1.15}
+    .ue-brand-title{display:block;margin:0;font-size:15px;font-weight:700;letter-spacing:.01em;text-transform:none;color:#f8fafc}
+    .ue-brand-sub{display:block;margin:2px 0 0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:none;color:#fdba74}
+    @media (max-width:639px){
+      .ue-brand{flex-direction:column;align-items:flex-start;gap:5px;padding:7px 11px}
+      .ue-brand-sep{display:none}
+      .ue-brand-logo{height:18px}
+    }
     @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
   </style>
 </head>
@@ -387,23 +487,30 @@
 
     <header>
         <div class="container header-wrap">
-            <div class="logo">
-                <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
-                </a>
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2">
-                    <path d="M10.05 13.95L3 21M13.95 10.05L21 3M14 21h-4v-4h4v4zM19 13.5L13.5 19" stroke-linecap="round"/>
-                    <circle cx="9.5" cy="9.5" r="5.5" stroke-dasharray="2 2"/>
-                </svg>
-                <span>ExoMundo</span>
+            <div class="ue-brand-row">
+              <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+              </a>
+              <div class="ue-brand">
+                <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+                <span class="ue-brand-sep" aria-hidden="true"></span>
+                <span class="ue-brand-text">
+                  <span class="ue-brand-title">Astronomía para todos</span>
+                  <span class="ue-brand-sub">DGES - EDyTIC</span>
+                </span>
+              </div>
             </div>
-            <nav>
+            <nav id="main-nav" aria-label="Secciones de la página">
                 <a href="#que-es">¿Qué son?</a>
                 <a href="#didactica">Guía Didáctica</a>
                 <a href="#simulador">Laboratorio</a>
                 <a href="#trivia-section">Trivia</a>
             </nav>
-            <a href="#simulador" class="btn btn-primary">Probar Simulador</a>
+            <a href="#simulador" class="btn btn-primary header-cta">Probar Simulador</a>
+            <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir el menú de secciones">
+                <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
         </div>
     </header>
 
@@ -411,7 +518,7 @@
         <div class="container">
             <div class="pill-badge"><span class="pill-dot"></span> Laboratorio Espacial</div>
             <h1>Exoplanetas<span>Mundos en estrellas lejanas</span></h1>
-            <p style="max-width: 600px; margin: 0 auto; color: var(--slate-300);">Monitorea y altera propiedades de estrellas distantes. Observa los cambios fotométricos a la izquierda modificando el panel de control a la derecha.</p>
+            <p style="max-width: 600px; margin: 0 auto; color: var(--slate-300);">Monitorea y altera propiedades de estrellas distantes. Modifica los controles del sistema y observa cómo cambia la curva de luz.</p>
         </div>
     </section>
 
@@ -494,7 +601,7 @@
                 
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
                     <div class="glass-panel" style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem;">
                             <span style="font-size: 0.75rem; font-weight:700; color: var(--slate-400);">🔴 MONITOR TELESCÓPICO OPTIMIZADO</span>
                             <div style="display: flex; gap: 0.5rem;">
                                 <button id="btn-play" class="btn btn-primary" style="border-radius: 0.5rem; padding: 0.4rem 1rem;">Pausar</button>
@@ -619,6 +726,26 @@
     </footer>
 
     <script>
+        // --- Menú de secciones en celulares ---
+        (function () {
+            const toggle = document.getElementById('nav-toggle');
+            const nav = document.getElementById('main-nav');
+            function setOpen(open) {
+                nav.classList.toggle('is-open', open);
+                toggle.setAttribute('aria-expanded', String(open));
+                toggle.setAttribute('aria-label', open ? 'Cerrar el menú de secciones' : 'Abrir el menú de secciones');
+            }
+            toggle.addEventListener('click', () => setOpen(!nav.classList.contains('is-open')));
+            nav.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && nav.classList.contains('is-open')) { setOpen(false); toggle.focus(); }
+            });
+            document.addEventListener('click', (e) => {
+                if (nav.classList.contains('is-open') && !nav.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+            });
+            window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+        })();
+
         const canvasSim = document.getElementById('canvas-simulation');
         const ctxSim = canvasSim.getContext('2d');
         const canvasChart = document.getElementById('canvas-chart');
@@ -639,18 +766,53 @@
         const telemetryDip = document.getElementById('telemetry-dip');
         const telemetryZone = document.getElementById('telemetry-zone');
 
-        // Ajuste fluido de lienzos canvas
-        function resizeLayout() {
-            canvasSim.width = canvasSim.parentElement.clientWidth;
-            canvasSim.height = canvasSim.parentElement.clientHeight;
-            canvasChart.width = canvasChart.parentElement.clientWidth;
-            canvasChart.height = canvasChart.parentElement.clientHeight;
+        // Ajuste fluido de lienzos canvas.
+        // La escena se dibuja en unidades de "mundo" (las de siempre: radios, órbitas y zonas).
+        // Si el lienzo es más chico que el mundo (celulares), se reduce todo en la misma proporción
+        // para que la órbita y las zonas no queden cortadas; la física y la curva de luz no cambian.
+        const WORLD_W = 480; // cubre la zona fría más amplia (gigante azul: 220) más su trazo
+        const WORLD_H = 240; // cubre la estrella mayor con su brillo y la órbita inclinada a 30°
+        let simW = 0, simH = 0, simScale = 1;     // tamaño en píxeles CSS y escala mundo → CSS
+        let chartW = 0, chartH = 0;
+
+        // Ajusta la resolución interna a la densidad de pantalla para que se vea nítido
+        function fitCanvas(canvas) {
+            const dpr = window.devicePixelRatio || 1;
+            const w = canvas.clientWidth, h = canvas.clientHeight;
+            canvas.width = Math.round(w * dpr);
+            canvas.height = Math.round(h * dpr);
+            return { w, h, dpr };
         }
-        window.addEventListener('resize', resizeLayout);
+
+        function resizeLayout() {
+            const sim = fitCanvas(canvasSim);
+            simW = sim.w; simH = sim.h;
+            simScale = Math.min(1, simW / WORLD_W, simH / WORLD_H);
+            const k = sim.dpr * simScale;
+            ctxSim.setTransform(k, 0, 0, k, 0, 0);
+
+            const chart = fitCanvas(canvasChart);
+            chartW = chart.w; chartH = chart.h;
+            ctxChart.setTransform(chart.dpr, 0, 0, chart.dpr, 0, 0);
+        }
+        // ResizeObserver también reacciona al girar el teléfono o cambiar el diseño
+        if ('ResizeObserver' in window) {
+            const ro = new ResizeObserver(resizeLayout);
+            ro.observe(canvasSim);
+            ro.observe(canvasChart);
+        } else {
+            window.addEventListener('resize', resizeLayout);
+        }
         resizeLayout();
 
-        // Estados del sistema físico
-        let isRunning = true;
+        // El lienzo no interpreta variables CSS: se lee el color real una sola vez
+        const curveColor = getComputedStyle(document.documentElement).getPropertyValue('--neon-cyan').trim() || '#06b6d4';
+
+        // Estados del sistema físico.
+        // Con "reducir movimiento" activado en el sistema, la órbita arranca en pausa (se puede reanudar con el botón).
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let isRunning = !prefersReducedMotion;
+        if (!isRunning) btnPlay.textContent = "Reanudar";
         let planetAngle = 0;
         let lightHistory = [];
         const maxHistoryPoints = 150;
@@ -702,9 +864,11 @@
                 if (planetAngle > Math.PI * 2) planetAngle -= Math.PI * 2;
             }
 
-            const cx = canvasSim.width / 2;
-            const cy = canvasSim.height / 2;
-            ctxSim.clearRect(0, 0, canvasSim.width, canvasSim.height);
+            // Coordenadas en unidades de mundo (la transformación del contexto aplica la escala)
+            const viewW = simW / simScale, viewH = simH / simScale;
+            const cx = viewW / 2;
+            const cy = viewH / 2;
+            ctxSim.clearRect(0, 0, viewW, viewH);
 
             let starRadius = 40;
             let starColor = "#f59e0b"; 
@@ -805,7 +969,7 @@
                 if (lightHistory.length > maxHistoryPoints) lightHistory.shift();
             }
 
-            renderLightCurveChart(ctxChart, canvasChart.width, canvasChart.height, lightHistory);
+            renderLightCurveChart(ctxChart, chartW, chartH, lightHistory);
 
             const totalDipPct = ((1.0 - brightnessValue) * 100).toFixed(2);
             telemetryDip.textContent = `${totalDipPct}%`;
@@ -824,11 +988,29 @@
                 telemetryZone.style.color = "#60a5fa";
             }
 
-            requestAnimationFrame(drawSystemLoop);
+            scheduleFrame();
         }
 
+        // El bucle sólo corre mientras el simulador está a la vista y la pestaña está activa (ahorra batería)
+        let simOnScreen = true;
+        let frameId = null;
+        function scheduleFrame() {
+            frameId = (simOnScreen && !document.hidden) ? requestAnimationFrame(drawSystemLoop) : null;
+        }
+        function resumeLoop() {
+            if (frameId === null && simOnScreen && !document.hidden) frameId = requestAnimationFrame(drawSystemLoop);
+        }
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver((entries) => {
+                simOnScreen = entries[entries.length - 1].isIntersecting; // el último aviso es el más reciente
+                resumeLoop();
+            }, { rootMargin: '100px' }).observe(document.querySelector('.grid-sim'));
+        }
+        document.addEventListener('visibilitychange', resumeLoop);
+
         function renderCentralStar(ctx, x, y, radius, color) {
-            ctx.shadowBlur = 25;
+            // shadowBlur no se escala con la transformación: se ajusta a mano
+            ctx.shadowBlur = 25 * simScale * (window.devicePixelRatio || 1);
             ctx.shadowColor = color;
             ctx.beginPath();
             ctx.arc(x, y, radius, 0, Math.PI * 2);
@@ -871,12 +1053,12 @@
                 else ctx.lineTo(lx, ly);
             }
 
-            ctx.strokeStyle = "var(--neon-cyan)";
+            ctx.strokeStyle = curveColor;
             ctx.lineWidth = 2.5;
             ctx.stroke();
         }
 
-        requestAnimationFrame(drawSystemLoop);
+        frameId = requestAnimationFrame(drawSystemLoop);
 
         // --- ACTUALIZACIÓN DE LA TRIVIA INTERACTIVA (7 PREGUNTAS CON RETROALIMENTACIÓN) ---
         const triviaData = [
