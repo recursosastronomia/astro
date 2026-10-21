@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Las Constelaciones - Mapas Imaginarios en el cielo</title>
+  <title>Las constelaciones - Mapas imaginarios en el cielo</title>
   
   <!-- Tailwind CSS para diseño moderno -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -76,6 +76,43 @@
     }
     @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
   </style>
+<style id="a11y-base">
+/* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
+:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+</style>
+<style id="a11y-modo-claro">
+/* Accesibilidad: colores legibles en modo claro (WCAG 1.4.3) */
+body:not(.dark) .bg-slate-800{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-900{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-900\/80{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-950{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-950\/40{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-950\/70{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-950\/80{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .text-blue-300\/60{color:#1e40af !important}
+body:not(.dark) .text-blue-400{color:#1e40af !important}
+body:not(.dark) .text-cyan-400{color:#155e75 !important}
+body:not(.dark) .text-emerald-400{color:#065f46 !important}
+body:not(.dark) .text-orange-400{color:#9a3412 !important}
+body:not(.dark) .text-purple-400{color:#6b21a8 !important}
+body:not(.dark) .text-purple-500{color:#6b21a8 !important}
+body:not(.dark) .text-red-400{color:#991b1b !important}
+body:not(.dark) .text-slate-100{color:#334155 !important}
+body:not(.dark) .text-slate-200{color:#334155 !important}
+body:not(.dark) .text-slate-300{color:#334155 !important}
+body:not(.dark) .text-slate-400{color:#334155 !important}
+body:not(.dark) canvas{background-color:transparent}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+body:not(.dark) .bg-slate-800 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-900 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-900\/80 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-950 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-950\/40 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-950\/70 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-950\/80 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f172a}
+</style>
 </head>
 <body class="dark bg-darkbg text-slate-100 min-h-screen flex flex-col selection:bg-purple-500 selection:text-white" id="app-body">
 
@@ -122,7 +159,7 @@
 
       <!-- Conmutador de modo claro/oscuro estructurado -->
       <div class="flex items-center gap-2">
-        <span class="text-xs font-semibold hidden md:inline dark:text-slate-400 text-slate-600">Modo de Vista:</span>
+        <span class="text-xs font-semibold hidden md:inline dark:text-slate-400 text-slate-600">Modo de vista:</span>
         <button 
           id="theme-toggle" 
           onclick="toggleTheme()" 
@@ -157,7 +194,7 @@
           Mirando el cielo desde hace miles de años
         </span>
         <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 mb-4 dark:text-white text-slate-900 leading-tight">
-          Las Constelaciones: Dibujos Imaginarios en el Cielo
+          Las constelaciones: dibujos imaginarios en el cielo
         </h1>
         <p class="text-base sm:text-lg dark:text-slate-300 text-slate-800 leading-relaxed font-light">
           Antes de que existieran los mapas, los satélites o los teléfonos celulares, las personas observaban el cielo para orientarse, medir el paso del tiempo y contar historias. Al mirar las estrellas, diferentes pueblos imaginaron figuras formadas por grupos de astros brillantes. A esas figuras las llamamos <strong>constelaciones</strong>.
@@ -168,7 +205,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
         <div class="p-6 rounded-2xl dark:bg-slate-900/50 bg-white border dark:border-slate-800 border-slate-300 shadow-sm">
           <h3 class="text-sm font-bold uppercase text-purple-400 mb-2 flex items-center gap-2">
-            <span>💡</span> Idea Clave
+            <span>💡</span> Idea clave
           </h3>
           <p class="text-sm dark:text-slate-300 text-slate-700 leading-relaxed">
             Las constelaciones <strong>no son objetos reales</strong>. Son mapas imaginarios creados por distintas culturas para reconocer regiones del cielo. Las estrellas que parecen estar juntas desde la Tierra pueden encontrarse a enormes distancias unas de otras en la profundidad del espacio sideral.
@@ -195,10 +232,10 @@
           
           <div class="lg:col-span-5">
             <span class="px-2.5 py-1 text-xs font-bold uppercase tracking-wider bg-purple-500/10 text-purple-400 rounded-full border border-purple-500/30">
-              Laboratorio Exploratorio 3D
+              Laboratorio exploratorio 3D
             </span>
             <h3 class="text-xl sm:text-2xl font-extrabold tracking-tight mt-3 mb-4 dark:text-white text-slate-900">
-              Orión en Tres Dimensiones
+              Orión en tres dimensiones
             </h3>
             <p class="text-xs dark:text-slate-300 text-slate-800 leading-relaxed mb-4">
               Usa el control de abajo para rotar la perspectiva de la constelación. Verás que la forma del "reloj de arena" o el cazador con su cinturón ("Las Tres Marías") solo existe desde la Tierra (Ángulo 0°). ¡Al rotarlo se desvela la inmensa profundidad espacial!
@@ -208,7 +245,7 @@
             <div class="bg-slate-950/70 p-5 rounded-2xl border border-slate-800 space-y-4">
               <div>
                 <div class="flex justify-between items-center mb-2">
-                  <label id="depth-slider-label" for="depth-slider" class="text-xs font-bold text-white">Ángulo de Observación:</label>
+                  <label id="depth-slider-label" for="depth-slider" class="text-xs font-bold text-white">Ángulo de observación:</label>
                   <span id="angle-display" class="text-xs font-mono font-bold text-purple-400">Desde la Tierra (0°)</span>
                 </div>
                 <input 
@@ -224,7 +261,7 @@
               </div>
 
               <div class="p-3 bg-purple-950/20 border border-purple-900/30 rounded-xl">
-                <p class="text-[10px] dark:text-slate-400 text-slate-600 leading-relaxed">
+                <p class="text-[10px] dark:text-slate-400 text-slate-700 leading-relaxed">
                   📢 <strong>Observa:</strong> La estrella central del cinturón, <strong>Alnilam</strong>, se encuentra a 1340 años luz, mientras que las de sus costados están mucho más cerca de la Tierra. Al rotarla se evidencia el efecto de profundidad.
                 </p>
               </div>
@@ -234,13 +271,13 @@
           <!-- Lienzo de visualización interactiva del Canvas -->
           <div class="lg:col-span-7 flex flex-col items-center">
             <div class="relative w-full aspect-square max-w-[380px] rounded-2xl overflow-hidden border-2 border-purple-500/40 bg-slate-950 shadow-2xl">
-              <canvas id="constellation-canvas" class="w-full h-full block bg-slate-950"></canvas>
+              <canvas id="constellation-canvas" role="img" aria-label="Mapa de la constelación seleccionada con sus estrellas principales" class="w-full h-full block bg-slate-950"></canvas>
               
               <div class="absolute top-3 left-3 bg-slate-900/80 px-2.5 py-1 rounded-md text-[9px] text-purple-400 font-bold border border-slate-800">
-                Lienzo de Perspectiva Espacial
+                Lienzo de perspectiva espacial
               </div>
             </div>
-            <p class="text-[11px] text-slate-500 mt-2 text-center">
+            <p class="text-[11px] dark:text-slate-400 text-slate-600 mt-2 text-center">
               * Desliza el control para orbitar la cámara alrededor de la constelación de Orión.
             </p>
           </div>
@@ -253,10 +290,10 @@
     <section class="mb-16">
       <div class="text-center mb-10">
         <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 rounded-full border border-cyan-500/30">
-          Clasificación Astronómica
+          Clasificación astronómica
         </span>
         <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 dark:text-white text-slate-900">
-          ¿Cuántas Constelaciones Existen?
+          ¿Cuántas constelaciones existen?
         </h3>
         <p class="text-sm dark:text-slate-400 text-slate-700 mt-2 max-w-xl mx-auto">
           En 1930, la Unión Astronómica Internacional (UAI) estableció de forma definitiva las 88 constelaciones oficiales que dividen geométricamente todo nuestro firmamento.
@@ -305,10 +342,10 @@
     <section class="mb-16">
       <div class="text-center mb-10">
         <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-purple-500/10 text-purple-400 rounded-full border border-purple-500/30">
-          Historias y Mitología
+          Historias y mitología
         </span>
         <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 dark:text-white text-slate-900">
-          Historias grabadas con Luz en el Firmamento
+          Historias grabadas con luz en el firmamento
         </h3>
         <p class="text-sm dark:text-slate-400 text-slate-700 mt-2 max-w-xl mx-auto">
           Los antiguos griegos adoptaron el legado de la Mesopotamia y tejieron hermosas leyendas asociadas a los nombres estelares.
@@ -344,8 +381,8 @@
                 onerror="this.src='https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=800&q=80'"
               >
               <div class="p-3 bg-slate-950 border-t border-slate-900 text-[10px] text-slate-400 leading-relaxed">
-                <span class="block font-semibold mb-0.5">Referencia bibliográfica / Cita:</span>
-                <span class="italic text-slate-500">Hevelius, J. (1690). Prodromus astronomiae. Grabado de la constelación de Orión representando al cazador mitológico. Obra clásica de la cartografía celeste de Gdansk.</span>
+                <span class="block font-semibold mb-0.5">Referencia bibliográfica / cita:</span>
+                <span class="italic dark:text-slate-400 text-slate-600">Hevelius, J. (1690). Prodromus astronomiae. Grabado de la constelación de Orión representando al cazador mitológico. Obra clásica de la cartografía celeste de Gdansk.</span>
               </div>
             </div>
           </div>
@@ -356,7 +393,7 @@
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider bg-blue-500/10 text-blue-400 rounded-full border border-blue-500/30">
-                Héroes y Monstruos
+                Héroes y monstruos
               </span>
               <span class="text-2xl" aria-hidden="true">🛡️</span>
             </div>
@@ -377,8 +414,8 @@
                 onerror="this.src='https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80'"
               >
               <div class="p-3 bg-slate-950 border-t border-slate-900 text-[10px] text-slate-400 leading-relaxed">
-                <span class="block font-semibold mb-0.5">Referencia bibliográfica / Cita:</span>
-                <span class="italic text-slate-500">Andromeda and Perseus - Heritage Images / Magnolia Box Collection. Ilustración clásica mitológica representando al héroe Perseo liberando a la princesa encadenada.</span>
+                <span class="block font-semibold mb-0.5">Referencia bibliográfica / cita:</span>
+                <span class="italic dark:text-slate-400 text-slate-600">Andromeda and Perseus - Heritage Images / Magnolia Box Collection. Ilustración clásica mitológica representando al héroe Perseo liberando a la princesa encadenada.</span>
               </div>
             </div>
           </div>
@@ -388,7 +425,7 @@
         <div class="p-6 rounded-2xl dark:bg-slate-900/50 bg-white border dark:border-slate-800 border-slate-300 md:col-span-2 shadow-sm">
           <div class="flex items-center gap-3 mb-4">
             <span class="text-2xl">💫</span>
-            <h4 class="text-lg font-bold dark:text-white text-slate-900">La Cabellera de Berenice: Un Hecho Histórico Real</h4>
+            <h4 class="text-lg font-bold dark:text-white text-slate-900">La Cabellera de Berenice: un hecho histórico real</h4>
           </div>
           <p class="text-xs dark:text-slate-300 text-slate-700 leading-relaxed mb-3">
             Berenice II fue reina de Egipto durante el siglo III a.C. Cuando su esposo, el faraón Ptolomeo III Evergetes, partió a la guerra, ella prometió cortar su hermosa cabellera y donarla al templo de la diosa Afrodita si su esposo volvía con vida.
@@ -405,10 +442,10 @@
     <section class="mb-16">
       <div class="text-center mb-10">
         <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-purple-500/10 text-purple-400 rounded-full border border-purple-500/30">
-          Zodiaco Astronómico
+          Zodiaco astronómico
         </span>
         <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 dark:text-white text-slate-900">
-          El Camino del Sol y las 13 Constelaciones
+          El camino del Sol y las 13 constelaciones
         </h3>
         <p class="text-sm dark:text-slate-400 text-slate-700 mt-2 max-w-xl mx-auto">
           Para la ciencia de la astronomía, las constelaciones zodiacales son aquellas que el Sol atraviesa de forma aparente en su recorrido anual por la eclíptica.
@@ -430,7 +467,7 @@
 
         <div class="p-6 rounded-2xl dark:bg-slate-900/50 bg-white border dark:border-slate-800 border-slate-300 shadow-sm">
           <h4 class="text-lg font-bold dark:text-white text-slate-900 mb-3 flex items-center gap-2">
-            <span class="text-purple-500">🐍</span> Las 13 Constelaciones del Zodiaco (Ofiuco)
+            <span class="text-purple-500">🐍</span> Las 13 constelaciones del zodiaco (Ofiuco)
           </h4>
           <p class="text-xs dark:text-slate-300 text-slate-700 leading-relaxed mb-3">
             Para la ciencia, no existen 12 constelaciones zodiacales, ¡sino <strong>13</strong>! El Sol transita anualmente por la constelación de <strong>Ofiuco (el Serpentario o cazador de serpientes)</strong> a finales de noviembre y principios de diciembre de cada año.
@@ -460,10 +497,10 @@
     <section class="mb-16">
       <div class="text-center mb-10">
         <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-purple-500/10 text-purple-400 rounded-full border border-purple-500/30">
-          Uruguay en el Espacio
+          Uruguay en el espacio
         </span>
         <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 dark:text-white text-slate-900">
-          La Cruz del Sur y la Navegación
+          La Cruz del Sur y la navegación
         </h3>
         <p class="text-sm dark:text-slate-400 text-slate-700 mt-2 max-w-xl mx-auto">
           Para los habitantes del hemisferio sur, la constelación más pequeña de las 88 reconocidas oficialmente es la más útil para orientarnos.
@@ -475,7 +512,7 @@
         <!-- Tarjeta de la Cruz del Sur e Imagen oficial incorporada -->
         <div class="p-6 rounded-2xl dark:bg-slate-900/50 bg-white border dark:border-slate-800 border-slate-300 shadow-sm flex flex-col justify-between">
           <div>
-            <h4 class="text-lg font-bold dark:text-white text-slate-900 mb-2">Crux: La Cruz del Sur</h4>
+            <h4 class="text-lg font-bold dark:text-white text-slate-900 mb-2">Crux: la Cruz del Sur</h4>
             <p class="text-xs dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
               Marinos, exploradores y viajeros la utilizaron durante siglos para orientarse antes de la existencia de los sistemas modernos de posicionamiento por satélite (GPS).
             </p>
@@ -489,8 +526,8 @@
                 onerror="this.src='https://images.unsplash.com/photo-1518818419601-72c8673f5852?w=800&q=80'"
               >
               <div class="p-3 bg-slate-950 border-t border-slate-900 text-[10px] text-slate-400 leading-relaxed">
-                <span class="block font-semibold mb-0.5">Referencia de imagen / Cita:</span>
-                <span class="italic text-slate-500">Plan Ceibal (s.f.). Relación de medida del mástil mayor de la Cruz del Sur (Crux) proyectada 4,5 veces. Portal REA - Contemplemos el cielo de verano.</span>
+                <span class="block font-semibold mb-0.5">Referencia de imagen / cita:</span>
+                <span class="italic dark:text-slate-400 text-slate-600">Plan Ceibal (s.f.). Relación de medida del mástil mayor de la Cruz del Sur (Crux) proyectada 4,5 veces. Portal REA - Contemplemos el cielo de verano.</span>
               </div>
             </div>
 
@@ -503,7 +540,7 @@
         <!-- Tarjeta de Pueblos Originarios -->
         <div class="p-6 rounded-2xl dark:bg-slate-900/50 bg-white border dark:border-slate-800 border-slate-300 shadow-sm flex flex-col justify-between">
           <div>
-            <h4 class="text-lg font-bold dark:text-white text-slate-900 mb-2">Constelaciones de los Pueblos Originarios</h4>
+            <h4 class="text-lg font-bold dark:text-white text-slate-900 mb-2">Constelaciones de los pueblos originarios</h4>
             <p class="text-xs dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
               No todas las culturas imaginaron las mismas figuras. Mientras los antiguos griegos veían héroes y monstruos, muchos pueblos originarios de América veían animales y plantas de su entorno cotidiano.
             </p>
@@ -519,8 +556,8 @@
                 onerror="this.src='https://images.unsplash.com/photo-1518818419601-72c8673f5852?w=800&q=80'"
               >
               <div class="p-3 bg-slate-950 border-t border-slate-900 text-[10px] text-slate-400 leading-relaxed">
-                <span class="block font-semibold mb-0.5">Referencia de imagen / Cita:</span>
-                <span class="italic text-slate-500">Wikimedia Commons. Por Yellowstone National Park - Vía Láctae en Fountain Paint Pot (Lower Geyser Basin), Public Domain, https://commons.wikimedia.org/w/index.php?curid=88097688</span>
+                <span class="block font-semibold mb-0.5">Referencia de imagen / cita:</span>
+                <span class="italic dark:text-slate-400 text-slate-600">Wikimedia Commons. Por Yellowstone National Park - Vía Láctae en Fountain Paint Pot (Lower Geyser Basin), Public Domain, https://commons.wikimedia.org/w/index.php?curid=88097688</span>
               </div>
             </div>
           </div>
@@ -534,7 +571,7 @@
         <div class="flex flex-col md:flex-row gap-6 items-center">
           <div class="text-4xl" aria-hidden="true">⏱️</div>
           <div>
-            <h3 class="text-lg font-bold dark:text-white text-slate-900">Un Dato sorprendente: observar el cielo es mirar el pasado</h3>
+            <h3 class="text-lg font-bold dark:text-white text-slate-900">Un dato sorprendente: observar el cielo es mirar el pasado</h3>
             <p class="text-xs dark:text-slate-300 text-slate-800 leading-relaxed mt-2">
               La luz de algunas estrellas visibles a simple vista tarda cientos de años en llegar hasta nosotros debido a las distancias astronómicas del universo. Esto significa que cuando observamos ciertas constelaciones, estamos captando luz que salió de esas estrellas mucho antes de que nacieran nuestros bisabuelos. ¡Estamos contemplando el pasado cósmico!
             </p>
@@ -547,7 +584,7 @@
     <section class="mb-16">
       <div class="text-center mb-10">
         <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-purple-500/10 text-purple-400 rounded-full border border-purple-500/30">
-          Reflexiones del Cuaderno
+          Reflexiones del cuaderno
         </span>
         <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 dark:text-white text-slate-900">
           Preguntas para pensar en clase
@@ -602,10 +639,10 @@
           
           <div class="lg:col-span-2">
             <span class="px-2.5 py-1 text-xs font-bold uppercase tracking-wider bg-purple-500/10 text-purple-400 rounded-full border border-purple-500/30">
-              Contenido Audiovisual
+              Contenido audiovisual
             </span>
             <h3 class="text-lg font-extrabold tracking-tight mt-3 mb-4 dark:text-white text-slate-900">
-              Vídeo y Material Interactivo
+              Vídeo y material interactivo
             </h3>
             <p class="text-xs dark:text-slate-300 text-slate-700 leading-relaxed mb-5">
               Reproduce este breve vídeo que te guiará visualmente por la historia de las estrellas y te enseñará a distinguir las constelaciones más importantes de la bóveda celeste. También puedes acceder a la presentación Prezi del tema.
@@ -648,7 +685,7 @@
           <!-- Encabezado de la Trivia -->
           <div class="text-center mb-8">
             <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-purple-600 text-white rounded-full">
-              Misión: Cartógrafo Estelar
+              Misión: cartógrafo estelar
             </span>
             <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 dark:text-white text-slate-900">
               Prueba tus conocimientos
@@ -659,7 +696,7 @@
 
             <!-- Marcador de Estrellas Recolectadas -->
             <div class="flex items-center justify-center gap-2 mt-4 bg-slate-950/40 p-3 rounded-2xl border border-slate-800 inline-flex">
-              <span class="text-sm font-bold tracking-wide dark:text-slate-300 text-slate-200">Estrellas Recolectadas:</span>
+              <span class="text-sm font-bold tracking-wide dark:text-slate-300 text-slate-200">Estrellas recolectadas:</span>
               <div class="flex gap-1" id="constellation-tracker">
                 <!-- Estrellas apagadas inicialmente -->
                 <span id="star-indicator-1" class="text-2xl text-slate-600 grayscale transition-all duration-300" aria-label="Estreya 1">★</span>
@@ -693,7 +730,7 @@
                 disabled
                 class="px-5 py-2.5 rounded-lg bg-purple-600 text-white font-bold text-xs shadow-lg transition-all hover:bg-purple-500 disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                Comprobar Respuesta
+                Comprobar respuesta
               </button>
             </div>
 
@@ -702,22 +739,22 @@
           <!-- Caja para el Certificado Final (Oculta hasta el final) -->
           <div class="hidden bg-slate-950 p-6 rounded-2xl border-2 border-purple-500/60 text-center" id="certificate-box">
             <span class="text-5xl" aria-hidden="true">🏆</span>
-            <h4 class="text-xl font-bold text-purple-400 mt-3">¡Misión de Cartografía Completada!</h4>
+            <h4 class="text-xl font-bold text-purple-400 mt-3">¡Misión de cartografía completada!</h4>
             <p class="text-xs dark:text-slate-300 text-slate-200 mt-2 max-w-sm mx-auto leading-relaxed">
               Has demostrado comprender los principios científicos de las constelaciones, su historia de división y la relatividad de la perspectiva estelar.
             </p>
             
             <!-- Recuadro para captura de pantalla para el docente -->
             <div class="mt-6 p-4 border border-dashed border-slate-800 bg-slate-900 rounded-xl max-w-md mx-auto text-center shadow-inner">
-              <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">Evidencia para el docente</p>
-              <p class="text-lg font-extrabold text-white mt-1">Cartógrafo del Firmamento Celeste</p>
+              <p class="text-xs dark:text-slate-400 text-slate-600 uppercase tracking-widest font-bold">Evidencia para el docente</p>
+              <p class="text-lg font-extrabold text-white mt-1">Cartógrafo del firmamento celeste</p>
               <div class="flex justify-center gap-1 my-2 text-2xl text-purple-400">
                 ★ ★ ★ ★ ★
               </div>
               <p class="text-xs text-slate-300 font-semibold mt-1">
                 Puntaje obtenido: <span class="text-purple-400 text-sm font-black" id="final-score-value">0/5</span> estrellas de oro
               </p>
-              <p class="text-[10px] text-slate-500 mt-2">
+              <p class="text-[10px] dark:text-slate-400 text-slate-600 mt-2">
                 Fecha del certificado: <span id="current-date-span"></span>
               </p>
             </div>
@@ -726,7 +763,7 @@
               onclick="restartQuiz()" 
               class="mt-6 px-4 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
             >
-              Reiniciar el Cuestionario
+              Reiniciar el cuestionario
             </button>
           </div>
 
@@ -738,32 +775,32 @@
     <section class="mb-16">
       <div class="p-6 rounded-2xl dark:bg-slate-900/50 bg-white border dark:border-slate-800 border-slate-300 shadow-sm">
         <h3 class="text-sm font-bold uppercase text-purple-400 mb-4 flex items-center gap-2">
-          <span>📚</span> Para saber más (Recursos de referencia)
+          <span>📚</span> Para saber más (recursos de referencia)
         </h3>
         <ul class="space-y-3 text-xs leading-relaxed">
           <li>
             <a href="https://aulas.uruguayeduca.edu.uy/course/view.php?id=107&section=2" target="_blank" class="text-purple-500 dark:text-purple-400 hover:underline font-semibold block">
               🌐 Constelaciones - Módulos de aprendizaje Uruguay Educa. Prof. Héctor Roldós
             </a>
-            <span class="text-slate-500">Este contenido está concebido con referencia a dicho módulo. Indaga en profundidad más historias y características de las constelaciones.</span>
+            <span class="dark:text-slate-400 text-slate-600">Este contenido está concebido con referencia a dicho módulo. Indaga en profundidad más historias y características de las constelaciones.</span>
           </li>
           <li>
             <a href="https://spaceplace.nasa.gov/constellations/es/" target="_blank" class="text-purple-500 dark:text-purple-400 hover:underline font-semibold block">
               🌐 NASA Space Place en español - ¿Qué son las constelaciones?
             </a>
-            <span class="text-slate-500">Explicaciones animadas e interactivas sobre qué son las constelaciones.</span>
+            <span class="dark:text-slate-400 text-slate-600">Explicaciones animadas e interactivas sobre qué son las constelaciones.</span>
           </li>
           <li>
             <a href="https://www.iau.org/public/themes/constellations/" target="_blank" class="text-purple-500 dark:text-purple-400 hover:underline font-semibold block">
               🌐 Unión Astronómica Internacional (IAU) - Cartografía Oficial Estelar
             </a>
-            <span class="text-slate-500">El listado oficial de las 88 constelaciones históricas y científicas con sus mapas de fronteras exactas.</span>
+            <span class="dark:text-slate-400 text-slate-600">El listado oficial de las 88 constelaciones históricas y científicas con sus mapas de fronteras exactas.</span>
           </li>
           <li>
             <a href="https://stellarium-web.org/" target="_blank" class="text-purple-500 dark:text-purple-400 hover:underline font-semibold block">
               🌐 Stellarium Web - Mapa del Cielo Interactivo en Tiempo Real
             </a>
-            <span class="text-slate-500">Herramienta en línea gratuita para simular la posición real de las constelaciones según tu ubicación geográfica actual.</span>
+            <span class="dark:text-slate-400 text-slate-600">Herramienta en línea gratuita para simular la posición real de las constelaciones según tu ubicación geográfica actual.</span>
           </li>
         </ul>
       </div>
@@ -777,7 +814,7 @@
         href="https://uruguayeduca.anep.edu.uy/" 
         target="_blank" 
         rel="noopener noreferrer" 
-        class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-4xl w-full px-6 py-4 bg-slate-950/40 rounded-2xl border border-blue-900/30 backdrop-blur-sm group hover:border-yellow-500/30 transition-all"
+        class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-4xl w-full px-6 py-4 bg-[#090d16] rounded-2xl border border-blue-900/30 backdrop-blur-sm group hover:border-yellow-500/30 transition-all"
       >
         <img 
           src="https://danielgastelu.github.io/web/logos/logoueblanco-removebg.png" 
@@ -785,7 +822,7 @@
           class="h-10 md:h-12 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
           onerror="this.onerror=null; this.style.display='none';"
         />
-        <span class="text-xs md:text-sm text-blue-300/60 group-hover:text-yellow-400 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
+        <span class="text-xs md:text-sm text-[#cbd5e1] group-hover:text-yellow-300 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
           Portal Uruguay Educa (ANEP-DGES-EDyTIC) - Contenidistas de Astronomía 2026 - Herramienta de uso libre - Desarrollado con asistencia de IA.
         </span>
       </a>
@@ -928,7 +965,7 @@
       const label = document.getElementById('angle-display');
       
       if (sliderValue === 0) {
-        label.innerText = "Desde la Tierra (0°) - ¡Alineación Perfecta!";
+        label.innerText = "Desde la Tierra (0°) - ¡Alineación perfecta!";
       } else {
         label.innerText = `Cámara Espacial rotada ${Math.round(sliderValue * 0.9)}° de lado`;
       }
@@ -995,7 +1032,7 @@
     function renderQuizQuestion() {
       const currentQuestion = quizData[currentQuizStep];
       const nextBtn = document.getElementById('next-btn');
-      nextBtn.innerText = "Comprobar Respuesta";
+      nextBtn.innerText = "Comprobar respuesta";
       nextBtn.disabled = true;
       selectedAnswerIndex = null;
 
@@ -1037,7 +1074,7 @@
 
     // --- INTERACCIÓN CON OPCIONES ---
     function selectOption(index) {
-      if (document.getElementById('next-btn').innerText === "Siguiente Pregunta") return; // Impedir cambio una vez comprobado
+      if (document.getElementById('next-btn').innerText === "Siguiente pregunta") return; // Impedir cambio una vez comprobado
 
       const currentQuestion = quizData[currentQuizStep];
       selectedAnswerIndex = index;
@@ -1063,7 +1100,7 @@
       const feedbackBox = document.getElementById('quiz-feedback-box');
       const currentQuestion = quizData[currentQuizStep];
 
-      if (nextBtn.innerText === "Comprobar Respuesta") {
+      if (nextBtn.innerText === "Comprobar respuesta") {
         const isCorrect = selectedAnswerIndex === currentQuestion.correct;
         
         currentQuestion.options.forEach((_, optIdx) => {
@@ -1093,9 +1130,9 @@
         feedbackBox.classList.remove('hidden');
 
         if (currentQuizStep < quizData.length - 1) {
-          nextBtn.innerText = "Siguiente Pregunta";
+          nextBtn.innerText = "Siguiente pregunta";
         } else {
-          nextBtn.innerText = "Obtener Certificado";
+          nextBtn.innerText = "Obtener certificado";
         }
       } else {
         if (currentQuizStep < quizData.length - 1) {
@@ -1177,5 +1214,83 @@
 <!-- Código de analítica GoatCounter -->
 <script data-goatcounter="https://danielgastelu.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<script id="a11y-general">
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 2.2.2: animaciones infinitas (salvo indicadores de carga) se limitan a 3 ciclos
+  function limitar(){
+    if(!document.getAnimations) return;
+    document.getAnimations().forEach(function(a){
+      try{
+        var t=a.effect&&a.effect.getTiming(); if(!t||t.iterations!==Infinity) return;
+        var el=a.effect.target, n=(a.animationName||'')+' '+(el&&el.className&&el.className.baseVal===undefined?el.className:'');
+        if(a.animationName==='spin'||/load|cargando/i.test(n)) return;
+        a.effect.updateTiming({iterations: reduce?1:3});
+      }catch(e){}
+    });
+  }
+  document.addEventListener('animationstart', limitar, true);
+  var pend; new MutationObserver(function(){ clearTimeout(pend); pend=setTimeout(function(){limitar();nombrar();},150); })
+    .observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  // 2.1.1 / 4.1.2: elementos no interactivos con onclick, iframes sin título
+  function nombrar(){
+    document.querySelectorAll('[onclick]:not(button):not(a):not(input):not(select):not(textarea):not([tabindex]):not(#image-lightbox)').forEach(function(el){
+      if(/^\s*event\.stopPropagation\(\)\s*;?\s*$/.test(el.getAttribute('onclick'))) return;
+      if(el.hasAttribute('data-a11y-puntero')) return;
+      el.setAttribute('tabindex','0'); if(!el.getAttribute('role')) el.setAttribute('role','button');
+      if(!el.getAttribute('aria-label')){ var img=el.tagName==='IMG'?el:null; if(img&&img.alt) el.setAttribute('aria-label','Ampliar imagen: '+img.alt); }
+    });
+    document.querySelectorAll('iframe:not([title])').forEach(function(f){ f.setAttribute('title','Contenido incrustado'); });
+  }
+  document.addEventListener('keydown', function(e){
+    var el=e.target; if(!(e.key==='Enter'||e.key===' ')) return;
+    if(el.getAttribute && el.getAttribute('role')==='button' && el.hasAttribute('onclick') && !/^(BUTTON|A|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)){ e.preventDefault(); el.click(); }
+  });
+  // 2.1.1: mira por teclado para marcar sobre imágenes (flechas + Enter)
+  function puntero(el){
+    if(el.__mira) return; el.__mira=true;
+    el.setAttribute('tabindex','0'); el.setAttribute('role','application');
+    var x=.5,y=.5, m=document.createElement('div');
+    m.setAttribute('aria-hidden','true');
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    document.body.appendChild(m);
+    function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
+    function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';
+      el.dispatchEvent(new MouseEvent('mousemove',{clientX:p.cx,clientY:p.cy,bubbles:true}));}
+    el.addEventListener('focus',show); el.addEventListener('blur',function(){m.style.display='none';});
+    addEventListener('scroll',function(){if(document.activeElement===el)show();},true);
+    el.addEventListener('keydown',function(e){
+      var s=e.shiftKey?.05:.01, k=e.key;
+      if(k==='ArrowLeft')x=Math.max(0,x-s);else if(k==='ArrowRight')x=Math.min(1,x+s);
+      else if(k==='ArrowUp')y=Math.max(0,y-s);else if(k==='ArrowDown')y=Math.min(1,y+s);
+      else if(k==='Enter'||k===' '){e.preventDefault();var p=pos();el.dispatchEvent(new MouseEvent('click',{clientX:p.cx,clientY:p.cy,bubbles:true}));return;}
+      else return;
+      e.preventDefault(); show();
+    });
+  }
+  // 2.4.11: el foco no queda tapado por barras fijas o pegajosas
+  document.addEventListener('focusin', function(e){
+    var el=e.target; if(!el.getBoundingClientRect) return;
+    var r=el.getBoundingClientRect(), top=0, bot=innerHeight;
+    document.querySelectorAll('body *').forEach(function(b){
+      if(b.contains(el)) return; var cs=getComputedStyle(b); if(cs.position!=='fixed'&&cs.position!=='sticky') return;
+      if(cs.display==='none'||cs.visibility==='hidden'||cs.opacity==='0'||cs.pointerEvents==='none') return;
+      var q=b.getBoundingClientRect(); if(q.width<innerWidth*.5||q.height>innerHeight*.4) return;
+      if(q.bottom<=0||q.top>=innerHeight) return; if(q.top<innerHeight*.3) top=Math.max(top,q.bottom); else if(q.bottom>innerHeight*.7) bot=Math.min(bot,q.top);
+    });
+    if(r.top<top) scrollBy(0,r.top-top-8); else if(r.bottom>bot) scrollBy(0,r.bottom-bot+8);
+  });
+  // 4.1.3: mensajes de estado anunciados por lectores de pantalla
+  ['error-message-box','error-message','quiz-feedback-block','quiz-result-box','quiz-feedback-box','feedback-box',
+   'trivia-feedback','trivia-result','toast','toast-container','merge-status-text','resultDisplay','score-display',
+   'quiz-result','team-scores-container','file-counter'].forEach(function(id){
+    var el=document.getElementById(id); if(el&&!el.hasAttribute('aria-live')){ el.setAttribute('aria-live','polite'); if(!el.getAttribute('role')) el.setAttribute('role','status'); }
+  });
+  function init(){ nombrar(); limitar(); document.querySelectorAll('[data-a11y-puntero]').forEach(puntero); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  addEventListener('load',limitar);
+})();
+</script>
+<p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
 </body>
 </html>

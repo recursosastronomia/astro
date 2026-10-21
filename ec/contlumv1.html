@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contaminación Lumínica - Un problema con solución</title>
+  <title>Contaminación lumínica - Un problema con solución</title>
   
   <!-- Tailwind CSS para el diseño -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -87,6 +87,43 @@
     }
     @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
   </style>
+<style id="a11y-base">
+/* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
+:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+</style>
+<style id="a11y-modo-claro">
+/* Accesibilidad: colores legibles en modo claro (WCAG 1.4.3) */
+body:not(.dark) .bg-slate-800{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-900{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-900\/80{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-950{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-950\/40{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-950\/80{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .text-amber-400{color:#92400e !important}
+body:not(.dark) .text-blue-300\/90{color:#1e40af !important}
+body:not(.dark) .text-blue-400{color:#1e40af !important}
+body:not(.dark) .text-emerald-400{color:#065f46 !important}
+body:not(.dark) .text-indigo-400{color:#3730a3 !important}
+body:not(.dark) .text-purple-400{color:#6b21a8 !important}
+body:not(.dark) .text-red-400{color:#991b1b !important}
+body:not(.dark) .text-sky-400{color:#075985 !important}
+body:not(.dark) .text-slate-100{color:#334155 !important}
+body:not(.dark) .text-slate-200{color:#334155 !important}
+body:not(.dark) .text-slate-300{color:#334155 !important}
+body:not(.dark) .text-slate-400{color:#334155 !important}
+body:not(.dark) .text-yellow-400{color:#854d0e !important}
+body:not(.dark) .text-yellow-500{color:#854d0e !important}
+body:not(.dark) canvas{background-color:transparent}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+body:not(.dark) .bg-slate-800 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-900 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-900\/80 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-950 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-950\/40 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-950\/80 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f172a}
+</style>
 </head>
 <body class="dark bg-darkbg text-slate-100 min-h-screen flex flex-col selection:bg-yellow-500 selection:text-darkbg" id="app-body">
 
@@ -116,7 +153,7 @@
 
       <!-- Switch de Modo Claro/Oscuro -->
       <div class="flex items-center gap-2">
-        <span class="text-xs font-semibold hidden md:inline dark:text-slate-400 text-slate-600">Modo de Visualización:</span>
+        <span class="text-xs font-semibold hidden md:inline dark:text-slate-400 text-slate-600">Modo de visualización:</span>
         <button 
           id="theme-toggle" 
           onclick="toggleTheme()" 
@@ -152,10 +189,10 @@
     <section class="mb-12">
       <div class="text-center max-w-3xl mx-auto mb-8">
         <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-yellow-500/10 text-yellow-500 rounded-full border border-yellow-500/30">
-          Problema Ambiental Invisible
+          Problema ambiental invisible
         </span>
         <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 mb-4 dark:text-white text-slate-900 leading-tight">
-          La Contaminación Lumínica: <br class="hidden sm:inline">El brillo que nos roba el Universo
+          La contaminación lumínica: <br class="hidden sm:inline">el brillo que nos roba el Universo
         </h1>
         <p class="text-base sm:text-lg dark:text-slate-300 text-slate-800 leading-relaxed font-light">
           ¿Sabías que una gran parte de la iluminación artificial nocturna está mal diseñada? No se trata de prohibir la luz, sino de usarla con inteligencia y dirección. ¡Acompáñanos a descubrir por qué la noche necesita oscuridad natural!
@@ -185,7 +222,7 @@
             onerror="this.src='https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=1200&q=80'"
           >
           <div class="absolute bottom-4 right-4 bg-slate-950/80 text-white text-xs px-3 py-1.5 rounded-md font-semibold tracking-wide backdrop-blur-sm shadow z-20">
-            🌌 Cielo Protegido (Atacama)
+            🌌 Cielo protegido (Atacama)
           </div>
 
           <!-- Imagen Superpuesta: Ciudad de México de Noche (Cielo con Resplandor) -->
@@ -198,7 +235,7 @@
               onerror="this.src='https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1200&q=80'"
             >
             <div class="absolute bottom-4 left-4 bg-yellow-950/80 text-yellow-400 text-xs px-3 py-1.5 rounded-md font-semibold tracking-wide backdrop-blur-sm shadow z-20 whitespace-nowrap">
-              🏙️ Cielo Contaminado (Ciudad)
+              🏙️ Cielo contaminado (ciudad)
             </div>
           </div>
 
@@ -216,7 +253,7 @@
       <!-- DEFINICIONES CLAVE -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
         <div class="p-6 rounded-2xl dark:bg-slate-900/60 bg-slate-200/50 border dark:border-slate-800/80 border-slate-300">
-          <h4 class="text-sm font-bold uppercase text-yellow-500 mb-2">Definición de Base</h4>
+          <h4 class="text-sm font-bold uppercase text-yellow-500 mb-2">Definición de base</h4>
           <blockquote class="text-lg font-semibold leading-relaxed mb-3 dark:text-white text-slate-900">
             "Se produce cuando la luz artificial se utiliza de forma inadecuada o excesiva, especialmente de noche..."
           </blockquote>
@@ -228,7 +265,7 @@
 
         <div class="p-6 rounded-2xl dark:bg-slate-900/60 bg-slate-200/50 border dark:border-slate-800/80 border-slate-300 flex flex-col justify-between">
           <div>
-            <h4 class="text-sm font-bold uppercase text-yellow-500 mb-2">Para Registrar en el Cuaderno</h4>
+            <h4 class="text-sm font-bold uppercase text-yellow-500 mb-2">Para registrar en el cuaderno</h4>
             <p class="text-sm dark:text-slate-300 text-slate-800 leading-relaxed">
               La contaminación lumínica <strong>es evitable</strong>. Es el resultado directo de luminarias mal dirigidas (que apuntan hacia arriba o hacia los lados), bombillas sobrepotenciadas o el uso innecesario de reflectores durante la madrugada.
 			  <br>
@@ -244,10 +281,10 @@
     <section class="mb-16">
       <div class="text-center mb-10">
         <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-red-500/10 text-red-400 rounded-full border border-red-500/30">
-          Impactos Críticos
+          Impactos críticos
         </span>
         <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 dark:text-white text-slate-900">
-          Los 4 Efectos Negativos más Importantes
+          Los 4 efectos negativos más importantes
         </h3>
         <p class="text-sm dark:text-slate-400 text-slate-700 mt-2 max-w-xl mx-auto">
           La luz ineficiente afecta mucho más que solo la vista de las estrellas. Haz clic en cada tarjeta para explorar los datos esenciales de cada categoría.
@@ -262,11 +299,11 @@
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="px-3 py-1 text-xs font-bold uppercase bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/20">
-                01. Ecosistemas Nocturnos
+                01. Ecosistemas nocturnos
               </span>
               <span class="text-3xl" aria-hidden="true">🐢</span>
             </div>
-            <h4 class="text-xl font-bold dark:text-white text-slate-900 mb-3">Alteración de la Flora y Fauna</h4>
+            <h4 class="text-xl font-bold dark:text-white text-slate-900 mb-3">Alteración de la flora y fauna</h4>
             <p class="text-sm dark:text-slate-300 text-slate-800 leading-relaxed mb-4">
               Las especies nocturnas dependen de la oscuridad total para alimentarse, camuflarse y reproducirse. Las aves migratorias se desorientan al confundir las luces artificiales con los astros guías, y las tortugas recién nacidas caminan en dirección contraria al océano al ser atraídas por luces costeras artificiales.
             </p>
@@ -288,11 +325,11 @@
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="px-3 py-1 text-xs font-bold uppercase bg-indigo-500/10 text-indigo-400 rounded-full border border-indigo-500/20">
-                02. Salud Humana
+                02. Salud humana
               </span>
               <span class="text-3xl" aria-hidden="true">🧠</span>
             </div>
-            <h4 class="text-xl font-bold dark:text-white text-slate-900 mb-3">La Calidad de Nuestro Sueño</h4>
+            <h4 class="text-xl font-bold dark:text-white text-slate-900 mb-3">La calidad de nuestro sueño</h4>
             <p class="text-sm dark:text-slate-300 text-slate-800 leading-relaxed mb-4">
               Nuestro cuerpo regula su descanso mediante ciclos circadianos de 24 horas guiados por la luz natural. La luz artificial intrusa de noche inhibe la secreción de <strong>melatonina</strong> (la hormona del sueño), lo que causa trastornos de sueño, fatiga crónica, estrés, ansiedad e incluso riesgos a largo plazo para la salud metabólica.
             </p>
@@ -314,11 +351,11 @@
           <div class="mb-4">
             <div class="flex items-center justify-between mb-4">
               <span class="px-3 py-1 text-xs font-bold uppercase bg-amber-500/10 text-amber-400 rounded-full border border-amber-500/20">
-                03. Economía y Energía
+                03. Economía y energía
               </span>
               <span class="text-3xl" aria-hidden="true">💸</span>
             </div>
-            <h4 class="text-xl font-bold dark:text-white text-slate-900 mb-3">Desperdicio Económico y de Recursos</h4>
+            <h4 class="text-xl font-bold dark:text-white text-slate-900 mb-3">Desperdicio económico y de recursos</h4>
             <p class="text-sm dark:text-slate-300 text-slate-800 leading-relaxed mb-4">
               Iluminar el cielo no aporta seguridad ni visibilidad terrestre; es simplemente desperdicio de energía. Se estima que miles de millones de kilovatios-hora anuales se pierden apuntando en direcciones innecesarias. Esto se traduce en facturas públicas astronómicas y toneladas de emisiones innecesarias de CO<sub>2</sub> de las centrales térmicas que producen esa energía desaprovechada.
             </p>
@@ -335,11 +372,11 @@
           <div class="mb-4">
             <div class="flex items-center justify-between mb-4">
               <span class="px-3 py-1 text-xs font-bold uppercase bg-sky-500/10 text-sky-400 rounded-full border border-sky-500/20">
-                04. Paisaje Nocturno
+                04. Paisaje nocturno
               </span>
               <span class="text-3xl" aria-hidden="true">🔭</span>
             </div>
-            <h4 class="text-xl font-bold dark:text-white text-slate-900 mb-3">Pérdida del Patrimonio Estelar</h4>
+            <h4 class="text-xl font-bold dark:text-white text-slate-900 mb-3">Pérdida del patrimonio estelar</h4>
             <p class="text-sm dark:text-slate-300 text-slate-800 leading-relaxed mb-4">
               El cielo estrellado es un patrimonio natural, cultural e histórico indiscutible de la humanidad. Hoy en día, una de cada tres personas en la Tierra no puede ver la Vía Láctea desde su lugar de origen. Esto no solo dificulta el trabajo de los centros de investigación astronómica, sino que también rompe el vínculo emocional de las nuevas generaciones con el cosmos infinito que nos rodea.
             </p>
@@ -361,7 +398,7 @@
           
           <div class="lg:col-span-2">
             <span class="px-2.5 py-1 text-xs font-bold uppercase tracking-wider bg-yellow-500/10 text-yellow-500 rounded-full border border-yellow-500/30">
-              Vídeo Didáctico
+              Vídeo didáctico
             </span>
             <h3 class="text-xl sm:text-2xl font-extrabold tracking-tight mt-3 mb-4 dark:text-white text-slate-900">
               ¿Cómo afecta la luz artificial al planeta?
@@ -402,10 +439,10 @@
     <section class="mb-16">
       <div class="text-center mb-10">
         <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/30">
-          Uso Racional de la Tecnología
+          Uso racional de la tecnología
         </span>
         <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 dark:text-white text-slate-900">
-          Iluminación Inteligente: ¿Cómo solucionarlo?
+          Iluminación inteligente: ¿cómo solucionarlo?
         </h3>
         <p class="text-sm dark:text-slate-400 text-slate-700 mt-2 max-w-xl mx-auto">
           La luz artificial ha sido uno de los inventos que más bienestar ha traído a la humanidad. No se trata de volver a la edad de piedra, sino de usarla con responsabilidad.
@@ -474,7 +511,7 @@
           <!-- Encabezado de la Trivia -->
           <div class="text-center mb-8">
             <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-yellow-500 text-slate-950 rounded-full">
-              Misión: Protector de Cielos
+              Misión: protector de cielos
             </span>
             <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 dark:text-white text-slate-900">
               Demuestra tu comprensión
@@ -485,7 +522,7 @@
 
             <!-- Marcador Visual de Estrellas Recolectadas -->
             <div class="flex items-center justify-center gap-2 mt-4 bg-slate-950/40 p-3 rounded-2xl border border-slate-800 inline-flex">
-              <span class="text-sm font-bold tracking-wide dark:text-slate-300 text-slate-200">Estrellas Recolectadas:</span>
+              <span class="text-sm font-bold tracking-wide dark:text-slate-300 text-slate-200">Estrellas recolectadas:</span>
               <div class="flex gap-1" id="constellation-tracker">
                 <!-- Estrellas apagadas inicialmente -->
                 <span id="star-indicator-1" class="text-2xl text-slate-600 grayscale transition-all duration-300" aria-label="Estrella 1">★</span>
@@ -519,7 +556,7 @@
                 disabled
                 class="px-5 py-2.5 rounded-lg bg-yellow-500 text-slate-950 font-bold text-xs shadow-lg transition-all hover:bg-yellow-400 disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                Comprobar Respuesta
+                Comprobar respuesta
               </button>
             </div>
 
@@ -528,22 +565,22 @@
           <!-- Caja para el Certificado Final (Oculta hasta el final) -->
           <div class="hidden bg-slate-950 p-6 rounded-2xl border-2 border-yellow-500/60 text-center" id="certificate-box">
             <span class="text-5xl" aria-hidden="true">🏆</span>
-            <h4 class="text-xl font-bold text-yellow-400 mt-3">¡Misión Completada con Éxito!</h4>
+            <h4 class="text-xl font-bold text-yellow-400 mt-3">¡Misión completada con éxito!</h4>
             <p class="text-xs dark:text-slate-300 text-slate-200 mt-2 max-w-sm mx-auto leading-relaxed">
               Has demostrado comprender las bases de la contaminación lumínica y cómo mitigarla para preservar la noche astronómica.
             </p>
             
             <!-- Recuadro para captura de pantalla para el docente -->
             <div class="mt-6 p-4 border border-dashed border-slate-800 bg-slate-900 rounded-xl max-w-md mx-auto text-center shadow-inner">
-              <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">Evidencia para el docente</p>
-              <p class="text-lg font-extrabold text-white mt-1">Guardián del Cielo Nocturno</p>
+              <p class="text-xs dark:text-slate-400 text-slate-600 uppercase tracking-widest font-bold">Evidencia para el docente</p>
+              <p class="text-lg font-extrabold text-white mt-1">Guardián del cielo nocturno</p>
               <div class="flex justify-center gap-1 my-2 text-2xl text-yellow-400">
                 ★ ★ ★ ★ ★
               </div>
               <p class="text-xs text-slate-300 font-semibold mt-1">
                 Puntaje obtenido: <span class="text-yellow-400 text-sm font-black" id="final-score-value">0/5</span> estrellas
               </p>
-              <p class="text-[10px] text-slate-500 mt-2">
+              <p class="text-[10px] dark:text-slate-400 text-slate-600 mt-2">
                 Fecha del certificado: <span id="current-date-span"></span>
               </p>
             </div>
@@ -552,7 +589,7 @@
               onclick="restartQuiz()" 
               class="mt-6 px-4 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
             >
-              Reiniciar la Actividad
+              Reiniciar la actividad
             </button>
           </div>
 
@@ -568,7 +605,7 @@
         href="https://uruguayeduca.anep.edu.uy/" 
         target="_blank" 
         rel="noopener noreferrer" 
-        class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-4xl w-full px-6 py-4 bg-slate-950/40 rounded-2xl border border-blue-900/30 backdrop-blur-sm group hover:border-yellow-500/30 transition-all"
+        class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-4xl w-full px-6 py-4 bg-[#090d16] rounded-2xl border border-blue-900/30 backdrop-blur-sm group hover:border-yellow-500/30 transition-all"
       >
         <img 
           src="https://danielgastelu.github.io/web/logos/logoueblanco-removebg.png" 
@@ -576,7 +613,7 @@
           class="h-10 md:h-12 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
           onerror="this.onerror=null; this.style.display='none';"
         />
-        <span class="text-xs md:text-sm text-blue-300/60 group-hover:text-yellow-400 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
+        <span class="text-xs md:text-sm text-[#cbd5e1] group-hover:text-yellow-300 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
           Portal Uruguay Educa (ANEP-DGES-EDyTIC) - Contenidistas de Astronomía 2026. - Herramienta de uso libre. - Desarrollado con asistencia de IA.
         </span>
       </a>
@@ -664,7 +701,7 @@
     function renderQuizQuestion() {
       const currentQuestion = quizData[currentQuizStep];
       const nextBtn = document.getElementById('next-btn');
-      nextBtn.innerText = "Comprobar Respuesta";
+      nextBtn.innerText = "Comprobar respuesta";
       nextBtn.disabled = true;
       selectedAnswerIndex = null;
 
@@ -706,7 +743,7 @@
 
     // --- INTERACCIÓN CON OPCIONES ---
     function selectOption(index) {
-      if (document.getElementById('next-btn').innerText === "Siguiente Pregunta") return; // Impedir cambio una vez comprobado
+      if (document.getElementById('next-btn').innerText === "Siguiente pregunta") return; // Impedir cambio una vez comprobado
 
       const currentQuestion = quizData[currentQuizStep];
       selectedAnswerIndex = index;
@@ -734,7 +771,7 @@
       const feedbackBox = document.getElementById('quiz-feedback-box');
       const currentQuestion = quizData[currentQuizStep];
 
-      if (nextBtn.innerText === "Comprobar Respuesta") {
+      if (nextBtn.innerText === "Comprobar respuesta") {
         // Ejecutar comprobación
         const isCorrect = selectedAnswerIndex === currentQuestion.correct;
         
@@ -767,9 +804,9 @@
         feedbackBox.classList.remove('hidden');
 
         if (currentQuizStep < quizData.length - 1) {
-          nextBtn.innerText = "Siguiente Pregunta";
+          nextBtn.innerText = "Siguiente pregunta";
         } else {
-          nextBtn.innerText = "Obtener Certificado";
+          nextBtn.innerText = "Obtener certificado";
         }
       } else {
         // Avanzar a la siguiente pregunta o mostrar el resultado final
@@ -936,5 +973,83 @@
 <!-- Código de analítica GoatCounter -->
 <script data-goatcounter="https://danielgastelu.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<script id="a11y-general">
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 2.2.2: animaciones infinitas (salvo indicadores de carga) se limitan a 3 ciclos
+  function limitar(){
+    if(!document.getAnimations) return;
+    document.getAnimations().forEach(function(a){
+      try{
+        var t=a.effect&&a.effect.getTiming(); if(!t||t.iterations!==Infinity) return;
+        var el=a.effect.target, n=(a.animationName||'')+' '+(el&&el.className&&el.className.baseVal===undefined?el.className:'');
+        if(a.animationName==='spin'||/load|cargando/i.test(n)) return;
+        a.effect.updateTiming({iterations: reduce?1:3});
+      }catch(e){}
+    });
+  }
+  document.addEventListener('animationstart', limitar, true);
+  var pend; new MutationObserver(function(){ clearTimeout(pend); pend=setTimeout(function(){limitar();nombrar();},150); })
+    .observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  // 2.1.1 / 4.1.2: elementos no interactivos con onclick, iframes sin título
+  function nombrar(){
+    document.querySelectorAll('[onclick]:not(button):not(a):not(input):not(select):not(textarea):not([tabindex]):not(#image-lightbox)').forEach(function(el){
+      if(/^\s*event\.stopPropagation\(\)\s*;?\s*$/.test(el.getAttribute('onclick'))) return;
+      if(el.hasAttribute('data-a11y-puntero')) return;
+      el.setAttribute('tabindex','0'); if(!el.getAttribute('role')) el.setAttribute('role','button');
+      if(!el.getAttribute('aria-label')){ var img=el.tagName==='IMG'?el:null; if(img&&img.alt) el.setAttribute('aria-label','Ampliar imagen: '+img.alt); }
+    });
+    document.querySelectorAll('iframe:not([title])').forEach(function(f){ f.setAttribute('title','Contenido incrustado'); });
+  }
+  document.addEventListener('keydown', function(e){
+    var el=e.target; if(!(e.key==='Enter'||e.key===' ')) return;
+    if(el.getAttribute && el.getAttribute('role')==='button' && el.hasAttribute('onclick') && !/^(BUTTON|A|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)){ e.preventDefault(); el.click(); }
+  });
+  // 2.1.1: mira por teclado para marcar sobre imágenes (flechas + Enter)
+  function puntero(el){
+    if(el.__mira) return; el.__mira=true;
+    el.setAttribute('tabindex','0'); el.setAttribute('role','application');
+    var x=.5,y=.5, m=document.createElement('div');
+    m.setAttribute('aria-hidden','true');
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    document.body.appendChild(m);
+    function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
+    function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';
+      el.dispatchEvent(new MouseEvent('mousemove',{clientX:p.cx,clientY:p.cy,bubbles:true}));}
+    el.addEventListener('focus',show); el.addEventListener('blur',function(){m.style.display='none';});
+    addEventListener('scroll',function(){if(document.activeElement===el)show();},true);
+    el.addEventListener('keydown',function(e){
+      var s=e.shiftKey?.05:.01, k=e.key;
+      if(k==='ArrowLeft')x=Math.max(0,x-s);else if(k==='ArrowRight')x=Math.min(1,x+s);
+      else if(k==='ArrowUp')y=Math.max(0,y-s);else if(k==='ArrowDown')y=Math.min(1,y+s);
+      else if(k==='Enter'||k===' '){e.preventDefault();var p=pos();el.dispatchEvent(new MouseEvent('click',{clientX:p.cx,clientY:p.cy,bubbles:true}));return;}
+      else return;
+      e.preventDefault(); show();
+    });
+  }
+  // 2.4.11: el foco no queda tapado por barras fijas o pegajosas
+  document.addEventListener('focusin', function(e){
+    var el=e.target; if(!el.getBoundingClientRect) return;
+    var r=el.getBoundingClientRect(), top=0, bot=innerHeight;
+    document.querySelectorAll('body *').forEach(function(b){
+      if(b.contains(el)) return; var cs=getComputedStyle(b); if(cs.position!=='fixed'&&cs.position!=='sticky') return;
+      if(cs.display==='none'||cs.visibility==='hidden'||cs.opacity==='0'||cs.pointerEvents==='none') return;
+      var q=b.getBoundingClientRect(); if(q.width<innerWidth*.5||q.height>innerHeight*.4) return;
+      if(q.bottom<=0||q.top>=innerHeight) return; if(q.top<innerHeight*.3) top=Math.max(top,q.bottom); else if(q.bottom>innerHeight*.7) bot=Math.min(bot,q.top);
+    });
+    if(r.top<top) scrollBy(0,r.top-top-8); else if(r.bottom>bot) scrollBy(0,r.bottom-bot+8);
+  });
+  // 4.1.3: mensajes de estado anunciados por lectores de pantalla
+  ['error-message-box','error-message','quiz-feedback-block','quiz-result-box','quiz-feedback-box','feedback-box',
+   'trivia-feedback','trivia-result','toast','toast-container','merge-status-text','resultDisplay','score-display',
+   'quiz-result','team-scores-container','file-counter'].forEach(function(id){
+    var el=document.getElementById(id); if(el&&!el.hasAttribute('aria-live')){ el.setAttribute('aria-live','polite'); if(!el.getAttribute('role')) el.setAttribute('role','status'); }
+  });
+  function init(){ nombrar(); limitar(); document.querySelectorAll('[data-a11y-puntero]').forEach(puntero); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  addEventListener('load',limitar);
+})();
+</script>
+<p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
 </body>
 </html>

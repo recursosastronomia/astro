@@ -447,6 +447,8 @@ main:focus { outline: none; }
 .chart-tip dt { color: var(--on-ink-muted); }
 .chart-tip dd { margin: 0; font-weight: 700; text-align: right; }
 .chart-tip .tip-calc { margin-top: 0.35rem; padding-top: 0.35rem; border-top: 1px solid var(--ink-soft); color: var(--on-ink-muted); font-size: 0.8125rem; }
+/* Sobre el fondo oscuro del recuadro, los mismos tonos de k, g y s en versión clara para que se lean bien */
+.chart-tip .v-k { color: #f4a774; } .chart-tip .v-g { color: #9fc3ff; } .chart-tip .v-s { color: #7fdcc4; }
 .chart-tip .tip-r { margin-top: 0.25rem; font-family: var(--font-display); font-size: 1.15rem; }
 .chart-tip .tip-r strong { color: var(--amber); font-size: 1.5rem; }
 .legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; margin: 0.75rem 0 0; padding: 0; list-style: none; font-size: var(--step--1); }

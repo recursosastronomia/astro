@@ -279,7 +279,9 @@ export function initObservatory() {
     const { s, g } = counts();
     const k = getState().k, r = wolf(k, g, s);
     outG.textContent = fmtNum(g); outS.textContent = fmtNum(s); outR.textContent = fmtNum(r);
-    outCalc.textContent = `= ${fmtK(k)} × (10 × ${fmtNum(g)} + ${fmtNum(s)})`;
+    // Paréntesis explícitos para mostrar el orden de las operaciones; cada número con el color de su conteo
+    // (k rojo oscuro, g azul, s verde). Solo se insertan números ya formateados, sin texto del usuario.
+    outCalc.innerHTML = `= <span class="v-k">${fmtK(k)}</span> × ((10 × <span class="v-g">${fmtNum(g)}</span>) + <span class="v-s">${fmtNum(s)}</span>)`;
     const problem = s > 0 && g === 0 ? 'warn_group' : g > s ? 'warn_spots' : null;
     warnEl.hidden = !problem;
     if (problem) warnEl.textContent = t(problem);

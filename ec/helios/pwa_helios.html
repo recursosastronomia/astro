@@ -2,10 +2,10 @@
 <html lang="es" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0B0E14">
     <meta name="description" content="Misión Helios - Reconocimiento de manchas solares, cálculo del Número de Wolf y análisis de actividad solar para educación secundaria.">
-    <title>Misión Helios - PWA Observación Solar</title>
+    <title>Misión Helios - PWA Observación solar</title>
 
     <!-- PWA Web App Manifest (Inline Blob URL creation) -->
     <link rel="manifest" id="pwa-manifest">
@@ -92,6 +92,12 @@
             touch-action: none;
         }
     </style>
+<style id="a11y-base">
+/* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
+:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+</style>
 </head>
 <body class="antialiased bg-space-900 text-gray-200 min-h-screen flex flex-col selection:bg-solar-500 selection:text-space-900">
 
@@ -115,8 +121,8 @@
                 <div class="hidden md:flex items-center space-x-1 lg:space-x-4">
                     <button onclick="showSection('inicio')" id="nav-inicio" class="nav-link px-3 py-2 text-xs font-semibold hover:text-solar-400 transition-colors active" data-i18n="nav_home">Inicio</button>
                     <button onclick="showSection('fundamentos')" id="nav-fundamentos" class="nav-link px-3 py-2 text-xs font-semibold hover:text-solar-400 transition-colors" data-i18n="nav_fund">Exploración</button>
-                    <button onclick="showSection('marcado')" id="nav-marcado" class="nav-link px-3 py-2 text-xs font-semibold hover:text-solar-400 transition-colors" data-i18n="nav_lab">Visor de Marcado</button>
-                    <button onclick="showSection('analisis')" id="nav-analisis" class="nav-link px-3 py-2 text-xs font-semibold hover:text-solar-400 transition-colors" data-i18n="nav_data">Análisis de Datos</button>
+                    <button onclick="showSection('marcado')" id="nav-marcado" class="nav-link px-3 py-2 text-xs font-semibold hover:text-solar-400 transition-colors" data-i18n="nav_lab">Visor de marcado</button>
+                    <button onclick="showSection('analisis')" id="nav-analisis" class="nav-link px-3 py-2 text-xs font-semibold hover:text-solar-400 transition-colors" data-i18n="nav_data">Análisis de datos</button>
                     <button onclick="openAboutModal()" class="px-3 py-2 text-xs font-semibold text-solar-300 hover:text-white transition-colors" data-i18n="nav_about">Acerca de...</button>
                 </div>
 
@@ -141,7 +147,7 @@
                     </div>
 
                     <!-- Mobile Menu Toggle Button -->
-                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-space-800">
+                    <button type="button" onclick="toggleMobileMenu()" aria-label="Abrir o cerrar el menú" class="md:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-space-800">
                         <i class="fa-solid fa-bars text-lg"></i>
                     </button>
                 </div>
@@ -152,8 +158,8 @@
         <div id="mobile-menu" class="hidden md:hidden bg-space-850 border-b border-space-700 px-4 pt-2 pb-4 space-y-2">
             <button onclick="showSection('inicio')" class="w-full text-left block px-3 py-2 rounded-lg text-sm font-medium hover:bg-space-700" data-i18n="nav_home">Inicio</button>
             <button onclick="showSection('fundamentos')" class="w-full text-left block px-3 py-2 rounded-lg text-sm font-medium hover:bg-space-700" data-i18n="nav_fund">Exploración</button>
-            <button onclick="showSection('marcado')" class="w-full text-left block px-3 py-2 rounded-lg text-sm font-medium hover:bg-space-700" data-i18n="nav_lab">Visor de Marcado</button>
-            <button onclick="showSection('analisis')" class="w-full text-left block px-3 py-2 rounded-lg text-sm font-medium hover:bg-space-700" data-i18n="nav_data">Análisis de Datos</button>
+            <button onclick="showSection('marcado')" class="w-full text-left block px-3 py-2 rounded-lg text-sm font-medium hover:bg-space-700" data-i18n="nav_lab">Visor de marcado</button>
+            <button onclick="showSection('analisis')" class="w-full text-left block px-3 py-2 rounded-lg text-sm font-medium hover:bg-space-700" data-i18n="nav_data">Análisis de datos</button>
             <button onclick="openAboutModal()" class="w-full text-left block px-3 py-2 rounded-lg text-sm font-medium text-solar-400 hover:bg-space-700" data-i18n="nav_about">Acerca de...</button>
         </div>
     </nav>
@@ -169,7 +175,7 @@
                 
                 <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-solar-500/10 border border-solar-500/30 text-solar-400 text-xs font-semibold mb-6">
                     <i class="fa-solid fa-graduation-cap"></i>
-                    <span data-i18n="hero_badge">Astronomía Educativa - Enseñanza Media Uruguay</span>
+                    <span data-i18n="hero_badge">Astronomía educativa - Enseñanza media Uruguay</span>
                 </div>
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight max-w-4xl" data-i18n="hero_title">
@@ -184,11 +190,11 @@
                 <div class="mt-8 flex flex-wrap gap-4 justify-center">
                     <button onclick="showSection('fundamentos')" class="px-6 py-3 rounded-full bg-solar-500 hover:bg-solar-400 text-space-900 font-bold text-sm transition-transform hover:scale-105 shadow-lg shadow-solar-500/30 flex items-center gap-2">
                         <i class="fa-solid fa-compass"></i>
-                        <span data-i18n="btn_start">Iniciar Exploración</span>
+                        <span data-i18n="btn_start">Iniciar exploración</span>
                     </button>
                     <button onclick="showSection('marcado')" class="px-6 py-3 rounded-full bg-space-800 hover:bg-space-700 text-solar-300 border border-solar-500/30 font-bold text-sm transition-transform hover:scale-105 flex items-center gap-2">
                         <i class="fa-solid fa-crosshairs"></i>
-                        <span data-i18n="btn_direct_lab">Ir al Visor Solar</span>
+                        <span data-i18n="btn_direct_lab">Ir al visor solar</span>
                     </button>
                 </div>
             </div>
@@ -197,14 +203,14 @@
         <section id="sec-fundamentos" class="app-section hidden space-y-8">
             <div class="bg-space-850 rounded-2xl p-6 border border-space-700 shadow-xl space-y-6">
                 <div class="text-center max-w-2xl mx-auto">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-solar-400" data-i18n="fund_heading">Preparando la Misión</h2>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-solar-400" data-i18n="fund_heading">Preparando la misión</h2>
                     <p class="text-xs sm:text-sm text-gray-400 mt-2" data-i18n="fund_subheading">Indaga sobre las características del disco solar antes de realizar el conteo de manchas y grupos.</p>
                 </div>
 
                 <!-- Tab Controls -->
                 <div class="flex flex-wrap justify-center gap-2 border-b border-space-700 pb-4">
                     <button onclick="openTab('tab1')" id="tab-btn-tab1" class="tab-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-space-700 text-gray-300 hover:bg-space-700 transition-colors" data-i18n="tab_1">1. ¿Qué indagamos?</button>
-                    <button onclick="openTab('tab2')" id="tab-btn-tab2" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-space-700 text-gray-300 hover:bg-space-700 transition-colors" data-i18n="tab_2">2. Las Manchas</button>
+                    <button onclick="openTab('tab2')" id="tab-btn-tab2" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-space-700 text-gray-300 hover:bg-space-700 transition-colors" data-i18n="tab_2">2. Las manchas</button>
                     <button onclick="openTab('tab3')" id="tab-btn-tab3" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-space-700 text-gray-300 hover:bg-space-700 transition-colors" data-i18n="tab_3">3. ¿Existe un ciclo?</button>
                     <button onclick="openTab('tab4')" id="tab-btn-tab4" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-space-700 text-gray-300 hover:bg-space-700 transition-colors" data-i18n="tab_4">4. Efectos en la Tierra</button>
                 </div>
@@ -212,11 +218,11 @@
                 <!-- Tab Contents -->
                 <div class="p-4 sm:p-6 bg-space-900 rounded-xl border border-space-800 text-sm leading-relaxed min-h-[220px]">
                     <div id="tab1" class="tab-content">
-                        <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-magnifying-glass text-solar-400"></i> <span data-i18n="tab1_t">Objetivo de Indagación</span></h3>
+                        <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-magnifying-glass text-solar-400"></i> <span data-i18n="tab1_t">Objetivo de indagación</span></h3>
                         <p class="text-gray-300" data-i18n="tab1_d">El Sol parece una esfera de luz constante a simple vista, pero en realidad posee una actividad cambiante. Investigaremos su superficie analizando imágenes reales de observatorios espaciales para descubrir si las estructuras oscuras aparecen sin orden o si guardan algún patrón regular.</p>
                     </div>
                     <div id="tab2" class="tab-content hidden">
-                        <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-fire-flame-curved text-orange-500"></i> <span data-i18n="tab2_t">Manchas y Grupos Solares</span></h3>
+                        <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-fire-flame-curved text-orange-500"></i> <span data-i18n="tab2_t">Manchas y grupos solares</span></h3>
                         <p class="text-gray-300" data-i18n="tab2_d1">Las manchas solares son regiones de la fotosfera que se observan más oscuras debido a que su temperatura es menor (~3.700 °C) a la de su entorno (~5.700 °C), debido a la presencia de intensos campos magnéticos.</p>
                         <p class="text-gray-300 mt-2" data-i18n="tab2_d2">Casi nunca se presentan aisladas; forman <strong>grupos</strong> con polaridad magnética. Para medir la actividad global se utiliza el <strong>Número de Wolf ($R$)</strong>, el cual otorga un peso multiplicado a la cantidad de grupos activos: <code class="text-solar-400 font-mono">R = k · (10g + s)</code>.</p>
                     </div>
@@ -225,14 +231,14 @@
                         <p class="text-gray-300" data-i18n="tab3_d">¿Aparecen las manchas solares al azar o existe una periodicidad a lo largo del tiempo? Te desafiamos a marcar manchas en imágenes de distintas fechas para registrar los valores de Wolf y analizarlos en la herramienta gráfica.</p>
                     </div>
                     <div id="tab4" class="tab-content hidden">
-                        <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-earth-americas text-blue-400"></i> <span data-i18n="tab4_t">Repercusiones Terrestres</span></h3>
+                        <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-earth-americas text-blue-400"></i> <span data-i18n="tab4_t">Repercusiones terrestres</span></h3>
                         <p class="text-gray-300" data-i18n="tab4_d">La actividad magnética del Sol genera vientos solares y eyectaciones de masa coronal. Cuando estas partículas interactúan con la magnetosfera terrestre producen las auroras polares y pueden perturbar telecomunicaciones, redes de energía y satélites.</p>
                     </div>
                 </div>
 
                 <div class="text-center pt-2">
                     <button onclick="showSection('marcado')" class="px-6 py-2.5 rounded-xl bg-solar-500 hover:bg-solar-400 text-space-900 font-bold text-xs uppercase tracking-wider transition-all shadow-md">
-                        <span data-i18n="btn_goto_marking">Ir a la Práctica de Marcado</span> <i class="fa-solid fa-arrow-right ml-1"></i>
+                        <span data-i18n="btn_goto_marking">Ir a la práctica de marcado</span> <i class="fa-solid fa-arrow-right ml-1"></i>
                     </button>
                 </div>
             </div>
@@ -245,14 +251,14 @@
                     <div>
                         <h2 class="text-lg font-bold text-white flex items-center gap-2">
                             <i class="fa-solid fa-crosshairs text-solar-400"></i>
-                            <span data-i18n="lab_title">Visor de Marcado Solar</span>
+                            <span data-i18n="lab_title">Visor de marcado solar</span>
                         </h2>
                         <p class="text-xs text-gray-400 mt-1" data-i18n="lab_desc">Selecciona una imagen satelital real (SDO/SOHO) y marca las manchas con el puntero.</p>
                     </div>
 
                     <!-- Dataset & Date Selector -->
                     <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
-                        <label class="text-xs font-semibold text-gray-300" data-i18n="lbl_select_date">Fecha / Imagen:</label>
+                        <label for="solar-image-select" class="text-xs font-semibold text-gray-300" data-i18n="lbl_select_date">Fecha / imagen:</label>
                         <select id="solar-image-select" onchange="loadSolarImage()" class="bg-space-900 border border-space-700 rounded-xl px-3 py-1.5 text-xs text-solar-300 font-mono focus:outline-none focus:border-solar-500 flex-grow md:flex-grow-0">
                             <!-- Populated dynamically via JS -->
                         </select>
@@ -270,19 +276,19 @@
                                 <span><i class="fa-solid fa-magnifying-glass"></i> ZOOM</span>
                                 <span id="magnifier-scale-text">4x</span>
                             </div>
-                            <canvas id="magnifier-canvas" width="110" height="110" class="rounded-xl border border-space-700 bg-black"></canvas>
+                            <canvas id="magnifier-canvas" role="img" aria-label="Lupa: ampliación de la zona señalada" width="110" height="110" class="rounded-xl border border-space-700 bg-black"></canvas>
                             <span class="text-[9px] text-gray-400 mt-1 font-mono" id="zoom-coords-text">X:0 Y:0</span>
                         </div>
 
                         <!-- Main Canvas for Solar Image Marking -->
                         <div class="canvas-container max-w-full overflow-hidden rounded-xl">
-                            <canvas id="solar-canvas" width="550" height="550" class="cursor-crosshair bg-black max-w-full h-auto block"></canvas>
+                            <canvas id="solar-canvas" data-a11y-puntero aria-label="Imagen del Sol para marcar manchas. Use las flechas para mover la mira y Enter para marcar" width="550" height="550" class="cursor-crosshair bg-black max-w-full h-auto block"></canvas>
                         </div>
 
                         <!-- Canvas Toolbar Footnote -->
                         <div class="w-full flex flex-wrap items-center justify-between gap-2 mt-3 px-2 text-xs text-gray-400">
                             <div class="flex items-center gap-3">
-                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span> <span data-i18n="legend_spot">Mancha/Poro</span></span>
+                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span> <span data-i18n="legend_spot">Mancha/poro</span></span>
                                 <span class="flex items-center gap-1"><span class="w-3 h-3 rounded border-2 border-solar-400 inline-block"></span> <span data-i18n="legend_group">Grupo</span></span>
                             </div>
                             <!-- Zoom Scale Selector -->
@@ -299,18 +305,18 @@
                     <div class="bg-space-900 rounded-2xl p-5 border border-space-700 flex flex-col justify-between space-y-4">
                         <div class="space-y-4">
                             <h3 class="text-xs font-bold text-solar-400 uppercase tracking-wider flex items-center gap-2">
-                                <i class="fa-solid fa-sliders"></i> <span data-i18n="side_tools">Herramientas de Marcado</span>
+                                <i class="fa-solid fa-sliders"></i> <span data-i18n="side_tools">Herramientas de marcado</span>
                             </h3>
 
                             <!-- Mode Toggle -->
                             <div class="grid grid-cols-2 gap-2">
                                 <button onclick="setMarkingMode('spot')" id="mode-spot-btn" class="p-2.5 rounded-xl border border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold text-xs flex flex-col items-center gap-1 transition-all">
                                     <i class="fa-solid fa-circle text-xs"></i>
-                                    <span data-i18n="btn_mark_spot">Marca Mancha</span>
+                                    <span data-i18n="btn_mark_spot">Marca mancha</span>
                                 </button>
                                 <button onclick="setMarkingMode('group')" id="mode-group-btn" class="p-2.5 rounded-xl border border-space-700 bg-space-800 text-gray-300 font-bold text-xs flex flex-col items-center gap-1 hover:border-solar-500 transition-all">
                                     <i class="fa-regular fa-square text-xs"></i>
-                                    <span data-i18n="btn_mark_group">Marca Grupo</span>
+                                    <span data-i18n="btn_mark_group">Marca grupo</span>
                                 </button>
                             </div>
 
@@ -344,7 +350,7 @@
                         <!-- Save Observation Button -->
                         <button onclick="saveObservationRecord()" class="w-full py-3 rounded-xl bg-solar-500 hover:bg-solar-400 text-space-900 font-extrabold text-xs uppercase tracking-wider transition-all shadow-lg shadow-solar-500/20 flex items-center justify-center gap-2 active:scale-95">
                             <i class="fa-solid fa-floppy-disk"></i>
-                            <span data-i18n="btn_save_record">Guardar Observación</span>
+                            <span data-i18n="btn_save_record">Guardar observación</span>
                         </button>
                     </div>
                 </div>
@@ -358,7 +364,7 @@
                     <div>
                         <h2 class="text-lg font-bold text-white flex items-center gap-2">
                             <i class="fa-solid fa-chart-scatter text-solar-400"></i>
-                            <span data-i18n="data_lab_title">Laboratorio de Análisis de Datos</span>
+                            <span data-i18n="data_lab_title">Laboratorio de análisis de datos</span>
                         </h2>
                         <p class="text-xs text-gray-400 mt-1" data-i18n="data_lab_desc">Los registros de tu sesión se sincronizan automáticamente en esta ventana.</p>
                     </div>
@@ -366,10 +372,10 @@
                     <!-- Observer Adjustment Factor k Input Card -->
                     <div class="bg-space-900 px-4 py-2.5 rounded-xl border border-solar-500/40 flex items-center gap-3 w-full lg:w-auto">
                         <div class="text-left">
-                            <span class="block text-[10px] text-gray-400 font-mono" data-i18n="lbl_k_factor">Coeficiente de Ajuste (k):</span>
+                            <span class="block text-[10px] text-gray-400 font-mono" data-i18n="lbl_k_factor">Coeficiente de ajuste (k):</span>
                             <span class="text-[10px] text-solar-400" data-i18n="lbl_k_sub">Sensibilidad del observador</span>
                         </div>
-                        <input type="number" id="input-k-factor" value="1.00" step="0.01" min="0.10" max="3.00" onchange="updateKFactorManual(this.value)" class="w-20 bg-space-950 border border-space-700 rounded-lg px-2 py-1 text-center font-mono font-bold text-solar-300 text-sm focus:outline-none focus:border-solar-500">
+                        <input type="number" id="input-k-factor" aria-label="Coeficiente de ajuste k" value="1.00" step="0.01" min="0.10" max="3.00" onchange="updateKFactorManual(this.value)" class="w-20 bg-space-950 border border-space-700 rounded-lg px-2 py-1 text-center font-mono font-bold text-solar-300 text-sm focus:outline-none focus:border-solar-500">
                     </div>
                 </div>
 
@@ -383,23 +389,23 @@
                     </div>
                     <div class="flex items-center gap-2">
                         <button onclick="exportCSVData()" class="px-3 py-1.5 rounded-lg bg-space-800 hover:bg-space-700 text-solar-400 border border-solar-500/30 font-bold text-xs transition-all flex items-center gap-1.5">
-                            <i class="fa-solid fa-file-csv"></i> <span data-i18n="btn_export_csv">Descargar CSV (Docente)</span>
+                            <i class="fa-solid fa-file-csv"></i> <span data-i18n="btn_export_csv">Descargar CSV (docente)</span>
                         </button>
                     </div>
                 </div>
 
                 <!-- Chart Canvas Container -->
                 <div class="relative bg-space-950 rounded-xl p-4 border border-space-800 shadow-inner min-h-[380px] flex items-center justify-center">
-                    <canvas id="analysisChart" class="w-full h-[380px]"></canvas>
+                    <canvas id="analysisChart" role="img" aria-label="Gráfico de análisis de manchas solares" class="w-full h-[380px]"></canvas>
                 </div>
 
                 <!-- Session Data Table Preview -->
                 <div class="space-y-3">
                     <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center justify-between">
-                        <span data-i18n="table_session_title">Registros de la Sesión Activa</span>
+                        <span data-i18n="table_session_title">Registros de la sesión activa</span>
                         <span id="session-records-count" class="font-mono text-solar-400">0 observaciones</span>
                     </h3>
-                    <div class="overflow-x-auto rounded-xl border border-space-700 bg-space-900 max-h-60">
+                    <div class="overflow-x-auto rounded-xl border border-space-700 bg-space-900 max-h-60" tabindex="0" role="region" aria-label="Tabla de registros (desplazable)">
                         <table class="w-full text-left text-xs font-mono text-gray-300">
                             <thead class="bg-space-850 text-solar-400 sticky top-0 border-b border-space-700 uppercase tracking-wider">
                                 <tr>
@@ -407,14 +413,14 @@
                                     <th class="p-2.5" data-i18n="th_date">Fecha</th>
                                     <th class="p-2.5 text-center" data-i18n="th_spots">Manchas (s)</th>
                                     <th class="p-2.5 text-center" data-i18n="th_groups">Grupos (g)</th>
-                                    <th class="p-2.5 text-center" data-i18n="th_raw_wolf">Wolf Bruto</th>
-                                    <th class="p-2.5 text-center text-solar-300" data-i18n="th_adj_wolf">Wolf Ajustado (k)</th>
+                                    <th class="p-2.5 text-center" data-i18n="th_raw_wolf">Wolf bruto</th>
+                                    <th class="p-2.5 text-center text-solar-300" data-i18n="th_adj_wolf">Wolf ajustado (k)</th>
                                     <th class="p-2.5 text-center" data-i18n="th_actions">Acción</th>
                                 </tr>
                             </thead>
                             <tbody id="session-records-table-body" class="divide-y divide-space-800">
                                 <tr>
-                                    <td colspan="7" class="p-6 text-center text-gray-500 font-sans" data-i18n="td_no_session_records">No has realizado marcados en el visor aún.</td>
+                                    <td colspan="7" class="p-6 text-center text-gray-400 font-sans" data-i18n="td_no_session_records">No has realizado marcados en el visor aún.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -427,7 +433,7 @@
 
     <div id="modal-about" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-space-850 border border-solar-500/40 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeAboutModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-2 text-xl">
+            <button type="button" onclick="closeAboutModal()" aria-label="Cerrar" class="absolute top-4 right-4 text-gray-400 hover:text-white p-2 text-xl">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
@@ -436,25 +442,25 @@
                     <i class="fa-solid fa-sun"></i>
                 </div>
                 <div>
-                    <h2 class="text-xl font-extrabold text-white">Misión Helios: El Enigma de las Manchas Solares</h2>
-                    <p class="text-xs text-solar-400 font-mono">PWA Educación en Astronomía v3.0</p>
+                    <h2 class="text-xl font-extrabold text-white">Misión Helios: el enigma de las manchas solares</h2>
+                    <p class="text-xs text-solar-400 font-mono">PWA Educación en astronomía v3.0</p>
                 </div>
             </div>
 
             <div class="space-y-4 text-xs sm:text-sm text-gray-300 leading-relaxed">
                 <div>
-                    <h3 class="font-bold text-white mb-1" data-i18n="about_sec1_title">1. Identidad y Finalidad del Proyecto</h3>
+                    <h3 class="font-bold text-white mb-1" data-i18n="about_sec1_title">1. Identidad y finalidad del proyecto</h3>
                     <p data-i18n="about_sec1_desc">Esta aplicación web progresiva es una herramienta didáctica diseñada para estudiantes de Educación Media de Uruguay y aficionados a la Astronomía. Su objetivo es promover el aprendizaje indagatorio mediante el reconocimiento de estructuras fotosféricas, el cálculo del Número de Wolf y el análisis de la variabilidad solar con datos reales de la NASA (SDO y SOHO).</p>
                 </div>
 
                 <div>
-                    <h3 class="font-bold text-white mb-1" data-i18n="about_sec2_title">2. Institución y Equipo Humano</h3>
+                    <h3 class="font-bold text-white mb-1" data-i18n="about_sec2_title">2. Institución y equipo humano</h3>
                     <p data-i18n="about_sec2_desc">Proyecto desarrollado por educadores e investigadores del área de la enseñanza de la Astronomía en Uruguay en articulación con iniciativas de divulgación científico-educativa.</p>
                 </div>
 
                 <div class="bg-space-900 p-4 rounded-xl border border-space-700 space-y-2">
                     <h3 class="font-bold text-solar-400 flex items-center gap-2">
-                        <i class="fa-solid fa-robot"></i> <span data-i18n="about_sec3_title">Declaración de Transparencia sobre Uso de IA</span>
+                        <i class="fa-solid fa-robot"></i> <span data-i18n="about_sec3_title">Declaración de transparencia sobre uso de IA</span>
                     </h3>
                     <p class="text-xs text-gray-300" data-i18n="about_sec3_desc">
                         Este producto digital ha sido desarrollado con la asistencia técnica y coautoría de herramientas de Inteligencia Artificial Generativa para el diseño de interfaz, maquetación, traducción e implementación de código. La totalidad de los contenidos disciplinares, la propuesta pedagógica y el comportamiento de la aplicación han sido supervisados, probados y validados de manera continua por especialistas humanos para garantizar la rigurosidad científica y didáctica.
@@ -464,7 +470,7 @@
 
             <div class="pt-2 text-center">
                 <button onclick="closeAboutModal()" class="px-6 py-2.5 rounded-xl bg-solar-500 hover:bg-solar-400 text-space-900 font-bold text-xs uppercase tracking-wider">
-                    <span data-i18n="btn_close">Entendido / Cerrar</span>
+                    <span data-i18n="btn_close">Entendido / cerrar</span>
                 </button>
             </div>
         </div>
@@ -476,7 +482,7 @@
                 <i class="fa-solid fa-sliders"></i>
             </div>
             
-            <h3 class="text-lg font-extrabold text-white" data-i18n="calib_modal_title">¡Sugerencia de Calibración de Observador!</h3>
+            <h3 class="text-lg font-extrabold text-white" data-i18n="calib_modal_title">¡Sugerencia de calibración de observador!</h3>
             
             <p class="text-xs text-gray-300 leading-relaxed" data-i18n="calib_modal_desc">
                 Has registrado 10 observaciones con actividad solar relevante ($R > 22$). Para compensar la sensibilidad de tu instrumento y agudeza visual, sugerimos ajustar tu coeficiente $k$.
@@ -484,7 +490,7 @@
 
             <div class="bg-space-900 p-4 rounded-xl border border-space-700 flex items-center justify-around">
                 <div>
-                    <span class="block text-[10px] text-gray-400" data-i18n="calib_current">Coeficiente Actual</span>
+                    <span class="block text-[10px] text-gray-400" data-i18n="calib_current">Coeficiente actual</span>
                     <span id="calib-val-old" class="font-mono text-sm font-bold text-gray-300">1.00</span>
                 </div>
                 <i class="fa-solid fa-arrow-right text-solar-400"></i>
@@ -495,16 +501,16 @@
             </div>
 
             <div class="flex gap-3 pt-2">
-                <button onclick="declineKCalibration()" class="flex-1 py-2.5 rounded-xl bg-space-800 hover:bg-space-700 text-gray-300 font-bold text-xs" data-i18n="btn_keep_k">Mantener Actual</button>
-                <button onclick="acceptKCalibration()" class="flex-1 py-2.5 rounded-xl bg-solar-500 hover:bg-solar-400 text-space-900 font-extrabold text-xs" data-i18n="btn_accept_k">Aceptar y Aplicar</button>
+                <button onclick="declineKCalibration()" class="flex-1 py-2.5 rounded-xl bg-space-800 hover:bg-space-700 text-gray-300 font-bold text-xs" data-i18n="btn_keep_k">Mantener actual</button>
+                <button onclick="acceptKCalibration()" class="flex-1 py-2.5 rounded-xl bg-solar-500 hover:bg-solar-400 text-space-900 font-extrabold text-xs" data-i18n="btn_accept_k">Aceptar y aplicar</button>
             </div>
         </div>
     </div>
 
-    <footer class="w-full bg-space-950 py-6 border-t border-space-800 text-center text-gray-500 text-xs">
+    <footer class="w-full bg-space-950 py-6 border-t border-space-800 text-center text-gray-400 text-xs">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p>Misión Helios - Educación en Astronomía (Uruguay)</p>
-            <p class="text-gray-600">PWA Educativa con soporte offline y sincronización directa</p>
+            <p>Misión Helios - Educación en astronomía (Uruguay)</p>
+            <p class="text-gray-400">PWA educativa con soporte offline y sincronización directa</p>
         </div>
     </footer>
 
@@ -534,30 +540,30 @@
         /* Multilingual Dictionary (ES, EN, FR, IT, PT, DE) */
         const i18n = {
             es: {
-                nav_home: "Inicio", nav_fund: "Exploración", nav_lab: "Visor de Marcado", nav_data: "Análisis de Datos", nav_about: "Acerca de...",
-                hero_badge: "Astronomía Educativa - Enseñanza Media Uruguay",
+                nav_home: "Inicio", nav_fund: "Exploración", nav_lab: "Visor de marcado", nav_data: "Análisis de datos", nav_about: "Acerca de...",
+                hero_badge: "Astronomía educativa - Enseñanza media Uruguay",
                 hero_title: "Descifra el latido <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-solar-400 to-red-500 text-glow'>de nuestra estrella</span>",
                 hero_desc: "Explora imágenes reales satelitales SDO y SOHO de la NASA. Identifica manchas, agrupa estructuras magnéticas y calcula el Número de Wolf para descubrir el patrón oculto del Sol.",
-                btn_start: "Iniciar Exploración", btn_direct_lab: "Ir al Visor Solar",
-                fund_heading: "Preparando la Misión", fund_subheading: "Indaga sobre las características del disco solar antes de realizar el conteo de manchas y grupos.",
-                tab_1: "1. ¿Qué indagamos?", tab_2: "2. Las Manchas", tab_3: "3. ¿Existe un ciclo?", tab_4: "4. Efectos en la Tierra",
-                tab1_t: "Objetivo de Indagación", tab1_d: "El Sol parece una esfera de luz constante a simple vista, pero en realidad posee una actividad cambiante. Investigaremos su superficie analizando imágenes reales de observatorios espaciales para descubrir si las estructuras oscuras aparecen sin orden o si guardan algún patrón regular.",
-                tab2_t: "Manchas y Grupos Solares", tab2_d1: "Las manchas solares son regiones de la fotosfera que se observan más oscuras debido a que su temperatura es menor (~3.700 °C) a la de su entorno (~5.700 °C), debido a la presencia de intensos campos magnéticos.", tab2_d2: "Casi nunca se presentan aisladas; forman grupos con polaridad magnética. Para medir la actividad global se utiliza el Número de Wolf (R = k · (10g + s)).",
+                btn_start: "Iniciar exploración", btn_direct_lab: "Ir al visor solar",
+                fund_heading: "Preparando la misión", fund_subheading: "Indaga sobre las características del disco solar antes de realizar el conteo de manchas y grupos.",
+                tab_1: "1. ¿Qué indagamos?", tab_2: "2. Las manchas", tab_3: "3. ¿Existe un ciclo?", tab_4: "4. Efectos en la Tierra",
+                tab1_t: "Objetivo de indagación", tab1_d: "El Sol parece una esfera de luz constante a simple vista, pero en realidad posee una actividad cambiante. Investigaremos su superficie analizando imágenes reales de observatorios espaciales para descubrir si las estructuras oscuras aparecen sin orden o si guardan algún patrón regular.",
+                tab2_t: "Manchas y grupos solares", tab2_d1: "Las manchas solares son regiones de la fotosfera que se observan más oscuras debido a que su temperatura es menor (~3.700 °C) a la de su entorno (~5.700 °C), debido a la presencia de intensos campos magnéticos.", tab2_d2: "Casi nunca se presentan aisladas; forman grupos con polaridad magnética. Para medir la actividad global se utiliza el Número de Wolf (R = k · (10g + s)).",
                 tab3_t: "¿Existe un patrón o ciclo?", tab3_d: "¿Aparecen las manchas solares al azar o existe una periodicidad a lo largo del tiempo? Te desafiamos a marcar manchas en imágenes de distintas fechas para registrar los valores de Wolf y analizarlos en la herramienta gráfica.",
-                tab4_t: "Repercusiones Terrestres", tab4_d: "La actividad magnética del Sol genera vientos solares y eyectaciones de masa coronal. Cuando estas partículas interactúan con la magnetosfera terrestre producen las auroras polares y pueden perturbar telecomunicaciones, redes de energía y satélites.",
-                btn_goto_marking: "Ir a la Práctica de Marcado",
-                lab_title: "Visor de Marcado Solar", lab_desc: "Selecciona una imagen satelital real (SDO/SOHO) y marca las manchas con el puntero.",
-                lbl_select_date: "Fecha / Imagen:", legend_spot: "Mancha/Poro", legend_group: "Grupo", lbl_zoom_level: "Zoom:",
-                side_tools: "Herramientas de Marcado", btn_mark_spot: "Marca Mancha", btn_mark_group: "Marca Grupo",
+                tab4_t: "Repercusiones terrestres", tab4_d: "La actividad magnética del Sol genera vientos solares y eyectaciones de masa coronal. Cuando estas partículas interactúan con la magnetosfera terrestre producen las auroras polares y pueden perturbar telecomunicaciones, redes de energía y satélites.",
+                btn_goto_marking: "Ir a la práctica de marcado",
+                lab_title: "Visor de marcado solar", lab_desc: "Selecciona una imagen satelital real (SDO/SOHO) y marca las manchas con el puntero.",
+                lbl_select_date: "Fecha / imagen:", legend_spot: "Mancha/poro", legend_group: "Grupo", lbl_zoom_level: "Zoom:",
+                side_tools: "Herramientas de marcado", btn_mark_spot: "Marca mancha", btn_mark_group: "Marca grupo",
                 btn_undo: "Deshacer", btn_clear: "Limpiar", lbl_total_spots: "Manchas (s):", lbl_total_groups: "Grupos (g):", lbl_wolf_number: "Nº Wolf (R):",
-                btn_save_record: "Guardar Observación", data_lab_title: "Laboratorio de Análisis de Datos", data_lab_desc: "Los registros de tu sesión se sincronizan automáticamente en esta ventana.",
-                lbl_k_factor: "Coeficiente de Ajuste (k):", lbl_k_sub: "Sensibilidad del observador", opt_include_sample: "Incluir datos históricos de muestra (1996-2026)", btn_export_csv: "Descargar CSV (Docente)",
-                table_session_title: "Registros de la Sesión Activa", th_date: "Fecha", th_spots: "Manchas (s)", th_groups: "Grupos (g)", th_raw_wolf: "Wolf Bruto", th_adj_wolf: "Wolf Ajustado (k)", th_actions: "Acción", td_no_session_records: "No has realizado marcados en el visor aún.",
-                about_sec1_title: "1. Identidad y Finalidad del Proyecto", about_sec1_desc: "Esta aplicación web progresiva es una herramienta didáctica diseñada para estudiantes de Educación Media de Uruguay y aficionados a la Astronomía. Su objetivo es promover el aprendizaje indagatorio mediante el reconocimiento de estructuras fotosféricas y el cálculo del Número de Wolf.",
-                about_sec2_title: "2. Institución y Equipo Humano", about_sec2_desc: "Proyecto desarrollado por educadores e investigadores del área de la enseñanza de la Astronomía en Uruguay.",
-                about_sec3_title: "Declaración de Transparencia sobre Uso de IA", about_sec3_desc: "Este producto digital ha sido desarrollado con la asistencia técnica y coautoría de Inteligencia Artificial Generativa. La totalidad de los contenidos disciplinares y la propuesta pedagógica han sido supervisados de manera continua por especialistas humanos.",
-                btn_close: "Entendido / Cerrar", calib_modal_title: "¡Sugerencia de Calibración de Observador!", calib_modal_desc: "Has registrado 10 observaciones con actividad solar relevante (R > 22). Para compensar la sensibilidad de tu instrumento, sugerimos ajustar tu coeficiente k.",
-                calib_current: "Coeficiente Actual", calib_suggested: "Sugerido (k)", btn_keep_k: "Mantener Actual", btn_accept_k: "Aceptar y Aplicar"
+                btn_save_record: "Guardar observación", data_lab_title: "Laboratorio de análisis de datos", data_lab_desc: "Los registros de tu sesión se sincronizan automáticamente en esta ventana.",
+                lbl_k_factor: "Coeficiente de ajuste (k):", lbl_k_sub: "Sensibilidad del observador", opt_include_sample: "Incluir datos históricos de muestra (1996-2026)", btn_export_csv: "Descargar CSV (docente)",
+                table_session_title: "Registros de la sesión activa", th_date: "Fecha", th_spots: "Manchas (s)", th_groups: "Grupos (g)", th_raw_wolf: "Wolf bruto", th_adj_wolf: "Wolf ajustado (k)", th_actions: "Acción", td_no_session_records: "No has realizado marcados en el visor aún.",
+                about_sec1_title: "1. Identidad y finalidad del proyecto", about_sec1_desc: "Esta aplicación web progresiva es una herramienta didáctica diseñada para estudiantes de Educación Media de Uruguay y aficionados a la Astronomía. Su objetivo es promover el aprendizaje indagatorio mediante el reconocimiento de estructuras fotosféricas y el cálculo del Número de Wolf.",
+                about_sec2_title: "2. Institución y equipo humano", about_sec2_desc: "Proyecto desarrollado por educadores e investigadores del área de la enseñanza de la Astronomía en Uruguay.",
+                about_sec3_title: "Declaración de transparencia sobre uso de IA", about_sec3_desc: "Este producto digital ha sido desarrollado con la asistencia técnica y coautoría de Inteligencia Artificial Generativa. La totalidad de los contenidos disciplinares y la propuesta pedagógica han sido supervisados de manera continua por especialistas humanos.",
+                btn_close: "Entendido / cerrar", calib_modal_title: "¡Sugerencia de calibración de observador!", calib_modal_desc: "Has registrado 10 observaciones con actividad solar relevante (R > 22). Para compensar la sensibilidad de tu instrumento, sugerimos ajustar tu coeficiente k.",
+                calib_current: "Coeficiente actual", calib_suggested: "Sugerido (k)", btn_keep_k: "Mantener actual", btn_accept_k: "Aceptar y aplicar"
             },
             en: {
                 nav_home: "Home", nav_fund: "Exploration", nav_lab: "Marking Lab", nav_data: "Data Analysis", nav_about: "About...",
@@ -642,12 +648,12 @@
                 tab3_t: "Existe um ciclo?", tab3_d: "Marque manchas em diferentes datas e analise a variabilidade.",
                 tab4_t: "Efeitos na Terra", tab4_d: "Tempestades solares causam auroras polares e afetam satélites.",
                 btn_goto_marking: "Ir para Marcação", lab_title: "Visor de Marcação Solar", lab_desc: "Selecione uma imagem de satélite e marque as manchas.",
-                lbl_select_date: "Data / Imagem:", legend_spot: "Mancha/Poro", legend_group: "Grupo", lbl_zoom_level: "Zoom:",
+                lbl_select_date: "Data / Imagem:", legend_spot: "Mancha/poro", legend_group: "Grupo", lbl_zoom_level: "Zoom:",
                 side_tools: "Ferramentas", btn_mark_spot: "Marcar Mancha", btn_mark_group: "Marcar Grupo",
                 btn_undo: "Desfazer", btn_clear: "Limpar", lbl_total_spots: "Manchas (s):", lbl_total_groups: "Grupos (g):", lbl_wolf_number: "Nº Wolf (R):",
                 btn_save_record: "Salvar Observação", data_lab_title: "Laboratório de Análise", data_lab_desc: "Seus dados são sincronizados automaticamente.",
                 lbl_k_factor: "Coeficiente k:", lbl_k_sub: "Sensibilidade do observador", opt_include_sample: "Incluir dados históricos de exemplo (1996-2026)", btn_export_csv: "Baixar CSV",
-                table_session_title: "Registros da Sessão", th_date: "Data", th_spots: "Manchas (s)", th_groups: "Grupos (g)", th_raw_wolf: "Wolf Bruto", th_adj_wolf: "Wolf Ajustado (k)", th_actions: "Ação", td_no_session_records: "Nenhuma observação salva.",
+                table_session_title: "Registros da Sessão", th_date: "Data", th_spots: "Manchas (s)", th_groups: "Grupos (g)", th_raw_wolf: "Wolf bruto", th_adj_wolf: "Wolf ajustado (k)", th_actions: "Ação", td_no_session_records: "Nenhuma observação salva.",
                 about_sec1_title: "1. Identidade", about_sec1_desc: "Ferramenta didática para estudantes de Astronomia no Uruguai.",
                 about_sec2_title: "2. Equipe", about_sec2_desc: "Desenvolvido por educadores e pesquisadores em Astronomia.",
                 about_sec3_title: "Declaração de IA", about_sec3_desc: "Desenvolvido com auxílio de IA e validado por especialistas humanos.",
@@ -1041,21 +1047,21 @@
             if (sessionRecords.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="7" class="p-6 text-center text-gray-500 font-sans" data-i18n="td_no_session_records">No has realizado marcados en el visor aún.</td>
+                        <td colspan="7" class="p-6 text-center text-gray-400 font-sans" data-i18n="td_no_session_records">No has realizado marcados en el visor aún.</td>
                     </tr>`;
                 return;
             }
 
             tbody.innerHTML = sessionRecords.map((r, idx) => `
                 <tr class="hover:bg-space-800 transition-colors">
-                    <td class="p-2.5 text-center text-gray-500">${idx + 1}</td>
+                    <td class="p-2.5 text-center text-gray-400">${idx + 1}</td>
                     <td class="p-2.5 font-bold text-white">${r.date}</td>
                     <td class="p-2.5 text-center text-emerald-400 font-bold">${r.spots}</td>
                     <td class="p-2.5 text-center text-solar-400 font-bold">${r.groups}</td>
                     <td class="p-2.5 text-center text-gray-400">${r.rawWolf}</td>
                     <td class="p-2.5 text-center font-extrabold text-solar-300 text-sm">${r.adjWolf}</td>
                     <td class="p-2.5 text-center">
-                        <button onclick="deleteRecord('${r.id}')" class="text-gray-500 hover:text-red-400 p-1" title="Eliminar">
+                        <button onclick="deleteRecord('${r.id}')" class="text-gray-400 hover:text-red-400 p-1" title="Eliminar">
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
                     </td>
@@ -1110,7 +1116,7 @@
                                             `Fecha: ${p.meta.date}`,
                                             `Manchas (s): ${p.meta.spots}`,
                                             `Grupos (g): ${p.meta.groups}`,
-                                            `Wolf Bruto: ${p.meta.rawWolf}`,
+                                            `Wolf bruto: ${p.meta.rawWolf}`,
                                             `Wolf Ajustado (k=${p.meta.kFactor}): ${p.meta.adjWolf}`
                                         ];
                                     }
@@ -1215,7 +1221,7 @@
         }
 
         function changeLanguage(lang) {
-            currentLang = lang;
+            currentLang = lang; document.documentElement.lang = lang;
             const flags = { es: '🇺🇾', en: '🇺🇸', fr: '🇫🇷', it: '🇮🇹', pt: '🇧🇷', de: '🇩🇪' };
             document.getElementById('current-lang-flag').innerText = flags[lang] || '🇺🇾';
             document.getElementById('current-lang-code').innerText = lang.toUpperCase();
@@ -1257,5 +1263,83 @@
             }, 3000);
         }
     </script>
+<script id="a11y-general">
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 2.2.2: animaciones infinitas (salvo indicadores de carga) se limitan a 3 ciclos
+  function limitar(){
+    if(!document.getAnimations) return;
+    document.getAnimations().forEach(function(a){
+      try{
+        var t=a.effect&&a.effect.getTiming(); if(!t||t.iterations!==Infinity) return;
+        var el=a.effect.target, n=(a.animationName||'')+' '+(el&&el.className&&el.className.baseVal===undefined?el.className:'');
+        if(a.animationName==='spin'||/load|cargando/i.test(n)) return;
+        a.effect.updateTiming({iterations: reduce?1:3});
+      }catch(e){}
+    });
+  }
+  document.addEventListener('animationstart', limitar, true);
+  var pend; new MutationObserver(function(){ clearTimeout(pend); pend=setTimeout(function(){limitar();nombrar();},150); })
+    .observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  // 2.1.1 / 4.1.2: elementos no interactivos con onclick, iframes sin título
+  function nombrar(){
+    document.querySelectorAll('[onclick]:not(button):not(a):not(input):not(select):not(textarea):not([tabindex]):not(#image-lightbox)').forEach(function(el){
+      if(/^\s*event\.stopPropagation\(\)\s*;?\s*$/.test(el.getAttribute('onclick'))) return;
+      if(el.hasAttribute('data-a11y-puntero')) return;
+      el.setAttribute('tabindex','0'); if(!el.getAttribute('role')) el.setAttribute('role','button');
+      if(!el.getAttribute('aria-label')){ var img=el.tagName==='IMG'?el:null; if(img&&img.alt) el.setAttribute('aria-label','Ampliar imagen: '+img.alt); }
+    });
+    document.querySelectorAll('iframe:not([title])').forEach(function(f){ f.setAttribute('title','Contenido incrustado'); });
+  }
+  document.addEventListener('keydown', function(e){
+    var el=e.target; if(!(e.key==='Enter'||e.key===' ')) return;
+    if(el.getAttribute && el.getAttribute('role')==='button' && el.hasAttribute('onclick') && !/^(BUTTON|A|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)){ e.preventDefault(); el.click(); }
+  });
+  // 2.1.1: mira por teclado para marcar sobre imágenes (flechas + Enter)
+  function puntero(el){
+    if(el.__mira) return; el.__mira=true;
+    el.setAttribute('tabindex','0'); el.setAttribute('role','application');
+    var x=.5,y=.5, m=document.createElement('div');
+    m.setAttribute('aria-hidden','true');
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    document.body.appendChild(m);
+    function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
+    function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';
+      el.dispatchEvent(new MouseEvent('mousemove',{clientX:p.cx,clientY:p.cy,bubbles:true}));}
+    el.addEventListener('focus',show); el.addEventListener('blur',function(){m.style.display='none';});
+    addEventListener('scroll',function(){if(document.activeElement===el)show();},true);
+    el.addEventListener('keydown',function(e){
+      var s=e.shiftKey?.05:.01, k=e.key;
+      if(k==='ArrowLeft')x=Math.max(0,x-s);else if(k==='ArrowRight')x=Math.min(1,x+s);
+      else if(k==='ArrowUp')y=Math.max(0,y-s);else if(k==='ArrowDown')y=Math.min(1,y+s);
+      else if(k==='Enter'||k===' '){e.preventDefault();var p=pos();el.dispatchEvent(new MouseEvent('click',{clientX:p.cx,clientY:p.cy,bubbles:true}));return;}
+      else return;
+      e.preventDefault(); show();
+    });
+  }
+  // 2.4.11: el foco no queda tapado por barras fijas o pegajosas
+  document.addEventListener('focusin', function(e){
+    var el=e.target; if(!el.getBoundingClientRect) return;
+    var r=el.getBoundingClientRect(), top=0, bot=innerHeight;
+    document.querySelectorAll('body *').forEach(function(b){
+      if(b.contains(el)) return; var cs=getComputedStyle(b); if(cs.position!=='fixed'&&cs.position!=='sticky') return;
+      if(cs.display==='none'||cs.visibility==='hidden'||cs.opacity==='0'||cs.pointerEvents==='none') return;
+      var q=b.getBoundingClientRect(); if(q.width<innerWidth*.5||q.height>innerHeight*.4) return;
+      if(q.bottom<=0||q.top>=innerHeight) return; if(q.top<innerHeight*.3) top=Math.max(top,q.bottom); else if(q.bottom>innerHeight*.7) bot=Math.min(bot,q.top);
+    });
+    if(r.top<top) scrollBy(0,r.top-top-8); else if(r.bottom>bot) scrollBy(0,r.bottom-bot+8);
+  });
+  // 4.1.3: mensajes de estado anunciados por lectores de pantalla
+  ['error-message-box','error-message','quiz-feedback-block','quiz-result-box','quiz-feedback-box','feedback-box',
+   'trivia-feedback','trivia-result','toast','toast-container','merge-status-text','resultDisplay','score-display',
+   'quiz-result','team-scores-container','file-counter'].forEach(function(id){
+    var el=document.getElementById(id); if(el&&!el.hasAttribute('aria-live')){ el.setAttribute('aria-live','polite'); if(!el.getAttribute('role')) el.setAttribute('role','status'); }
+  });
+  function init(){ nombrar(); limitar(); document.querySelectorAll('[data-a11y-puntero]').forEach(puntero); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  addEventListener('load',limitar);
+})();
+</script>
+<p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
 </body>
 </html>

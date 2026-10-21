@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador Interactivo de Fases Lunares (Hemisferio Sur)</title>
+    <title>Simulador interactivo de fases lunares (hemisferio sur)</title>
     <!-- Tailwind CSS para el diseño responsivo -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts para tipografía clara y legible -->
@@ -79,6 +79,13 @@
     }
     @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
   </style>
+<style id="a11y-base">
+#toast.opacity-0{pointer-events:none}
+/* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
+:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+</style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
@@ -116,7 +123,7 @@
         <!-- Título de la actividad -->
         <div class="lg:col-span-12">
             <h1 class="text-xl md:text-2xl font-bold tracking-tight bg-gradient-to-r from-slate-100 to-blue-400 bg-clip-text text-transparent">
-                Explorador de Fases Lunares
+                Explorador de fases lunares
             </h1>
             <p class="text-xs text-slate-400">Guía interactiva diseñada para el Hemisferio Sur. Los puntos cercanos al sistema Tierra Luna no representan objetos reales. Solo a fines de ilusión de movimiento del modelo.</p>
         </div>
@@ -182,10 +189,10 @@
                     <div class="relative w-64 h-64 bg-slate-950/60 rounded-full flex justify-center items-center border border-slate-800 glow-blue overflow-hidden">
                         <div id="phase-container" class="w-full h-full"></div>
                         <!-- Marcadores Cardinales Celestes en el Sur -->
-                        <span class="absolute left-2 text-[10px] font-bold text-slate-500 tracking-wider">OESTE (Izq)</span>
-                        <span class="absolute right-2 text-[10px] font-bold text-slate-500 tracking-wider">ESTE (Der)</span>
-                        <span class="absolute top-2 text-[10px] font-bold text-slate-500 tracking-wider">NORTE</span>
-                        <span class="absolute bottom-2 text-[10px] font-bold text-slate-500 tracking-wider">SUR</span>
+                        <span class="absolute left-2 text-[10px] font-bold text-slate-400 tracking-wider">OESTE (Izq)</span>
+                        <span class="absolute right-2 text-[10px] font-bold text-slate-400 tracking-wider">ESTE (Der)</span>
+                        <span class="absolute top-2 text-[10px] font-bold text-slate-400 tracking-wider">NORTE</span>
+                        <span class="absolute bottom-2 text-[10px] font-bold text-slate-400 tracking-wider">SUR</span>
                     </div>
                 </div>
 
@@ -208,10 +215,10 @@
                 <div class="flex justify-between items-center">
                     <h3 class="font-bold text-slate-200 flex items-center gap-2">
                         <i class="fa-solid fa-sliders text-blue-400"></i>
-                        Ajustes de Tiempo Lunar
+                        Ajustes de tiempo lunar
                     </h3>
                     <div class="flex gap-2">
-                        <button id="btn-play" class="w-9 h-9 bg-blue-600 hover:bg-blue-500 text-white rounded-lg flex items-center justify-center transition focus:ring-2 focus:ring-blue-400">
+                        <button id="btn-play" type="button" aria-label="Reproducir o pausar la simulación" class="w-9 h-9 bg-blue-600 hover:bg-blue-500 text-white rounded-lg flex items-center justify-center transition focus:ring-2 focus:ring-blue-400">
                             <i id="play-icon" class="fa-solid fa-play"></i>
                         </button>
                     </div>
@@ -220,11 +227,11 @@
                 <!-- Deslizador de Edad de la Luna (0 a 29.53 días) -->
                 <div class="flex flex-col gap-2 mt-1">
                     <div class="flex justify-between text-xs text-slate-400">
-                        <span>Día 0 (Luna Nueva)</span>
-                        <span class="text-blue-400 font-bold" id="slider-val-display">Día 14.8 (Luna Llena)</span>
-                        <span>Día 29.5 (Ciclo Completo)</span>
+                        <span>Día 0 (Luna nueva)</span>
+                        <span class="text-blue-400 font-bold" id="slider-val-display">Día 14.8 (Luna llena)</span>
+                        <span>Día 29.5 (ciclo completo)</span>
                     </div>
-                    <input type="range" id="age-slider" min="0" max="29.53" step="0.05" value="14.77" class="w-full h-2 bg-slate-950 rounded-lg appearance-none cursor-pointer border border-slate-800">
+                    <input type="range" id="age-slider" aria-label="Edad de la Luna en días" min="0" max="29.53" step="0.05" value="14.77" class="w-full h-2 bg-slate-950 rounded-lg appearance-none cursor-pointer border border-slate-800">
                 </div>
 
                 <!-- Selector de velocidad orbital -->
@@ -270,7 +277,7 @@
                 </p>
                 <p class="bg-blue-950/40 p-3 rounded-lg border border-blue-900/50 text-xs text-blue-300">
                     <i class="fa-solid fa-lightbulb text-amber-400 mr-1.5"></i>
-                    <strong>Curiosidad del Hemisferio Sur:</strong> Al observar hacia el Norte en nuestro hemisferio, la Luna se ilumina por la izquierda. Por eso la Luna <strong>C</strong>reciente se ve con forma de <strong>C</strong> (de creciente) y la Luna decreciente o <strong>M</strong>enguante se ve con forma de <strong>D</strong> (de decreciente). ¡Al revés que en el norte!
+                    <strong>Curiosidad del hemisferio sur:</strong> Al observar hacia el Norte en nuestro hemisferio, la Luna se ilumina por la izquierda. Por eso la Luna <strong>C</strong>reciente se ve con forma de <strong>C</strong> (de creciente) y la Luna decreciente o <strong>M</strong>enguante se ve con forma de <strong>D</strong> (de decreciente). ¡Al revés que en el norte!
                 </p>
             </div>
         </div>
@@ -279,7 +286,7 @@
         <div class="bg-slate-900/90 border border-slate-800/80 rounded-2xl p-5 flex flex-col gap-4">
             <h3 class="text-lg font-bold text-amber-500 flex items-center gap-2">
                 <i class="fa-solid fa-trophy"></i>
-                Desafíos de Exploración Lunar
+                Desafíos de exploración lunar
             </h3>
             <p class="text-xs text-slate-400">Manipula los deslizadores temporales para completar los objetivos de aprendizaje:</p>
             
@@ -287,7 +294,7 @@
                 <!-- Desafío 1 -->
                 <div id="quest-1-box" class="p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex items-center justify-between gap-3 transition-colors">
                     <div>
-                        <p class="text-xs font-bold text-slate-200">1. Busca la Luna Llena</p>
+                        <p class="text-xs font-bold text-slate-200">1. Busca la Luna llena</p>
                         <p class="text-[11px] text-slate-400">Alinea la Luna de forma que esté al 100% de brillo.</p>
                     </div>
                     <button onclick="checkQuest(1)" class="px-3 py-1 bg-amber-600/20 text-amber-400 border border-amber-500/30 rounded text-xs hover:bg-amber-600/30 transition whitespace-nowrap">
@@ -298,7 +305,7 @@
                 <!-- Desafío 2 -->
                 <div id="quest-2-box" class="p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex items-center justify-between gap-3 transition-colors">
                     <div>
-                        <p class="text-xs font-bold text-slate-200">2. Encuentra la Luna Nueva (Oscura)</p>
+                        <p class="text-xs font-bold text-slate-200">2. Encuentra la Luna nueva (oscura)</p>
                         <p class="text-[11px] text-slate-400">¿En qué día la Luna queda frente al Sol y no brilla nada?</p>
                     </div>
                     <button onclick="checkQuest(2)" class="px-3 py-1 bg-amber-600/20 text-amber-400 border border-amber-500/30 rounded text-xs hover:bg-amber-600/30 transition whitespace-nowrap">
@@ -309,7 +316,7 @@
                 <!-- Desafío 3 -->
                 <div id="quest-3-box" class="p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex items-center justify-between gap-3 transition-colors">
                     <div>
-                        <p class="text-xs font-bold text-slate-200">3. El Cuarto Menguante en el Sur</p>
+                        <p class="text-xs font-bold text-slate-200">3. El cuarto menguante en el hemisferio sur</p>
                         <p class="text-[11px] text-slate-400">Encuentra el día en que solo brilla la mitad derecha (forma de "D").</p>
                     </div>
                     <button onclick="checkQuest(3)" class="px-3 py-1 bg-amber-600/20 text-amber-400 border border-amber-500/30 rounded text-xs hover:bg-amber-600/30 transition whitespace-nowrap">
@@ -324,12 +331,12 @@
     <!-- Modal de Ayuda / Instructivo -->
     <div id="help-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeHelp()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 text-lg">
+            <button type="button" onclick="closeHelp()" aria-label="Cerrar la guía" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 text-lg">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <h3 class="text-xl font-bold text-slate-100 flex items-center gap-2 mb-4">
                 <i class="fa-solid fa-book-open text-blue-500"></i>
-                Guía de Uso del Simulador
+                Guía de uso del simulador
             </h3>
             <div class="space-y-4 text-sm text-slate-300 leading-relaxed">
                 <p>
@@ -344,7 +351,7 @@
                     </ul>
                 </div>
                 <div class="bg-blue-950/20 border border-blue-900/40 p-3 rounded-xl">
-                    <p class="font-semibold text-blue-300 text-xs mb-1">🌍 Nota Importante sobre Escala:</p>
+                    <p class="font-semibold text-blue-300 text-xs mb-1">🌍 Nota importante sobre escala:</p>
                     <p class="text-xs text-slate-400">
                         En el universo real, las distancias son inmensas. Para que puedas ver ambos cuerpos celestes en tu pantalla al mismo tiempo, hemos reducido la distancia Tierra-Luna de forma educativa. Los tamaños relativos de la Tierra y la Luna sí respetan la proporción real (la Luna es aproximadamente 1/4 del tamaño terrestre).
                     </p>
@@ -372,7 +379,7 @@
           href="https://uruguayeduca.anep.edu.uy/" 
           target="_blank" 
           rel="noopener noreferrer" 
-          class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-4xl w-full px-6 py-4 bg-slate-950/40 rounded-2xl border border-blue-900/30 backdrop-blur-sm group hover:border-yellow-500/30 transition-all"
+          class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-4xl w-full px-6 py-4 bg-[#090d16] rounded-2xl border border-blue-900/30 backdrop-blur-sm group hover:border-yellow-500/30 transition-all"
         >
           <img 
             src="https://danielgastelu.github.io/web/logos/logoueblanco-removebg.png" 
@@ -380,7 +387,7 @@
             class="h-10 md:h-12 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
             onerror="this.onerror=null; this.style.display='none';"
           />
-          <span class="text-xs md:text-sm text-blue-300/60 group-hover:text-yellow-400 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
+          <span class="text-xs md:text-sm text-[#cbd5e1] group-hover:text-yellow-300 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
             Portal Uruguay Educa (ANEP-DGES-EDyTIC) - Contenidistas de Astronomía 2026. - Herramienta de uso libre. - Desarrollado con asistencia de IA.
           </span>
         </a>
@@ -739,47 +746,47 @@
         // -------------------------------------------------------------
         const phaseData = [
             {
-                name: "Luna Nueva",
+                name: "Luna nueva",
                 minAge: 0, maxAge: 1.5,
                 desc: "La Luna está entre la Tierra y el Sol. Su lado brillante queda a espaldas de nosotros y por eso la vemos completamente a oscuras en el cielo."
             },
             {
-                name: "Creciente Cóncava",
+                name: "Creciente cóncava",
                 minAge: 1.5, maxAge: 6.5,
                 desc: "En el Hemisferio Sur, un hermoso arco iluminado comienza a crecer desde el lado izquierdo. Toma la forma de una letra 'C' real de 'Creciente'."
             },
             {
-                name: "Cuarto Creciente",
+                name: "Cuarto creciente",
                 minAge: 6.5, maxAge: 8.5,
                 desc: "Exactamente la mitad izquierda de la Luna se ve iluminada. Ocurre una semana después de la Luna Nueva. ¡Ideal para ver cráteres con telescopio!"
             },
             {
-                name: "Gibosa Creciente",
+                name: "Gibosa creciente",
                 minAge: 8.5, maxAge: 13.5,
                 desc: "La zona iluminada sigue creciendo por la izquierda y ya cubre más de la mitad de la Luna. Se ve casi redonda."
             },
             {
-                name: "Luna Llena",
+                name: "Luna llena",
                 minAge: 13.5, maxAge: 16.0,
                 desc: "La Tierra está en medio de la Luna y el Sol. Toda la cara visible de la Luna recibe luz directa del Sol. ¡Brilla durante toda la noche!"
             },
             {
-                name: "Gibosa Menguante",
+                name: "Gibosa menguante",
                 minAge: 16.0, maxAge: 21.0,
                 desc: "La Luna empieza a 'encogerse'. La sombra avanza desde la izquierda, dejando iluminada la mayor parte del lado derecho."
             },
             {
-                name: "Cuarto Menguante",
+                name: "Cuarto menguante",
                 minAge: 21.0, maxAge: 23.5,
                 desc: "Exactamente la mitad derecha de la Luna se ve brillante. Ocurre a las tres semanas del ciclo y sale muy tarde en la madrugada."
             },
             {
-                name: "Menguante Cóncava",
+                name: "Menguante cóncava",
                 minAge: 23.5, maxAge: 28.2,
                 desc: "Queda un fino y elegante arco iluminado en la parte derecha de la esfera. Tiene forma de letra 'D', indicando que decrece o 'Desaparece'."
             },
             {
-                name: "Luna Nueva (Fin de ciclo)",
+                name: "Luna nueva (fin de ciclo)",
                 minAge: 28.2, maxAge: 29.54,
                 desc: "La Luna completa su órbita y vuelve a oscurecerse. El ciclo sinódico (mes lunar) dura en promedio 29.53 días."
             }
@@ -1025,5 +1032,83 @@
 <!-- Código de analítica GoatCounter -->
 <script data-goatcounter="https://danielgastelu.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<script id="a11y-general">
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 2.2.2: animaciones infinitas (salvo indicadores de carga) se limitan a 3 ciclos
+  function limitar(){
+    if(!document.getAnimations) return;
+    document.getAnimations().forEach(function(a){
+      try{
+        var t=a.effect&&a.effect.getTiming(); if(!t||t.iterations!==Infinity) return;
+        var el=a.effect.target, n=(a.animationName||'')+' '+(el&&el.className&&el.className.baseVal===undefined?el.className:'');
+        if(a.animationName==='spin'||/load|cargando/i.test(n)) return;
+        a.effect.updateTiming({iterations: reduce?1:3});
+      }catch(e){}
+    });
+  }
+  document.addEventListener('animationstart', limitar, true);
+  var pend; new MutationObserver(function(){ clearTimeout(pend); pend=setTimeout(function(){limitar();nombrar();},150); })
+    .observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  // 2.1.1 / 4.1.2: elementos no interactivos con onclick, iframes sin título
+  function nombrar(){
+    document.querySelectorAll('[onclick]:not(button):not(a):not(input):not(select):not(textarea):not([tabindex]):not(#image-lightbox)').forEach(function(el){
+      if(/^\s*event\.stopPropagation\(\)\s*;?\s*$/.test(el.getAttribute('onclick'))) return;
+      if(el.hasAttribute('data-a11y-puntero')) return;
+      el.setAttribute('tabindex','0'); if(!el.getAttribute('role')) el.setAttribute('role','button');
+      if(!el.getAttribute('aria-label')){ var img=el.tagName==='IMG'?el:null; if(img&&img.alt) el.setAttribute('aria-label','Ampliar imagen: '+img.alt); }
+    });
+    document.querySelectorAll('iframe:not([title])').forEach(function(f){ f.setAttribute('title','Contenido incrustado'); });
+  }
+  document.addEventListener('keydown', function(e){
+    var el=e.target; if(!(e.key==='Enter'||e.key===' ')) return;
+    if(el.getAttribute && el.getAttribute('role')==='button' && el.hasAttribute('onclick') && !/^(BUTTON|A|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)){ e.preventDefault(); el.click(); }
+  });
+  // 2.1.1: mira por teclado para marcar sobre imágenes (flechas + Enter)
+  function puntero(el){
+    if(el.__mira) return; el.__mira=true;
+    el.setAttribute('tabindex','0'); el.setAttribute('role','application');
+    var x=.5,y=.5, m=document.createElement('div');
+    m.setAttribute('aria-hidden','true');
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    document.body.appendChild(m);
+    function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
+    function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';
+      el.dispatchEvent(new MouseEvent('mousemove',{clientX:p.cx,clientY:p.cy,bubbles:true}));}
+    el.addEventListener('focus',show); el.addEventListener('blur',function(){m.style.display='none';});
+    addEventListener('scroll',function(){if(document.activeElement===el)show();},true);
+    el.addEventListener('keydown',function(e){
+      var s=e.shiftKey?.05:.01, k=e.key;
+      if(k==='ArrowLeft')x=Math.max(0,x-s);else if(k==='ArrowRight')x=Math.min(1,x+s);
+      else if(k==='ArrowUp')y=Math.max(0,y-s);else if(k==='ArrowDown')y=Math.min(1,y+s);
+      else if(k==='Enter'||k===' '){e.preventDefault();var p=pos();el.dispatchEvent(new MouseEvent('click',{clientX:p.cx,clientY:p.cy,bubbles:true}));return;}
+      else return;
+      e.preventDefault(); show();
+    });
+  }
+  // 2.4.11: el foco no queda tapado por barras fijas o pegajosas
+  document.addEventListener('focusin', function(e){
+    var el=e.target; if(!el.getBoundingClientRect) return;
+    var r=el.getBoundingClientRect(), top=0, bot=innerHeight;
+    document.querySelectorAll('body *').forEach(function(b){
+      if(b.contains(el)) return; var cs=getComputedStyle(b); if(cs.position!=='fixed'&&cs.position!=='sticky') return;
+      if(cs.display==='none'||cs.visibility==='hidden'||cs.opacity==='0'||cs.pointerEvents==='none') return;
+      var q=b.getBoundingClientRect(); if(q.width<innerWidth*.5||q.height>innerHeight*.4) return;
+      if(q.bottom<=0||q.top>=innerHeight) return; if(q.top<innerHeight*.3) top=Math.max(top,q.bottom); else if(q.bottom>innerHeight*.7) bot=Math.min(bot,q.top);
+    });
+    if(r.top<top) scrollBy(0,r.top-top-8); else if(r.bottom>bot) scrollBy(0,r.bottom-bot+8);
+  });
+  // 4.1.3: mensajes de estado anunciados por lectores de pantalla
+  ['error-message-box','error-message','quiz-feedback-block','quiz-result-box','quiz-feedback-box','feedback-box',
+   'trivia-feedback','trivia-result','toast','toast-container','merge-status-text','resultDisplay','score-display',
+   'quiz-result','team-scores-container','file-counter'].forEach(function(id){
+    var el=document.getElementById(id); if(el&&!el.hasAttribute('aria-live')){ el.setAttribute('aria-live','polite'); if(!el.getAttribute('role')) el.setAttribute('role','status'); }
+  });
+  function init(){ nombrar(); limitar(); document.querySelectorAll('[data-a11y-puntero]').forEach(puntero); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  addEventListener('load',limitar);
+})();
+</script>
+<p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
 </body>
 </html>

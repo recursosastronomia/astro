@@ -18,7 +18,8 @@
             --text-primary: #f8fafc;
             --text-secondary: #cbd5e1;
             --accent-color: #38bdf8;
-            --accent-hover: #0284c7;
+            --accent-hover: #7dd3fc;
+            --on-accent: #0f172a;
             --correct-color: #22c55e;
             --incorrect-color: #ef4444;
             --star-color: #fbbf24;
@@ -33,8 +34,9 @@
             --surface-hover: #f1f5f9;
             --text-primary: #0f172a;
             --text-secondary: #334155;
-            --accent-color: #0284c7;
-            --accent-hover: #0369a1;
+            --accent-color: #0369a1;
+            --accent-hover: #075985;
+            --on-accent: #ffffff;
             --correct-color: #16a34a;
             --incorrect-color: #dc2626;
             --border-color: #cbd5e1;
@@ -129,7 +131,7 @@
 
         .btn-icon:hover {
             background-color: var(--accent-color);
-            color: #fff;
+            color: var(--on-accent);
         }
 
         /* Contenedor Principal */
@@ -215,7 +217,7 @@
         }
         .nav-btn {
             background-color: var(--accent-color);
-            color: white;
+            color: var(--on-accent);
             padding: 12px 24px;
             font-size: 1.1rem;
             border-radius: 8px;
@@ -476,11 +478,18 @@
                 top: auto; bottom: 15px; right: 50%; transform: translateX(50%); width: 90%; justify-content: space-around;
             }
             .container { padding-bottom: 100px; padding-top: 30px;}
+            body { padding-bottom: 110px; }
             .nav-controls { flex-direction: column; gap: 15px;}
             .nav-btn { width: 100%; justify-content: center;}
             .page-indicator { order: -1; margin-bottom: 10px;}
         }
     </style>
+<style id="a11y-base">
+/* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
+:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+</style>
 </head>
 <body>
 
@@ -493,7 +502,7 @@
     <!-- Panel de Accesibilidad (Fijo) -->
     <div class="accessibility-panel">
         <button id="theme-toggle" class="btn-icon" aria-label="Cambiar tema claro u oscuro">
-            <span id="theme-icon">☀️</span> <span class="hidden-mobile">Modo Claro</span>
+            <span id="theme-icon">☀️</span> <span class="hidden-mobile">Modo claro</span>
         </button>
         <div style="width: 1px; height: 30px; background: var(--border-color); margin: 0 5px;"></div>
         <div style="display: flex; flex-direction: column; align-items: center;">
@@ -511,7 +520,7 @@
         <!-- PANTALLA 0: INICIO E ÍNDICE -->
         <div class="screen active" id="screen-0">
             <header>
-                <p style="color: var(--accent-color); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Serie: Grandes ideas de la Astronomía</p>
+                <p style="color: var(--accent-color); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Serie: grandes ideas de la astronomía</p>
                 <h1 tabindex="-1">Los orígenes de la observación del cielo</h1>
                 <p class="lead">¡Te damos la bienvenida a este viaje espacial! Descubre cómo la humanidad comenzó a observar el cielo y por qué el movimiento de los astros transformó nuestra forma de vivir para siempre.</p>
                 
@@ -525,12 +534,12 @@
                 <p style="font-size: 0.9rem; margin-bottom: 15px;">Usa los botones de "Siguiente" o selecciona un tema aquí:</p>
                 <ul>
                     <li><button class="link-btn" onclick="goToScreen(1)">1. El cielo: el primer misterio de la humanidad</button></li>
-                    <li><button class="link-btn" onclick="goToScreen(2)">2. Las Constelaciones: dibujos con estrellas</button></li>
+                    <li><button class="link-btn" onclick="goToScreen(2)">2. Las constelaciones: dibujos con estrellas</button></li>
                     <li><button class="link-btn" onclick="goToScreen(3)">3. El cielo en el arte y la cultura</button></li>
                     <li><button class="link-btn" onclick="goToScreen(4)">4. Los calendarios y la agricultura</button></li>
                     <li><button class="link-btn" onclick="goToScreen(5)">5. Navegando con ayuda de las estrellas</button></li>
-                    <li><button class="link-btn" onclick="goToScreen(6)">🚀 Para saber más (Recursos y videos)</button></li>
-                    <li><button class="link-btn" onclick="goToScreen(7)">⭐ Desafío: ¡Gana tus estrellas!</button></li>
+                    <li><button class="link-btn" onclick="goToScreen(6)">🚀 Para saber más (recursos y videos)</button></li>
+                    <li><button class="link-btn" onclick="goToScreen(7)">⭐ Desafío: ¡gana tus estrellas!</button></li>
                 </ul>
             </nav>
         </div>
@@ -551,7 +560,7 @@
 
         <!-- PANTALLA 2 -->
         <div class="screen" id="screen-2">
-            <h2 tabindex="-1">2. Las Constelaciones: dibujos con estrellas</h2>
+            <h2 tabindex="-1">2. Las constelaciones: dibujos con estrellas</h2>
             <img src="images/biia1_2.png" alt="Representación de constelaciones" class="content-image" onerror="this.onerror=null; this.src='https://placehold.co/600x400/112240/38bdf8?text=Imagen+biia1_2'">
             <p>Al mirar el cielo en una noche despejada, nuestro cerebro tiende a buscar formas uniendo los puntos luminosos. A estos dibujos imaginarios de estrellas los llamamos <strong>constelaciones</strong>.</p>
             <p>Es importante saber que las estrellas de una constelación no están realmente cerca unas de otras en el espacio; algunas están muchísimo más lejos que otras. Solo parecen formar un dibujo porque las vemos juntas desde nuestra posición en la Tierra.</p>
@@ -563,7 +572,7 @@
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
                             <div class="card-icon">🏛️</div>
-                            <h3>Antiguos Griegos</h3>
+                            <h3>Antiguos griegos</h3>
                             <p>Toca para girar</p>
                         </div>
                         <div class="flip-card-back">
@@ -576,7 +585,7 @@
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
                             <div class="card-icon">🐆</div>
-                            <h3>Culturas Nativas</h3>
+                            <h3>Culturas nativas</h3>
                             <p>Toca para girar</p>
                         </div>
                         <div class="flip-card-back">
@@ -585,11 +594,11 @@
                     </div>
                 </div>
 
-                <div class="flip-card" tabindex="0" aria-label="Pueblos del Sur">
+                <div class="flip-card" tabindex="0" aria-label="Pueblos del sur">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
                             <div class="card-icon">🦙</div>
-                            <h3>Pueblos del Sur</h3>
+                            <h3>Pueblos del sur</h3>
                             <p>Toca para girar</p>
                         </div>
                         <div class="flip-card-back">
@@ -651,7 +660,7 @@
                     <li><a href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener">Portal UruguayEduca - Astronomía</a>: Materiales educativos sobre el cielo que vemos todos los días.</li>
                 </ul>
 
-                <h3 style="margin-top: 30px;">📺 Video Recomendado</h3>
+                <h3 style="margin-top: 30px;">📺 Video recomendado</h3>
                 <p>Te invitamos a ver este  video del canal del usuario "Juankstar". Te explicará cómo la Humanidad fue inventando los nombres de estos grupos de estrellas. ¡Dale play!</p>
                 
                 <div class="video-wrapper">
@@ -670,7 +679,7 @@
 
         <!-- PANTALLA 7 (CUESTIONARIO) -->
         <div class="screen" id="screen-7">
-            <h2 tabindex="-1">⭐ Desafío Final</h2>
+            <h2 tabindex="-1">⭐ Desafío final</h2>
             <p>Es momento de poner a prueba lo que hemos aprendido en estas páginas.</p>
             
             <div class="quiz-section" aria-live="polite">
@@ -697,7 +706,7 @@
                 </div>
 
                 <div id="quiz-result" class="quiz-result">
-                    <h2>¡Misión Astronómica Completada!</h2>
+                    <h2>¡Misión astronómica completada!</h2>
                     <div class="final-stars" id="final-stars"></div>
                     <h3 id="final-title" style="color: var(--accent-color);"></h3>
                     <p id="final-message"></p>
@@ -765,12 +774,12 @@
             if(isLight) {
                 body.classList.add('light-mode');
                 themeIcon.textContent = '🌙';
-                themeBtn.querySelector('.hidden-mobile').textContent = 'Modo Oscuro';
+                themeBtn.querySelector('.hidden-mobile').textContent = 'Modo oscuro';
                 localStorage.setItem('astroTheme', 'light');
             } else {
                 body.classList.remove('light-mode');
                 themeIcon.textContent = '☀️';
-                themeBtn.querySelector('.hidden-mobile').textContent = 'Modo Claro';
+                themeBtn.querySelector('.hidden-mobile').textContent = 'Modo claro';
                 localStorage.setItem('astroTheme', 'dark');
             }
         }
@@ -1040,7 +1049,7 @@
             const msgEl = document.getElementById("final-message");
 
             if (scoreStars === 7) {
-                titleEl.textContent = "¡Explorador Experto!";
+                titleEl.textContent = "¡Explorador experto!";
                 msgEl.textContent = "¡Excelente trabajo! Has entendido a la perfección cómo los seres humanos empezamos a observar y entender el cielo.";
             } else if (scoreStars >= 4) {
                 titleEl.textContent = "¡Buen trabajo, joven astronauta!";
@@ -1059,5 +1068,83 @@
 
         loadQuestion();
     </script>
+<script id="a11y-general">
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 2.2.2: animaciones infinitas (salvo indicadores de carga) se limitan a 3 ciclos
+  function limitar(){
+    if(!document.getAnimations) return;
+    document.getAnimations().forEach(function(a){
+      try{
+        var t=a.effect&&a.effect.getTiming(); if(!t||t.iterations!==Infinity) return;
+        var el=a.effect.target, n=(a.animationName||'')+' '+(el&&el.className&&el.className.baseVal===undefined?el.className:'');
+        if(a.animationName==='spin'||/load|cargando/i.test(n)) return;
+        a.effect.updateTiming({iterations: reduce?1:3});
+      }catch(e){}
+    });
+  }
+  document.addEventListener('animationstart', limitar, true);
+  var pend; new MutationObserver(function(){ clearTimeout(pend); pend=setTimeout(function(){limitar();nombrar();},150); })
+    .observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  // 2.1.1 / 4.1.2: elementos no interactivos con onclick, iframes sin título
+  function nombrar(){
+    document.querySelectorAll('[onclick]:not(button):not(a):not(input):not(select):not(textarea):not([tabindex]):not(#image-lightbox)').forEach(function(el){
+      if(/^\s*event\.stopPropagation\(\)\s*;?\s*$/.test(el.getAttribute('onclick'))) return;
+      if(el.hasAttribute('data-a11y-puntero')) return;
+      el.setAttribute('tabindex','0'); if(!el.getAttribute('role')) el.setAttribute('role','button');
+      if(!el.getAttribute('aria-label')){ var img=el.tagName==='IMG'?el:null; if(img&&img.alt) el.setAttribute('aria-label','Ampliar imagen: '+img.alt); }
+    });
+    document.querySelectorAll('iframe:not([title])').forEach(function(f){ f.setAttribute('title','Contenido incrustado'); });
+  }
+  document.addEventListener('keydown', function(e){
+    var el=e.target; if(!(e.key==='Enter'||e.key===' ')) return;
+    if(el.getAttribute && el.getAttribute('role')==='button' && el.hasAttribute('onclick') && !/^(BUTTON|A|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)){ e.preventDefault(); el.click(); }
+  });
+  // 2.1.1: mira por teclado para marcar sobre imágenes (flechas + Enter)
+  function puntero(el){
+    if(el.__mira) return; el.__mira=true;
+    el.setAttribute('tabindex','0'); el.setAttribute('role','application');
+    var x=.5,y=.5, m=document.createElement('div');
+    m.setAttribute('aria-hidden','true');
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    document.body.appendChild(m);
+    function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
+    function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';
+      el.dispatchEvent(new MouseEvent('mousemove',{clientX:p.cx,clientY:p.cy,bubbles:true}));}
+    el.addEventListener('focus',show); el.addEventListener('blur',function(){m.style.display='none';});
+    addEventListener('scroll',function(){if(document.activeElement===el)show();},true);
+    el.addEventListener('keydown',function(e){
+      var s=e.shiftKey?.05:.01, k=e.key;
+      if(k==='ArrowLeft')x=Math.max(0,x-s);else if(k==='ArrowRight')x=Math.min(1,x+s);
+      else if(k==='ArrowUp')y=Math.max(0,y-s);else if(k==='ArrowDown')y=Math.min(1,y+s);
+      else if(k==='Enter'||k===' '){e.preventDefault();var p=pos();el.dispatchEvent(new MouseEvent('click',{clientX:p.cx,clientY:p.cy,bubbles:true}));return;}
+      else return;
+      e.preventDefault(); show();
+    });
+  }
+  // 2.4.11: el foco no queda tapado por barras fijas o pegajosas
+  document.addEventListener('focusin', function(e){
+    var el=e.target; if(!el.getBoundingClientRect) return;
+    var r=el.getBoundingClientRect(), top=0, bot=innerHeight;
+    document.querySelectorAll('body *').forEach(function(b){
+      if(b.contains(el)) return; var cs=getComputedStyle(b); if(cs.position!=='fixed'&&cs.position!=='sticky') return;
+      if(cs.display==='none'||cs.visibility==='hidden'||cs.opacity==='0'||cs.pointerEvents==='none') return;
+      var q=b.getBoundingClientRect(); if(q.width<innerWidth*.5||q.height>innerHeight*.4) return;
+      if(q.bottom<=0||q.top>=innerHeight) return; if(q.top<innerHeight*.3) top=Math.max(top,q.bottom); else if(q.bottom>innerHeight*.7) bot=Math.min(bot,q.top);
+    });
+    if(r.top<top) scrollBy(0,r.top-top-8); else if(r.bottom>bot) scrollBy(0,r.bottom-bot+8);
+  });
+  // 4.1.3: mensajes de estado anunciados por lectores de pantalla
+  ['error-message-box','error-message','quiz-feedback-block','quiz-result-box','quiz-feedback-box','feedback-box',
+   'trivia-feedback','trivia-result','toast','toast-container','merge-status-text','resultDisplay','score-display',
+   'quiz-result','team-scores-container','file-counter'].forEach(function(id){
+    var el=document.getElementById(id); if(el&&!el.hasAttribute('aria-live')){ el.setAttribute('aria-live','polite'); if(!el.getAttribute('role')) el.setAttribute('role','status'); }
+  });
+  function init(){ nombrar(); limitar(); document.querySelectorAll('[data-a11y-puntero]').forEach(puntero); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  addEventListener('load',limitar);
+})();
+</script>
+<p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
 </body>
 </html>

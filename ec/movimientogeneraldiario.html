@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>El Movimiento General Diario - Investigando el Cielo en Rotación</title>
+  <title>El movimiento general diario - Investigando el cielo en rotación</title>
   
   <!-- Tailwind CSS para diseño fluido y rápido -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -86,6 +86,49 @@
     }
     @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
   </style>
+<style id="a11y-base">
+/* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
+:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+</style>
+<style id="a11y-modo-claro">
+/* Accesibilidad: colores legibles en modo claro (WCAG 1.4.3) */
+body:not(.dark) .bg-slate-800{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-900{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-900\/80{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-900\/90{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-950{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-950\/40{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-950\/60{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-950\/70{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .bg-slate-950\/80{background-color:#e2e8f0 !important;color:#0f172a}
+body:not(.dark) .text-blue-300\/90{color:#1e40af !important}
+body:not(.dark) .text-cyan-400{color:#155e75 !important}
+body:not(.dark) .text-emerald-400{color:#065f46 !important}
+body:not(.dark) .text-emerald-500{color:#065f46 !important}
+body:not(.dark) .text-indigo-400{color:#3730a3 !important}
+body:not(.dark) .text-indigo-500{color:#3730a3 !important}
+body:not(.dark) .text-pink-500{color:#9d174d !important}
+body:not(.dark) .text-red-400{color:#991b1b !important}
+body:not(.dark) .text-red-500{color:#991b1b !important}
+body:not(.dark) .text-slate-100{color:#334155 !important}
+body:not(.dark) .text-slate-200{color:#334155 !important}
+body:not(.dark) .text-slate-300{color:#334155 !important}
+body:not(.dark) .text-slate-400{color:#334155 !important}
+body:not(.dark) .text-yellow-500{color:#854d0e !important}
+body:not(.dark) canvas{background-color:transparent}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+body:not(.dark) .bg-slate-800 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-900 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-900\/80 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-900\/90 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-950 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-950\/40 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-950\/60 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-950\/70 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .bg-slate-950\/80 .text-white:not([class*="bg-"]){color:#0f172a !important}
+body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f172a}
+</style>
 </head>
 <body class="dark bg-darkbg text-slate-100 min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950" id="app-body">
 
@@ -132,7 +175,7 @@
 
       <!-- Selector de Modo Visual (Accesible) -->
       <div class="flex items-center gap-2">
-        <span class="text-xs font-semibold hidden md:inline dark:text-slate-400 text-slate-600">Modo de Visualización:</span>
+        <span class="text-xs font-semibold hidden md:inline dark:text-slate-400 text-slate-600">Modo de visualización:</span>
         <button 
           id="theme-toggle" 
           onclick="toggleTheme()" 
@@ -165,13 +208,13 @@
     <section class="mb-12">
       <div class="text-center max-w-3xl mx-auto mb-8">
         <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 rounded-full border border-cyan-500/30">
-          Fundamento de Astronomía Observacional
+          Fundamento de astronomía observacional
         </span>
         <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 mb-4 dark:text-white text-slate-900 leading-tight">
-          El Movimiento General Diario
+          El movimiento general diario
         </h1>
         <p class="text-base sm:text-lg dark:text-slate-300 text-slate-800 leading-relaxed font-light">
-          ¿Te has fijado en que el Sol, la Luna y las estrellas nunca están exactamente en la misma posición a lo largo de la noche? A este viaje colectivo por la bóveda celeste lo llamamos <strong>Movimiento General Diario (MGD)</strong>. ¡Exploremos sus misterios y aprendamos a leer sus trazos!
+          ¿Te has fijado en que el Sol, la Luna y las estrellas nunca están exactamente en la misma posición a lo largo de la noche? A este viaje colectivo por la bóveda celeste lo llamamos <strong>Movimiento general diario (MGD)</strong>. ¡Exploremos sus misterios y aprendamos a leer sus trazos!
         </p>
       </div>
 
@@ -182,7 +225,7 @@
         <div class="p-6 rounded-2xl dark:bg-slate-900/60 bg-white border dark:border-slate-800 border-slate-300 shadow-sm">
           <div class="flex items-center gap-3 mb-3">
             <span class="p-2 bg-cyan-500/10 text-cyan-400 rounded-lg text-lg">📅</span>
-            <h3 class="text-base font-extrabold dark:text-white text-slate-900">General y Diario</h3>
+            <h3 class="text-base font-extrabold dark:text-white text-slate-900">General y diario</h3>
           </div>
           <p class="text-xs dark:text-slate-300 text-slate-700 leading-relaxed">
             <strong>General:</strong> Todos los astros del firmamento (Sol, Luna, estrellas y planetas) participan sin excepción en este gran baile nocturno.<br><br>
@@ -194,18 +237,18 @@
         <div class="p-6 rounded-2xl dark:bg-slate-900/60 bg-white border dark:border-slate-800 border-slate-300 shadow-sm">
           <div class="flex items-center gap-3 mb-3">
             <span class="p-2 bg-yellow-500/10 text-yellow-500 rounded-lg text-lg">🌀</span>
-            <h3 class="text-base font-extrabold dark:text-white text-slate-900">Movimiento Aparente</h3>
+            <h3 class="text-base font-extrabold dark:text-white text-slate-900">Movimiento aparente</h3>
           </div>
           <p class="text-xs dark:text-slate-300 text-slate-700 leading-relaxed">
             ¡Es una hermosa ilusión! Los astros parecen moverse por el cielo, pero <strong>es nuestro planeta Tierra el que rota</strong> sobre su propio eje. Es como ir en una calesita: las cosas a tu alrededor parecen girar, pero eres tú quien da vueltas.
           </p>
         </div>
 
-        <!-- 3. Sentido Retrógrado -->
+        <!-- 3. Sentido retrógrado -->
         <div class="p-6 rounded-2xl dark:bg-slate-900/60 bg-white border dark:border-slate-800 border-slate-300 shadow-sm">
           <div class="flex items-center gap-3 mb-3">
             <span class="p-2 bg-red-500/10 text-red-500 rounded-lg text-lg">🔄</span>
-            <h3 class="text-base font-extrabold dark:text-white text-slate-900">Sentido Retrógrado</h3>
+            <h3 class="text-base font-extrabold dark:text-white text-slate-900">Sentido retrógrado</h3>
           </div>
           <p class="text-xs dark:text-slate-300 text-slate-700 leading-relaxed">
             Se produce de <strong>Oriente (Este) a Occidente (Oeste)</strong>, el sentido contrario a la rotación real de la Tierra (que rota de Oeste a Este). Las estrellas se elevan al mirar al Este y descienden hasta ocultarse al mirar al Oeste.
@@ -216,7 +259,7 @@
         <div class="p-6 rounded-2xl dark:bg-slate-900/60 bg-white border dark:border-slate-800 border-slate-300 shadow-sm">
           <div class="flex items-center gap-3 mb-3">
             <span class="p-2 bg-emerald-500/10 text-emerald-500 rounded-lg text-lg">⭕</span>
-            <h3 class="text-base font-extrabold dark:text-white text-slate-900">Trayectorias Circulares</h3>
+            <h3 class="text-base font-extrabold dark:text-white text-slate-900">Trayectorias circulares</h3>
           </div>
           <p class="text-xs dark:text-slate-300 text-slate-700 leading-relaxed">
             Cada astro describe una trayectoria perfecta con forma de <strong>circunferencia</strong> en la esfera celeste. Estos círculos de viaje son todos <strong>paralelos entre sí</strong> y paralelos al ecuador celeste.
@@ -259,13 +302,13 @@
           
           <div class="lg:col-span-5">
             <span class="px-2.5 py-1 text-xs font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 rounded-full border border-cyan-500/30">
-              Laboratorio Interactivo
+              Laboratorio interactivo
             </span>
             <h3 class="text-xl sm:text-2xl font-extrabold tracking-tight mt-3 mb-4 dark:text-white text-slate-900">
-              Simulador Estelar de Giro y Larga Exposición
+              Simulador estelar de giro y larga exposición
             </h3>
             <p class="text-xs dark:text-slate-300 text-slate-800 leading-relaxed mb-4">
-              Experimenta cómo cambia el movimiento aparente de las estrellas según tu hemisferio. Puedes simular una foto de <strong>"Larga Exposición"</strong> para ver los trazos (star trails) y aprender a hallar el Sur o el Norte geográfico.
+              Experimenta cómo cambia el movimiento aparente de las estrellas según tu hemisferio. Puedes simular una foto de <strong>"larga exposición"</strong> para ver los trazos (star trails) y aprender a hallar el Sur o el Norte geográfico.
             </p>
 
             <!-- Controles del Simulador -->
@@ -273,7 +316,7 @@
               
               <!-- Selector de Hemisferio -->
               <div>
-                <span class="text-xs font-bold dark:text-slate-400 text-slate-300 block mb-1.5">1. Selecciona Hemisferio:</span>
+                <span class="text-xs font-bold dark:text-slate-400 text-slate-300 block mb-1.5">1. Selecciona el hemisferio:</span>
                 <div class="grid grid-cols-2 gap-2">
                   <button onclick="setHemisphere('sur')" id="btn-hemi-sur" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-cyan-500 text-slate-950">
                     🇺🇾 Sur (Uruguay)
@@ -287,12 +330,12 @@
               <!-- Efecto Larga Exposición -->
               <div class="flex items-center justify-between pt-2 border-t border-slate-800/80">
                 <div>
-                  <span class="text-xs font-bold text-white block">2. Larga Exposición</span>
+                  <span class="text-xs font-bold text-white block">2. Larga exposición</span>
                   <span class="text-[10px] text-slate-400">Dibuja los trazos de luz de las estrellas</span>
                 </div>
                 <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" id="long-exposure-toggle" onchange="toggleExposureEffect()" class="sr-only peer">
-                  <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-500"></div>
+                  <input type="checkbox" id="long-exposure-toggle" onchange="toggleExposureEffect()" class="sr-only peer" aria-label="Larga exposición: dibuja los trazos de luz de las estrellas">
+                  <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-cyan-400 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-500"></div>
                 </label>
               </div>
 
@@ -303,7 +346,7 @@
                   target="_blank" 
                   class="flex items-center justify-center gap-2 w-full px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-lg transition-colors"
                 >
-                  <span>🌐 Abrir Simulador NAAP (UNL)</span>
+                  <span>🌐 Abrir simulador NAAP (UNL)</span>
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </a>
               </div>
@@ -315,7 +358,8 @@
           <div class="lg:col-span-7 flex flex-col items-center">
             <div class="relative w-full aspect-square max-w-[380px] rounded-2xl overflow-hidden border-2 border-cyan-500/40 bg-slate-950 shadow-2xl">
               
-              <canvas id="astro-canvas" class="w-full h-full block bg-slate-950"></canvas>
+              <button type="button" id="btn-pausa-mgd" aria-pressed="false" class="absolute bottom-3 right-3 z-10 bg-slate-900/90 text-cyan-300 border border-slate-700 rounded-md px-3 py-2 text-xs font-bold min-h-[32px]">Pausar giro</button>
+              <canvas id="astro-canvas" role="img" aria-label="Simulación del movimiento aparente de las estrellas alrededor del polo celeste" class="w-full h-full block bg-slate-950"></canvas>
               
               <!-- Etiquetas informativas superpuestas -->
               <div class="absolute top-3 left-3 bg-slate-900/80 px-2.5 py-1 rounded-md text-[10px] text-cyan-400 font-bold border border-slate-800">
@@ -329,7 +373,7 @@
               </div>
 
             </div>
-            <p class="text-[11px] text-slate-500 mt-2 text-center">
+            <p class="text-[11px] dark:text-slate-400 text-slate-600 mt-2 text-center">
               * Arrastra el control de Larga Exposición para ver el arco de circunferencias que se genera.
             </p>
           </div>
@@ -345,7 +389,7 @@
           ¿Cómo capturar el movimiento de la luz?
         </span>
         <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 dark:text-white text-slate-900">
-          La Fotografía de Larga Exposición
+          La fotografía de larga exposición
         </h3>
         <p class="text-sm dark:text-slate-400 text-slate-700 mt-2 max-w-xl mx-auto">
           Para ver el trayecto de un objeto luminoso, dejamos el obturador de la cámara abierto durante varios segundos o minutos. ¡Todo lo que emita luz dejará un trazo continuo!
@@ -369,7 +413,7 @@
           </div>
 
           <div class="md:col-span-5">
-            <h4 class="text-lg font-bold dark:text-white text-slate-900 mb-3">Trazos de Luces Terrestres</h4>
+            <h4 class="text-lg font-bold dark:text-white text-slate-900 mb-3">Trazos de luces terrestres</h4>
             <p class="text-xs dark:text-slate-300 text-slate-700 leading-relaxed mb-3">
               En esta imagen nocturna, los vehículos en movimiento dibujan caminos de luz sobre el asfalto. Las luces de posición delanteras (blancas) revelan a los autos que vienen de frente, mientras que las luces traseras de freno (rojas) trazan las estelas de los que se alejan. 
             </p>
@@ -386,7 +430,7 @@
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           
           <div class="md:col-span-5 order-2 md:order-1">
-            <h4 class="text-lg font-bold dark:text-white text-slate-900 mb-3">Trazos de Estrellas (Star Trails)</h4>
+            <h4 class="text-lg font-bold dark:text-white text-slate-900 mb-3">Trazos de estrellas (star trails)</h4>
             <p class="text-xs dark:text-slate-300 text-slate-700 leading-relaxed mb-3">
               Al igual que las luces de los coches, si apuntamos una cámara fija en un trípode hacia el cielo estrellado durante horas, obtendremos increíbles arcos concéntricos. 
             </p>
@@ -416,10 +460,10 @@
           
           <div class="lg:col-span-2">
             <span class="px-2.5 py-1 text-xs font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 rounded-full border border-cyan-500/30">
-              Vídeo Explicativo
+              Vídeo explicativo
             </span>
             <h3 class="text-lg font-extrabold tracking-tight mt-3 mb-4 dark:text-white text-slate-900">
-              Vídeo: El Giro del Cielo Nocturno
+              Vídeo: el giro del cielo nocturno
             </h3>
             <p class="text-xs dark:text-slate-300 text-slate-700 leading-relaxed">
               Observa con detenimiento esta asombrosa compilación de timelapses que evidencian el MGD. Al reproducirlo, fíjate en cómo las estrellas parecen girar alrededor de un centro fijo en el cielo. ¡Es el eje de nuestro planeta proyectado hacia el infinito!
@@ -451,7 +495,7 @@
         <div class="flex flex-col md:flex-row gap-6 items-center">
           <div class="text-4xl text-cyan-400" aria-hidden="true">📱</div>
           <div>
-            <h3 class="text-lg font-bold dark:text-white text-slate-900">¡Haz tu propia foto de Larga Exposición!</h3>
+            <h3 class="text-lg font-bold dark:text-white text-slate-900">¡Haz tu propia foto de larga exposición!</h3>
             <p class="text-xs dark:text-slate-300 text-slate-800 leading-relaxed mt-2">
               Te proponemos un desafío científico. Puedes descargar de forma gratuita una aplicación de larga exposición para experimentar en tu casa:
             </p>
@@ -463,7 +507,7 @@
                 🍎 Light Camera in real time (iOS)
               </a>
             </div>
-            <p class="text-xs dark:text-slate-400 text-slate-600 mt-3 italic">
+            <p class="text-xs dark:text-slate-400 text-slate-700 mt-3 italic">
               * Consejo práctico: Apoya tu celular sobre una base fija (sin sostenerlo con las manos para evitar temblores), oscurece la habitación y haz pasar una linterna o un juguete luminoso frente al objetivo para inmortalizar tus propios trazos.
             </p>
           </div>
@@ -475,10 +519,10 @@
     <section class="mb-16">
       <div class="text-center mb-10">
         <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/30">
-          Ubicándonos en los Hemisferios
+          Ubicándonos en los hemisferios
         </span>
         <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 dark:text-white text-slate-900">
-          Cómo Encontrar el Sur y el Norte Celestes
+          Cómo encontrar el sur y el norte celestes
         </h3>
         <p class="text-sm dark:text-slate-400 text-slate-700 mt-2 max-w-xl mx-auto">
           El sentido y el centro del giro de las estrellas cambian según el hemisferio en el que nos encontremos. Veamos cómo ubicarnos a partir de imágenes de larga exposición.
@@ -491,9 +535,9 @@
         <div class="p-6 rounded-2xl dark:bg-slate-900/60 bg-white border dark:border-slate-800 border-slate-300 flex flex-col justify-between">
           <div>
             <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 rounded-full border border-cyan-500/30">
-              Hemisferio Sur - Vista desde Uruguay
+              Hemisferio sur - Vista desde Uruguay
             </span>
-            <h4 class="text-xl font-extrabold dark:text-white text-slate-900 mt-3 mb-2">El Polo Celeste Sur (PCS)</h4>
+            <h4 class="text-xl font-extrabold dark:text-white text-slate-900 mt-3 mb-2">El polo celeste sur (PCS)</h4>
             
             <!-- Foto de Villa Serrana -->
             <div class="my-4 overflow-hidden rounded-xl bg-slate-950 aspect-video border border-slate-800">
@@ -523,7 +567,7 @@
             <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-indigo-500/10 text-indigo-400 rounded-full border border-indigo-500/30">
               Hemisferio Norte
             </span>
-            <h4 class="text-xl font-extrabold dark:text-white text-slate-900 mt-3 mb-2">El Polo Celeste Norte (PCN)</h4>
+            <h4 class="text-xl font-extrabold dark:text-white text-slate-900 mt-3 mb-2">El polo celeste norte (PCN)</h4>
             
             <!-- Foto de Oregon -->
             <div class="my-4 overflow-hidden rounded-xl bg-slate-950 aspect-video border border-slate-800">
@@ -552,7 +596,7 @@
 
       <!-- PRECANCE DE LA PRECESIÓN -->
       <div class="mt-8 p-5 rounded-xl bg-indigo-950/10 dark:bg-slate-900/40 border dark:border-slate-800 border-indigo-200/50 text-xs leading-relaxed">
-        🌀 <strong>Dato de Precesión Estelar:</strong> La estrella del Norte cambia lentamente debido a que el eje de rotación de la Tierra gira en el espacio describiendo un círculo (movimiento de precesión, que tarda 25.776 años). Hace 12.000 años, la estrella polar era la brillante <strong>Vega</strong>. ¡Y dentro de otros 14.000 años, Vega volverá a ser coronada como la Estrella del Norte!
+        🌀 <strong>Dato de precesión estelar:</strong> La estrella del Norte cambia lentamente debido a que el eje de rotación de la Tierra gira en el espacio describiendo un círculo (movimiento de precesión, que tarda 25.776 años). Hace 12.000 años, la estrella polar era la brillante <strong>Vega</strong>. ¡Y dentro de otros 14.000 años, Vega volverá a ser coronada como la Estrella del Norte!
       </div>
     </section>
 
@@ -568,7 +612,7 @@
           <!-- Encabezado de la Trivia -->
           <div class="text-center mb-8">
             <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-cyan-500 text-slate-950 rounded-full">
-              Misión: Navegante de las Estrellas
+              Misión: navegante de las estrellas
             </span>
             <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 dark:text-white text-slate-900">
               Demuestra tu comprensión
@@ -579,7 +623,7 @@
 
             <!-- Marcador de Estrellas Recolectadas -->
             <div class="flex items-center justify-center gap-2 mt-4 bg-slate-950/40 p-3 rounded-2xl border border-slate-800 inline-flex">
-              <span class="text-sm font-bold tracking-wide dark:text-slate-300 text-slate-200">Estrellas Recolectadas:</span>
+              <span class="text-sm font-bold tracking-wide dark:text-slate-300 text-slate-200">Estrellas recolectadas:</span>
               <div class="flex gap-1" id="constellation-tracker">
                 <!-- Estrellas apagadas inicialmente -->
                 <span id="star-indicator-1" class="text-2xl text-slate-600 grayscale transition-all duration-300" aria-label="Estrella 1">★</span>
@@ -613,7 +657,7 @@
                 disabled
                 class="px-5 py-2.5 rounded-lg bg-cyan-500 text-slate-950 font-bold text-xs shadow-lg transition-all hover:bg-cyan-400 disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                Comprobar Respuesta
+                Comprobar respuesta
               </button>
             </div>
 
@@ -622,22 +666,22 @@
           <!-- Caja para el Certificado Final (Oculta hasta el final) -->
           <div class="hidden bg-slate-950 p-6 rounded-2xl border-2 border-cyan-500/60 text-center" id="certificate-box">
             <span class="text-5xl" aria-hidden="true">🏆</span>
-            <h4 class="text-xl font-bold text-cyan-400 mt-3">¡Misión de Navegación Completada!</h4>
+            <h4 class="text-xl font-bold text-cyan-400 mt-3">¡Misión de navegación completada!</h4>
             <p class="text-xs dark:text-slate-300 text-slate-200 mt-2 max-w-sm mx-auto leading-relaxed">
               Has demostrado comprender los fundamentos del movimiento diario de las estrellas y cómo orientar tu rumbo utilizando los astros.
             </p>
             
             <!-- Recuadro para captura de pantalla para el docente -->
             <div class="mt-6 p-4 border border-dashed border-slate-800 bg-slate-900 rounded-xl max-w-md mx-auto text-center shadow-inner">
-              <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">Tu certificado</p>
-              <p class="text-lg font-extrabold text-white mt-1">Navegante de la Esfera Celeste</p>
+              <p class="text-xs dark:text-slate-400 text-slate-600 uppercase tracking-widest font-bold">Tu certificado</p>
+              <p class="text-lg font-extrabold text-white mt-1">Navegante de la esfera celeste</p>
               <div class="flex justify-center gap-1 my-2 text-2xl text-cyan-400">
                 ★ ★ ★ ★ ★
               </div>
               <p class="text-xs text-slate-300 font-semibold mt-1">
                 Puntaje obtenido: <span class="text-cyan-400 text-sm font-black" id="final-score-value">0/5</span> estrellas
               </p>
-              <p class="text-[10px] text-slate-500 mt-2">
+              <p class="text-[10px] dark:text-slate-400 text-slate-600 mt-2">
                 Fecha del certificado: <span id="current-date-span"></span>
               </p>
             </div>
@@ -646,14 +690,14 @@
               onclick="restartQuiz()" 
               class="mt-6 px-4 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
             >
-              Reiniciar el Cuestionario
+              Reiniciar el cuestionario
             </button>
           </div>
 
         </div>
       </div>
     </section>
-   Para saber más consulta el módulo de referencia <a href="https://aulas.uruguayeduca.edu.uy/course/view.php?id=107&section=3" target="_blank" rel="noopener noreferrer"><u>Movimiento General Diario (MGD)</u></a> del Prof. Héctor Roldós en Portal Uruguay Educa.
+   Para saber más consulta el módulo de referencia <a href="https://aulas.uruguayeduca.edu.uy/course/view.php?id=107&section=3" target="_blank" rel="noopener noreferrer"><u>Movimiento general diario (MGD)</u></a> del Prof. Héctor Roldós en Portal Uruguay Educa.
   </main>
 
   <!-- PIE DE PÁGINA ESTÁNDAR URUGUAY EDUCA -->
@@ -662,7 +706,7 @@
         href="https://uruguayeduca.anep.edu.uy/" 
         target="_blank" 
         rel="noopener noreferrer" 
-        class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-4xl w-full px-6 py-4 bg-slate-950/40 rounded-2xl border border-blue-900/30 backdrop-blur-sm group hover:border-yellow-500/30 transition-all"
+        class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-4xl w-full px-6 py-4 bg-[#090d16] rounded-2xl border border-blue-900/30 backdrop-blur-sm group hover:border-yellow-500/30 transition-all"
       >
         <img 
           src="https://danielgastelu.github.io/web/logos/logoueblanco-removebg.png" 
@@ -670,7 +714,7 @@
           class="h-10 md:h-12 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
           onerror="this.onerror=null; this.style.display='none';"
         />
-        <span class="text-xs md:text-sm text-blue-300/60 group-hover:text-yellow-400 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
+        <span class="text-xs md:text-sm text-[#cbd5e1] group-hover:text-yellow-300 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
           Portal Uruguay Educa (ANEP-DGES-EDyTIC) - Contenidistas de Astronomía 2026 - Herramienta de uso libre - Desarrollado con asistencia de IA.
         </span>
       </a>
@@ -898,7 +942,7 @@
       }
 
       // Incrementar velocidad del MGD aparente
-      angleOffset += 0.003;
+      if (!window.__mgdPausa) angleOffset += 0.003;
       animationId = requestAnimationFrame(drawSimulation);
     }
 
@@ -1002,7 +1046,7 @@
     function renderQuizQuestion() {
       const currentQuestion = quizData[currentQuizStep];
       const nextBtn = document.getElementById('next-btn');
-      nextBtn.innerText = "Comprobar Respuesta";
+      nextBtn.innerText = "Comprobar respuesta";
       nextBtn.disabled = true;
       selectedAnswerIndex = null;
 
@@ -1044,7 +1088,7 @@
 
     // --- INTERACCIÓN CON OPCIONES ---
     function selectOption(index) {
-      if (document.getElementById('next-btn').innerText === "Siguiente Pregunta") return; // Impedir cambio una vez comprobado
+      if (document.getElementById('next-btn').innerText === "Siguiente pregunta") return; // Impedir cambio una vez comprobado
 
       const currentQuestion = quizData[currentQuizStep];
       selectedAnswerIndex = index;
@@ -1072,7 +1116,7 @@
       const feedbackBox = document.getElementById('quiz-feedback-box');
       const currentQuestion = quizData[currentQuizStep];
 
-      if (nextBtn.innerText === "Comprobar Respuesta") {
+      if (nextBtn.innerText === "Comprobar respuesta") {
         const isCorrect = selectedAnswerIndex === currentQuestion.correct;
         
         // Bloquear todas las opciones
@@ -1104,9 +1148,9 @@
         feedbackBox.classList.remove('hidden');
 
         if (currentQuizStep < quizData.length - 1) {
-          nextBtn.innerText = "Siguiente Pregunta";
+          nextBtn.innerText = "Siguiente pregunta";
         } else {
-          nextBtn.innerText = "Obtener Certificado";
+          nextBtn.innerText = "Obtener certificado";
         }
       } else {
         // Avanzar a la siguiente pregunta o mostrar el resultado final
@@ -1200,5 +1244,89 @@
 <!-- Código de analítica GoatCounter -->
 <script data-goatcounter="https://danielgastelu.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<script id="a11y-general">
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 2.2.2: animaciones infinitas (salvo indicadores de carga) se limitan a 3 ciclos
+  function limitar(){
+    if(!document.getAnimations) return;
+    document.getAnimations().forEach(function(a){
+      try{
+        var t=a.effect&&a.effect.getTiming(); if(!t||t.iterations!==Infinity) return;
+        var el=a.effect.target, n=(a.animationName||'')+' '+(el&&el.className&&el.className.baseVal===undefined?el.className:'');
+        if(a.animationName==='spin'||/load|cargando/i.test(n)) return;
+        a.effect.updateTiming({iterations: reduce?1:3});
+      }catch(e){}
+    });
+  }
+  document.addEventListener('animationstart', limitar, true);
+  var pend; new MutationObserver(function(){ clearTimeout(pend); pend=setTimeout(function(){limitar();nombrar();},150); })
+    .observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  // 2.1.1 / 4.1.2: elementos no interactivos con onclick, iframes sin título
+  function nombrar(){
+    document.querySelectorAll('[onclick]:not(button):not(a):not(input):not(select):not(textarea):not([tabindex]):not(#image-lightbox)').forEach(function(el){
+      if(/^\s*event\.stopPropagation\(\)\s*;?\s*$/.test(el.getAttribute('onclick'))) return;
+      if(el.hasAttribute('data-a11y-puntero')) return;
+      el.setAttribute('tabindex','0'); if(!el.getAttribute('role')) el.setAttribute('role','button');
+      if(!el.getAttribute('aria-label')){ var img=el.tagName==='IMG'?el:null; if(img&&img.alt) el.setAttribute('aria-label','Ampliar imagen: '+img.alt); }
+    });
+    document.querySelectorAll('iframe:not([title])').forEach(function(f){ f.setAttribute('title','Contenido incrustado'); });
+  }
+  document.addEventListener('keydown', function(e){
+    var el=e.target; if(!(e.key==='Enter'||e.key===' ')) return;
+    if(el.getAttribute && el.getAttribute('role')==='button' && el.hasAttribute('onclick') && !/^(BUTTON|A|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)){ e.preventDefault(); el.click(); }
+  });
+  // 2.1.1: mira por teclado para marcar sobre imágenes (flechas + Enter)
+  function puntero(el){
+    if(el.__mira) return; el.__mira=true;
+    el.setAttribute('tabindex','0'); el.setAttribute('role','application');
+    var x=.5,y=.5, m=document.createElement('div');
+    m.setAttribute('aria-hidden','true');
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    document.body.appendChild(m);
+    function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
+    function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';
+      el.dispatchEvent(new MouseEvent('mousemove',{clientX:p.cx,clientY:p.cy,bubbles:true}));}
+    el.addEventListener('focus',show); el.addEventListener('blur',function(){m.style.display='none';});
+    addEventListener('scroll',function(){if(document.activeElement===el)show();},true);
+    el.addEventListener('keydown',function(e){
+      var s=e.shiftKey?.05:.01, k=e.key;
+      if(k==='ArrowLeft')x=Math.max(0,x-s);else if(k==='ArrowRight')x=Math.min(1,x+s);
+      else if(k==='ArrowUp')y=Math.max(0,y-s);else if(k==='ArrowDown')y=Math.min(1,y+s);
+      else if(k==='Enter'||k===' '){e.preventDefault();var p=pos();el.dispatchEvent(new MouseEvent('click',{clientX:p.cx,clientY:p.cy,bubbles:true}));return;}
+      else return;
+      e.preventDefault(); show();
+    });
+  }
+  // 2.4.11: el foco no queda tapado por barras fijas o pegajosas
+  document.addEventListener('focusin', function(e){
+    var el=e.target; if(!el.getBoundingClientRect) return;
+    var r=el.getBoundingClientRect(), top=0, bot=innerHeight;
+    document.querySelectorAll('body *').forEach(function(b){
+      if(b.contains(el)) return; var cs=getComputedStyle(b); if(cs.position!=='fixed'&&cs.position!=='sticky') return;
+      if(cs.display==='none'||cs.visibility==='hidden'||cs.opacity==='0'||cs.pointerEvents==='none') return;
+      var q=b.getBoundingClientRect(); if(q.width<innerWidth*.5||q.height>innerHeight*.4) return;
+      if(q.bottom<=0||q.top>=innerHeight) return; if(q.top<innerHeight*.3) top=Math.max(top,q.bottom); else if(q.bottom>innerHeight*.7) bot=Math.min(bot,q.top);
+    });
+    if(r.top<top) scrollBy(0,r.top-top-8); else if(r.bottom>bot) scrollBy(0,r.bottom-bot+8);
+  });
+  // 4.1.3: mensajes de estado anunciados por lectores de pantalla
+  ['error-message-box','error-message','quiz-feedback-block','quiz-result-box','quiz-feedback-box','feedback-box',
+   'trivia-feedback','trivia-result','toast','toast-container','merge-status-text','resultDisplay','score-display',
+   'quiz-result','team-scores-container','file-counter'].forEach(function(id){
+    var el=document.getElementById(id); if(el&&!el.hasAttribute('aria-live')){ el.setAttribute('aria-live','polite'); if(!el.getAttribute('role')) el.setAttribute('role','status'); }
+  });
+  function init(){ nombrar(); limitar(); document.querySelectorAll('[data-a11y-puntero]').forEach(puntero); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  addEventListener('load',limitar);
+})();
+</script>
+<p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
+<script>
+(function(){var b=document.getElementById('btn-pausa-mgd');if(!b)return;
+function set(p){window.__mgdPausa=p;b.setAttribute('aria-pressed',p?'true':'false');b.textContent=p?'Reanudar giro':'Pausar giro';}
+set(matchMedia('(prefers-reduced-motion: reduce)').matches);
+b.addEventListener('click',function(){set(!window.__mgdPausa);});})();
+</script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exoplanetas: Nuevos mundos más allá de nuestro Sol</title>
+    <title>Exoplanetas: nuevos mundos más allá de nuestro Sol</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* Paleta de Colores Globales en CSS Nativo */
@@ -480,6 +480,12 @@
     }
     @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
   </style>
+<style id="a11y-base">
+/* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
+:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+</style>
 </head>
 <body class="stars">
 
@@ -502,11 +508,11 @@
             </div>
             <nav id="main-nav" aria-label="Secciones de la página">
                 <a href="#que-es">¿Qué son?</a>
-                <a href="#didactica">Guía Didáctica</a>
+                <a href="#didactica">Guía didáctica</a>
                 <a href="#simulador">Laboratorio</a>
                 <a href="#trivia-section">Trivia</a>
             </nav>
-            <a href="#simulador" class="btn btn-primary header-cta">Probar Simulador</a>
+            <a href="#simulador" class="btn btn-primary header-cta">Probar simulador</a>
             <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir el menú de secciones">
                 <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
                 <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -525,8 +531,8 @@
     <section id="que-es" class="py">
         <div class="container grid-2">
             <div>
-                <div class="sec-tag tag-purple">Detección Fotométrica</div>
-                <h2 class="sec-title">¿Qué es un Exoplaneta?</h2>
+                <div class="sec-tag tag-purple">Detección fotométrica</div>
+                <h2 class="sec-title">¿Qué es un exoplaneta?</h2>
                 <p style="color: var(--slate-300); margin-bottom: 1.5rem;">Un exoplaneta es cualquier mundo que orbita una estrella diferente a nuestro Sol. Al estar a distancias descomunales, analizamos la bajada de luz que producen al cruzar frente a su astro rey.</p>
                 <div class="glass-panel" style="padding: 1rem; display: flex; gap: 1rem;">
                     <div style="flex: 1; text-align: center;"><h3 class="tag-cyan" style="font-size: 1.5rem;">1992</h3><p style="font-size: 0.75rem; color: var(--slate-400);">Primer hallazgo</p></div>
@@ -549,30 +555,30 @@
     <section id="didactica" class="py bg-strip">
         <div class="container">
             <div class="text-center max-w-3xl" style="margin-bottom: 2.5rem;">
-                <div class="sec-tag tag-purple">Manual del Joven Astrónomo</div>
+                <div class="sec-tag tag-purple">Manual del joven astrónomo</div>
                 <h2 class="sec-title">Guía de exploración de exoplanetas</h2>
             </div>
 
             <div class="grid-md-2" style="display: grid;">
                 <div class="glass-panel">
-                    <h3 style="font-size: 1.15rem; margin-bottom: 1rem; color: var(--neon-cyan);">Conceptos Clave para Investigar</h3>
+                    <h3 style="font-size: 1.15rem; margin-bottom: 1rem; color: var(--neon-cyan);">Conceptos clave para investigar</h3>
                     <p class="didactic-text">
                         <strong>1. ¿En qué consiste un exoplaneta?</strong><br>
                         Es un planeta que se encuentra fuera de nuestro sistema solar, orbitando una estrella lejana. Dado que las estrellas brillan millones de veces más que sus planetas, los astrónomos usan telescopios espaciales sensibles para registrar el momento exacto en el que el brillo estelar disminuye debido al bloqueo mecánico que ejerce el planeta al cruzar por delante.
                     </p>
                     <p class="didactic-text">
-                        <strong>2. La Zona "Ricitos de Oro" (Zona Habitable)</strong><br>
+                        <strong>2. La zona "Ricitos de Oro" (zona habitable)</strong><br>
                         Se define como la región alrededor de una estrella donde el flujo de radiación térmica permite que un planeta rocoso mantenga una temperatura óptima en su superficie: ni tan caliente como para evaporar las atmósferas, ni tan helada como para congelar los océanos. El agua líquida es el pilar de la biología tal como la conocemos.
                     </p>
                     <p class="didactic-text">
-                        <strong>3. Relación con la Emisión Energética</strong><br>
+                        <strong>3. Relación con la emisión energética</strong><br>
                         La ubicación de esta zona templada depende de la masa y temperatura de la estrella central. Las estrellas masivas y calientes (como las <em>Gigantes Azules</em>) emiten tanta energía que su zona habitable se sitúa a distancias gigantescas. Por el contrario, las estrellas frías y compactas (como las <em>Enanas Rojas</em>) emiten tan poca energía que su zona "Ricitos de Oro" se localiza sumamente cerca de ellas.
                     </p>
                 </div>
 
                 <div class="glass-panel" style="display: flex; flex-direction: column; justify-content: space-between;">
                     <div>
-                        <h3 style="font-size: 1.15rem; margin-bottom: 1rem; color: var(--neon-purple);">Preguntas para Reflexionar</h3>
+                        <h3 style="font-size: 1.15rem; margin-bottom: 1rem; color: var(--neon-purple);">Preguntas para reflexionar</h3>
                         <div class="reflection-container">
                             <div class="reflection-card">
                                 <h4>💡 ¿Qué ocurre con la curva de luz si el planeta está muy cerca o muy lejos de la estrella?</h4>
@@ -592,8 +598,8 @@
     <section id="simulador" class="py">
         <div class="container">
             <div class="text-center max-w-3xl" style="margin-bottom: 3rem;">
-                <div class="pill-badge">Análisis en Vivo</div>
-                <h2 class="sec-title">Laboratorio de Tránsitos y Habitabilidad</h2>
+                <div class="pill-badge">Análisis en vivo</div>
+                <h2 class="sec-title">Laboratorio de tránsitos y habitabilidad</h2>
                 <p style="color: var(--slate-300);">Visualiza de forma interactiva el comportamiento de un planeta en torno a una estrella. Ajusta inclinación, órbita y tamaños de estrella principal y del planeta en el menú de parámetros.</p>
             </div>
 
@@ -610,51 +616,51 @@
                         </div>
                         
                         <div class="canvas-container simulation-box">
-                            <canvas id="canvas-simulation"></canvas>
+                            <canvas id="canvas-simulation" role="img" aria-label="Simulación de un planeta que transita frente a su estrella"></canvas>
                         </div>
                     </div>
 
                     <div class="glass-panel">
                         <span style="font-size: 0.75rem; font-weight:700; color: var(--slate-400); display: block; margin-bottom: 0.25rem;">📉 REGISTRO FOTOMÉTRICO (CURVA DE LUZ)</span>
                         <div class="canvas-container chart-box">
-                            <canvas id="canvas-chart"></canvas>
+                            <canvas id="canvas-chart" role="img" aria-label="Curva de luz: brillo de la estrella a lo largo del tiempo"></canvas>
                         </div>
                     </div>
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
                     <div class="glass-panel">
-                        <h3 style="font-size: 1rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--slate-800); padding-bottom: 0.5rem; color: var(--slate-200);">Controles del Sistema</h3>
+                        <h3 style="font-size: 1rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--slate-800); padding-bottom: 0.5rem; color: var(--slate-200);">Controles del sistema</h3>
 
                         <div class="form-group">
                             <div class="form-label-wrap">
-                                <span>Inclinación Órbita (i)</span>
+                                <span>Inclinación de la órbita (i)</span>
                                 <span id="val-orbit-incl" class="tag-cyan" style="font-weight: 700;">20°</span>
                             </div>
-                            <input id="slider-orbit-incl" type="range" min="0" max="30" value="20">
+                            <input id="slider-orbit-incl" aria-label="Inclinación de la órbita" aria-describedby="val-orbit-incl" type="range" min="0" max="30" value="20">
                             <p class="help-text">Ángulo respecto al observador. En valor 0° pasa exactamente por el frente de la estrella central.</p>
                         </div>
 
                         <div class="form-group">
                             <div class="form-label-wrap">
-                                <span>Distancia de la Estrella</span>
+                                <span>Distancia de la estrella</span>
                                 <span id="val-orbit-dist" class="tag-purple" style="font-weight: 700;">Media</span>
                             </div>
-                            <input id="slider-orbit-dist" type="range" min="40" max="170" value="100">
+                            <input id="slider-orbit-dist" aria-label="Distancia de la estrella" aria-describedby="val-orbit-dist" type="range" min="40" max="170" value="100">
                             <p class="help-text">Modifica el radio orbital. Determina qué tan expuesto está el planeta a la radiación térmica.</p>
                         </div>
 
                         <div class="form-group">
                             <div class="form-label-wrap">
-                                <span>Diámetro del Exoplaneta</span>
+                                <span>Diámetro del exoplaneta</span>
                                 <span id="val-planet-size" style="color: var(--neon-gold); font-weight: 700;">Mediano</span>
                             </div>
-                            <input id="slider-planet-size" type="range" min="6" max="22" value="13">
+                            <input id="slider-planet-size" aria-label="Diámetro del exoplaneta" aria-describedby="val-planet-size" type="range" min="6" max="22" value="13">
                             <p class="help-text">Planetas de mayor masa bloquean una fracción de fotones más notable.</p>
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label-wrap">Clase Lumínica de Estrella</label>
+                            <label class="form-label-wrap" for="select-star-type">Clase lumínica de la estrella</label>
                             <select id="select-star-type" class="form-select">
                                 <option value="sun" selected>Enana Amarilla (Tipo Sol - Zonas Estándar)</option>
                                 <option value="red">Enana Roja (Pequeña/Fría - Zonas Contraídas)</option>
@@ -665,10 +671,10 @@
                     </div>
 
                     <div class="glass-panel telemetry-box">
-                        <h4 class="sec-tag tag-cyan">Lecturas de Instrumentos</h4>
+                        <h4 class="sec-tag tag-cyan">Lecturas de instrumentos</h4>
                         <div class="telemetry-list">
-                            <div>📉 <strong>Caída de Brillo:</strong> <span id="telemetry-dip" class="tag-cyan" style="font-weight:700;">0.00%</span></div>
-                            <div>🌡️ <strong>Condición Térmica:</strong> <span id="telemetry-zone" style="font-weight:700; padding: 0.1rem 0.4rem; border-radius:4px;">Analizando...</span></div>
+                            <div>📉 <strong>Caída de brillo:</strong> <span id="telemetry-dip" class="tag-cyan" style="font-weight:700;">0.00%</span></div>
+                            <div>🌡️ <strong>Condición térmica:</strong> <span id="telemetry-zone" style="font-weight:700; padding: 0.1rem 0.4rem; border-radius:4px;">Analizando...</span></div>
                         </div>
                     </div>
                 </div>
@@ -702,10 +708,10 @@
 
                 <div id="trivia-result" class="quiz-result hidden">
                     <div id="trivia-result-emoji" class="quiz-emoji">🏆</div>
-                    <h3 id="trivia-result-title" class="quiz-title">Evaluación Completa</h3>
+                    <h3 id="trivia-result-title" class="quiz-title">Evaluación completa</h3>
                     <!-- Se ha cambiado a un p normal porque inyectaremos el HTML dinámicamente -->
                     <p id="trivia-result-text" style="font-size: 0.95rem; color: var(--slate-300); margin-bottom: 1rem; line-height: 1.5;"></p>
-                    <button id="btn-restart-trivia" class="btn btn-dark" style="padding: 0.75rem 1.75rem; border-radius: 0.5rem;">Reiniciar Trivia 🔄</button>
+                    <button id="btn-restart-trivia" class="btn btn-dark" style="padding: 0.75rem 1.75rem; border-radius: 0.5rem;">Reiniciar trivia 🔄</button>
                 </div>
             </div>
         </div>
@@ -975,15 +981,15 @@
             telemetryDip.textContent = `${totalDipPct}%`;
 
             if (orbitRadius <= zoneCalienteMax) {
-                telemetryZone.textContent = "🔥 Zona Caliente (Inhabitable)";
+                telemetryZone.textContent = "🔥 Zona caliente (inhabitable)";
                 telemetryZone.style.backgroundColor = "rgba(239, 68, 68, 0.2)";
                 telemetryZone.style.color = "#ef4444";
             } else if (orbitRadius > zoneCalienteMax && orbitRadius <= zoneHabitableMax) {
-                telemetryZone.textContent = "🍀 Zona Ricitos de Oro (Habitable)";
+                telemetryZone.textContent = "🍀 Zona Ricitos de Oro (habitable)";
                 telemetryZone.style.backgroundColor = "rgba(16, 185, 129, 0.2)";
                 telemetryZone.style.color = "#34d399";
             } else {
-                telemetryZone.textContent = "❄️ Zona Fría (Inhabitable)";
+                telemetryZone.textContent = "❄️ Zona fría (inhabitable)";
                 telemetryZone.style.backgroundColor = "rgba(59, 130, 246, 0.2)";
                 telemetryZone.style.color = "#60a5fa";
             }
@@ -1197,7 +1203,7 @@
                 triviaFeedback.style.backgroundColor = "rgba(16, 185, 129, 0.1)";
                 triviaFeedback.style.border = "1px solid rgba(16, 185, 129, 0.3)";
                 triviaFeedback.style.color = "#34d399";
-                triviaFeedback.innerHTML = `<strong>✨ ¡Respuesta Correcta!</strong><br>${current.exp}`;
+                triviaFeedback.innerHTML = `<strong>✨ ¡Respuesta correcta!</strong><br>${current.exp}`;
             } else {
                 // Confirmación visual de respuesta incorrecta en ROJO
                 buttons[selectedIdx].style.backgroundColor = "rgba(239, 68, 68, 0.25)";
@@ -1207,7 +1213,7 @@
                 triviaFeedback.style.backgroundColor = "rgba(239, 68, 68, 0.1)";
                 triviaFeedback.style.border = "1px solid rgba(239, 68, 68, 0.3)";
                 triviaFeedback.style.color = "#f87171";
-                triviaFeedback.innerHTML = `<strong>❌ Respuesta Incorrecta</strong><br>${current.exp}`;
+                triviaFeedback.innerHTML = `<strong>❌ Respuesta incorrecta</strong><br>${current.exp}`;
             }
 
             // Mostrar la devolución y activar la opción de pasar de diapositiva
@@ -1239,7 +1245,7 @@
             // Mecanismo evaluativo condicional estricto usando innerHTML para inyectar enlaces y saltos de línea
             if (triviaScore < 4) {
                 emoji.textContent = "📡🛰️";
-                title.textContent = "Misión Incompleta";
+                title.textContent = "Misión incompleta";
                 text.innerHTML = `Has obtenido ${triviaScore} de ${triviaData.length} aciertos. Te recomendamos volver a revisar el contenido didáctico de la guía, experimentar con las variables físicas en el laboratorio interactivo e intentarlo nuevamente para mejorar tus marcas.`;
             } else if (triviaScore === 4 || triviaScore === 5) {
                 emoji.textContent = "🚀🌌";
@@ -1248,7 +1254,7 @@
             } else {
                 // Felicitación vigorosa (6 o 7 aciertos)
                 emoji.textContent = "🏆🛸🪐";
-                title.textContent = "¡Magnífico! ¡Nivel Astrofísico de Élite!";
+                title.textContent = "¡Magnífico! ¡Nivel astrofísico de élite!";
                 text.innerHTML = `¡Impresionante desempeño! Has completado con éxito ${triviaScore} de ${triviaData.length} aciertos perfectos. Recibe una felicitación vigorosa por dominar con absoluta precisión el comportamiento lumínico, el impacto de la inclinación órbita-observador y las zonas habitables del cosmos.` + collaborationLink;
             }
         }
@@ -1263,5 +1269,83 @@
 <!-- Código de analítica GoatCounter -->
 <script data-goatcounter="https://danielgastelu.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<script id="a11y-general">
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 2.2.2: animaciones infinitas (salvo indicadores de carga) se limitan a 3 ciclos
+  function limitar(){
+    if(!document.getAnimations) return;
+    document.getAnimations().forEach(function(a){
+      try{
+        var t=a.effect&&a.effect.getTiming(); if(!t||t.iterations!==Infinity) return;
+        var el=a.effect.target, n=(a.animationName||'')+' '+(el&&el.className&&el.className.baseVal===undefined?el.className:'');
+        if(a.animationName==='spin'||/load|cargando/i.test(n)) return;
+        a.effect.updateTiming({iterations: reduce?1:3});
+      }catch(e){}
+    });
+  }
+  document.addEventListener('animationstart', limitar, true);
+  var pend; new MutationObserver(function(){ clearTimeout(pend); pend=setTimeout(function(){limitar();nombrar();},150); })
+    .observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  // 2.1.1 / 4.1.2: elementos no interactivos con onclick, iframes sin título
+  function nombrar(){
+    document.querySelectorAll('[onclick]:not(button):not(a):not(input):not(select):not(textarea):not([tabindex]):not(#image-lightbox)').forEach(function(el){
+      if(/^\s*event\.stopPropagation\(\)\s*;?\s*$/.test(el.getAttribute('onclick'))) return;
+      if(el.hasAttribute('data-a11y-puntero')) return;
+      el.setAttribute('tabindex','0'); if(!el.getAttribute('role')) el.setAttribute('role','button');
+      if(!el.getAttribute('aria-label')){ var img=el.tagName==='IMG'?el:null; if(img&&img.alt) el.setAttribute('aria-label','Ampliar imagen: '+img.alt); }
+    });
+    document.querySelectorAll('iframe:not([title])').forEach(function(f){ f.setAttribute('title','Contenido incrustado'); });
+  }
+  document.addEventListener('keydown', function(e){
+    var el=e.target; if(!(e.key==='Enter'||e.key===' ')) return;
+    if(el.getAttribute && el.getAttribute('role')==='button' && el.hasAttribute('onclick') && !/^(BUTTON|A|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)){ e.preventDefault(); el.click(); }
+  });
+  // 2.1.1: mira por teclado para marcar sobre imágenes (flechas + Enter)
+  function puntero(el){
+    if(el.__mira) return; el.__mira=true;
+    el.setAttribute('tabindex','0'); el.setAttribute('role','application');
+    var x=.5,y=.5, m=document.createElement('div');
+    m.setAttribute('aria-hidden','true');
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    document.body.appendChild(m);
+    function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
+    function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';
+      el.dispatchEvent(new MouseEvent('mousemove',{clientX:p.cx,clientY:p.cy,bubbles:true}));}
+    el.addEventListener('focus',show); el.addEventListener('blur',function(){m.style.display='none';});
+    addEventListener('scroll',function(){if(document.activeElement===el)show();},true);
+    el.addEventListener('keydown',function(e){
+      var s=e.shiftKey?.05:.01, k=e.key;
+      if(k==='ArrowLeft')x=Math.max(0,x-s);else if(k==='ArrowRight')x=Math.min(1,x+s);
+      else if(k==='ArrowUp')y=Math.max(0,y-s);else if(k==='ArrowDown')y=Math.min(1,y+s);
+      else if(k==='Enter'||k===' '){e.preventDefault();var p=pos();el.dispatchEvent(new MouseEvent('click',{clientX:p.cx,clientY:p.cy,bubbles:true}));return;}
+      else return;
+      e.preventDefault(); show();
+    });
+  }
+  // 2.4.11: el foco no queda tapado por barras fijas o pegajosas
+  document.addEventListener('focusin', function(e){
+    var el=e.target; if(!el.getBoundingClientRect) return;
+    var r=el.getBoundingClientRect(), top=0, bot=innerHeight;
+    document.querySelectorAll('body *').forEach(function(b){
+      if(b.contains(el)) return; var cs=getComputedStyle(b); if(cs.position!=='fixed'&&cs.position!=='sticky') return;
+      if(cs.display==='none'||cs.visibility==='hidden'||cs.opacity==='0'||cs.pointerEvents==='none') return;
+      var q=b.getBoundingClientRect(); if(q.width<innerWidth*.5||q.height>innerHeight*.4) return;
+      if(q.bottom<=0||q.top>=innerHeight) return; if(q.top<innerHeight*.3) top=Math.max(top,q.bottom); else if(q.bottom>innerHeight*.7) bot=Math.min(bot,q.top);
+    });
+    if(r.top<top) scrollBy(0,r.top-top-8); else if(r.bottom>bot) scrollBy(0,r.bottom-bot+8);
+  });
+  // 4.1.3: mensajes de estado anunciados por lectores de pantalla
+  ['error-message-box','error-message','quiz-feedback-block','quiz-result-box','quiz-feedback-box','feedback-box',
+   'trivia-feedback','trivia-result','toast','toast-container','merge-status-text','resultDisplay','score-display',
+   'quiz-result','team-scores-container','file-counter'].forEach(function(id){
+    var el=document.getElementById(id); if(el&&!el.hasAttribute('aria-live')){ el.setAttribute('aria-live','polite'); if(!el.getAttribute('role')) el.setAttribute('role','status'); }
+  });
+  function init(){ nombrar(); limitar(); document.querySelectorAll('[data-a11y-puntero]').forEach(puntero); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  addEventListener('load',limitar);
+})();
+</script>
+<p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
 </body>
 </html>

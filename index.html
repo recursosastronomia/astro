@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal de Astronomía - Recursos educativos</title>
+  <title>Portal de astronomía - Recursos educativos</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -72,6 +72,12 @@
     }
     @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
   </style>
+<style id="a11y-base">
+/* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
+:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+</style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-slate-950">
 
@@ -109,7 +115,7 @@
     <!-- Hero / Presentación -->
     <section class="text-center max-w-3xl mx-auto mb-12">
       <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-sky-500/10 text-sky-400 rounded-full border border-sky-500/30">
-        Recursos de Astronomía 2026
+        Recursos de astronomía 2026
       </span>
       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mt-4 mb-4 text-white leading-tight">
         Explora los misterios <br class="hidden sm:inline"> del Cosmos
@@ -128,10 +134,10 @@
         🌌 Simuladores 3D
       </button>
       <button onclick="filterResources('modulos')" id="btn-modulos" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
-        📖 Módulos Educativos
+        📖 Módulos educativos
       </button>
       <button onclick="filterResources('evaluaciones')" id="btn-evaluaciones" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
-        🎮 Trivias y Evaluaciones
+        🎮 Trivias y evaluaciones
       </button>
     </section>
 
@@ -167,14 +173,14 @@
             <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-indigo-500/15 text-indigo-400 rounded-md border border-indigo-500/20">Simulador 3D</span>
             <span class="text-3xl" aria-hidden="true">🌙</span>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Simulador de Fases Lunares</h3>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Simulador de fases lunares</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
             Un simulador interactivo en tres dimensiones adaptado al hemisferio sur. Manipula la posición orbital de la luna y pon a prueba tus conocimientos en astronomía de observación.
           </p>
         </div>
         <div class="px-6 pb-6 pt-2">
           <a href="ec/luna001.html" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-sky-500 hover:text-slate-950 text-white text-xs font-bold rounded-xl transition-all shadow-md group-hover:shadow-sky-500/5">
-            <span>Iniciar Simulación</span>
+            <span>Iniciar simulación</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
           </a>
         </div>
@@ -184,7 +190,7 @@
       <article data-category="modulos" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Módulo Interactivo</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Módulo interactivo</span>
             <span class="text-3xl" aria-hidden="true">🚀</span>
           </div>
           <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Sondas Voyager</h3>
@@ -200,21 +206,21 @@
         </div>
       </article>
 
-      <!-- Contaminación Lumínica -->
+      <!-- Contaminación lumínica -->
       <article data-category="modulos" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Módulo de Contenido</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Módulo de contenido</span>
             <span class="text-3xl" aria-hidden="true">🔭</span>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Contaminación Lumínica</h3>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Contaminación lumínica</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
             Aprende sobre las consecuencias de la luz ineficiente en la salud, biodiversidad y el cielo nocturno. Incluye un módulo deslizador comparativo (antes/después) y una trivia gamificada.
           </p>
         </div>
         <div class="px-6 pb-6 pt-2">
           <a href="ec/contlumv1.html" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-sky-500 hover:text-slate-950 text-white text-xs font-bold rounded-xl transition-all shadow-md group-hover:shadow-sky-500/5">
-            <span>Explorar Módulo</span>
+            <span>Explorar módulo</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
           </a>
         </div>
@@ -227,27 +233,27 @@
             <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Módulo interactivo</span>
             <span class="text-3xl" aria-hidden="true">🪐</span>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Explorador de Exoplanetas</h3>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Explorador de exoplanetas</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
             Sumérgete en el descubrimiento de mundos más allá de nuestro Sistema Solar. Conoce los principales métodos científicos de búsqueda y pon a prueba tu destreza como exocazador.
           </p>
         </div>
         <div class="px-6 pb-6 pt-2">
           <a href="ec/exoplanetas.html" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-sky-500 hover:text-slate-950 text-white text-xs font-bold rounded-xl transition-all shadow-md group-hover:shadow-sky-500/5">
-            <span>Explorar Exoplanetas</span>
+            <span>Explorar exoplanetas</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
           </a>
         </div>
       </article>
 
-      <!-- Movimiento General Diario (MGD) -->
+      <!-- Movimiento general diario (MGD) -->
       <article data-category="modulos" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
             <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Módulo interactivo</span>
             <span class="text-3xl" aria-hidden="true">🌀</span>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Movimiento General Diario</h3>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Movimiento general diario</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
             Estudia el viaje aparente del Sol, la Luna y las estrellas en un ciclo de 24 horas. Incluye un simulador de trazos de larga exposición (star trails) para hemisferio Sur y Norte.
           </p>
@@ -260,11 +266,11 @@
         </div>
       </article>
 
-      <!-- Constelaciones, tomado de Movimiento General Diario (MGD) -->
+      <!-- Constelaciones, tomado de Movimiento general diario (MGD) -->
       <article data-category="modulos" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Módulo Interactivo</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Módulo interactivo</span>
             <span class="text-3xl" aria-hidden="true">🌌</span>
           </div>
           <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Constelaciones</h3>
@@ -284,7 +290,7 @@
       <article data-category="modulos" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Guía Práctica</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Guía práctica</span>
             <span class="text-3xl" aria-hidden="true">📱</span>
           </div>
           <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Astrofotografía con celular</h3>
@@ -294,7 +300,7 @@
         </div>
         <div class="px-6 pb-6 pt-2">
           <a href="ec/astrocelular.html" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-sky-500 hover:text-slate-950 text-white text-xs font-bold rounded-xl transition-all shadow-md group-hover:shadow-sky-500/5">
-            <span>Ver Guía</span>
+            <span>Ver guía</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
           </a>
         </div>
@@ -304,10 +310,10 @@
       <article data-category="evaluaciones" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-rose-500/15 text-rose-400 rounded-md border border-rose-500/20">Trivia Grupal</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-rose-500/15 text-rose-400 rounded-md border border-rose-500/20">Trivia grupal</span>
             <span class="text-3xl" aria-hidden="true">🏆</span>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Quiz Show Dinámico</h3>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Quiz Show dinámico</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
             Una plataforma de evaluación tipo Jeopardy para jugar en equipos en el aula. Genera dinámicamente tus preguntas utilizando planillas estándar de Excel descargables.
           </p>
@@ -324,17 +330,17 @@
       <article data-category="evaluaciones" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-rose-500/15 text-rose-400 rounded-md border border-rose-500/20">Video Cuestionario</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-rose-500/15 text-rose-400 rounded-md border border-rose-500/20">Video cuestionario</span>
             <span class="text-3xl" aria-hidden="true">🎬</span>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Video Quiz Interactivo</h3>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Video quiz interactivo</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
             Combina contenido audiovisual con interactividad. Sube una plantilla Excel con tiempos específicos y detén automáticamente videos educativos para evaluar a tus estudiantes.
           </p>
         </div>
         <div class="px-6 pb-6 pt-2">
           <a href="video_quiz_interactivo.html" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-sky-500 hover:text-slate-950 text-white text-xs font-bold rounded-xl transition-all shadow-md group-hover:shadow-sky-500/5">
-            <span>Lanzar Video Quiz</span>
+            <span>Lanzar video quiz</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
           </a>
         </div>
@@ -408,12 +414,90 @@
         .catch(error => {
           console.warn('No se pudo cargar el footer dinámico. Usando respaldo de seguridad.', error);
           document.getElementById('footer-container').innerHTML = 
-            '<div class="w-full flex justify-center py-4"><a href="https://uruguayeduca.anep.edu.uy/" target="_blank" class="text-xs text-slate-400 hover:text-white transition-colors">Portal Uruguay Educa (Enlace de respaldo)</a></div>';
+            '<div class="w-full flex justify-center py-4"><a href="https://uruguayeduca.anep.edu.uy/" target="_blank" class="text-xs text-slate-400 hover:text-white transition-colors">Portal Uruguay Educa (enlace de respaldo)</a></div>';
         });
     });
   </script>
 
 <script data-goatcounter="https://danielgastelu.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<script id="a11y-general">
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 2.2.2: animaciones infinitas (salvo indicadores de carga) se limitan a 3 ciclos
+  function limitar(){
+    if(!document.getAnimations) return;
+    document.getAnimations().forEach(function(a){
+      try{
+        var t=a.effect&&a.effect.getTiming(); if(!t||t.iterations!==Infinity) return;
+        var el=a.effect.target, n=(a.animationName||'')+' '+(el&&el.className&&el.className.baseVal===undefined?el.className:'');
+        if(a.animationName==='spin'||/load|cargando/i.test(n)) return;
+        a.effect.updateTiming({iterations: reduce?1:3});
+      }catch(e){}
+    });
+  }
+  document.addEventListener('animationstart', limitar, true);
+  var pend; new MutationObserver(function(){ clearTimeout(pend); pend=setTimeout(function(){limitar();nombrar();},150); })
+    .observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  // 2.1.1 / 4.1.2: elementos no interactivos con onclick, iframes sin título
+  function nombrar(){
+    document.querySelectorAll('[onclick]:not(button):not(a):not(input):not(select):not(textarea):not([tabindex]):not(#image-lightbox)').forEach(function(el){
+      if(/^\s*event\.stopPropagation\(\)\s*;?\s*$/.test(el.getAttribute('onclick'))) return;
+      if(el.hasAttribute('data-a11y-puntero')) return;
+      el.setAttribute('tabindex','0'); if(!el.getAttribute('role')) el.setAttribute('role','button');
+      if(!el.getAttribute('aria-label')){ var img=el.tagName==='IMG'?el:null; if(img&&img.alt) el.setAttribute('aria-label','Ampliar imagen: '+img.alt); }
+    });
+    document.querySelectorAll('iframe:not([title])').forEach(function(f){ f.setAttribute('title','Contenido incrustado'); });
+  }
+  document.addEventListener('keydown', function(e){
+    var el=e.target; if(!(e.key==='Enter'||e.key===' ')) return;
+    if(el.getAttribute && el.getAttribute('role')==='button' && el.hasAttribute('onclick') && !/^(BUTTON|A|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)){ e.preventDefault(); el.click(); }
+  });
+  // 2.1.1: mira por teclado para marcar sobre imágenes (flechas + Enter)
+  function puntero(el){
+    if(el.__mira) return; el.__mira=true;
+    el.setAttribute('tabindex','0'); el.setAttribute('role','application');
+    var x=.5,y=.5, m=document.createElement('div');
+    m.setAttribute('aria-hidden','true');
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    document.body.appendChild(m);
+    function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
+    function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';
+      el.dispatchEvent(new MouseEvent('mousemove',{clientX:p.cx,clientY:p.cy,bubbles:true}));}
+    el.addEventListener('focus',show); el.addEventListener('blur',function(){m.style.display='none';});
+    addEventListener('scroll',function(){if(document.activeElement===el)show();},true);
+    el.addEventListener('keydown',function(e){
+      var s=e.shiftKey?.05:.01, k=e.key;
+      if(k==='ArrowLeft')x=Math.max(0,x-s);else if(k==='ArrowRight')x=Math.min(1,x+s);
+      else if(k==='ArrowUp')y=Math.max(0,y-s);else if(k==='ArrowDown')y=Math.min(1,y+s);
+      else if(k==='Enter'||k===' '){e.preventDefault();var p=pos();el.dispatchEvent(new MouseEvent('click',{clientX:p.cx,clientY:p.cy,bubbles:true}));return;}
+      else return;
+      e.preventDefault(); show();
+    });
+  }
+  // 2.4.11: el foco no queda tapado por barras fijas o pegajosas
+  document.addEventListener('focusin', function(e){
+    var el=e.target; if(!el.getBoundingClientRect) return;
+    var r=el.getBoundingClientRect(), top=0, bot=innerHeight;
+    document.querySelectorAll('body *').forEach(function(b){
+      if(b.contains(el)) return; var cs=getComputedStyle(b); if(cs.position!=='fixed'&&cs.position!=='sticky') return;
+      if(cs.display==='none'||cs.visibility==='hidden'||cs.opacity==='0'||cs.pointerEvents==='none') return;
+      var q=b.getBoundingClientRect(); if(q.width<innerWidth*.5||q.height>innerHeight*.4) return;
+      if(q.bottom<=0||q.top>=innerHeight) return; if(q.top<innerHeight*.3) top=Math.max(top,q.bottom); else if(q.bottom>innerHeight*.7) bot=Math.min(bot,q.top);
+    });
+    if(r.top<top) scrollBy(0,r.top-top-8); else if(r.bottom>bot) scrollBy(0,r.bottom-bot+8);
+  });
+  // 4.1.3: mensajes de estado anunciados por lectores de pantalla
+  ['error-message-box','error-message','quiz-feedback-block','quiz-result-box','quiz-feedback-box','feedback-box',
+   'trivia-feedback','trivia-result','toast','toast-container','merge-status-text','resultDisplay','score-display',
+   'quiz-result','team-scores-container','file-counter'].forEach(function(id){
+    var el=document.getElementById(id); if(el&&!el.hasAttribute('aria-live')){ el.setAttribute('aria-live','polite'); if(!el.getAttribute('role')) el.setAttribute('role','status'); }
+  });
+  function init(){ nombrar(); limitar(); document.querySelectorAll('[data-a11y-puntero]').forEach(puntero); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  addEventListener('load',limitar);
+})();
+</script>
+<p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
 </body>
 </html>

@@ -38,7 +38,7 @@ export function initDataLab() {
     renderTip: p => {
       const row = (label, value) => `<div><dt>${esc(label)}</dt><dd>${value}</dd></div>`;
       const extra = p.mine
-        ? `<div class="tip-calc">${esc(t('tip_calc'))}: ${fmtK(p.k)} × (10 × ${fmtNum(p.g)} + ${fmtNum(p.s)})</div>`
+        ? `<div class="tip-calc">${esc(t('tip_calc'))}: <span class="v-k">${fmtK(p.k)}</span> × ((10 × <span class="v-g">${fmtNum(p.g)}</span>) + <span class="v-s">${fmtNum(p.s)}</span>)</div>`
         : `<div class="tip-calc">${p.sim ? '' : `${esc(t('tip_file'))}: `}${esc(p.file)}</div>`;
       return `<dl>${row(t('tip_date'), esc(fmtDate(p.date)))}${row(t('lbl_spots'), fmtNum(p.s))}${row(t('lbl_groups'), fmtNum(p.g))}</dl>`
         + extra

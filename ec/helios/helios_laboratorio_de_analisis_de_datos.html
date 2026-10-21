@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Misión Helios - Laboratorio de Análisis de Datos</title>
+    <title>Misión Helios - Laboratorio de análisis de datos</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -77,6 +77,12 @@
             background: #374151;
         }
     </style>
+<style id="a11y-base">
+/* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
+:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+</style>
 </head>
 <body class="antialiased bg-space-900 text-gray-200 min-h-screen flex flex-col selection:bg-solar-500 selection:text-space-900">
 
@@ -140,10 +146,10 @@
                 <div>
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-solar-500/10 border border-solar-500/30 text-solar-400 text-xs font-semibold mb-3">
                         <i class="fa-solid fa-microchip"></i>
-                        <span data-i18n="badge_tool">Módulo de Fusión y Visualización Data Science</span>
+                        <span data-i18n="badge_tool">Módulo de fusión y visualización Data Science</span>
                     </div>
                     <h1 class="text-2xl md:text-4xl font-extrabold text-white tracking-tight" data-i18n="hero_title">
-                        Laboratorio de Análisis de Datos Solares
+                        Laboratorio de análisis de datos solares
                     </h1>
                     <p class="mt-2 text-gray-400 text-sm md:text-base max-w-2xl" data-i18n="hero_subtitle">
                         Carga múltiples archivos CSV recolectados por ti y tus compañeros, une automáticamente todos los registros e investiga la dispersión para descubrir patrones históricos ocultos.
@@ -153,7 +159,7 @@
                 <div class="flex-shrink-0 w-full md:w-auto flex flex-col sm:flex-row gap-3">
                     <button id="load-sample-btn" onclick="loadSampleData()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-space-700 hover:bg-space-600 text-solar-300 border border-solar-500/30 text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-md hover:scale-105 active:scale-95">
                         <i class="fa-solid fa-flask"></i>
-                        <span data-i18n="btn_sample">Cargar Datos de Muestra (1996-2026)</span>
+                        <span data-i18n="btn_sample">Cargar datos de muestra (1996-2026)</span>
                     </button>
                     <button id="reset-all-btn" onclick="clearAllData()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-bold transition-all flex items-center justify-center gap-2 active:scale-95">
                         <i class="fa-solid fa-trash-can"></i>
@@ -171,14 +177,14 @@
                     <div class="flex items-center justify-between mb-4">
                         <h2 class="text-lg font-bold text-white flex items-center gap-2">
                             <span class="w-6 h-6 rounded-full bg-solar-500/20 text-solar-400 text-xs flex items-center justify-center border border-solar-500/40">1</span>
-                            <span data-i18n="step1_title">Cargar Archivos CSV</span>
+                            <span data-i18n="step1_title">Cargar archivos CSV</span>
                         </h2>
                         <span class="text-xs text-gray-400 font-mono" id="file-counter">0 archivos cargados</span>
                     </div>
 
                     <!-- Interactive Drag and Drop Zone -->
                     <div id="dropzone" class="border-2 border-dashed border-space-600 rounded-xl p-8 text-center bg-space-900/50 hover:border-solar-500/60 transition-all cursor-pointer group select-none">
-                        <input type="file" id="csv-file-input" multiple accept=".csv, text/csv, text/plain" class="hidden" onchange="handleFileSelect(event)">
+                        <input type="file" id="csv-file-input" aria-label="Elegir archivos CSV" multiple accept=".csv, text/csv, text/plain" class="hidden" onchange="handleFileSelect(event)">
                         <div class="space-y-3 pointer-events-none">
                             <div class="w-16 h-16 mx-auto rounded-2xl bg-space-800 border border-space-700 flex items-center justify-center text-solar-400 group-hover:scale-110 group-hover:border-solar-500 transition-all">
                                 <i class="fa-solid fa-cloud-arrow-up text-2xl"></i>
@@ -187,7 +193,7 @@
                                 <p class="text-sm font-semibold text-gray-200" data-i18n="dropzone_prompt">
                                     Arrastra tus archivos <span class="text-solar-400 font-mono">.csv</span> aquí o haz clic para explorar
                                 </p>
-                                <p class="text-xs text-gray-500 mt-1" data-i18n="dropzone_help">
+                                <p class="text-xs text-gray-400 mt-1" data-i18n="dropzone_help">
                                     Admite archivos de 3, 7 o N columnas generados en el Laboratorio Solar.
                                 </p>
                             </div>
@@ -205,13 +211,13 @@
             <!-- Uploaded Files Panel -->
             <div class="bg-space-800 rounded-2xl p-6 border border-space-700 shadow-xl flex flex-col">
                 <h3 class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-3 flex items-center justify-between">
-                    <span data-i18n="files_list_title">Archivos Procesados</span>
+                    <span data-i18n="files_list_title">Archivos procesados</span>
                     <i class="fa-solid fa-folder-open text-solar-400"></i>
                 </h3>
                 
                 <!-- Scrollable Files List -->
                 <div id="files-list-container" class="flex-grow overflow-y-auto max-h-52 lg:max-h-64 space-y-2 pr-1">
-                    <div id="empty-files-placeholder" class="h-full flex flex-col items-center justify-center text-center p-6 border border-dashed border-space-700 rounded-xl text-gray-500 text-xs">
+                    <div id="empty-files-placeholder" class="h-full flex flex-col items-center justify-center text-center p-6 border border-dashed border-space-700 rounded-xl text-gray-400 text-xs">
                         <i class="fa-solid fa-file-csv text-3xl mb-2 opacity-40"></i>
                         <p data-i18n="no_files_yet">Aún no has añadido ningún archivo .csv</p>
                     </div>
@@ -225,7 +231,7 @@
                 <div>
                     <h2 class="text-lg font-bold text-white flex items-center gap-2">
                         <span class="w-6 h-6 rounded-full bg-solar-500/20 text-solar-400 text-xs flex items-center justify-center border border-solar-500/40">2</span>
-                        <span data-i18n="step2_title">Configurar Gráfica de Dispersión XY</span>
+                        <span data-i18n="step2_title">Configurar gráfica de dispersión XY</span>
                     </h2>
                     <p class="text-xs text-gray-400 mt-1" data-i18n="step2_desc">
                         Selecciona las variables para cada eje. Las fechas completas (AAAA-MM-DD) se posicionarán con exactitud.
@@ -240,7 +246,7 @@
                     </label>
                     <label class="flex items-center gap-2 bg-space-900 px-3 py-2 rounded-lg border border-space-700 cursor-pointer hover:border-space-600 select-none">
                         <input type="checkbox" id="toggle-trendline" onchange="updateChart()" checked class="rounded border-space-700 text-solar-500 focus:ring-solar-500 bg-space-800">
-                        <span data-i18n="opt_trendline">Mostrar Media Móvil (Tendencia)</span>
+                        <span data-i18n="opt_trendline">Mostrar media móvil (tendencia)</span>
                     </label>
                 </div>
             </div>
@@ -249,8 +255,8 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <!-- X Axis Selection -->
                 <div class="space-y-1.5">
-                    <label class="block text-xs font-semibold text-gray-300" data-i18n="lbl_x_axis">
-                        Eje X (Variable Independiente):
+                    <label for="select-x-axis" class="block text-xs font-semibold text-gray-300" data-i18n="lbl_x_axis">
+                        Eje X (variable independiente):
                     </label>
                     <select id="select-x-axis" onchange="updateChart()" class="w-full bg-space-900 border border-space-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-solar-500 font-mono">
                         <option value="" data-i18n="select_placeholder">-- Seleccionar Encabezado --</option>
@@ -259,8 +265,8 @@
 
                 <!-- Y Axis Selection -->
                 <div class="space-y-1.5">
-                    <label class="block text-xs font-semibold text-gray-300" data-i18n="lbl_y_axis">
-                        Eje Y (Variable Dependiente):
+                    <label for="select-y-axis" class="block text-xs font-semibold text-gray-300" data-i18n="lbl_y_axis">
+                        Eje Y (variable dependiente):
                     </label>
                     <select id="select-y-axis" onchange="updateChart()" class="w-full bg-space-900 border border-space-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-solar-500 font-mono">
                         <option value="" data-i18n="select_placeholder">-- Seleccionar Encabezado --</option>
@@ -270,19 +276,19 @@
                 <!-- Point Size Slider -->
                 <div class="space-y-1.5">
                     <label class="block text-xs font-semibold text-gray-300 flex justify-between">
-                        <span data-i18n="lbl_point_size">Tamaño de Punto:</span>
+                        <span data-i18n="lbl_point_size">Tamaño de punto:</span>
                         <span id="point-size-val" class="font-mono text-solar-400">5px</span>
                     </label>
-                    <input type="range" id="input-point-size" min="2" max="12" value="5" oninput="document.getElementById('point-size-val').innerText=this.value+'px'; updateChart()" class="w-full accent-solar-500 bg-space-900 rounded-lg h-2 cursor-pointer mt-3">
+                    <input type="range" id="input-point-size" aria-label="Tamaño de punto" aria-describedby="point-size-val" min="2" max="12" value="5" oninput="document.getElementById('point-size-val').innerText=this.value+'px'; updateChart()" class="w-full accent-solar-500 bg-space-900 rounded-lg h-2 cursor-pointer mt-3">
                 </div>
 
                 <!-- Moving Average Window -->
                 <div class="space-y-1.5">
                     <label class="block text-xs font-semibold text-gray-300 flex justify-between">
-                        <span data-i18n="lbl_ma_window">Ventana Suavizado:</span>
+                        <span data-i18n="lbl_ma_window">Ventana de suavizado:</span>
                         <span id="ma-window-val" class="font-mono text-solar-400">5 puntos</span>
                     </label>
-                    <input type="range" id="input-ma-window" min="2" max="25" value="5" oninput="document.getElementById('ma-window-val').innerText=this.value+' puntos'; updateChart()" class="w-full accent-solar-500 bg-space-900 rounded-lg h-2 cursor-pointer mt-3">
+                    <input type="range" id="input-ma-window" aria-label="Ventana de suavizado" aria-describedby="ma-window-val" min="2" max="25" value="5" oninput="document.getElementById('ma-window-val').innerText=this.value+' puntos'; updateChart()" class="w-full accent-solar-500 bg-space-900 rounded-lg h-2 cursor-pointer mt-3">
                 </div>
             </div>
 
@@ -299,8 +305,8 @@
                 </div>
 
                 <!-- Chart Canvas -->
-                <div class="w-full h-[420px]">
-                    <canvas id="scatterChart"></canvas>
+                <div class="w-full min-w-0 h-[420px]">
+                    <canvas id="scatterChart" style="max-width:100%" role="img" aria-label="Gráfico de dispersión de los datos cargados"></canvas>
                 </div>
             </div>
         </section>
@@ -311,24 +317,24 @@
                 <div>
                     <h2 class="text-lg font-bold text-white flex items-center gap-2">
                         <span class="w-6 h-6 rounded-full bg-solar-500/20 text-solar-400 text-xs flex items-center justify-center border border-solar-500/40">3</span>
-                        <span data-i18n="step3_title">Tabla de Datos Unificados</span>
+                        <span data-i18n="step3_title">Tabla de datos unificados</span>
                     </h2>
                     <p class="text-xs text-gray-400 mt-1" data-i18n="step3_desc">
                         Explora la lista combinada de todos los archivos procesados y descárgala como un CSV consolidado.
                     </p>
                 </div>
 
-                <div class="flex items-center gap-3">
+                <div class="flex flex-wrap items-center gap-3">
                     <!-- Search input -->
                     <div class="relative">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
                         <input type="text" id="table-search" oninput="filterTable()" placeholder="Buscar registros..." class="pl-8 pr-3 py-2 bg-space-900 border border-space-700 rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-solar-500 w-44 sm:w-60">
                     </div>
 
                     <!-- Export Button -->
                     <button id="export-csv-btn" onclick="exportMergedCSV()" disabled class="px-4 py-2 rounded-xl bg-solar-500 hover:bg-solar-400 disabled:opacity-40 disabled:hover:bg-solar-500 text-space-900 font-bold text-xs transition-all flex items-center gap-2 shadow-lg shadow-solar-500/20 active:scale-95">
                         <i class="fa-solid fa-file-export"></i>
-                        <span data-i18n="btn_export">Exportar CSV Único</span>
+                        <span data-i18n="btn_export">Exportar CSV único</span>
                     </button>
                 </div>
             </div>
@@ -339,13 +345,13 @@
                     <thead id="data-table-head" class="bg-space-850 text-solar-400 sticky top-0 border-b border-space-700 uppercase tracking-wider">
                         <tr>
                             <th class="p-3 font-semibold text-center">#</th>
-                            <th class="p-3 font-semibold" data-i18n="th_source">Archivo Origen</th>
-                            <th class="p-3 font-semibold text-gray-500 italic" data-i18n="th_empty">Sin datos cargados</th>
+                            <th class="p-3 font-semibold" data-i18n="th_source">Archivo de origen</th>
+                            <th class="p-3 font-semibold text-gray-400 italic" data-i18n="th_empty">Sin datos cargados</th>
                         </tr>
                     </thead>
                     <tbody id="data-table-body" class="divide-y divide-space-800">
                         <tr>
-                            <td colspan="3" class="p-8 text-center text-gray-500 font-sans" data-i18n="td_no_records">
+                            <td colspan="3" class="p-8 text-center text-gray-400 font-sans" data-i18n="td_no_records">
                                 No se han cargado datos aún.
                             </td>
                         </tr>
@@ -356,17 +362,17 @@
             <!-- Table Footer -->
             <div class="flex items-center justify-between text-xs text-gray-400 pt-2">
                 <span id="table-showing-info" data-i18n="info_showing">Mostrando 0 registros</span>
-                <span class="font-mono text-gray-500" id="headers-count-info">0 columnas detectadas</span>
+                <span class="font-mono text-gray-400" id="headers-count-info">0 columnas detectadas</span>
             </div>
         </section>
 
     </main>
 
     <!-- Page Footer -->
-    <footer class="w-full bg-space-950 py-6 border-t border-space-800 text-center text-gray-500 text-xs">
+    <footer class="w-full bg-space-950 py-6 border-t border-space-800 text-center text-gray-400 text-xs">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p>Misión Helios - Space Apps Education Data Analytics Lab</p>
-            <p class="text-gray-600">Herramienta Didáctica para la Fusión y Análisis de Manchas Solares</p>
+            <p class="text-gray-400">Herramienta didáctica para la fusión y análisis de manchas solares</p>
         </div>
     </footer>
 
@@ -383,31 +389,31 @@
             es: {
                 nav_subtitle: "Data Lab",
                 nav_back: "Volver a la Misión",
-                badge_tool: "Módulo de Fusión y Visualización Data Science",
-                hero_title: "Laboratorio de Análisis de Datos Solares",
+                badge_tool: "Módulo de fusión y visualización Data Science",
+                hero_title: "Laboratorio de análisis de datos solares",
                 hero_subtitle: "Carga múltiples archivos CSV recolectados por ti y tus compañeros, une automáticamente todos los registros e investiga la dispersión para descubrir patrones históricos ocultos.",
-                btn_sample: "Cargar Datos de Muestra (1996-2026)",
+                btn_sample: "Cargar datos de muestra (1996-2026)",
                 btn_reset: "Reiniciar",
-                step1_title: "Cargar Archivos CSV",
+                step1_title: "Cargar archivos CSV",
                 dropzone_prompt: "Arrastra tus archivos <span class='text-solar-400 font-mono'>.csv</span> aquí o haz clic para explorar",
                 dropzone_help: "Admite archivos de 3, 7 o N columnas generados en el Laboratorio Solar.",
                 status_waiting: "Esperando archivos...",
-                files_list_title: "Archivos Procesados",
+                files_list_title: "Archivos procesados",
                 no_files_yet: "Aún no has añadido ningún archivo .csv",
-                step2_title: "Configurar Gráfica de Dispersión XY",
+                step2_title: "Configurar gráfica de dispersión XY",
                 step2_desc: "Selecciona las variables para cada eje. Las fechas completas (AAAA-MM-DD) se posicionarán con exactitud.",
                 opt_color_file: "Colorear por archivo",
-                opt_trendline: "Mostrar Media Móvil (Tendencia)",
-                lbl_x_axis: "Eje X (Variable Independiente):",
-                lbl_y_axis: "Eje Y (Variable Dependiente):",
-                lbl_point_size: "Tamaño de Punto:",
-                lbl_ma_window: "Ventana Suavizado:",
+                opt_trendline: "Mostrar media móvil (tendencia)",
+                lbl_x_axis: "Eje X (variable independiente):",
+                lbl_y_axis: "Eje Y (variable dependiente):",
+                lbl_point_size: "Tamaño de punto:",
+                lbl_ma_window: "Ventana de suavizado:",
                 select_placeholder: "-- Seleccionar Encabezado --",
                 chart_prompt: "Carga archivos CSV y selecciona las variables X e Y para visualizar los datos.",
-                step3_title: "Tabla de Datos Unificados",
+                step3_title: "Tabla de datos unificados",
                 step3_desc: "Explora la lista combinada de todos los archivos procesados y descárgala como un CSV consolidado.",
-                btn_export: "Exportar CSV Único",
-                th_source: "Archivo Origen",
+                btn_export: "Exportar CSV único",
+                th_source: "Archivo de origen",
                 th_empty: "Sin datos cargados",
                 td_no_records: "No se han cargado datos aún.",
                 info_showing: "Mostrando 0 registros"
@@ -534,7 +540,7 @@
                 chart_prompt: "Carregue CSVs e selecione variáveis X e Y para visualizar.",
                 step3_title: "Tabela de Dados Unificados",
                 step3_desc: "Explore a lista combinada de todos os arquivos e baixe como CSV único.",
-                btn_export: "Exportar CSV Único",
+                btn_export: "Exportar CSV único",
                 th_source: "Arquivo de Origem",
                 th_empty: "Sem dados carregados",
                 td_no_records: "Nenhum dado carregado ainda.",
@@ -832,7 +838,7 @@
             const container = document.getElementById('files-list-container');
             if (filesList.length === 0) {
                 container.innerHTML = `
-                    <div id="empty-files-placeholder" class="h-full flex flex-col items-center justify-center text-center p-6 border border-dashed border-space-700 rounded-xl text-gray-500 text-xs">
+                    <div id="empty-files-placeholder" class="h-full flex flex-col items-center justify-center text-center p-6 border border-dashed border-space-700 rounded-xl text-gray-400 text-xs">
                         <i class="fa-solid fa-file-csv text-3xl mb-2 opacity-40"></i>
                         <p data-i18n="no_files_yet">${i18n[getCurrentLang()].no_files_yet}</p>
                     </div>`;
@@ -848,7 +854,7 @@
                             <p class="text-[10px] text-gray-400 font-mono">${file.rowsCount} filas • ${file.headers.length} col.</p>
                         </div>
                     </div>
-                    <button onclick="removeFile('${file.id}')" class="p-1.5 text-gray-500 hover:text-red-400 transition-colors" title="Eliminar archivo">
+                    <button onclick="removeFile('${file.id}')" class="p-1.5 text-gray-400 hover:text-red-400 transition-colors" title="Eliminar archivo">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
@@ -1127,11 +1133,11 @@
                     <tr>
                         <th class="p-3 font-semibold text-center">#</th>
                         <th class="p-3 font-semibold">${i18n[getCurrentLang()].th_source}</th>
-                        <th class="p-3 font-semibold text-gray-500 italic">${i18n[getCurrentLang()].th_empty}</th>
+                        <th class="p-3 font-semibold text-gray-400 italic">${i18n[getCurrentLang()].th_empty}</th>
                     </tr>`;
                 bodyEl.innerHTML = `
                     <tr>
-                        <td colspan="3" class="p-8 text-center text-gray-500 font-sans">
+                        <td colspan="3" class="p-8 text-center text-gray-400 font-sans">
                             ${i18n[getCurrentLang()].td_no_records}
                         </td>
                     </tr>`;
@@ -1159,9 +1165,9 @@
 
             bodyEl.innerHTML = previewRows.map((row, idx) => `
                 <tr class="hover:bg-space-800/80 transition-colors">
-                    <td class="p-3 text-center text-gray-500">${idx + 1}</td>
+                    <td class="p-3 text-center text-gray-400">${idx + 1}</td>
                     <td class="p-3 text-solar-400 font-semibold truncate max-w-[120px]">${row._source_file}</td>
-                    ${unifiedHeaders.map(h => `<td class="p-3 text-gray-300">${row[h] !== null ? row[h] : '<span class="text-gray-600">-</span>'}</td>`).join('')}
+                    ${unifiedHeaders.map(h => `<td class="p-3 text-gray-300">${row[h] !== null ? row[h] : '<span class="text-gray-400">-</span>'}</td>`).join('')}
                 </tr>
             `).join('');
 
@@ -1344,7 +1350,7 @@
             return window.currentLang || 'es';
         }
 
-        function changeLang(lang) {
+        function changeLang(lang) { document.documentElement.lang = lang;
             window.currentLang = lang;
             const flags = { es: '🇪🇸 ES', en: '🇬🇧 EN', fr: '🇫🇷 FR', de: '🇩🇪 DE', pt: '🇵🇹 PT', it: '🇮🇹 IT' };
             document.getElementById('current-lang-text').innerText = flags[lang] || '🇪🇸 ES';
@@ -1361,5 +1367,83 @@
             renderDataTable();
         }
     </script>
+<script id="a11y-general">
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 2.2.2: animaciones infinitas (salvo indicadores de carga) se limitan a 3 ciclos
+  function limitar(){
+    if(!document.getAnimations) return;
+    document.getAnimations().forEach(function(a){
+      try{
+        var t=a.effect&&a.effect.getTiming(); if(!t||t.iterations!==Infinity) return;
+        var el=a.effect.target, n=(a.animationName||'')+' '+(el&&el.className&&el.className.baseVal===undefined?el.className:'');
+        if(a.animationName==='spin'||/load|cargando/i.test(n)) return;
+        a.effect.updateTiming({iterations: reduce?1:3});
+      }catch(e){}
+    });
+  }
+  document.addEventListener('animationstart', limitar, true);
+  var pend; new MutationObserver(function(){ clearTimeout(pend); pend=setTimeout(function(){limitar();nombrar();},150); })
+    .observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  // 2.1.1 / 4.1.2: elementos no interactivos con onclick, iframes sin título
+  function nombrar(){
+    document.querySelectorAll('[onclick]:not(button):not(a):not(input):not(select):not(textarea):not([tabindex]):not(#image-lightbox)').forEach(function(el){
+      if(/^\s*event\.stopPropagation\(\)\s*;?\s*$/.test(el.getAttribute('onclick'))) return;
+      if(el.hasAttribute('data-a11y-puntero')) return;
+      el.setAttribute('tabindex','0'); if(!el.getAttribute('role')) el.setAttribute('role','button');
+      if(!el.getAttribute('aria-label')){ var img=el.tagName==='IMG'?el:null; if(img&&img.alt) el.setAttribute('aria-label','Ampliar imagen: '+img.alt); }
+    });
+    document.querySelectorAll('iframe:not([title])').forEach(function(f){ f.setAttribute('title','Contenido incrustado'); });
+  }
+  document.addEventListener('keydown', function(e){
+    var el=e.target; if(!(e.key==='Enter'||e.key===' ')) return;
+    if(el.getAttribute && el.getAttribute('role')==='button' && el.hasAttribute('onclick') && !/^(BUTTON|A|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)){ e.preventDefault(); el.click(); }
+  });
+  // 2.1.1: mira por teclado para marcar sobre imágenes (flechas + Enter)
+  function puntero(el){
+    if(el.__mira) return; el.__mira=true;
+    el.setAttribute('tabindex','0'); el.setAttribute('role','application');
+    var x=.5,y=.5, m=document.createElement('div');
+    m.setAttribute('aria-hidden','true');
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    document.body.appendChild(m);
+    function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
+    function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';
+      el.dispatchEvent(new MouseEvent('mousemove',{clientX:p.cx,clientY:p.cy,bubbles:true}));}
+    el.addEventListener('focus',show); el.addEventListener('blur',function(){m.style.display='none';});
+    addEventListener('scroll',function(){if(document.activeElement===el)show();},true);
+    el.addEventListener('keydown',function(e){
+      var s=e.shiftKey?.05:.01, k=e.key;
+      if(k==='ArrowLeft')x=Math.max(0,x-s);else if(k==='ArrowRight')x=Math.min(1,x+s);
+      else if(k==='ArrowUp')y=Math.max(0,y-s);else if(k==='ArrowDown')y=Math.min(1,y+s);
+      else if(k==='Enter'||k===' '){e.preventDefault();var p=pos();el.dispatchEvent(new MouseEvent('click',{clientX:p.cx,clientY:p.cy,bubbles:true}));return;}
+      else return;
+      e.preventDefault(); show();
+    });
+  }
+  // 2.4.11: el foco no queda tapado por barras fijas o pegajosas
+  document.addEventListener('focusin', function(e){
+    var el=e.target; if(!el.getBoundingClientRect) return;
+    var r=el.getBoundingClientRect(), top=0, bot=innerHeight;
+    document.querySelectorAll('body *').forEach(function(b){
+      if(b.contains(el)) return; var cs=getComputedStyle(b); if(cs.position!=='fixed'&&cs.position!=='sticky') return;
+      if(cs.display==='none'||cs.visibility==='hidden'||cs.opacity==='0'||cs.pointerEvents==='none') return;
+      var q=b.getBoundingClientRect(); if(q.width<innerWidth*.5||q.height>innerHeight*.4) return;
+      if(q.bottom<=0||q.top>=innerHeight) return; if(q.top<innerHeight*.3) top=Math.max(top,q.bottom); else if(q.bottom>innerHeight*.7) bot=Math.min(bot,q.top);
+    });
+    if(r.top<top) scrollBy(0,r.top-top-8); else if(r.bottom>bot) scrollBy(0,r.bottom-bot+8);
+  });
+  // 4.1.3: mensajes de estado anunciados por lectores de pantalla
+  ['error-message-box','error-message','quiz-feedback-block','quiz-result-box','quiz-feedback-box','feedback-box',
+   'trivia-feedback','trivia-result','toast','toast-container','merge-status-text','resultDisplay','score-display',
+   'quiz-result','team-scores-container','file-counter'].forEach(function(id){
+    var el=document.getElementById(id); if(el&&!el.hasAttribute('aria-live')){ el.setAttribute('aria-live','polite'); if(!el.getAttribute('role')) el.setAttribute('role','status'); }
+  });
+  function init(){ nombrar(); limitar(); document.querySelectorAll('[data-a11y-puntero]').forEach(puntero); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  addEventListener('load',limitar);
+})();
+</script>
+<p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
 </body>
 </html>

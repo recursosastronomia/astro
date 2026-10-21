@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <!-- Configuración del Viewport: Permite escalar hasta 150% (1.5) y hacer pan/arrastrar -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>Laboratorio Solar: Número de Wolf</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio solar: número de Wolf</title>
     
     <style>
         :root {
@@ -64,8 +64,8 @@
             cursor: pointer; transition: opacity 0.2s;
         }
         button:active { opacity: 0.8; }
-        button.danger { background-color: #ff3f34; }
-        button.success { background-color: #05c46b; font-size: 1.1rem; padding: 15px; margin-top: 10px;}
+        button.danger { background-color: #c0392b; }
+        button.success { background-color: #0a7d47; font-size: 1.1rem; padding: 15px; margin-top: 10px;}
         button.export { background-color: #8e44ad; }
 
         /* Segmented Controller (Tool Selector for Mobile) */
@@ -73,7 +73,7 @@
             display: flex; background: #e1e5ea; border-radius: 10px; padding: 5px; gap: 5px; margin-bottom: 15px; width: 100%;
         }
         .mode-btn {
-            flex: 1; background: transparent; color: #808e9b; padding: 12px 5px; font-size: 1rem;
+            flex: 1; background: transparent; color: #4b5563; padding: 12px 5px; font-size: 1rem;
             border-radius: 8px; border: 2px solid transparent; transition: all 0.2s;
         }
         .mode-btn.active-spot { background: var(--surface); color: var(--primary); border: 2px solid var(--accent-spot); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
@@ -112,7 +112,7 @@
             font-family: 'Courier New', Courier, monospace; text-align: center; font-size: 1.1rem; 
         }
 
-        .data-source { font-size: 0.75rem; color: #a4b0be; margin-top: 10px; word-break: break-all; text-align: center; width: 100%;}
+        .data-source { font-size: 0.75rem; color: #57606f; margin-top: 10px; word-break: break-all; text-align: center; width: 100%;}
         
         /* Table Responsive */
         .table-responsive { width: 100%; overflow-x: auto; margin-top: 15px; border-radius: 8px;}
@@ -127,12 +127,18 @@
             .table-panel { grid-column: span 2; }
         }
     </style>
+<style id="a11y-base">
+/* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
+:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+</style>
 </head>
 <body>
 
     <div class="header-bar">
-        <h1 data-i18n="app_title">Laboratorio Solar Web</h1>
-        <select class="lang-selector" id="langSelector" onchange="changeLanguage()">
+        <h1 data-i18n="app_title">Laboratorio solar web</h1>
+        <select class="lang-selector" id="langSelector" aria-label="Idioma / Language" onchange="changeLanguage()">
             <option value="es" selected>🇪🇸 ES</option>
             <option value="en">🇬🇧 EN</option>
             <option value="pt">🇧🇷 PT</option>
@@ -145,12 +151,12 @@
     <div class="panel">
         <h2 data-i18n="setup_title">1. Configuración</h2>
         <div class="controls-grid">
-            <input type="text" id="schoolInput" data-i18n="placeholder_school" placeholder="Centro Educativo (Opcional)">
-            <input type="text" id="nameInput" data-i18n="placeholder_name" placeholder="Tu Nombre (Opcional)">
+            <input type="text" id="schoolInput" aria-label="Centro educativo (opcional)" data-i18n="placeholder_school" placeholder="Centro Educativo (Opcional)">
+            <input type="text" id="nameInput" aria-label="Tu nombre (opcional)" data-i18n="placeholder_name" placeholder="Tu Nombre (Opcional)">
         </div>
         <div class="controls-grid">
-            <input type="date" id="datePicker" onchange="loadDate()">
-            <button onclick="loadDate()" data-i18n="btn_load">📡 Cargar Datos</button>
+            <input type="date" id="datePicker" aria-label="Fecha de la imagen solar" onchange="loadDate()">
+            <button onclick="loadDate()" data-i18n="btn_load">📡 Cargar datos</button>
             <button onclick="randomDate()" data-i18n="btn_random">🎲 Aleatorio</button>
             <button onclick="clearMarkers()" class="danger" data-i18n="btn_clear">🗑️ Limpiar</button>
         </div>
@@ -158,14 +164,14 @@
 
     <div class="app-layout">
         <div class="panel image-container-wrapper">
-            <h2 data-i18n="obs_title" style="width: 100%;">2. Observatorio (Zoom Disp.)</h2>
+            <h2 data-i18n="obs_title" style="width: 100%;">2. Observatorio (zoom disp.)</h2>
             
             <div class="mode-selector">
                 <button id="btnSpot" class="mode-btn active-spot" onclick="setMode('spot')" data-i18n="tool_spot">🔴 Mancha (s)</button>
                 <button id="btnGroup" class="mode-btn" onclick="setMode('group')" data-i18n="tool_group">🟡 Grupo (g)</button>
             </div>
 
-            <div id="imageContainer" onclick="addMarker(event)">
+            <div id="imageContainer" onclick="addMarker(event)" data-a11y-puntero aria-label="Imagen del Sol para marcar manchas. Use las flechas para mover la mira y Enter para marcar">
                 <div id="loadingOverlay" data-i18n="loading_txt">Cargando SOHO...</div>
                 <img id="sunImage" src="" alt="Fondo negro estelar">
             </div>
@@ -173,18 +179,18 @@
         </div>
 
         <div class="panel">
-            <h2 data-i18n="math_title">3. Procesamiento Matemático</h2>
+            <h2 data-i18n="math_title">3. Procesamiento matemático</h2>
             <div class="math-grid">
                 <div class="math-input-group">
-                    <label data-i18n="lbl_groups">Grupos (g)</label>
+                    <label for="gVal" data-i18n="lbl_groups">Grupos (g)</label>
                     <input type="number" id="gVal" value="0" min="0" oninput="updateFromInputs()">
                 </div>
                 <div class="math-input-group">
-                    <label data-i18n="lbl_spots">Manchas (s)</label>
+                    <label for="sVal" data-i18n="lbl_spots">Manchas (s)</label>
                     <input type="number" id="sVal" value="0" min="0" oninput="updateFromInputs()">
                 </div>
                 <div class="math-input-group">
-                    <label data-i18n="lbl_factor">Factor (k)</label>
+                    <label for="kVal" data-i18n="lbl_factor">Factor (k)</label>
                     <input type="number" id="kVal" value="1" step="0.1" min="0.1" oninput="updateFromInputs()">
                 </div>
             </div>
@@ -195,16 +201,16 @@
                 <strong style="color: var(--secondary); font-size: 1.4rem;">R = <span id="resultDisplay">0</span></strong>
             </div>
 
-            <button class="success" onclick="saveRecord()" data-i18n="btn_save">💾 Guardar Registro</button>
+            <button class="success" onclick="saveRecord()" data-i18n="btn_save">💾 Guardar registro</button>
         </div>
 
         <div class="panel table-panel">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 10px;">
-                <h2 data-i18n="table_title" style="border: none; margin: 0;">Histórico de Registros</h2>
+                <h2 data-i18n="table_title" style="border: none; margin: 0;">Histórico de registros</h2>
                 <button class="export" onclick="exportCSV()" data-i18n="btn_export">📥 CSV ISO-8601</button>
             </div>
             
-            <div class="table-responsive">
+            <div class="table-responsive" tabindex="0" role="region" aria-label="Tabla de resultados (desplazable)">
                 <table id="dataTable">
                     <thead>
                         <tr>
@@ -240,7 +246,7 @@
             "lbl_groups": { es: "Grupos (g)", en: "Groups (g)", pt: "Grupos (g)", fr: "Groupes (g)", it: "Gruppi (g)", de: "Gruppen (g)" },
             "lbl_spots": { es: "Manchas (s)", en: "Spots (s)", pt: "Manchas (s)", fr: "Taches (s)", it: "Macchie (s)", de: "Flecken (s)" },
             "lbl_factor": { es: "Factor (k)", en: "Factor (k)", pt: "Fator (k)", fr: "Facteur (k)", it: "Fattore (k)", de: "Faktor (k)" },
-            "btn_save": { es: "💾 Guardar Registro", en: "💾 Save Record", pt: "💾 Salvar Registro", fr: "💾 Enregistrer", it: "💾 Salva Record", de: "💾 Speichern" },
+            "btn_save": { es: "💾 Guardar registro", en: "💾 Save Record", pt: "💾 Salvar Registro", fr: "💾 Enregistrer", it: "💾 Salva Record", de: "💾 Speichern" },
             "table_title": { es: "Histórico", en: "History", pt: "Histórico", fr: "Historique", it: "Storico", de: "Verlauf" },
             "btn_export": { es: "📥 Exportar CSV", en: "📥 Export CSV", pt: "📥 Exportar CSV", fr: "📥 Exporter CSV", it: "📥 Esporta CSV", de: "📥 CSV Exportieren" },
             "th_date": { es: "Fecha", en: "Date", pt: "Data", fr: "Date", it: "Data", de: "Datum" },
@@ -256,7 +262,7 @@
         };
 
         function t(key) {
-            const lang = document.getElementById('langSelector').value;
+            const lang = document.getElementById('langSelector').value; document.documentElement.lang = lang;
             return i18n[key] && i18n[key][lang] ? i18n[key][lang] : key;
         }
 
@@ -449,5 +455,83 @@
             randomDate();
         };
     </script>
+<script id="a11y-general">
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 2.2.2: animaciones infinitas (salvo indicadores de carga) se limitan a 3 ciclos
+  function limitar(){
+    if(!document.getAnimations) return;
+    document.getAnimations().forEach(function(a){
+      try{
+        var t=a.effect&&a.effect.getTiming(); if(!t||t.iterations!==Infinity) return;
+        var el=a.effect.target, n=(a.animationName||'')+' '+(el&&el.className&&el.className.baseVal===undefined?el.className:'');
+        if(a.animationName==='spin'||/load|cargando/i.test(n)) return;
+        a.effect.updateTiming({iterations: reduce?1:3});
+      }catch(e){}
+    });
+  }
+  document.addEventListener('animationstart', limitar, true);
+  var pend; new MutationObserver(function(){ clearTimeout(pend); pend=setTimeout(function(){limitar();nombrar();},150); })
+    .observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  // 2.1.1 / 4.1.2: elementos no interactivos con onclick, iframes sin título
+  function nombrar(){
+    document.querySelectorAll('[onclick]:not(button):not(a):not(input):not(select):not(textarea):not([tabindex]):not(#image-lightbox)').forEach(function(el){
+      if(/^\s*event\.stopPropagation\(\)\s*;?\s*$/.test(el.getAttribute('onclick'))) return;
+      if(el.hasAttribute('data-a11y-puntero')) return;
+      el.setAttribute('tabindex','0'); if(!el.getAttribute('role')) el.setAttribute('role','button');
+      if(!el.getAttribute('aria-label')){ var img=el.tagName==='IMG'?el:null; if(img&&img.alt) el.setAttribute('aria-label','Ampliar imagen: '+img.alt); }
+    });
+    document.querySelectorAll('iframe:not([title])').forEach(function(f){ f.setAttribute('title','Contenido incrustado'); });
+  }
+  document.addEventListener('keydown', function(e){
+    var el=e.target; if(!(e.key==='Enter'||e.key===' ')) return;
+    if(el.getAttribute && el.getAttribute('role')==='button' && el.hasAttribute('onclick') && !/^(BUTTON|A|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)){ e.preventDefault(); el.click(); }
+  });
+  // 2.1.1: mira por teclado para marcar sobre imágenes (flechas + Enter)
+  function puntero(el){
+    if(el.__mira) return; el.__mira=true;
+    el.setAttribute('tabindex','0'); el.setAttribute('role','application');
+    var x=.5,y=.5, m=document.createElement('div');
+    m.setAttribute('aria-hidden','true');
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    document.body.appendChild(m);
+    function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
+    function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';
+      el.dispatchEvent(new MouseEvent('mousemove',{clientX:p.cx,clientY:p.cy,bubbles:true}));}
+    el.addEventListener('focus',show); el.addEventListener('blur',function(){m.style.display='none';});
+    addEventListener('scroll',function(){if(document.activeElement===el)show();},true);
+    el.addEventListener('keydown',function(e){
+      var s=e.shiftKey?.05:.01, k=e.key;
+      if(k==='ArrowLeft')x=Math.max(0,x-s);else if(k==='ArrowRight')x=Math.min(1,x+s);
+      else if(k==='ArrowUp')y=Math.max(0,y-s);else if(k==='ArrowDown')y=Math.min(1,y+s);
+      else if(k==='Enter'||k===' '){e.preventDefault();var p=pos();el.dispatchEvent(new MouseEvent('click',{clientX:p.cx,clientY:p.cy,bubbles:true}));return;}
+      else return;
+      e.preventDefault(); show();
+    });
+  }
+  // 2.4.11: el foco no queda tapado por barras fijas o pegajosas
+  document.addEventListener('focusin', function(e){
+    var el=e.target; if(!el.getBoundingClientRect) return;
+    var r=el.getBoundingClientRect(), top=0, bot=innerHeight;
+    document.querySelectorAll('body *').forEach(function(b){
+      if(b.contains(el)) return; var cs=getComputedStyle(b); if(cs.position!=='fixed'&&cs.position!=='sticky') return;
+      if(cs.display==='none'||cs.visibility==='hidden'||cs.opacity==='0'||cs.pointerEvents==='none') return;
+      var q=b.getBoundingClientRect(); if(q.width<innerWidth*.5||q.height>innerHeight*.4) return;
+      if(q.bottom<=0||q.top>=innerHeight) return; if(q.top<innerHeight*.3) top=Math.max(top,q.bottom); else if(q.bottom>innerHeight*.7) bot=Math.min(bot,q.top);
+    });
+    if(r.top<top) scrollBy(0,r.top-top-8); else if(r.bottom>bot) scrollBy(0,r.bottom-bot+8);
+  });
+  // 4.1.3: mensajes de estado anunciados por lectores de pantalla
+  ['error-message-box','error-message','quiz-feedback-block','quiz-result-box','quiz-feedback-box','feedback-box',
+   'trivia-feedback','trivia-result','toast','toast-container','merge-status-text','resultDisplay','score-display',
+   'quiz-result','team-scores-container','file-counter'].forEach(function(id){
+    var el=document.getElementById(id); if(el&&!el.hasAttribute('aria-live')){ el.setAttribute('aria-live','polite'); if(!el.getAttribute('role')) el.setAttribute('role','status'); }
+  });
+  function init(){ nombrar(); limitar(); document.querySelectorAll('[data-a11y-puntero]').forEach(puntero); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  addEventListener('load',limitar);
+})();
+</script>
+<p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
 </body>
 </html>
