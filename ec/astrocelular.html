@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es" class="scroll-smooth" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,6 +80,56 @@
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
 .a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
 </style>
+<!-- Selector de tema claro/oscuro (mismo diseño que la actividad Voyager) -->
+<style id="ue-theme-switch">
+.theme-switch-wrapper{display:flex;align-items:center;gap:10px;flex:none}
+.theme-switch{position:relative;display:inline-block;width:60px;height:34px;margin:0}
+.theme-switch input{position:absolute;opacity:0;width:0;height:0;margin:0}
+.theme-switch .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.4s;border-radius:34px}
+.theme-switch .slider:before{position:absolute;content:"\2600\FE0F";display:flex;justify-content:center;align-items:center;font-size:14px;line-height:1;height:26px;width:26px;left:4px;bottom:4px;background-color:#fff;transition:.4s;border-radius:50%}
+.theme-switch input:checked + .slider{background-color:#3b82f6}
+.theme-switch input:checked + .slider:before{transform:translateX(26px);content:"\1F319"}
+.theme-switch input:focus-visible + .slider{outline:3px solid #facc15;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.theme-switch .slider,.theme-switch .slider:before{transition:none}}
+</style>
+<!-- Modo claro (activado con el selector de tema del encabezado) -->
+<style id="ue-modo-claro">
+html[data-theme="light"] body{background-color:#e5e7eb !important;background-image:none !important;color:#0f172a}
+html[data-theme="light"] header{background-color:rgba(229,231,235,.92) !important;border-color:#cbd5e1 !important}
+html[data-theme="light"] ::-webkit-scrollbar-track{background:#e2e8f0}
+html[data-theme="light"] ::-webkit-scrollbar-thumb{background:#94a3b8}
+html[data-theme="light"] .bg-slate-800{background-color:#cbd5e1 !important}
+html[data-theme="light"] .bg-slate-900{background-color:#f8fafc !important}
+html[data-theme="light"] .bg-slate-900\/40{background-color:#f8fafc !important}
+html[data-theme="light"] .bg-slate-900\/60{background-color:#f8fafc !important}
+html[data-theme="light"] .bg-slate-900\/70{background-color:#f8fafc !important}
+html[data-theme="light"] .bg-slate-950{background-color:#e2e8f0 !important}
+html[data-theme="light"] .bg-slate-950\/40{background-color:#e2e8f0 !important}
+html[data-theme="light"] .bg-slate-950\/80{background-color:#e2e8f0 !important}
+html[data-theme="light"] .bg-slate-950\/90{background-color:#e2e8f0 !important}
+html[data-theme="light"] .border-slate-700{border-color:#cbd5e1 !important}
+html[data-theme="light"] .border-slate-800{border-color:#cbd5e1 !important}
+html[data-theme="light"] .border-slate-800\/80{border-color:#cbd5e1 !important}
+html[data-theme="light"] .border-slate-850{border-color:#cbd5e1 !important}
+html[data-theme="light"] .hover\:bg-slate-700:hover{background-color:#b6c2d2 !important}
+html[data-theme="light"] .hover\:bg-slate-800:hover{background-color:#cbd5e1 !important}
+html[data-theme="light"] .hover\:text-slate-100:hover{color:#000 !important}
+html[data-theme="light"] .text-cyan-300{color:#155e75 !important}
+html[data-theme="light"] .text-cyan-400{color:#0e7490 !important}
+html[data-theme="light"] .text-emerald-400{color:#047857 !important}
+html[data-theme="light"] .text-slate-100{color:#0f172a !important}
+html[data-theme="light"] .text-slate-200{color:#1e293b !important}
+html[data-theme="light"] .text-slate-300{color:#334155 !important}
+html[data-theme="light"] .text-slate-400{color:#475569 !important}
+html[data-theme="light"] .text-slate-700{color:#334155 !important}
+html[data-theme="light"] .text-yellow-400{color:#854d0e !important}
+html[data-theme="light"] .text-yellow-500{color:#854d0e !important}
+html[data-theme="light"] .text-white:not([class*="bg-"]):not(button *):not(a[class*="bg-"] *){color:#0f172a !important}
+html[data-theme="light"] .from-slate-950,html[data-theme="light"] .from-slate-900{--tw-gradient-from:#f8fafc var(--tw-gradient-from-position) !important;--tw-gradient-to:rgb(248 250 252/0) var(--tw-gradient-to-position) !important;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to) !important}
+html[data-theme="light"] .via-slate-900{--tw-gradient-to:rgb(248 250 252/0) var(--tw-gradient-to-position) !important;--tw-gradient-stops:var(--tw-gradient-from),#f1f5f9 var(--tw-gradient-via-position),var(--tw-gradient-to) !important}
+html[data-theme="light"] .to-slate-950{--tw-gradient-to:#e2e8f0 var(--tw-gradient-to-position) !important}
+html[data-theme="light"] .from-indigo-950\/20{--tw-gradient-from:#e0e7ff var(--tw-gradient-from-position) !important;--tw-gradient-to:rgb(224 231 255/0) var(--tw-gradient-to-position) !important;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to) !important}
+</style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-slate-950">
 
@@ -98,6 +148,12 @@
             <span class="ue-brand-sub">DGES - EDyTIC</span>
           </span>
         </div>
+      </div>
+      <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="theme-checkbox" aria-label="Cambiar modo claro/oscuro">
+          <input type="checkbox" id="theme-checkbox" checked />
+          <div class="slider"></div>
+        </label>
       </div>
     </div>
   </header>
@@ -909,5 +965,13 @@
 })();
 </script>
 <p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
+<script>
+/* Selector de tema claro/oscuro (mismo comportamiento que la actividad Voyager) */
+(function(){
+  var cb=document.getElementById('theme-checkbox'), root=document.documentElement;
+  if(!cb) return;
+  cb.addEventListener('change',function(){ root.setAttribute('data-theme', cb.checked ? 'dark' : 'light'); });
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qué es la Astronomía</title>
+    <meta name="description" content="Guía didáctica para estudiantes de 14 a 16 años: qué es la Astronomía y cómo se construye el conocimiento astronómico. Incluye trivia.">
+    
+    <style>
+        /* Variables de Color y Tema */
+        :root {
+            /* TEMA OSCURO (Por defecto) */
+            --bg-color: #0a0f1d;
+            --text-color: #f8fafc;
+            --accent-color: #fb923c;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            --btn-bg: #3b82f6;
+            --btn-hover: #2563eb;
+            --btn-text: #ffffff;
+            --success-color: #22c55e;
+            --error-color: #ef4444;
+        }
+
+        [data-theme="light"] {
+            /* TEMA CLARO (Fondo gris 30% blanco, letras negras) */
+            --bg-color: #b3b3b3; /* Gris al 30% de blanco aprox */
+            --text-color: #000000;
+            --accent-color: #6b230d;
+            --card-bg: #e5e5e5;
+            --card-border: #999999;
+            --btn-bg: #1d4ed8;
+            --btn-hover: #1e3a8a;
+            --btn-text: #ffffff;
+        }
+
+        /* Reset y Base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 1.125rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fondo Estrellado (Canvas) */
+        #stars-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Contenedor Principal */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Accesibilidad: Ocultar visualmente pero dejar para lectores de pantalla */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Navegación y Switch de Tema */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--card-border);
+            margin-bottom: 2rem;
+        }
+
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "☀️";
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #3b82f6;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+            content: "🌙";
+        }
+
+        /* Tipografía */
+        h1 { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 1rem; line-height: 1.2; }
+        h2 { font-size: 1.75rem; margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color); border-bottom: 1px solid var(--card-border); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.25rem; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        p { margin-bottom: 1.25rem; }
+        strong { color: var(--accent-color); }
+        ul { margin-left: 1.5rem; margin-bottom: 1.25rem; }
+        li { margin-bottom: 0.5rem; }
+
+        /* Tarjetas / Contenedores */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* TDAH / Sobrecarga Cognitiva: Elementos Desplegables (Accordions) */
+        details {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        summary {
+            padding: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: rgba(0,0,0,0.05);
+            transition: background-color 0.2s ease;
+            list-style: none; /* Safari */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker {
+            display: none; /* Chrome */
+        }
+
+        summary::after {
+            content: "▼";
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            transition: transform 0.3s;
+        }
+
+        details[open] summary::after {
+            transform: rotate(180deg);
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .details-content {
+            padding: 1rem;
+        }
+
+        /* Medios (Imágenes y Video) */
+        .media-container {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            background-color: #000; /* Fondo para evitar destellos blancos */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Actividad Interactiva (Quiz) */
+        .quiz-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 2px solid var(--accent-color);
+        }
+
+        .question {
+            margin-bottom: 1.5rem;
+            display: none; /* Se muestran con JS */
+        }
+
+        .question.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background-color: rgba(255,255,255,0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        [data-theme="light"] .option-label {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        .option-label:hover {
+            border-color: var(--accent-color);
+        }
+
+        /* Clases para destacar elecciones y correcciones visuales */
+        .option-label.selected {
+            border-color: var(--accent-color);
+            background-color: rgba(251, 146, 60, 0.1);
+        }
+
+        .option-label.correct-highlight {
+            border-color: var(--success-color) !important;
+            background-color: rgba(34, 197, 94, 0.15) !important;
+        }
+
+        .option-label.wrong-highlight {
+            border-color: var(--error-color) !important;
+            background-color: rgba(239, 68, 68, 0.15) !important;
+        }
+
+        .option-label input {
+            margin-right: 1rem;
+            transform: scale(1.2);
+        }
+
+        .btn {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: var(--btn-hover);
+        }
+
+        .btn:disabled {
+            background-color: #64748b;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* Resultados y Estrellas */
+        #quiz-result {
+            display: none;
+            text-align: center;
+        }
+
+        .stars-display {
+            font-size: 3rem;
+            margin: 1rem 0;
+            letter-spacing: 5px;
+        }
+
+        .feedback {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .feedback.correct { background-color: rgba(34, 197, 94, 0.2); color: var(--success-color); display: block; border: 1px solid var(--success-color); }
+        .feedback.incorrect { background-color: rgba(239, 68, 68, 0.2); color: var(--error-color); display: block; border: 1px solid var(--error-color); }
+
+        /* Enlaces */
+        a {
+            color: var(--btn-bg);
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        [data-theme="dark"] a {
+            color: #60a5fa;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cita / Para Pensar */
+        .quote-box {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1rem;
+            font-style: italic;
+            margin: 1.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        .theme-switch input:focus-visible + .slider { outline: 3px solid #facc15; outline-offset: 2px; }
+
+        /* ===== Componentes propios de esta guía ===== */
+        .eyebrow { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #60a5fa; margin-bottom: 0.5rem; }
+        [data-theme="light"] .eyebrow { color: #1e3a8a; }
+        .subtitle { border: none; margin-top: 0; font-size: 1.5rem; color: var(--text-color); padding-bottom: 0; }
+        .reading-time { font-size: 0.95rem; opacity: 0.85; }
+        section { margin-bottom: 1rem; }
+        .definition-card { border-left: 4px solid var(--accent-color); }
+        .definition { font-size: 1.2rem; margin-bottom: 0; }
+        .highlight-card { border-left: 4px solid #3b82f6; }
+        .tip-card { border-left: 4px solid var(--success-color); }
+        [data-theme="light"] .tip-card { border-left-color: #15803d; }
+        .tag { display: inline-block; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.15rem 0.6rem; border-radius: 999px; margin-right: 0.4rem; }
+        .tag-true { background: rgba(34,197,94,0.18); color: #4ade80; border: 1px solid #22c55e; }
+        .tag-false { background: rgba(239,68,68,0.18); color: #fca5a5; border: 1px solid #ef4444; }
+        [data-theme="light"] .tag-true { color: #14532d; background: rgba(34,197,94,0.25); }
+        [data-theme="light"] .tag-false { color: #7f1d1d; background: rgba(239,68,68,0.2); }
+        details .details-content p:last-child { margin-bottom: 0; }
+
+        /* Escalera de escalas */
+        .scale-ladder { list-style: none; margin: 1.5rem 0; padding: 0; display: flex; flex-direction: column-reverse; gap: 0.6rem; }
+        .scale-ladder li { display: flex; align-items: center; gap: 1rem; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 0.85rem 1rem; margin: 0; }
+        .scale-ladder li:nth-child(1) { margin-right: 25%; } .scale-ladder li:nth-child(2) { margin-right: 20%; }
+        .scale-ladder li:nth-child(3) { margin-right: 15%; } .scale-ladder li:nth-child(4) { margin-right: 10%; }
+        .scale-ladder li:nth-child(5) { margin-right: 5%; }
+        .scale-ladder .scale-icon { font-size: 1.8rem; flex: none; width: 2.4rem; text-align: center; }
+        .scale-ladder strong { display: block; }
+        .scale-ladder span:not(.scale-icon) { display: block; font-size: 1rem; }
+        @media (max-width: 600px) { .scale-ladder li { margin-right: 0 !important; } }
+
+        /* Etiquetas de disciplinas */
+        .chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.25rem; }
+        .chip { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 999px; padding: 0.45rem 0.9rem; font-size: 0.98rem; }
+
+        /* Tabla comparativa */
+        .table-wrap { overflow-x: auto; margin-bottom: 1.5rem; border-radius: 10px; border: 1px solid var(--card-border); }
+        .compare-table { width: 100%; border-collapse: collapse; background: var(--card-bg); font-size: 1rem; min-width: 520px; }
+        .compare-table th, .compare-table td { padding: 0.8rem 1rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--card-border); }
+        .compare-table thead th { background: rgba(59,130,246,0.18); }
+        .compare-table tbody th { font-weight: 700; white-space: nowrap; }
+        .compare-table tr:last-child th, .compare-table tr:last-child td { border-bottom: none; }
+
+        /* Ciclo del conocimiento */
+        .cycle-figure { margin: 1.5rem auto; max-width: 420px; text-align: center; }
+        .cycle-figure svg { width: 100%; height: auto; display: block; }
+        .cycle-ring { fill: none; stroke: var(--card-border); stroke-width: 2; stroke-dasharray: 4 6; }
+        .cycle-arrow { fill: none; stroke: var(--accent-color); stroke-width: 4; }
+        .cycle-arrowhead { fill: var(--accent-color); }
+        .cycle-node circle { fill: var(--card-bg); stroke: var(--accent-color); stroke-width: 2.5; }
+        .cycle-node text { text-anchor: middle; font-size: 22px; fill: var(--text-color); }
+        .cycle-node .cycle-label { font-size: 14px; font-weight: 700; }
+        .cycle-center { text-anchor: middle; font-size: 16px; font-weight: 700; fill: var(--text-color); opacity: 0.85; }
+        .cycle-figure figcaption { font-size: 0.95rem; font-style: italic; margin-top: 0.5rem; }
+
+        /* Pasos y tarjetas pequeñas */
+        .steps { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+        @media (min-width: 700px) { .steps { grid-template-columns: 1fr 1fr; } }
+        .steps .card { margin-bottom: 0; }
+        .step-card h3, .mini-card h3 { margin-top: 0; }
+        .step-card p:last-child, .mini-card p:last-child { margin-bottom: 0; }
+        .example { font-size: 1rem; border-top: 1px dashed var(--card-border); padding-top: 0.6rem; }
+
+        /* Línea de tiempo */
+        .timeline { list-style: none; margin: 1.5rem 0; padding: 0 0 0 1.25rem; border-left: 3px solid var(--accent-color); }
+        .timeline li { position: relative; margin: 0 0 1.25rem; padding-left: 1rem; }
+        .timeline li::before { content: ""; position: absolute; left: -1.25rem; top: 0.45rem; width: 14px; height: 14px; margin-left: -8.5px; border-radius: 50%; background: var(--accent-color); border: 3px solid var(--bg-color); }
+        .timeline-date { display: inline-block; font-weight: 800; font-size: 0.9rem; color: var(--accent-color); margin-bottom: 0.2rem; }
+
+        /* Glosario */
+        .glossary dt { font-weight: 800; color: var(--accent-color); margin-top: 0.75rem; }
+        .glossary dt:first-child { margin-top: 0; }
+        .glossary dd { margin: 0.15rem 0 0 0; }
+    </style>
+  <!-- Encabezado del portal: botón "Inicio" + marca "Astronomía para todos · DGES - EDyTIC" (componente compartido, idéntico en todas las actividades) -->
+  <style>
+    .ue-home{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:10px;color:inherit;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.32);text-decoration:none;transition:background-color .2s,border-color .2s}
+    .ue-home:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.65)}
+    .ue-home:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
+    .ue-home svg{width:20px;height:20px;display:block}
+    .ue-brand-row{display:flex;align-items:center;gap:12px;min-width:0}
+    .ue-brand{display:flex;align-items:center;gap:12px;padding:7px 14px;border-radius:12px;background:#0f172a;border:1px solid rgba(148,163,184,.28);box-shadow:0 2px 10px rgba(0,0,0,.25);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;text-align:left;-webkit-text-fill-color:initial}
+    .ue-brand-logo{display:block;height:26px;width:auto;max-width:none;margin:0;border:0;border-radius:0;box-shadow:none}
+    .ue-brand-sep{flex:none;width:1px;align-self:stretch;background:rgba(148,163,184,.35)}
+    .ue-brand-text{display:flex;flex-direction:column;line-height:1.15}
+    .ue-brand-title{display:block;margin:0;font-size:15px;font-weight:700;letter-spacing:.01em;text-transform:none;color:#f8fafc}
+    .ue-brand-sub{display:block;margin:2px 0 0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:none;color:#fdba74}
+    @media (max-width:639px){
+      .ue-brand{flex-direction:column;align-items:flex-start;gap:5px;padding:7px 11px}
+      .ue-brand-sep{display:none}
+      .ue-brand-logo{height:18px}
+    }
+    @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
+  </style>
+<style id="a11y-base">
+/* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
+:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+</style>
+</head>
+<body>
+    <!-- Fondo Animado Interactivo -->
+    <canvas id="stars-canvas" aria-hidden="true"></canvas>
+
+    <div class="container">
+        <!-- Navegación Superior -->
+        <header>
+            <div class="title-area">
+                <div class="ue-brand-row">
+                  <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+                  </a>
+                  <div class="ue-brand">
+                    <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+                    <span class="ue-brand-sep" aria-hidden="true"></span>
+                    <span class="ue-brand-text">
+                      <span class="ue-brand-title">Astronomía para todos</span>
+                      <span class="ue-brand-sub">DGES - EDyTIC</span>
+                    </span>
+                  </div>
+                </div>
+            </div>
+            
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox" aria-label="Cambiar modo claro/oscuro">
+                    <input type="checkbox" id="checkbox" checked />
+                    <div class="slider"></div>
+                </label>
+            </div>
+        </header>
+
+        <main>
+            <article>
+                <p class="eyebrow">Unidad Introducción general</p>
+                <h1 tabindex="0">¿Qué es la Astronomía y cómo se construye el conocimiento astronómico?</h1>
+
+                <h2 class="subtitle">Una ciencia que empezó mirando hacia arriba</h2>
+
+                <div class="quote-box" tabindex="0">
+                    <p>Esta noche, sal a mirar el cielo. Verás puntos que brillan, quizás la Luna y, si tienes suerte, una "estrella fugaz". Ahora pregúntate: <strong>¿Qué son esas luces? ¿Qué tan lejos están? ¿Cómo podemos saberlo si nunca nadie fue hasta allí?</strong></p>
+                </div>
+
+                <p>Esas preguntas son el punto de partida de la Astronomía. En esta guía vas a descubrir qué estudia, por qué es una de las ciencias más antiguas y, sobre todo, <strong>cómo las personas que investigan el cielo logran saber cosas de lugares a los que nunca podremos viajar</strong>.</p>
+
+                <p class="reading-time">⏱️ Lectura estimada: 15 minutos · Al final te espera una trivia para coleccionar estrellas.</p>
+            </article>
+
+            <!-- Ideas previas -->
+            <section aria-labelledby="ideas-titulo">
+                <h2 id="ideas-titulo">🤔 Antes de empezar: ¿qué piensas tú?</h2>
+                <p>Lee cada frase y decide si te parece verdadera o falsa. Después, abre la tarjeta para comparar tu idea con lo que sabe la ciencia hoy. ¡Equivocarse es parte de aprender!</p>
+
+                <details>
+                    <summary>"De día no hay estrellas en el cielo."</summary>
+                    <div class="details-content">
+                        <p><span class="tag tag-false">Falso</span> Las estrellas siguen allí todo el tiempo. De día no las vemos porque la luz del Sol, al atravesar el aire, ilumina todo el cielo y su brillo tapa el de las estrellas, que es mucho más débil.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>"Todas las estrellas que veo están a la misma distancia."</summary>
+                    <div class="details-content">
+                        <p><span class="tag tag-false">Falso</span> Parecen estar pegadas en una gran cúpula, pero algunas están a pocos años luz y otras a miles. Una estrella puede verse débil porque está muy lejos, no porque sea pequeña.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>"La Astrología es una parte de la Astronomía."</summary>
+                    <div class="details-content">
+                        <p><span class="tag tag-false">Falso</span> Comparten un origen histórico, pero hoy son cosas muy distintas. La Astronomía es una ciencia; la Astrología no lo es. Más abajo verás por qué.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>"Lo que sabemos del Universo puede cambiar."</summary>
+                    <div class="details-content">
+                        <p><span class="tag tag-true">Verdadero</span> El conocimiento científico es sólido, pero no definitivo. Cuando aparecen nuevas observaciones, los modelos se revisan y mejoran. Esa capacidad de corregirse es una de las fortalezas de la ciencia.</p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- Qué es la Astronomía -->
+            <section aria-labelledby="que-es-titulo">
+                <h2 id="que-es-titulo">🔭 ¿Qué es la Astronomía?</h2>
+
+                <div class="card definition-card">
+                    <p class="definition"><strong>La Astronomía es la ciencia que estudia los astros</strong> (los objetos que existen en el espacio, como planetas, lunas, estrellas y galaxias), <strong>los fenómenos que ocurren en el cielo y el Universo en su conjunto</strong>: cómo es, cómo funciona, cómo se originó y cómo cambia.</p>
+                </div>
+
+                <p>Es una de las ciencias más antiguas. Hace miles de años, distintos pueblos ya observaban el cielo con atención y descubrían <strong>regularidades</strong> (cosas que se repiten siempre de la misma manera): el Sol sale y se pone cada día, la Luna cambia de forma cada mes, algunas estrellas aparecen solo en ciertas épocas del año. Gracias a esos ciclos pudieron crear calendarios, saber cuándo sembrar y orientarse en sus viajes.</p>
+
+                <h3>Una ciencia de muchas escalas</h3>
+                <p>La Astronomía estudia sistemas que están unos dentro de otros, como muñecas rusas. Recorre la escalera de abajo hacia arriba y observa cómo crecen las distancias. Para medirlas usamos el <strong>año luz</strong> (la distancia que recorre la luz en un año: unos 9,5 billones de kilómetros).</p>
+
+                <ol class="scale-ladder" aria-label="Escalas del Universo, de la más cercana a la más lejana">
+                    <li>
+                        <span class="scale-icon" aria-hidden="true">🌍</span>
+                        <div><strong>La Tierra y la Luna</strong><span>La luz de la Luna tarda poco más de 1 segundo en llegarnos.</span></div>
+                    </li>
+                    <li>
+                        <span class="scale-icon" aria-hidden="true">☀️</span>
+                        <div><strong>El Sistema Solar</strong><span>El Sol y todo lo que gira a su alrededor. La luz del Sol tarda unos 8 minutos en llegar a la Tierra.</span></div>
+                    </li>
+                    <li>
+                        <span class="scale-icon" aria-hidden="true">⭐</span>
+                        <div><strong>Las estrellas vecinas</strong><span>La más cercana después del Sol, Próxima Centauri, está a unos 4,2 años luz.</span></div>
+                    </li>
+                    <li>
+                        <span class="scale-icon" aria-hidden="true">🌌</span>
+                        <div><strong>La Vía Láctea, nuestra galaxia</strong><span>Una <em>galaxia</em> (un enorme conjunto de estrellas, gas y polvo que se mantiene unido por la gravedad). La nuestra mide unos 100.000 años luz de lado a lado.</span></div>
+                    </li>
+                    <li>
+                        <span class="scale-icon" aria-hidden="true">🌀</span>
+                        <div><strong>Otras galaxias</strong><span>Andrómeda, la galaxia grande más cercana, está a unos 2,5 millones de años luz.</span></div>
+                    </li>
+                    <li>
+                        <span class="scale-icon" aria-hidden="true">✨</span>
+                        <div><strong>El Universo</strong><span>Miles de millones de galaxias organizadas en grupos, cúmulos y grandes filamentos.</span></div>
+                    </li>
+                </ol>
+
+                <div class="card highlight-card">
+                    <h3>🕰️ Mirar lejos es mirar al pasado</h3>
+                    <p>Como la luz tarda en viajar, nunca vemos los astros como son ahora, sino como eran cuando esa luz salió de ellos. Ves al Sol como era hace 8 minutos y a la galaxia de Andrómeda como era hace 2,5 millones de años. <strong>Un telescopio funciona, en cierto modo, como una máquina del tiempo.</strong></p>
+                </div>
+
+                <h3>Una ciencia que se conecta con todas las demás</h3>
+                <p>Para entender el cielo, la Astronomía trabaja junto con otras disciplinas:</p>
+                <div class="chips" role="list">
+                    <span class="chip" role="listitem">📐 Matemática: calcular distancias, órbitas y tiempos</span>
+                    <span class="chip" role="listitem">⚛️ Física: entender la luz, la gravedad y la energía</span>
+                    <span class="chip" role="listitem">🧪 Química: saber de qué están hechos los astros</span>
+                    <span class="chip" role="listitem">🧬 Biología: buscar vida fuera de la Tierra (astrobiología)</span>
+                    <span class="chip" role="listitem">💻 Informática: analizar enormes cantidades de datos y simular</span>
+                    <span class="chip" role="listitem">📜 Historia y filosofía: cómo cambió nuestra idea del cosmos</span>
+                </div>
+                <p>La Astronomía nos invita a "mirar hacia afuera", hacia el cosmos, pero también a "mirar hacia adentro": las grandes preguntas sobre el Universo terminan siendo preguntas sobre nosotros mismos, nuestro planeta y nuestro futuro como especie.</p>
+            </section>
+
+            <!-- Astronomía vs Astrología -->
+            <section aria-labelledby="astrologia-titulo">
+                <h2 id="astrologia-titulo">⚖️ Astronomía no es lo mismo que Astrología</h2>
+                <p>En redes sociales y en los medios se mezclan a menudo. Por eso conviene saber distinguirlas:</p>
+
+                <div class="table-wrap">
+                    <table class="compare-table">
+                        <caption class="sr-only">Comparación entre Astronomía y Astrología</caption>
+                        <thead>
+                            <tr><th scope="col">Pregunta</th><th scope="col">Astronomía 🔭</th><th scope="col">Astrología 🔮</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><th scope="row">¿Qué busca?</th><td>Explicar cómo es y cómo funciona el Universo.</td><td>Afirma que la posición de los astros influye en la personalidad o el destino.</td></tr>
+                            <tr><th scope="row">¿En qué se basa?</th><td>En observaciones, mediciones y pruebas que cualquiera puede repetir.</td><td>En tradiciones e interpretaciones que no se ponen a prueba.</td></tr>
+                            <tr><th scope="row">¿Qué pasa si una idea falla?</th><td>Se revisa o se descarta.</td><td>Se mantiene igual.</td></tr>
+                            <tr><th scope="row">¿Es una ciencia?</th><td>Sí.</td><td>No. Es una <em>pseudociencia</em> (algo que parece ciencia pero no sigue sus métodos).</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card tip-card">
+                    <h3>🕵️ Tu detector de pseudociencia</h3>
+                    <p>Cuando leas una noticia sobre el cielo ("un asteroide destruirá la Tierra", "la Luna llena te cambia el humor"), hazte estas preguntas:</p>
+                    <ul>
+                        <li>¿Quién lo dice? ¿Es una agencia espacial, un observatorio o una universidad?</li>
+                        <li>¿Muestra datos, imágenes o mediciones?</li>
+                        <li>¿Otras fuentes confiables dicen lo mismo?</li>
+                        <li>¿El título busca asustar o sorprender más que informar?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Cómo se construye el conocimiento -->
+            <section aria-labelledby="como-titulo">
+                <h2 id="como-titulo">🧩 ¿Cómo se construye el conocimiento astronómico?</h2>
+
+                <p>Un químico puede mezclar sustancias en un laboratorio y un biólogo puede cultivar plantas. Pero <strong>nadie puede llevar una estrella a un laboratorio</strong>, ni esperar millones de años para ver cómo cambia. Entonces, ¿cómo trabaja la Astronomía?</p>
+
+                <p>La clave es la <strong>luz</strong>. Casi todo lo que sabemos del Universo lo aprendimos analizando la luz que nos llega de los astros. La luz trae información sobre su color, su temperatura, de qué están hechos y si se acercan o se alejan. Es como un mensaje que debemos aprender a leer.</p>
+
+                <p>Con esa información, la comunidad científica avanza combinando cuatro tipos de trabajo, que no siempre siguen el mismo orden y que se repiten una y otra vez:</p>
+
+                <figure class="cycle-figure">
+                    <svg viewBox="0 0 400 400" role="img" aria-labelledby="ciclo-titulo ciclo-desc">
+                        <title id="ciclo-titulo">El ciclo del conocimiento astronómico</title>
+                        <desc id="ciclo-desc">Cuatro etapas conectadas en un círculo: observar, investigar, modelizar y teorizar. De teorizar surgen predicciones que llevan a nuevas observaciones.</desc>
+                        <defs>
+                            <marker id="flecha" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                <path d="M0,0 L10,5 L0,10 z" class="cycle-arrowhead"/>
+                            </marker>
+                        </defs>
+                        <circle cx="200" cy="200" r="128" class="cycle-ring"/>
+                        <path d="M 262 88 A 128 128 0 0 1 312 138" class="cycle-arrow" marker-end="url(#flecha)"/>
+                        <path d="M 312 262 A 128 128 0 0 1 262 312" class="cycle-arrow" marker-end="url(#flecha)"/>
+                        <path d="M 138 312 A 128 128 0 0 1 88 262" class="cycle-arrow" marker-end="url(#flecha)"/>
+                        <path d="M 88 138 A 128 128 0 0 1 138 88" class="cycle-arrow" marker-end="url(#flecha)"/>
+                        <g class="cycle-node"><circle cx="200" cy="72" r="46"/><text x="200" y="66">👁️</text><text x="200" y="90" class="cycle-label">Observar</text></g>
+                        <g class="cycle-node"><circle cx="328" cy="200" r="46"/><text x="328" y="194">📊</text><text x="328" y="218" class="cycle-label">Investigar</text></g>
+                        <g class="cycle-node"><circle cx="200" cy="328" r="46"/><text x="200" y="322">🧪</text><text x="200" y="346" class="cycle-label">Modelizar</text></g>
+                        <g class="cycle-node"><circle cx="72" cy="200" r="46"/><text x="72" y="194">💡</text><text x="72" y="218" class="cycle-label">Teorizar</text></g>
+                        <text x="200" y="196" class="cycle-center">Nuevas</text>
+                        <text x="200" y="216" class="cycle-center">preguntas</text>
+                    </svg>
+                    <figcaption>El conocimiento no avanza en línea recta: es un ciclo que se vuelve a recorrer cada vez que aparece un dato nuevo.</figcaption>
+                </figure>
+
+                <div class="steps">
+                    <div class="card step-card">
+                        <h3>👁️ 1. Observar</h3>
+                        <p>Mirar el cielo con atención y <strong>registrar</strong> lo que se ve: con los ojos, con telescopios, con cámaras o con sondas espaciales. Una buena observación anota qué, cuándo, dónde y con qué instrumento.</p>
+                        <p class="example"><em>Ejemplo:</em> anotar durante un mes la forma de la Luna y la hora en que aparece.</p>
+                    </div>
+                    <div class="card step-card">
+                        <h3>📊 2. Investigar</h3>
+                        <p>Hacerse preguntas sobre lo observado, medir, comparar datos y buscar <strong>patrones</strong> (cosas que se repiten). Hoy esto incluye analizar millones de datos con computadoras.</p>
+                        <p class="example"><em>Ejemplo:</em> descubrir que la Luna repite sus formas cada 29 días y medio.</p>
+                    </div>
+                    <div class="card step-card">
+                        <h3>🧪 3. Modelizar</h3>
+                        <p>Construir un <strong>modelo</strong> (una representación simplificada de la realidad, que puede ser un dibujo, una maqueta, una ecuación o una simulación) para explicar lo observado y hacer predicciones.</p>
+                        <p class="example"><em>Ejemplo:</em> usar una lámpara y una pelota para mostrar que las fases dependen de cuánto de la mitad iluminada de la Luna vemos desde la Tierra.</p>
+                    </div>
+                    <div class="card step-card">
+                        <h3>💡 4. Teorizar</h3>
+                        <p>Reunir muchos modelos y observaciones en una <strong>teoría</strong> (una explicación amplia, que fue puesta a prueba muchas veces y explica muchos fenómenos a la vez).</p>
+                        <p class="example"><em>Ejemplo:</em> la teoría de la gravitación explica a la vez las fases de la Luna, las mareas y las órbitas de los planetas.</p>
+                    </div>
+                </div>
+
+                <div class="card highlight-card">
+                    <h3>🤝 La ciencia es un trabajo en equipo</h3>
+                    <p>Ningún descubrimiento es válido solo porque lo diga una persona famosa. Los resultados se publican para que otros equipos, en otros países, puedan revisarlos y repetir las observaciones. Si alguien encuentra un error, el modelo se corrige. Por eso decimos que el conocimiento científico es <strong>colectivo</strong> y <strong>provisorio</strong> (válido mientras las evidencias lo sostengan).</p>
+                </div>
+            </section>
+
+            <!-- Herramientas -->
+            <section aria-labelledby="herramientas-titulo">
+                <h2 id="herramientas-titulo">🛰️ Las herramientas: de los ojos a los telescopios espaciales</h2>
+                <p>Durante miles de años, el único instrumento fueron los ojos. Hoy contamos con muchas formas de "mirar" el Universo:</p>
+
+                <details>
+                    <summary>🔭 Telescopios ópticos</summary>
+                    <div class="details-content">
+                        <p>Reúnen mucha más luz que el ojo humano y permiten ver objetos débiles y detalles finos. En 1609 Galileo Galilei apuntó uno de los primeros telescopios al cielo y cambió la Astronomía para siempre. Los grandes observatorios actuales se construyen en montañas altas y secas, lejos de la contaminación lumínica.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>📡 Radiotelescopios y otras "luces invisibles"</summary>
+                    <div class="details-content">
+                        <p>La luz que vemos es solo una parte de la <strong>radiación electromagnética</strong> (la familia de "luces" que incluye las ondas de radio, el infrarrojo, el ultravioleta y los rayos X). Cada tipo muestra algo distinto: el infrarrojo atraviesa nubes de polvo y deja ver estrellas naciendo; las ondas de radio revelan gas frío entre las estrellas. Para captarlas se usan antenas gigantes llamadas radiotelescopios.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>🛰️ Telescopios espaciales</summary>
+                    <div class="details-content">
+                        <p>La atmósfera de la Tierra desenfoca y bloquea parte de la luz. Por eso se envían telescopios al espacio. El <strong>Hubble</strong>, lanzado en 1990, tomó algunas de las imágenes más famosas del cosmos. El <strong>James Webb</strong>, lanzado en 2021, observa en infrarrojo y puede ver galaxias muy lejanas que se formaron poco después del origen del Universo.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>🚀 Sondas y vehículos robóticos</summary>
+                    <div class="details-content">
+                        <p>Son naves sin tripulación que viajan a otros mundos para estudiarlos de cerca. Algunas pasan junto a los planetas, otras orbitan a su alrededor y otras, como los <em>rovers</em> (vehículos robóticos con ruedas), recorren la superficie de Marte analizando rocas.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>💻 Computadoras y simuladores</summary>
+                    <div class="details-content">
+                        <p>Permiten procesar enormes cantidades de datos y crear simulaciones (modelos en computadora) de procesos que duran millones de años, como el nacimiento de una estrella o el choque de dos galaxias. Con programas gratuitos como <strong>Stellarium</strong> puedes ver el cielo de cualquier lugar y fecha desde tu computadora o celular.</p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- Ejemplo histórico -->
+            <section aria-labelledby="historia-titulo">
+                <h2 id="historia-titulo">🌍➡️☀️ Un ejemplo: cuando el Sol pasó al centro</h2>
+                <p>La historia del lugar de la Tierra en el Universo muestra muy bien cómo funciona el ciclo del conocimiento: los modelos cambian cuando aparecen nuevas observaciones.</p>
+
+                <ol class="timeline">
+                    <li>
+                        <span class="timeline-date">Antigüedad</span>
+                        <div><strong>Observar:</strong> se nota que, entre las estrellas, unos pocos astros "se mueven" de noche en noche. Los griegos los llamaron <em>planetas</em> (que significa "errantes", los que vagan).</div>
+                    </li>
+                    <li>
+                        <span class="timeline-date">Siglo II</span>
+                        <div><strong>Modelizar:</strong> Claudio Ptolomeo organiza el <em>modelo geocéntrico</em> (la Tierra quieta en el centro y todo gira a su alrededor). Funcionó para predecir posiciones durante más de mil años.</div>
+                    </li>
+                    <li>
+                        <span class="timeline-date">1543</span>
+                        <div><strong>Nuevo modelo:</strong> Nicolás Copérnico propone el <em>modelo heliocéntrico</em> (el Sol en el centro y la Tierra girando a su alrededor como un planeta más).</div>
+                    </li>
+                    <li>
+                        <span class="timeline-date">1609 – 1610</span>
+                        <div><strong>Nuevas evidencias:</strong> con su telescopio, Galileo descubre lunas girando alrededor de Júpiter y ve que Venus tiene fases como la Luna. Eso no encajaba con el modelo antiguo.</div>
+                    </li>
+                    <li>
+                        <span class="timeline-date">1609 – 1619</span>
+                        <div><strong>Mejorar el modelo:</strong> usando años de mediciones muy precisas de Tycho Brahe, Johannes Kepler muestra que los planetas giran en <em>elipses</em> (óvalos), no en círculos perfectos.</div>
+                    </li>
+                    <li>
+                        <span class="timeline-date">1687</span>
+                        <div><strong>Teorizar:</strong> Isaac Newton explica por qué se mueven así: la <em>gravedad</em> (la fuerza con la que los cuerpos se atraen entre sí) es la misma que hace caer una manzana y la que mantiene a la Luna en su órbita.</div>
+                    </li>
+                </ol>
+
+                <div class="card tip-card">
+                    <h3>🔎 ¿Te diste cuenta?</h3>
+                    <p>El modelo geocéntrico no era "tonto": explicaba lo que se podía observar a simple vista. Fue reemplazado porque <strong>nuevos instrumentos trajeron nuevas evidencias</strong>. Así avanza la ciencia.</p>
+                </div>
+            </section>
+
+            <!-- Ejemplo actual -->
+            <section aria-labelledby="hoy-titulo">
+                <h2 id="hoy-titulo">🪐 Y hoy: el ciclo sigue funcionando</h2>
+                <p>Hace apenas 30 años no sabíamos si existían planetas fuera del Sistema Solar. En 1995 se confirmó el primero que gira alrededor de una estrella parecida al Sol. Como están tan lejos y brillan tan poco, casi nunca se ven directamente: se detectan, por ejemplo, midiendo la pequeña baja de brillo de una estrella cuando un planeta pasa por delante de ella (el llamado <em>método del tránsito</em>).</p>
+                <p>Hoy se conocen <strong>más de 5.000 exoplanetas</strong> (planetas que giran alrededor de otras estrellas), y cada descubrimiento obliga a revisar las ideas sobre cómo se forman los sistemas planetarios. Algo parecido ocurre con el origen del Universo: el modelo del <em>Big Bang</em> (la idea de que el Universo comenzó muy caliente y denso hace unos 13.800 millones de años y desde entonces se expande) se apoya en muchas observaciones, y los telescopios actuales lo siguen poniendo a prueba.</p>
+            </section>
+
+            <!-- Culturas -->
+            <section aria-labelledby="culturas-titulo">
+                <h2 id="culturas-titulo">🌎 Un cielo, muchas miradas</h2>
+                <p>Todos los pueblos del mundo observaron el cielo y construyeron conocimientos sobre él. A esto se lo estudia como <strong>astronomía cultural</strong> (cómo cada cultura interpreta y usa el cielo).</p>
+                <ul>
+                    <li>Los pueblos <strong>guaraníes</strong> reconocían en el cielo del sur la figura de un <strong>ñandú</strong>, cerca de la Cruz del Sur. Su aparición en el cielo marcaba cambios de estación importantes para la vida cotidiana.</li>
+                    <li>Los pueblos <strong>andinos</strong> no solo unían estrellas: también veían figuras en las <strong>manchas oscuras</strong> de la Vía Láctea, como una llama, una serpiente o un sapo.</li>
+                    <li>Muchas civilizaciones usaron el cielo como <strong>reloj y calendario</strong>, para organizar la siembra, las fiestas y los viajes.</li>
+                </ul>
+                <p>Mirar desde el <strong>hemisferio sur</strong> nos da un cielo propio, con estrellas y figuras que no se ven desde Europa o Norteamérica. Por eso es valioso conocer también las miradas de nuestra región.</p>
+            </section>
+
+            <!-- Uruguay y región -->
+            <section aria-labelledby="uruguay-titulo">
+                <h2 id="uruguay-titulo">🇺🇾 La Astronomía en Uruguay y la región</h2>
+                <p>Uruguay tiene una tradición especial: la Astronomía forma parte de la educación formal desde hace mucho tiempo, algo poco común en el mundo. Además:</p>
+                <ul>
+                    <li>En la <strong>Facultad de Ciencias de la Universidad de la República</strong> se forman personas que investigan en Astronomía.</li>
+                    <li>El <strong>Observatorio Astronómico Los Molinos</strong>, en Montevideo, se ha dedicado entre otras cosas al estudio de asteroides y cometas.</li>
+                    <li>El <strong>Planetario de Montevideo</strong> acerca el cielo a estudiantes y familias desde hace décadas.</li>
+                    <li>En países vecinos como <strong>Chile</strong>, gracias a sus cielos muy secos y oscuros, funcionan algunos de los observatorios más grandes del planeta.</li>
+                </ul>
+            </section>
+
+            <!-- CTS -->
+            <section aria-labelledby="cts-titulo">
+                <h2 id="cts-titulo">📱 ¿Para qué sirve todo esto en la vida diaria?</h2>
+                <p>Estudiar el cielo también trajo beneficios a la Tierra:</p>
+                <div class="steps">
+                    <div class="card mini-card"><h3>🧭 Ubicarnos</h3><p>El GPS de tu celular usa satélites y relojes muy precisos; para que funcione bien hay que tener en cuenta conocimientos de física y astronomía.</p></div>
+                    <div class="card mini-card"><h3>📷 Fotografiar</h3><p>Los sensores de imagen digitales se perfeccionaron, en buena parte, por la necesidad de captar la luz débil de las estrellas.</p></div>
+                    <div class="card mini-card"><h3>🌦️ Cuidar el planeta</h3><p>Los satélites que miran a la Tierra ayudan a pronosticar el tiempo y a estudiar el clima.</p></div>
+                    <div class="card mini-card"><h3>🌃 Cuidar el cielo</h3><p>La <em>contaminación lumínica</em> (el exceso de luz artificial de noche) nos está quitando las estrellas. Conocer el cielo nos ayuda a protegerlo.</p></div>
+                </div>
+            </section>
+
+            <!-- Glosario -->
+            <section aria-labelledby="glosario-titulo">
+                <h2 id="glosario-titulo">📖 Mini glosario</h2>
+                <details>
+                    <summary>Ver las palabras clave de esta guía</summary>
+                    <div class="details-content">
+                        <dl class="glossary">
+                            <dt>Astro</dt><dd>Cualquier objeto natural del espacio: planetas, lunas, estrellas, cometas, galaxias.</dd>
+                            <dt>Año luz</dt><dd>Distancia que recorre la luz en un año, unos 9,5 billones de kilómetros. Mide distancias, no tiempo.</dd>
+                            <dt>Galaxia</dt><dd>Enorme conjunto de estrellas, gas y polvo unidos por la gravedad. Vivimos en la Vía Láctea.</dd>
+                            <dt>Modelo</dt><dd>Representación simplificada de la realidad que sirve para explicar y predecir.</dd>
+                            <dt>Teoría</dt><dd>Explicación amplia y muy comprobada que reúne muchas observaciones y modelos.</dd>
+                            <dt>Evidencia</dt><dd>Dato u observación que permite apoyar o descartar una idea.</dd>
+                            <dt>Exoplaneta</dt><dd>Planeta que gira alrededor de una estrella distinta del Sol.</dd>
+                            <dt>Pseudociencia</dt><dd>Creencia que se presenta como científica pero no se pone a prueba con evidencias.</dd>
+                        </dl>
+                    </div>
+                </details>
+            </section>
+
+            <!-- Reflexión Final -->
+            <section>
+                <div class="quote-box" tabindex="0">
+                    <h3>Para pensar 💭</h3>
+                    <p>Elige una pregunta sobre el cielo que te dé curiosidad (por ejemplo: <em>¿por qué la Luna a veces se ve de día?</em>). <strong>¿Cómo la investigarías?</strong></p>
+                    <ul>
+                        <li>¿Qué observarías y cómo lo registrarías?</li>
+                        <li>¿Qué datos necesitarías medir o comparar?</li>
+                        <li>¿Qué modelo podrías construir para explicarlo?</li>
+                        <li>¿Cómo comprobarías si tu explicación es correcta?</li>
+                    </ul>
+                    <p><em>Acabas de pensar como alguien que investiga en Astronomía.</em></p>
+                </div>
+            </section>
+
+            <!-- Evaluación Interactiva -->
+            <section id="quiz" class="quiz-container" aria-labelledby="quiz-titulo">
+                <h2 id="quiz-titulo" style="border:none; margin-top: 0; color: var(--accent-color);">🌟 Misión de verificación</h2>
+                <p>Pon a prueba lo que has descubierto. Al final, coleccionarás estrellas por cada respuesta correcta.</p>
+
+                <div id="quiz-body">
+                    <!-- Las preguntas se inyectan mediante JS -->
+                </div>
+
+                <div id="quiz-result" aria-live="polite">
+                    <h3>¡Misión completada!</h3>
+                    <p>Has recolectado las siguientes estrellas:</p>
+                    <div class="stars-display" id="stars-container"></div>
+                    <p id="score-text"></p>
+                    <button class="btn" onclick="resetQuiz()">Volver a intentar 🚀</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Contenedor dinámico del Footer requerido -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts de interactividad y lógicas -->
+    <script>
+        /* =========================================
+           1. MODO CLARO / OSCURO
+           ========================================= */
+        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+        const htmlElement = document.documentElement;
+
+        function switchTheme(e) {
+            if (e.target.checked) {
+                htmlElement.setAttribute('data-theme', 'dark');
+            } else {
+                htmlElement.setAttribute('data-theme', 'light');
+            }
+        }
+        toggleSwitch.addEventListener('change', switchTheme);
+
+
+        /* =========================================
+           2. FONDO ESTRELLADO (CANVAS)
+           ========================================= */
+        const canvas = document.getElementById('stars-canvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            createStars();
+        }
+
+        function createStars() {
+            stars = [];
+            const numStars = window.innerWidth < 600 ? 100 : 250; // Menos estrellas en móviles
+            const colors = ['#ffffff', '#60a5fa', '#fb923c']; // Blanco, azul, naranja
+
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    opacity: Math.random()
+                });
+            }
+        }
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let star of stars) {
+                // Parpadeo suave
+                star.opacity += (Math.random() - 0.5) * 0.05;
+                if (star.opacity < 0.2) star.opacity = 0.2;
+                if (star.opacity > 1) star.opacity = 1;
+
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = star.color;
+                ctx.globalAlpha = star.opacity;
+                ctx.fill();
+            }
+            if (performance.now() < 5000 && !matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(drawStars);
+        }
+
+        window.addEventListener('resize', () => { resizeCanvas(); drawStars(); });
+        resizeCanvas();
+        drawStars();
+
+
+        /* =========================================
+           3. ACTIVIDAD INTERACTIVA (QUIZ REESTRUCTURADO)
+           ========================================= */
+        const questions = [
+    {
+        "question": "1. ¿Qué estudia la Astronomía?",
+        "options": [
+            "Cómo influyen los astros en la personalidad de las personas",
+            "Los astros, los fenómenos del cielo y el Universo en su conjunto",
+            "Solo los planetas del Sistema Solar",
+            "El clima y las nubes de la Tierra"
+        ],
+        "correct": 1,
+        "feedbackCorrect": "¡Excelente! La Astronomía estudia los astros, los fenómenos del cielo y el Universo como un todo: cómo es, cómo funciona y cómo cambia.",
+        "feedbackIncorrect": "Casi. La opción correcta es 'Los astros, los fenómenos del cielo y el Universo en su conjunto'. Estudiar la influencia de los astros en la personalidad es Astrología, y el clima lo estudia la Meteorología."
+    },
+    {
+        "question": "2. Si nadie puede viajar hasta una estrella, ¿de dónde obtiene la Astronomía casi toda su información?",
+        "options": [
+            "De la luz y otras radiaciones que nos llegan de los astros",
+            "De muestras de estrellas traídas a la Tierra",
+            "De las opiniones de personas famosas",
+            "De los horóscopos antiguos"
+        ],
+        "correct": 0,
+        "feedbackCorrect": "¡Muy bien! La luz (visible e invisible) es el gran mensajero del cosmos: nos cuenta el color, la temperatura y la composición de los astros.",
+        "feedbackIncorrect": "No es así. La opción correcta es 'De la luz y otras radiaciones que nos llegan de los astros'. Ninguna estrella puede llevarse a un laboratorio, pero su luz sí llega hasta nosotros."
+    },
+    {
+        "question": "3. ¿Qué es un modelo en ciencia?",
+        "options": [
+            "Una copia exacta y perfecta de la realidad",
+            "Una idea que nunca se puede cambiar",
+            "Una representación simplificada que sirve para explicar y predecir",
+            "Una persona que posa para una foto del cielo"
+        ],
+        "correct": 2,
+        "feedbackCorrect": "¡Correcto! Un modelo simplifica la realidad (con un dibujo, una maqueta, una ecuación o una simulación) para explicarla y hacer predicciones.",
+        "feedbackIncorrect": "Atención. La opción correcta es 'Una representación simplificada que sirve para explicar y predecir'. Los modelos no son copias perfectas y pueden mejorarse cuando aparecen nuevas evidencias."
+    },
+    {
+        "question": "4. Ves la galaxia de Andrómeda, que está a unos 2,5 millones de años luz. ¿Qué significa eso?",
+        "options": [
+            "Que la ves tal como es en este momento",
+            "Que la ves como era hace unos 2,5 millones de años",
+            "Que tardarías 2,5 millones de años en llegar caminando",
+            "Que es 2,5 millones de veces más grande que la Tierra"
+        ],
+        "correct": 1,
+        "feedbackCorrect": "¡Muy bien! Su luz viajó 2,5 millones de años hasta llegar a tus ojos, así que la ves como era en el pasado. Mirar lejos es mirar al pasado.",
+        "feedbackIncorrect": "No exactamente. La opción correcta es 'Que la ves como era hace unos 2,5 millones de años'. El año luz es una distancia: la que recorre la luz en un año."
+    },
+    {
+        "question": "5. ¿Por qué se abandonó el modelo geocéntrico (la Tierra en el centro)?",
+        "options": [
+            "Porque un rey lo prohibió",
+            "Porque nunca había servido para nada",
+            "Porque nuevas observaciones con telescopio no encajaban con él",
+            "Porque la Astrología lo reemplazó"
+        ],
+        "correct": 2,
+        "feedbackCorrect": "¡Exacto! Observaciones como las lunas de Júpiter y las fases de Venus, vistas por Galileo, mostraron que hacía falta un modelo mejor.",
+        "feedbackIncorrect": "Revisa la línea de tiempo. La opción correcta es 'Porque nuevas observaciones con telescopio no encajaban con él'. El modelo antiguo funcionaba a simple vista, pero los nuevos instrumentos trajeron nuevas evidencias."
+    },
+    {
+        "question": "6. Lees en redes: \"La Luna llena de este mes cambiará tu suerte en el amor\". ¿Qué es lo más razonable pensar?",
+        "options": [
+            "Es ciencia, porque habla de la Luna",
+            "Es una afirmación pseudocientífica: no muestra evidencias ni puede comprobarse",
+            "Es verdad si lo compartió mucha gente",
+            "Solo es cierto en el hemisferio sur"
+        ],
+        "correct": 1,
+        "feedbackCorrect": "¡Gran detector de pseudociencia! Que mencione un astro no la vuelve científica: no presenta datos ni puede ponerse a prueba.",
+        "feedbackIncorrect": "Cuidado. La opción correcta es 'Es una afirmación pseudocientífica'. Que algo hable de la Luna o se comparta mucho no lo convierte en ciencia: hacen falta evidencias que cualquiera pueda comprobar."
+    },
+    {
+        "question": "BONUS 🌟: ¿Por qué decimos que el conocimiento científico es \"provisorio\"?",
+        "options": [
+            "Porque es inventado y no vale nada",
+            "Porque es válido mientras las evidencias lo sostengan y puede mejorarse",
+            "Porque cambia según la opinión de cada persona",
+            "Porque solo dura un año"
+        ],
+        "correct": 1,
+        "feedbackCorrect": "¡Excelente! Es sólido porque se apoya en evidencias, y a la vez puede corregirse cuando aparecen datos nuevos. Esa es su gran fortaleza.",
+        "feedbackIncorrect": "No es así. La opción correcta es 'Porque es válido mientras las evidencias lo sostengan y puede mejorarse'. Provisorio no significa débil: significa que la ciencia está abierta a corregirse."
+    }
+];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let isVerified = false; // Registra si ya verificó la pregunta actual
+
+        const quizBody = document.getElementById('quiz-body');
+        const quizResult = document.getElementById('quiz-result');
+
+        function buildQuiz() {
+            quizBody.innerHTML = '';
+            
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = `question ${index === 0 ? 'active' : ''}`;
+                questionDiv.id = `question-${index}`;
+
+                const title = document.createElement('h3');
+                title.textContent = q.question;
+                questionDiv.appendChild(title);
+
+                const feedback = document.createElement('div');
+                feedback.id = `feedback-${index}`;
+                feedback.className = 'feedback';
+                questionDiv.appendChild(feedback);
+
+                const optionsGrid = document.createElement('div');
+                optionsGrid.className = 'options-grid';
+
+                q.options.forEach((opt, optIndex) => {
+                    const label = document.createElement('label');
+                    label.className = 'option-label';
+                    label.id = `label-${index}-${optIndex}`;
+                    label.innerHTML = `
+                        <input type="radio" name="q${index}" value="${optIndex}" onchange="selectOption(${index}, ${optIndex})">
+                        <span>${opt}</span>
+                    `;
+                    optionsGrid.appendChild(label);
+                });
+
+                questionDiv.appendChild(optionsGrid);
+
+                // Botón único con estado de verificación/avance
+                const btn = document.createElement('button');
+                btn.className = 'btn';
+                btn.id = `action-btn-${index}`;
+                btn.textContent = 'VERIFICAR OPCIÓN';
+                btn.disabled = true; // Deshabilitado hasta que seleccione una opción
+                btn.onclick = () => handleQuestionAction(index);
+                questionDiv.appendChild(btn);
+
+                quizBody.appendChild(questionDiv);
+            });
+        }
+
+        // Resaltar visualmente la opción seleccionada antes de verificar
+        function selectOption(qIndex, optIndex) {
+            if (isVerified) return; // Impedir modificar selección si ya se verificó
+
+            // Habilitar el botón de verificar
+            const btn = document.getElementById(`action-btn-${qIndex}`);
+            btn.disabled = false;
+
+            // Actualizar estilo visual de las etiquetas
+            questions[qIndex].options.forEach((_, idx) => {
+                const label = document.getElementById(`label-${qIndex}-${idx}`);
+                if (idx === optIndex) {
+                    label.classList.add('selected');
+                } else {
+                    label.classList.remove('selected');
+                }
+            });
+        }
+
+        // Manejar el flujo de dos clics en el mismo botón
+        function handleQuestionAction(index) {
+            if (!isVerified) {
+                // FASE 1: Verificar la respuesta actual
+                verifyAnswer(index);
+            } else {
+                // FASE 2: Avanzar de pregunta
+                advanceQuestion(index);
+            }
+        }
+
+        // Verificar la respuesta y mostrar el feedback y colores de refuerzo
+        function verifyAnswer(index) {
+            isVerified = true;
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const feedback = document.getElementById(`feedback-${index}`);
+            const btn = document.getElementById(`action-btn-${index}`);
+            
+            const selectedValue = parseInt(selected.value);
+            const isCorrect = selectedValue === questions[index].correct;
+
+            // Bloquear todos los inputs de la pregunta actual
+            const inputs = document.querySelectorAll(`input[name="q${index}"]`);
+            inputs.forEach(input => input.disabled = true);
+
+            // Remover estilos provisionales de selección
+            questions[index].options.forEach((_, idx) => {
+                document.getElementById(`label-${index}-${idx}`).classList.remove('selected');
+            });
+
+            // Resaltar y aplicar feedback detallado
+            if (isCorrect) {
+                document.getElementById(`label-${index}-${selectedValue}`).classList.add('correct-highlight');
+                feedback.innerHTML = `🌟 <strong>${questions[index].feedbackCorrect}</strong>`;
+                feedback.className = "feedback correct";
+                score++;
+            } else {
+                // Marcar respuesta elegida como errónea
+                document.getElementById(`label-${index}-${selectedValue}`).classList.add('wrong-highlight');
+                // Resaltar opción correcta sugerida (Refuerzo orientativo)
+                document.getElementById(`label-${index}-${questions[index].correct}`).classList.add('correct-highlight');
+                
+                feedback.innerHTML = `⚠️ <strong>${questions[index].feedbackIncorrect}</strong>`;
+                feedback.className = "feedback incorrect";
+            }
+
+            // Cambiar comportamiento del botón para la segunda fase
+            btn.textContent = index === questions.length - 1 ? 'Finalizar y ver estrellas 🚀' : 'Siguiente pregunta ➡️';
+        }
+
+        // Avanzar de pregunta limpiando el estado de verificación
+        function advanceQuestion(index) {
+            isVerified = false;
+            document.getElementById(`question-${index}`).classList.remove('active');
+            
+            if (index + 1 < questions.length) {
+                document.getElementById(`question-${index + 1}`).classList.add('active');
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizBody.style.display = 'none';
+            quizResult.style.display = 'block';
+            
+            const starsContainer = document.getElementById('stars-container');
+            let starsHTML = '';
+            for(let i=0; i<score; i++) {
+                starsHTML += '⭐';
+            }
+            if(score === 0) starsHTML = '☄️'; // Asteroide si saca 0
+            
+            starsContainer.innerHTML = starsHTML;
+            document.getElementById('score-text').textContent = `Lograste ${score} de ${questions.length} respuestas correctas.`;
+        }
+
+        function resetQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            isVerified = false;
+            quizBody.style.display = 'block';
+            quizResult.style.display = 'none';
+            buildQuiz();
+        }
+
+        // Iniciar Quiz
+        buildQuiz();
+
+
+        /* =========================================
+           4. CARGA DINÁMICA DEL FOOTER
+           ========================================= */
+        document.addEventListener("DOMContentLoaded", () => {
+            const footerContainer = document.getElementById("footer-container");
+            const footerUrl = "https://danielgastelu.github.io/web/footer_uruguay_educa.html";
+
+            fetch(footerUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error de red HTTP: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    footerContainer.innerHTML = html;
+                })
+                .catch(error => {
+                    console.warn("Fallo al cargar el footer de Uruguay Educa. Mostrando fallback.", error);
+                    footerContainer.innerHTML = `
+                        <footer style="text-align: center; padding: 2rem; border-top: 1px solid var(--card-border); margin-top: 3rem; background-color: var(--card-bg);">
+                            <p>Desarrollado para fines educativos. Material de Astronomía.</p>
+                            <p style="font-size: 0.8rem; margin-top: 0.5rem;"><em>Nota: No se pudo cargar el pie de página institucional.</em></p>
+                        </footer>
+                    `;
+                });
+        });
+
+    </script>
+<!-- Código de analítica GoatCounter -->
+<script data-goatcounter="https://danielgastelu.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<script id="a11y-general">
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 2.2.2: animaciones infinitas (salvo indicadores de carga) se limitan a 3 ciclos
+  function limitar(){
+    if(!document.getAnimations) return;
+    document.getAnimations().forEach(function(a){
+      try{
+        var t=a.effect&&a.effect.getTiming(); if(!t||t.iterations!==Infinity) return;
+        var el=a.effect.target, n=(a.animationName||'')+' '+(el&&el.className&&el.className.baseVal===undefined?el.className:'');
+        if(a.animationName==='spin'||/load|cargando/i.test(n)) return;
+        a.effect.updateTiming({iterations: reduce?1:3});
+      }catch(e){}
+    });
+  }
+  document.addEventListener('animationstart', limitar, true);
+  var pend; new MutationObserver(function(){ clearTimeout(pend); pend=setTimeout(function(){limitar();nombrar();},150); })
+    .observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  // 2.1.1 / 4.1.2: elementos no interactivos con onclick, iframes sin título
+  function nombrar(){
+    document.querySelectorAll('[onclick]:not(button):not(a):not(input):not(select):not(textarea):not([tabindex]):not(#image-lightbox)').forEach(function(el){
+      if(/^\s*event\.stopPropagation\(\)\s*;?\s*$/.test(el.getAttribute('onclick'))) return;
+      if(el.hasAttribute('data-a11y-puntero')) return;
+      el.setAttribute('tabindex','0'); if(!el.getAttribute('role')) el.setAttribute('role','button');
+      if(!el.getAttribute('aria-label')){ var img=el.tagName==='IMG'?el:null; if(img&&img.alt) el.setAttribute('aria-label','Ampliar imagen: '+img.alt); }
+    });
+    document.querySelectorAll('iframe:not([title])').forEach(function(f){ f.setAttribute('title','Contenido incrustado'); });
+  }
+  document.addEventListener('keydown', function(e){
+    var el=e.target; if(!(e.key==='Enter'||e.key===' ')) return;
+    if(el.getAttribute && el.getAttribute('role')==='button' && el.hasAttribute('onclick') && !/^(BUTTON|A|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)){ e.preventDefault(); el.click(); }
+  });
+  // 2.1.1: mira por teclado para marcar sobre imágenes (flechas + Enter)
+  function puntero(el){
+    if(el.__mira) return; el.__mira=true;
+    el.setAttribute('tabindex','0'); el.setAttribute('role','application');
+    var x=.5,y=.5, m=document.createElement('div');
+    m.setAttribute('aria-hidden','true');
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    document.body.appendChild(m);
+    function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
+    function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';
+      el.dispatchEvent(new MouseEvent('mousemove',{clientX:p.cx,clientY:p.cy,bubbles:true}));}
+    el.addEventListener('focus',show); el.addEventListener('blur',function(){m.style.display='none';});
+    addEventListener('scroll',function(){if(document.activeElement===el)show();},true);
+    el.addEventListener('keydown',function(e){
+      var s=e.shiftKey?.05:.01, k=e.key;
+      if(k==='ArrowLeft')x=Math.max(0,x-s);else if(k==='ArrowRight')x=Math.min(1,x+s);
+      else if(k==='ArrowUp')y=Math.max(0,y-s);else if(k==='ArrowDown')y=Math.min(1,y+s);
+      else if(k==='Enter'||k===' '){e.preventDefault();var p=pos();el.dispatchEvent(new MouseEvent('click',{clientX:p.cx,clientY:p.cy,bubbles:true}));return;}
+      else return;
+      e.preventDefault(); show();
+    });
+  }
+  // 2.4.11: el foco no queda tapado por barras fijas o pegajosas
+  document.addEventListener('focusin', function(e){
+    var el=e.target; if(!el.getBoundingClientRect) return;
+    var r=el.getBoundingClientRect(), top=0, bot=innerHeight;
+    document.querySelectorAll('body *').forEach(function(b){
+      if(b.contains(el)) return; var cs=getComputedStyle(b); if(cs.position!=='fixed'&&cs.position!=='sticky') return;
+      if(cs.display==='none'||cs.visibility==='hidden'||cs.opacity==='0'||cs.pointerEvents==='none') return;
+      var q=b.getBoundingClientRect(); if(q.width<innerWidth*.5||q.height>innerHeight*.4) return;
+      if(q.bottom<=0||q.top>=innerHeight) return; if(q.top<innerHeight*.3) top=Math.max(top,q.bottom); else if(q.bottom>innerHeight*.7) bot=Math.min(bot,q.top);
+    });
+    if(r.top<top) scrollBy(0,r.top-top-8); else if(r.bottom>bot) scrollBy(0,r.bottom-bot+8);
+  });
+  // 4.1.3: mensajes de estado anunciados por lectores de pantalla
+  ['error-message-box','error-message','quiz-feedback-block','quiz-result-box','quiz-feedback-box','feedback-box',
+   'trivia-feedback','trivia-result','toast','toast-container','merge-status-text','resultDisplay','score-display',
+   'quiz-result','team-scores-container','file-counter'].forEach(function(id){
+    var el=document.getElementById(id); if(el&&!el.hasAttribute('aria-live')){ el.setAttribute('aria-live','polite'); if(!el.getAttribute('role')) el.setAttribute('role','status'); }
+  });
+  function init(){ nombrar(); limitar(); document.querySelectorAll('[data-a11y-puntero]').forEach(puntero); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  addEventListener('load',limitar);
+})();
+</script>
+<p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
+</body>
+</html>

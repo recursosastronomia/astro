@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -486,6 +486,48 @@
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
 .a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
 </style>
+<!-- Selector de tema claro/oscuro (mismo diseño que la actividad Voyager) -->
+<style id="ue-theme-switch">
+.theme-switch-wrapper{display:flex;align-items:center;gap:10px;flex:none}
+.theme-switch{position:relative;display:inline-block;width:60px;height:34px;margin:0}
+.theme-switch input{position:absolute;opacity:0;width:0;height:0;margin:0}
+.theme-switch .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.4s;border-radius:34px}
+.theme-switch .slider:before{position:absolute;content:"\2600\FE0F";display:flex;justify-content:center;align-items:center;font-size:14px;line-height:1;height:26px;width:26px;left:4px;bottom:4px;background-color:#fff;transition:.4s;border-radius:50%}
+.theme-switch input:checked + .slider{background-color:#3b82f6}
+.theme-switch input:checked + .slider:before{transform:translateX(26px);content:"\1F319"}
+.theme-switch input:focus-visible + .slider{outline:3px solid #facc15;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.theme-switch .slider,.theme-switch .slider:before{transition:none}}
+</style>
+<!-- Modo claro (activado con el selector de tema del encabezado) -->
+<style id="ue-modo-claro">
+html[data-theme="light"]{--space-950:#e5e7eb;--space-900:#f1f5f9;--space-800:#e2e8f0;--space-700:#cbd5e1;
+  --slate-100:#0f172a;--slate-200:#1e293b;--slate-300:#334155;--slate-400:#475569;--slate-700:#94a3b8;--slate-800:#cbd5e1;--slate-900:#f8fafc;
+  --neon-cyan:#0e7490;--neon-blue:#1d4ed8;--neon-purple:#7e22ce;--neon-gold:#b45309}
+html[data-theme="light"] body{color:#0f172a}
+html[data-theme="light"] .stars{background-image:none}
+html[data-theme="light"] .nebula-1{opacity:.35}
+html[data-theme="light"] header{background:rgba(229,231,235,.92)}
+html[data-theme="light"] .glass-panel{background:rgba(255,255,255,.8);border-color:rgba(15,23,42,.12);box-shadow:0 8px 24px rgba(15,23,42,.08)}
+html[data-theme="light"] .bg-strip{background-color:rgba(255,255,255,.45)}
+html[data-theme="light"] .pill-badge{background:#f8fafc;border-color:#cbd5e1}
+html[data-theme="light"] .reflection-card{background:#f8fafc;border-color:rgba(15,23,42,.08);border-left-color:var(--neon-cyan)}
+html[data-theme="light"] .option-btn{background:#f8fafc}
+html[data-theme="light"] .option-btn:hover:not(:disabled){background:rgba(14,116,144,.08)}
+html[data-theme="light"] .btn-primary{color:#fff}
+html[data-theme="light"] .btn-dark{color:#0f172a}
+html[data-theme="light"] .telemetry-box{background:linear-gradient(to bottom right,#e0e7ff,#f8fafc);border-color:rgba(79,70,229,.25)}
+html[data-theme="light"] .nav-toggle{background:rgba(15,23,42,.06);border-color:rgba(15,23,42,.2)}
+html[data-theme="light"] .logo{background:linear-gradient(to right,#0f172a,#475569);-webkit-background-clip:text}
+html[data-theme="light"] .footer-card{background:#0f172a}
+html[data-theme="light"] .footer-card:hover{background:#0f172a}
+html[data-theme="light"] .footer-card:hover .footer-text{color:#e2e8f0}
+html[data-theme="light"] #telemetry-zone{color:#0f172a !important}
+@media (max-width:767px){
+  html[data-theme="light"] header{background:rgba(229,231,235,.97)}
+  html[data-theme="light"] .glass-panel{background:rgba(255,255,255,.92)}
+  html[data-theme="light"] nav.is-open{background:#f8fafc;box-shadow:0 16px 40px rgba(15,23,42,.18)}
+}
+</style>
 </head>
 <body class="stars">
 
@@ -513,6 +555,12 @@
                 <a href="#trivia-section">Trivia</a>
             </nav>
             <a href="#simulador" class="btn btn-primary header-cta">Probar simulador</a>
+            <div class="theme-switch-wrapper">
+              <label class="theme-switch" for="theme-checkbox" aria-label="Cambiar modo claro/oscuro">
+                <input type="checkbox" id="theme-checkbox" checked />
+                <div class="slider"></div>
+              </label>
+            </div>
             <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir el menú de secciones">
                 <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
                 <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -1347,5 +1395,13 @@
 })();
 </script>
 <p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
+<script>
+/* Selector de tema claro/oscuro (mismo comportamiento que la actividad Voyager) */
+(function(){
+  var cb=document.getElementById('theme-checkbox'), root=document.documentElement;
+  if(!cb) return;
+  cb.addEventListener('change',function(){ root.setAttribute('data-theme', cb.checked ? 'dark' : 'light'); });
+})();
+</script>
 </body>
 </html>

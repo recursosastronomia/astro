@@ -490,6 +490,18 @@
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
 .a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
 </style>
+<!-- Selector de tema claro/oscuro (mismo diseño que la actividad Voyager) -->
+<style id="ue-theme-switch">
+.theme-switch-wrapper{display:flex;align-items:center;gap:10px;flex:none}
+.theme-switch{position:relative;display:inline-block;width:60px;height:34px;margin:0}
+.theme-switch input{position:absolute;opacity:0;width:0;height:0;margin:0}
+.theme-switch .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.4s;border-radius:34px}
+.theme-switch .slider:before{position:absolute;content:"\2600\FE0F";display:flex;justify-content:center;align-items:center;font-size:14px;line-height:1;height:26px;width:26px;left:4px;bottom:4px;background-color:#fff;transition:.4s;border-radius:50%}
+.theme-switch input:checked + .slider{background-color:#3b82f6}
+.theme-switch input:checked + .slider:before{transform:translateX(26px);content:"\1F319"}
+.theme-switch input:focus-visible + .slider{outline:3px solid #facc15;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.theme-switch .slider,.theme-switch .slider:before{transition:none}}
+</style>
 </head>
 <body>
 
@@ -501,9 +513,12 @@
 
     <!-- Panel de Accesibilidad (Fijo) -->
     <div class="accessibility-panel">
-        <button id="theme-toggle" class="btn-icon" aria-label="Cambiar tema claro u oscuro">
-            <span id="theme-icon">☀️</span> <span class="hidden-mobile">Modo claro</span>
-        </button>
+        <div class="theme-switch-wrapper">
+          <label class="theme-switch" for="theme-checkbox" aria-label="Cambiar modo claro/oscuro">
+            <input type="checkbox" id="theme-checkbox" checked />
+            <div class="slider"></div>
+          </label>
+        </div>
         <div style="width: 1px; height: 30px; background: var(--border-color); margin: 0 5px;"></div>
         <div style="display: flex; flex-direction: column; align-items: center;">
             <div id="audio-controls">
@@ -766,25 +781,16 @@
         createStars();
 
         // === CAMBIO DE TEMA ===
-        const themeBtn = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
+        const themeCheckbox = document.getElementById('theme-checkbox');
         const body = document.body;
 
         function setTheme(isLight) {
-            if(isLight) {
-                body.classList.add('light-mode');
-                themeIcon.textContent = '🌙';
-                themeBtn.querySelector('.hidden-mobile').textContent = 'Modo oscuro';
-                localStorage.setItem('astroTheme', 'light');
-            } else {
-                body.classList.remove('light-mode');
-                themeIcon.textContent = '☀️';
-                themeBtn.querySelector('.hidden-mobile').textContent = 'Modo claro';
-                localStorage.setItem('astroTheme', 'dark');
-            }
+            body.classList.toggle('light-mode', isLight);
+            themeCheckbox.checked = !isLight;
+            try { localStorage.setItem('astroTheme', isLight ? 'light' : 'dark'); } catch (e) {}
         }
-        if(localStorage.getItem('astroTheme') === 'light') setTheme(true);
-        themeBtn.addEventListener('click', () => setTheme(!body.classList.contains('light-mode')));
+        try { if(localStorage.getItem('astroTheme') === 'light') setTheme(true); } catch (e) {}
+        themeCheckbox.addEventListener('change', () => setTheme(!themeCheckbox.checked));
 
         // === SISTEMA DE PANTALLAS (SLIDER/PAGES) ===
         const screens = document.querySelectorAll('.screen');

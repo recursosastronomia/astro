@@ -129,6 +129,18 @@ body:not(.dark) .bg-slate-950\/70 .text-white:not([class*="bg-"]){color:#0f172a 
 body:not(.dark) .bg-slate-950\/80 .text-white:not([class*="bg-"]){color:#0f172a !important}
 body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f172a}
 </style>
+<!-- Selector de tema claro/oscuro (mismo diseño que la actividad Voyager) -->
+<style id="ue-theme-switch">
+.theme-switch-wrapper{display:flex;align-items:center;gap:10px;flex:none}
+.theme-switch{position:relative;display:inline-block;width:60px;height:34px;margin:0}
+.theme-switch input{position:absolute;opacity:0;width:0;height:0;margin:0}
+.theme-switch .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.4s;border-radius:34px}
+.theme-switch .slider:before{position:absolute;content:"\2600\FE0F";display:flex;justify-content:center;align-items:center;font-size:14px;line-height:1;height:26px;width:26px;left:4px;bottom:4px;background-color:#fff;transition:.4s;border-radius:50%}
+.theme-switch input:checked + .slider{background-color:#3b82f6}
+.theme-switch input:checked + .slider:before{transform:translateX(26px);content:"\1F319"}
+.theme-switch input:focus-visible + .slider{outline:3px solid #facc15;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.theme-switch .slider,.theme-switch .slider:before{transition:none}}
+</style>
 </head>
 <body class="dark bg-darkbg text-slate-100 min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950" id="app-body">
 
@@ -173,29 +185,12 @@ body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f
         </div>
       </div>
 
-      <!-- Selector de Modo Visual (Accesible) -->
-      <div class="flex items-center gap-2">
-        <span class="text-xs font-semibold hidden md:inline dark:text-slate-400 text-slate-600">Modo de visualización:</span>
-        <button 
-          id="theme-toggle" 
-          onclick="toggleTheme()" 
-          class="relative inline-flex h-9 w-20 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 dark:bg-slate-800 bg-slate-300"
-          role="switch" 
-          aria-checked="true"
-          aria-label="Alternar entre modo oscuro y modo claro de lectura"
-        >
-          <span class="sr-only">Cambiar tema visual</span>
-          <span class="absolute left-1.5 top-1 dark:text-slate-500 text-amber-600 transition-opacity duration-200" aria-hidden="true">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.46 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path></svg>
-          </span>
-          <span class="absolute right-1.5 top-1 dark:text-cyan-400 text-slate-400 transition-opacity duration-200" aria-hidden="true">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-          </span>
-          <span 
-            id="theme-slider"
-            class="pointer-events-none inline-block h-8 w-8 transform rounded-full bg-white shadow ring-0 transition duration-300 ease-in-out translate-x-10 dark:translate-x-0"
-          ></span>
-        </button>
+      <!-- Selector de tema claro/oscuro -->
+      <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="theme-checkbox" aria-label="Cambiar modo claro/oscuro">
+          <input type="checkbox" id="theme-checkbox" checked onchange="toggleTheme()" />
+          <div class="slider"></div>
+        </label>
       </div>
 
     </div>
@@ -1194,8 +1189,6 @@ body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f
     function toggleTheme() {
       const appBody = document.getElementById('app-body');
       const isDarkMode = appBody.classList.contains('dark');
-      const themeSlider = document.getElementById('theme-slider');
-      const themeToggleBtn = document.getElementById('theme-toggle');
       const spaceBg = document.getElementById('space-starfield');
 
       if (isDarkMode) {
@@ -1204,16 +1197,12 @@ body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f
         appBody.classList.add('bg-lightbg', 'text-slate-900');
         
         spaceBg.style.opacity = '0'; // Ocultar estrellas animadas
-        themeSlider.className = "pointer-events-none inline-block h-8 w-8 transform rounded-full bg-white shadow ring-0 transition duration-300 ease-in-out translate-x-0";
-        themeToggleBtn.setAttribute('aria-checked', 'false');
       } else {
         // Modo Oscuro Cósmico
         appBody.classList.remove('bg-lightbg', 'text-slate-900');
         appBody.classList.add('dark', 'bg-darkbg', 'text-slate-100');
         
         spaceBg.style.opacity = '1'; // Mostrar estrellas animadas
-        themeSlider.className = "pointer-events-none inline-block h-8 w-8 transform rounded-full bg-white shadow ring-0 transition duration-300 ease-in-out translate-x-10";
-        themeToggleBtn.setAttribute('aria-checked', 'true');
       }
 
       // Reiniciar dibujo en el lienzo para que adquiera el nuevo color de fondo inmediatamente
