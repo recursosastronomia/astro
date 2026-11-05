@@ -91,6 +91,7 @@ export function initObservatory() {
         marks = marksByDate.get(iso) || [];
         marksByDate.set(iso, marks);
         img.hidden = false;
+        setTool('spot');   // cada imagen nueva empieza marcando manchas, no grupos
         setStageState('ready');
         renderMarks();
         renderSource();
@@ -255,10 +256,11 @@ export function initObservatory() {
   });
 
   // ---------- herramientas ----------
-  $$('[data-tool]').forEach(b => b.addEventListener('click', () => {
-    tool = b.dataset.tool;
-    $$('[data-tool]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-  }));
+  function setTool(name) {
+    tool = name;
+    $$('[data-tool]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.tool === name)));
+  }
+  $$('[data-tool]').forEach(b => b.addEventListener('click', () => setTool(b.dataset.tool)));
 
   const zoomBox = $('#zoom-seg');
   zoomBox.replaceChildren(...LAB.ZOOMS.map(z => {
