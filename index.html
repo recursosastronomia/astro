@@ -166,10 +166,10 @@
             <span>Abrir el álbum</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
           </a>
-          <a href="ec/asteruy/codigos-album-asteroides.pdf" download class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-transparent hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold rounded-xl border border-slate-700 transition-all">
+          <button type="button" id="codes-btn" aria-haspopup="dialog" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-transparent hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold rounded-xl border border-slate-700 transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" stroke-width="2"></rect><path stroke-linecap="round" stroke-width="2" d="M8 11V7a4 4 0 018 0v4"></path></svg>
             <span>Descargar códigos para docentes (PDF)</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"></path></svg>
-          </a>
+          </button>
         </div>
       </article>
 
@@ -378,6 +378,79 @@
     </section>
 
   </main>
+
+  <!-- Descarga de los códigos del álbum: solo con el PIN docente.
+       El PDF se publica cifrado (AES-GCM; clave derivada del PIN con PBKDF2-SHA256).
+       Ni el PIN ni el archivo legible están en el código de esta página. -->
+  <dialog id="codes-dialog" aria-labelledby="codes-title" aria-describedby="codes-desc" class="codes-dialog">
+    <form id="codes-form" method="dialog" novalidate>
+      <h2 id="codes-title" class="text-lg font-bold text-white mb-2">Códigos para docentes</h2>
+      <p id="codes-desc" class="text-sm text-slate-300 leading-relaxed mb-4">El archivo con los códigos del álbum está reservado para docentes. Escriba el PIN de 8 números para descargarlo.</p>
+      <label for="codes-pin" class="block text-sm font-semibold text-slate-200 mb-1">PIN docente</label>
+      <input id="codes-pin" name="pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="off" spellcheck="false" aria-describedby="codes-msg"
+        class="w-full px-3 py-2.5 rounded-lg bg-slate-950 border-2 border-slate-500 text-white text-lg tracking-[.3em] focus:border-sky-400">
+      <p id="codes-msg" class="text-sm mt-2 min-h-[1.25rem] text-slate-300" role="status" aria-live="polite"></p>
+      <div class="flex flex-wrap justify-end gap-2 mt-4">
+        <button type="button" id="codes-cancel" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-200 border border-slate-600 hover:bg-slate-800">Cancelar</button>
+        <button type="submit" id="codes-ok" class="px-4 py-2.5 rounded-xl text-sm font-bold bg-sky-500 text-slate-950 hover:bg-sky-400">Descargar PDF</button>
+      </div>
+    </form>
+  </dialog>
+  <style>
+    .codes-dialog{width:min(26rem,calc(100% - 32px));padding:24px;border-radius:16px;background:#0f172a;color:#f1f5f9;border:1px solid #334155;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+    .codes-dialog::backdrop{background:rgba(2,6,23,.75)}
+  </style>
+  <script>
+    (() => {
+      const FILE = 'ec/asteruy/docentes.bin';
+      const NAME = 'codigos-album-asteroides.pdf';
+      const dlg = document.getElementById('codes-dialog');
+      const form = document.getElementById('codes-form');
+      const pin = document.getElementById('codes-pin');
+      const msg = document.getElementById('codes-msg');
+      const ok = document.getElementById('codes-ok');
+      const say = (text, error) => { msg.textContent = text; msg.style.color = error ? '#fca5a5' : ''; pin.setAttribute('aria-invalid', String(!!error)); };
+
+      document.getElementById('codes-btn').addEventListener('click', () => {
+        pin.value = ''; say('', false); dlg.showModal(); pin.focus();
+      });
+      document.getElementById('codes-cancel').addEventListener('click', () => dlg.close());
+      pin.addEventListener('input', () => { pin.value = pin.value.replace(/\D/g, '').slice(0, 8); });
+
+      async function decrypt(buf, code) {
+        const b = new Uint8Array(buf);
+        const iter = new DataView(buf).getUint32(4);
+        const salt = b.slice(8, 24), iv = b.slice(24, 36), data = b.slice(36);
+        const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(code), 'PBKDF2', false, ['deriveKey']);
+        const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', hash: 'SHA-256', salt, iterations: iter }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+        return crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, data);
+      }
+
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const code = pin.value;
+        if (!/^\d{8}$/.test(code)) { say('El PIN tiene 8 números.', true); pin.focus(); return; }
+        if (!window.crypto || !crypto.subtle) { say('Este navegador no permite la descarga. Pruebe con otro navegador actualizado.', true); return; }
+        ok.disabled = true; say('Comprobando…', false);
+        try {
+          const res = await fetch(FILE, { cache: 'no-store' });
+          if (!res.ok) throw new Error('red');
+          const buf = await res.arrayBuffer();
+          let pdf;
+          try { pdf = await decrypt(buf, code); }
+          catch { say('PIN incorrecto. Vuelva a intentarlo.', true); pin.select(); return; }
+          const url = URL.createObjectURL(new Blob([pdf], { type: 'application/pdf' }));
+          const a = Object.assign(document.createElement('a'), { href: url, download: NAME });
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 10000);
+          say('Listo: el PDF se está descargando.', false);
+          setTimeout(() => dlg.close(), 1500);
+        } catch {
+          say('No se pudo obtener el archivo. Revise la conexión e intente de nuevo.', true);
+        } finally { ok.disabled = false; }
+      });
+    })();
+  </script>
 
   <!-- Cinta "Nuevo": visible hasta el final del día indicado en data-new-until (hora local) -->
   <script>
