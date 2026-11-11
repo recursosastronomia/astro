@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es" data-pagina="medallero">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <title>Mi medallero · Astronomía para todos</title>
+  <meta name="description" content="Tus medallas, logros y rango por completar las trivias de las guías de Astronomía para todos. Descarga un resumen en PDF para tu docente.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+    <symbol id="i-candado" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></symbol>
+  </svg>
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <div class="l-barra-acciones">
+        <a class="l-medallas" href="medallero.html" aria-current="page"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 3h8l-2 6h-4z"/><circle cx="12" cy="15" r="6"/><path d="M12 12.2l.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2-1.45-1.4 2-.3z"/></svg><span class="l-tema-txt">Mi medallero</span></a>
+        <button type="button" class="l-tema" id="tema" aria-pressed="false">
+          <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+        </button>
+      </div>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">Mi medallero</h1>
+          <p class="l-bajada">Astronomía para todos</p>
+          <p class="l-lead">Cada guía de lectura termina con una trivia. Juega, gana medallas de bronce, plata y oro, desbloquea logros y sube de rango. Puedes volver a jugar todas las veces que quieras: siempre cuenta tu <strong>mejor</strong> resultado.</p>
+          <div class="m-rango" id="rango" aria-live="polite"><p class="m-rango-k">Cargando tu medallero…</p></div>
+        </div>
+        <div class="l-portada-foto"><img src="img/fotos/estelas-alma-640.webp" srcset="img/fotos/estelas-alma-640.webp 640w, img/fotos/estelas-alma-1280.webp 1280w" sizes="(min-width: 64rem) 24rem, calc(100vw - 2rem)" width="1280" height="860" alt="Estelas de estrellas girando alrededor del polo sur celeste sobre las antenas de ALMA, en Chile." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice del medallero">
+        <details id="indice" open>
+          <summary>En el medallero</summary>
+          <ol>
+            <li><a href="#resumen">Tu progreso</a></li>
+            <li><a href="#logros">Logros</a></li>
+            <li><a href="#coleccion">Colección de medallas</a></li>
+            <li><a href="#informe">Resumen para tu docente</a></li>
+            <li><a href="#reglas">Cómo se ganan</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <noscript><p class="l-nota">El medallero necesita JavaScript activado para leer tus resultados.</p></noscript>
+
+        <section class="l-sec" id="resumen" aria-labelledby="resumen-titulo">
+          <h2 id="resumen-titulo">Tu progreso</h2>
+          <div id="resumen-datos"></div>
+          <div id="mision-datos"></div>
+        </section>
+
+        <section class="l-sec" id="logros" aria-labelledby="logros-titulo">
+          <h2 id="logros-titulo">Logros</h2>
+          <p>Insignias especiales por empezar, insistir, mejorar y completar colecciones.</p>
+          <ul class="m-logros" id="logros-lista"></ul>
+        </section>
+
+        <section class="l-sec" id="coleccion" aria-labelledby="coleccion-titulo">
+          <h2 id="coleccion-titulo">Colección de medallas</h2>
+          <p>Las 27 trivias del portal, ordenadas como en el recorrido. Toca una guía para ir directo a su trivia. Misión Helios y los álbumes de cromos tienen sus propias medallas y no cuentan aquí.</p>
+          <div id="coleccion-lista"></div>
+        </section>
+
+        <section class="l-sec" id="informe" aria-labelledby="informe-titulo">
+          <h2 id="informe-titulo">Resumen para tu docente</h2>
+          <p>Descarga un PDF con todas tus medallas, estrellas y logros, y la fecha de emisión, para enviárselo a tu profesora o profesor. El PDF se crea en tu dispositivo: tus datos no se envían a ningún lado.</p>
+          <p class="m-codigo">Código de este navegador: <strong class="m-id">—</strong></p>
+          <p>Este código es único y aparece en tus certificados y en el resumen. Si dos estudiantes entregan documentos con el mismo código, es porque usaron el mismo navegador. Cada estudiante debe jugar en su propio navegador o perfil.</p>
+          <form class="m-form" id="informe-form" novalidate>
+            <label for="inf-nombre">Nombre y apellido</label>
+            <input id="inf-nombre" name="nombre" type="text" autocomplete="name" maxlength="60" spellcheck="false" aria-describedby="inf-msg" required>
+            <label for="inf-grupo">Grupo o clase <span>(opcional)</span></label>
+            <input id="inf-grupo" name="grupo" type="text" maxlength="40" placeholder="Por ejemplo: 2.º B">
+            <label for="inf-docente">Docente <span>(opcional)</span></label>
+            <input id="inf-docente" name="docente" type="text" maxlength="60">
+            <p class="m-msg" id="inf-msg" role="status" aria-live="polite"></p>
+            <button class="l-btn" type="submit"><svg class="ico" aria-hidden="true"><use href="#i-doc"/></svg>Descargar resumen (PDF)</button>
+          </form>
+        </section>
+
+        <section class="l-sec" id="reglas" aria-labelledby="reglas-titulo">
+          <h2 id="reglas-titulo">Cómo se ganan las medallas</h2>
+          <div class="l-usos m-reglas">
+            <div><h3>Oro</h3><p>Todas las respuestas correctas.</p></div>
+            <div><h3>Plata</h3><p>El 80 % o más de respuestas correctas (6 de 7, o 4 de 5).</p></div>
+            <div><h3>Bronce</h3><p>La mitad o más de respuestas correctas (4 de 7, o 3 de 5).</p></div>
+            <div><h3>Sin medalla, por ahora</h3><p>Menos de la mitad. Relee la guía, revisa las explicaciones y vuelve a intentarlo: ¡equivocarse es parte de aprender!</p></div>
+          </div>
+          <h3>Rangos</h3>
+          <p>Tu rango depende de cuántas estrellas acumulaste (se suma el mejor resultado de cada trivia).</p>
+          <div class="l-tabla-wrap">
+            <table class="l-tabla">
+              <caption class="sr-only">Rangos del medallero y estrellas necesarias</caption>
+              <thead><tr><th scope="col">Rango</th><th scope="col">Desde</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Polvo de estrellas</th><td>0 estrellas</td></tr>
+                <tr><th scope="row">Meteoro</th><td>10 estrellas</td></tr>
+                <tr><th scope="row">Cometa</th><td>30 estrellas</td></tr>
+                <tr><th scope="row">Planeta</th><td>60 estrellas</td></tr>
+                <tr><th scope="row">Estrella</th><td>90 estrellas</td></tr>
+                <tr><th scope="row">Galaxia</th><td>125 estrellas</td></tr>
+                <tr><th scope="row">Supercúmulo</th><td>160 estrellas</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>¿Dónde se guarda?</h3>
+            <p>Tu progreso se guarda solo en este navegador y en este dispositivo. Si usas otro dispositivo, o si borras los datos del navegador, empiezas de cero. Por eso conviene descargar el resumen en PDF cada tanto.</p>
+            <p>Para que el medallero sea justo, el resumen le muestra a tu docente el código del navegador, los nombres con los que se emitieron documentos en él, si el progreso se borró y si los resultados se modificaron fuera del portal.</p>
+          </div>
+          <div class="m-borrar">
+            <button type="button" class="m-btn-texto" id="borrar-btn">Borrar mi progreso</button>
+            <p id="borrar-msg" role="status" aria-live="polite"></p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <dialog class="m-dialogo" id="borrar-dialogo" aria-labelledby="borrar-t" aria-describedby="borrar-d">
+    <h2 id="borrar-t">¿Borrar tu progreso?</h2>
+    <p id="borrar-d">Se borrarán todas tus medallas, estrellas y logros de este navegador. No se puede deshacer. El código del navegador se mantiene, y tus próximos resúmenes indicarán que el progreso se borró.</p>
+    <div class="m-dialogo-acciones">
+      <button type="button" class="m-btn-sec" id="borrar-no" autofocus>Cancelar</button>
+      <button type="button" class="m-btn-peligro" id="borrar-si">Sí, borrar</button>
+    </div>
+  </dialog>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Foto de portada: ESO/B. Tafreshi (CC BY 4.0). <a href="creditos.html">Créditos de las fotos y referencias</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/tema.js"></script>
+  <script src="js/certificado.js"></script>
+  <script src="js/medallas.js"></script>
+  <script src="js/lectura.js"></script>
+  <script src="js/medallero.js"></script>
+</body>
+</html>

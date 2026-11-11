@@ -1,4 +1,4 @@
-/* Certificado en PDF de "Astronomía para todos".
+/* Certificado en PDF de "Astronomía para todos" y herramientas PDF comunes (AstroPDF).
    Se genera en el navegador, sin bibliotecas externas ni conexión: el nombre nunca sale del dispositivo.
    Uso: AstroCertificado.descargar({ nombre, titulo, ideas, estrellas, total, fecha, url, archivo })
    Fuentes estándar del PDF (Helvetica) con codificación WinAnsi: cubre el español y los acentos. */
@@ -87,41 +87,66 @@
 
     // Pie
     texto(o, `Fecha de emisión: ${d.fecha}`, 'F1', 11.5, 52, 48, GRIS);
+    // Datos de control para el docente
+    const k = d.control;
+    if (k) {
+      texto(o, `Código del navegador: ${k.id}`, 'F2', 10, 52, 64, TINTA2);
+      const avisos = [];
+      if (k.nombres && k.nombres.length > 1) avisos.push(`En este navegador se emitieron documentos a nombre de: ${k.nombres.join(', ')}.`);
+      if (k.borrados) avisos.push(`El progreso se borró ${k.borrados} ${k.borrados === 1 ? 'vez' : 'veces'} en este navegador.`);
+      if (k.integro === false) avisos.push('Registro modificado fuera del portal.');
+      if (avisos.length) {
+        let yy = 112;
+        for (const r of renglones('Atención docente: ' + avisos.join(' '), 'F2', 9.5, 700).slice(0, 3)) { texto(o, r, 'F2', 9.5, PW / 2, yy, '#b3261e', 'centro'); yy -= 12; }
+      }
+    }
     texto(o, 'Portal Uruguay Educa · ANEP · DGES · EDyTIC', 'F1', 11.5, PW - 52, 48, GRIS, 'derecha');
     if (d.url) texto(o, d.url.length > 110 ? d.url.slice(0, 107) + '...' : d.url, 'F1', 8.5, PW / 2, 34, '#5b6f99', 'centro');
     return o.join('\n');
   }
 
-  function pdf(d) {
-    const stream = contenido(d);
+  // Arma un PDF con una o más páginas (cada página es una lista de operaciones de dibujo)
+  function documento(paginas, info) {
+    const W = info.ancho || PW, H = info.alto || PH;
+    const n0 = 5; // 1 catálogo, 2 páginas, 3 y 4 fuentes, 5 info; después, página + contenido
     const obj = [
       '<< /Type /Catalog /Pages 2 0 R /Lang (es-UY) /ViewerPreferences << /DisplayDocTitle true >> >>',
-      '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
-      `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PH}] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>`,
+      `<< /Type /Pages /Kids [${paginas.map((_, i) => `${n0 + 1 + i * 2} 0 R`).join(' ')}] /Count ${paginas.length} >>`,
       '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>',
       '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>',
-      `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`,
-      `<< /Title ${lit('Certificado: ' + d.titulo)} /Author ${lit(d.nombre)} /Subject ${lit('Astronomía para todos · Grandes ideas de la astronomía')} /Creator (Astronomia para todos) >>`
+      `<< /Title ${lit(info.titulo || '')} /Author ${lit(info.autor || '')} /Subject ${lit(info.asunto || '')} /Creator (Astronomia para todos) >>`
     ];
+    paginas.forEach((ops, i) => {
+      const stream = Array.isArray(ops) ? ops.join('\n') : ops;
+      obj.push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${W} ${H}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${n0 + 2 + i * 2} 0 R >>`);
+      obj.push(`<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`);
+    });
     let s = '%PDF-1.4\n%\xE2\xE3\xCF\xD3\n';
     const off = [];
     obj.forEach((o, i) => { off.push(s.length); s += `${i + 1} 0 obj\n${o}\nendobj\n`; });
     const x = s.length;
     s += `xref\n0 ${obj.length + 1}\n0000000000 65535 f \n` + off.map(v => String(v).padStart(10, '0') + ' 00000 n \n').join('');
-    s += `trailer\n<< /Size ${obj.length + 1} /Root 1 0 R /Info 7 0 R >>\nstartxref\n${x}\n%%EOF`;
+    s += `trailer\n<< /Size ${obj.length + 1} /Root 1 0 R /Info 5 0 R >>\nstartxref\n${x}\n%%EOF`;
     // Todo el archivo es ASCII salvo la línea binaria de cabecera: se escribe byte a byte
-    const b = new Uint8Array(s.length);
-    for (let i = 0; i < s.length; i++) b[i] = s.charCodeAt(i) & 255;
-    return new Blob([b], { type: 'application/pdf' });
+    const bytes = new Uint8Array(s.length);
+    for (let i = 0; i < s.length; i++) bytes[i] = s.charCodeAt(i) & 255;
+    return new Blob([bytes], { type: 'application/pdf' });
   }
 
-  function descargar(d) {
-    const blob = pdf(d);
+  function pdf(d) {
+    return documento([contenido(d)], { titulo: 'Certificado: ' + d.titulo, autor: d.nombre, asunto: 'Astronomía para todos · Grandes ideas de la astronomía' });
+  }
+
+  function bajar(blob, archivo) {
     const url = URL.createObjectURL(blob);
-    const a = Object.assign(document.createElement('a'), { href: url, download: d.archivo || 'certificado.pdf' });
+    const a = Object.assign(document.createElement('a'), { href: url, download: archivo });
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 15000);
   }
 
+  const descargar = d => bajar(pdf(d), d.archivo || 'certificado.pdf');
+
   window.AstroCertificado = { descargar, pdf };
+  // Herramientas comunes para otros PDF del portal (por ejemplo, el resumen del medallero)
+  window.AstroPDF = { documento, bajar, texto, ancho, renglones, ajustar, estrella, rgb, n, lit };
 })();
