@@ -124,7 +124,7 @@
 :where(.portal) a { color: var(--link); text-underline-offset: 0.18em; }
 .portal [hidden] { display: none !important; }
 .portal .wrap { width: min(100% - 2rem, 75rem); margin-inline: auto; }
-.portal .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.portal .visually-hidden, .portal .sr-only { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .portal .skip { position: absolute; left: 0.5rem; top: -4rem; z-index: 100; background: var(--amber); color: var(--ink); padding: 0.6rem 1rem; border-radius: 8px; font-weight: 700; text-decoration: none; }
 .portal .skip:focus { top: 0.5rem; }
 .portal .ico { width: 1.5rem; height: 1.5rem; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; flex: none; }
@@ -1037,3 +1037,88 @@ html[data-theme="dark"] .sitio-pie-logo { background: #fff; padding: 0.4rem 0.6r
 .l-galeria-fotos figcaption { margin-top: 0.7rem; font-size: 0.9375rem; line-height: 1.5; color: var(--fg-muted); text-wrap: pretty; }
 .l-galeria-fotos figcaption b { display: block; margin-bottom: 0.15rem; font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; color: var(--fg); }
 @media (max-width: 23.99rem) { .l-galeria-fotos { grid-template-columns: 1fr; } .l-galeria-fotos img { aspect-ratio: 4 / 3; } }
+
+/* =====================================================================
+   GRANDES IDEAS DE LA ASTRONOMÍA (ec/biia*.html)
+   Fotos de Wikimedia Commons con crédito, diagramas, recorrido entre
+   guías, registro de estrellas y certificado en PDF.
+   ===================================================================== */
+/* La retroalimentación queda siempre en el árbol (vacía) para que los lectores de pantalla la anuncien */
+.l-fb { display: grid; }
+.l-fb:empty { padding: 0; margin: 0; }
+.l-fb b { font-weight: 700; }
+.l-opcion span { min-width: 0; }
+/* Crédito de cada foto, dentro del epígrafe */
+.l-figura figcaption .l-credito { display: block; margin-top: 0.2rem; font-size: 0.875rem; }
+.l-figura figcaption .l-credito a { font-weight: 400; color: var(--fg-muted); }
+.l-figura figcaption .l-credito a:hover { color: var(--fg); }
+.l-figura img { background: var(--line-soft); }
+.l-figura-chica img { width: auto; max-width: min(100%, 24rem); }
+.l-portada-foto figcaption { display: none; }
+/* Dos fotos lado a lado (por ejemplo, marea alta y marea baja) */
+.l-par { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.75rem 0; }
+.l-par .l-figura { margin: 0; }
+@media (max-width: 30rem) { .l-par { grid-template-columns: 1fr; } }
+/* Diagramas en tinta: textos y trazos legibles en ambos modos */
+.l-diagrama svg { max-width: 36rem; }
+.l-diagrama .d-txt { fill: var(--on-ink); font: 700 14px var(--font-ui); }
+.l-diagrama .d-sub { fill: var(--on-ink-muted); font: 400 13px var(--font-ui); }
+.l-diagrama .d-amb { fill: var(--amber); font: 700 14px var(--font-ui); }
+.l-diagrama .d-linea { stroke: var(--on-ink-muted); stroke-width: 1.5; fill: none; }
+.l-diagrama .d-guia { stroke: var(--ink-line); stroke-width: 1.5; fill: none; stroke-dasharray: 4 5; }
+.l-diagrama .d-rayo { stroke: var(--amber); stroke-width: 2; fill: none; }
+.l-diagrama .d-sol { fill: var(--amber); }
+.l-diagrama .d-tierra { fill: var(--star-blue); }
+.l-diagrama .d-luna { fill: #d9dee8; }
+.l-diagrama .d-sombra { fill: #000; opacity: 0.55; }
+.l-diagrama .d-barra { fill: var(--ink-soft); }
+/* Barras de proporción (composición del Universo) */
+.l-proporcion { list-style: none; margin: 1.5rem 0; padding: 0; display: grid; gap: 0.9rem; }
+.l-proporcion li { display: grid; gap: 0.35rem; }
+.l-proporcion .l-prop-t { display: flex; justify-content: space-between; gap: 1rem; font-weight: 700; }
+.l-proporcion .l-prop-t span:last-child { font-family: var(--font-display); color: var(--num); font-variant-numeric: tabular-nums; }
+.l-proporcion .l-prop-b { height: 0.9rem; border-radius: 999px; background: var(--line-soft); overflow: hidden; }
+.l-proporcion .l-prop-b i { display: block; height: 100%; width: var(--v); border-radius: inherit; background: var(--num); }
+/* Recorrido: guía anterior y siguiente */
+.l-recorrido { display: grid; gap: 0.75rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+@media (min-width: 40rem) { .l-recorrido { grid-template-columns: 1fr 1fr; } }
+.l-recorrido a { display: grid; gap: 0.15rem; height: 100%; padding: 0.9rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--fg) !important; text-decoration: none; }
+.l-recorrido a:hover { border-color: var(--fg-muted); }
+.l-recorrido .l-rec-k { font-size: var(--step--1); color: var(--fg-muted); font-weight: 700; }
+.l-recorrido .l-rec-t { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; line-height: 1.25; }
+.l-recorrido li:last-child:not(:first-child) a { text-align: right; }
+.l-idea { display: inline-block; margin: 0 0 0.5rem; padding: 0.15rem 0.65rem; border-radius: 999px; background: var(--line-soft); color: var(--fg-muted); font-size: var(--step--1); font-weight: 700; font-variant-numeric: tabular-nums; }
+/* Registro de estrellas y certificado al final de la trivia */
+.l-registro { display: flex; gap: 0.6rem; align-items: flex-start; justify-content: center; max-width: 34rem; margin: 0 auto 1.25rem !important; font-size: 1rem; color: var(--fg-muted); text-align: left; }
+.l-registro .ico { color: var(--num); width: 1.25rem; height: 1.25rem; margin-top: 0.15rem; }
+.l-registro b { color: var(--fg); }
+.l-cert { max-width: 30rem; margin: 0 auto 1.5rem; padding: 1.25rem; border: 2px dashed var(--line); border-radius: var(--radius); background: var(--bg); text-align: left; }
+.l-cert-t { margin: 0 0 0.4rem; font-family: var(--font-display); font-size: var(--step-1); }
+.l-cert p { font-size: 1rem; color: var(--fg-muted); }
+.l-cert label { display: block; font-weight: 700; margin-bottom: 0.35rem; }
+.l-cert input { width: 100%; min-height: 3rem; padding: 0.5rem 0.75rem; border: 1.5px solid var(--fg-muted); border-radius: 8px; background: var(--surface); color: var(--fg); font: inherit; }
+.l-cert input[aria-invalid="true"] { border-color: var(--err-fg); }
+.l-cert-msg { min-height: 1.5em; margin: 0.4rem 0 0.75rem !important; }
+.l-cert-msg[data-error="true"] { color: var(--err-fg) !important; font-weight: 700; }
+.l-cert .l-btn { width: 100%; }
+
+/* ---------- Portada: tabla de revisión de las guías nuevas ---------- */
+.portal .revision-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--sheet); }
+.portal .revision { width: 100%; min-width: 46rem; border-collapse: collapse; font-size: 1rem; }
+.portal .revision caption { text-align: left; padding: 0.9rem 1rem; color: var(--muted); font-size: 0.9375rem; }
+.portal .revision th, .portal .revision td { padding: 0.75rem 1rem; text-align: left; vertical-align: top; border-top: 1px solid var(--rule); }
+.portal .revision thead th { font-family: var(--font-display); font-weight: 600; background: var(--grid); }
+.portal .revision td:first-child, .portal .revision th[scope="row"] { white-space: nowrap; font-variant-numeric: tabular-nums; font-weight: 700; }
+.portal .revision a { color: var(--link); font-weight: 700; }
+.portal .revision code { font-size: 0.875rem; color: var(--muted); }
+.portal .estado { display: inline-block; padding: 0.1rem 0.6rem; border-radius: 999px; background: var(--amber-wash); color: var(--text); font-size: 0.875rem; font-weight: 700; white-space: nowrap; }
+.portal .revision-nota { margin-top: 1rem; color: var(--muted); max-width: 70ch; }
+.portal .revision-nota a { color: var(--link); font-weight: 700; }
+/* Créditos: fotos agrupadas por guía y referencias */
+.portal .creditos-guia { font-size: 1.15rem; margin: 2rem 0 0.75rem; display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; align-items: baseline; }
+.portal .creditos-guia a { color: var(--link); }
+.portal .creditos-guia span { font-size: var(--step--1); font-weight: 700; color: var(--muted); font-family: var(--font-ui); }
+.portal .credito-t { color: var(--text) !important; font-weight: 700; font-size: 1rem !important; margin-bottom: 0.15rem !important; }
+.portal .credito a { color: var(--link); }
+.portal .credito-ico { display: grid; place-items: center; width: 4.5rem; height: 4.5rem; border-radius: 8px; background: var(--ink-deep); color: var(--amber); }
+.portal .credito-ico .ico { width: 1.75rem; height: 1.75rem; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>De la Tierra al Sol: cambiar el centro del Universo · Astronomía para todos</title>
+  <meta name="description" content="Por qué durante siglos se creyó que la Tierra era el centro de todo, cómo Copérnico y Galileo cambiaron esa idea y cómo sabemos que la Tierra es casi una esfera. Con trivia y certificado.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+  </svg>
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">De la Tierra al Sol: cambiar el centro del Universo</h1>
+          <p class="l-bajada">Grandes ideas de la astronomía · 1.7 a 1.10</p>
+          <p class="l-lead">Durante miles de años, casi todo el mundo pensó que la Tierra estaba quieta en el centro del Universo. Descubre cómo un puñado de observaciones muy cuidadosas cambió esa idea para siempre, y cómo supimos la forma y el tamaño de nuestro planeta.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Unos 9 minutos de lectura</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cellarius_ptolemaic_system.jpg?width=1920" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Cellarius_ptolemaic_system.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Cellarius_ptolemaic_system.jpg?width=1280 1280w, https://commons.wikimedia.org/wiki/Special:FilePath/Cellarius_ptolemaic_system.jpg?width=1920 1920w" sizes="(min-width: 64rem) 24rem, calc(100vw - 2rem)" width="1920" height="1606" alt="Ilustración antigua del sistema de Ptolomeo: la Tierra en el centro, rodeada por los círculos de la Luna, el Sol, los planetas y los signos del zodíaco." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#centro">La Tierra en el centro</a></li><li><a href="#copernico">La revolución copernicana</a></li><li><a href="#galileo">Galileo y el telescopio</a></li><li><a href="#esfera">La Tierra es casi una esfera</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+            <li><a href="#quiz">Desafío: gana tus estrellas</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="centro" aria-labelledby="centro-titulo">
+          <h2 id="centro-titulo">¿Y si la Tierra estuviera en el centro?</h2>
+          <p class="l-idea">Gran idea 1.7</p>
+          
+          <p>Mira el cielo un día entero: el Sol sale por el este, cruza el cielo y se oculta por el oeste. De noche, las estrellas hacen lo mismo. Si no sabemos nada más, lo más lógico es pensar que nosotros estamos quietos y que todo gira a nuestro alrededor.</p>
+          <p>Por eso, la mayoría de las culturas antiguas creían que la Tierra era el <strong>centro del Universo</strong>. A esa idea se la llama <strong>geocentrismo</strong> (de <em>geo</em>, «Tierra»).</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cellarius_ptolemaic_system.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Cellarius_ptolemaic_system.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Cellarius_ptolemaic_system.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1071" alt="Grabado coloreado del año 1660: la Tierra en el centro, rodeada por anillos con la Luna, Mercurio, Venus, el Sol, Marte, Júpiter y Saturno." loading="lazy" decoding="async"><figcaption>El modelo geocéntrico dibujado en el atlas del cielo <em>Harmonia Macrocosmica</em> (1660). Cada planeta, el Sol y la Luna giran alrededor de la Tierra.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Cellarius_ptolemaic_system.jpg" target="_blank" rel="noopener noreferrer">Andreas Cellarius (1660) / Jan van Loon<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>El astrónomo griego <strong>Ptolomeo</strong> (siglo II) armó un modelo muy completo de esta idea. Funcionaba bastante bien para predecir dónde estarían los planetas, aunque necesitaba muchos círculos dentro de círculos para explicar algunos movimientos raros. Su modelo se usó durante casi 1.500 años en Europa, el norte de África y Asia occidental.</p>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>Hubo excepciones</h3>
+            <p>Alrededor del año 300 antes de nuestra era, el griego <strong>Aristarco de Samos</strong> ya propuso que la Tierra giraba alrededor del Sol. Casi nadie le hizo caso: parecía contradecir lo que se veía cada día.</p>
+          </div>
+          <p>Hoy sabemos algo todavía más sorprendente: el Universo <strong>no parece tener un centro</strong>. Ni la Tierra, ni el Sol, ni nuestra galaxia ocupan un lugar especial.</p>
+        </section>
+        <section class="l-sec" id="copernico" aria-labelledby="copernico-titulo">
+          <h2 id="copernico-titulo">Copérnico y el Sol en el centro</h2>
+          <p class="l-idea">Gran idea 1.8</p>
+          
+          <p>En el siglo XVI, el astrónomo polaco <strong>Nicolás Copérnico</strong> revisó las cuentas de los movimientos de los planetas y llegó a una conclusión muy valiente: todo se explicaba de forma más sencilla si el <strong>Sol</strong> estaba en el centro y la Tierra giraba a su alrededor, como un planeta más. A esta idea se la llama <strong>heliocentrismo</strong> (de <em>helios</em>, «Sol»).</p>
+          <div class="l-par"><figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nikolaus_Kopernikus.jpg?width=1024" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Nikolaus_Kopernikus.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Nikolaus_Kopernikus.jpg?width=1024 1024w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1024" height="1001" alt="Retrato de Nicolás Copérnico, con ropa roja y el pelo hasta los hombros." loading="lazy" decoding="async"><figcaption>Nicolás Copérnico (1473-1543).<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Nikolaus_Kopernikus.jpg" target="_blank" rel="noopener noreferrer">Autor desconocido (c. 1580)<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure><figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cellarius_Harmonia_Macrocosmica_-_Planisphaerium_Copernicanum.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Cellarius_Harmonia_Macrocosmica_-_Planisphaerium_Copernicanum.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Cellarius_Harmonia_Macrocosmica_-_Planisphaerium_Copernicanum.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1104" alt="Grabado antiguo con el Sol en el centro y los planetas, incluida la Tierra con su Luna, girando a su alrededor." loading="lazy" decoding="async"><figcaption>El modelo de Copérnico en el mismo atlas de 1660.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Cellarius_Harmonia_Macrocosmica_-_Planisphaerium_Copernicanum.jpg" target="_blank" rel="noopener noreferrer">Andreas Cellarius (1660)<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure></div>
+          <p>Copérnico publicó su libro <em>Sobre los giros de las esferas celestes</em> en 1543, el año en que murió. La idea tardó <strong>más de un siglo</strong> en ser aceptada: hacían falta más pruebas, y además chocaba con creencias muy arraigadas. Por eso se habla de una <strong>revolución copernicana</strong>: no fue un cambio de un día, sino una transformación lenta de la forma de pensar.</p>
+          <ol class="l-linea" aria-label="Algunos pasos de la revolución copernicana">
+            <li><span class="l-fecha">1543</span><span>Copérnico publica su modelo con el Sol en el centro.</span></li>
+            <li><span class="l-fecha">1609-1610</span><span>Galileo apunta un telescopio al cielo y encuentra pruebas a favor (lo vemos en la sección siguiente).</span></li>
+            <li><span class="l-fecha">1609-1619</span><span>Johannes Kepler descubre que las órbitas de los planetas no son círculos, sino elipses (óvalos).</span></li>
+            <li><span class="l-fecha">1687</span><span>Isaac Newton explica con la gravedad por qué los planetas giran alrededor del Sol.</span></li>
+          </ol>
+          <p>Ojo: hoy sabemos que el Sol <strong>no es el centro del Universo</strong>, pero sí es el centro del <strong>Sistema Solar</strong>. La gran contribución de Copérnico fue animarse a cambiar el punto de vista.</p>
+        </section>
+        <section class="l-sec" id="galileo" aria-labelledby="galileo-titulo">
+          <h2 id="galileo-titulo">Galileo apunta un telescopio al cielo</h2>
+          <p class="l-idea">Gran idea 1.9</p>
+          
+          <p>Hace más de 400 años, en 1609, el italiano <strong>Galileo Galilei</strong> se enteró de que en Holanda habían inventado un tubo con lentes que hacía ver más cerca las cosas lejanas. Galileo <strong>no inventó el telescopio</strong>, pero lo mejoró y fue el primero en usarlo de forma ordenada para estudiar el cielo: observaba, dibujaba y anotaba todo con cuidado, noche tras noche.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Galilei_telescopes,_Museo_Galileo,_Florence,_Inv._242,_2428,_224088.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Galilei_telescopes,_Museo_Galileo,_Florence,_Inv._242,_2428,_224088.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Galilei_telescopes,_Museo_Galileo,_Florence,_Inv._242,_2428,_224088.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="852" alt="Dos telescopios largos y delgados de madera y cuero, exhibidos en una vitrina de museo." loading="lazy" decoding="async"><figcaption>Dos telescopios construidos por Galileo, que hoy se conservan en el Museo Galileo de Florencia (Italia).<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Galilei_telescopes,_Museo_Galileo,_Florence,_Inv._242,_2428,_224088.jpg" target="_blank" rel="noopener noreferrer">Zde<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Lo que vio cambió la historia:</p>
+          <div class="l-usos">
+            <div><h3>Montañas en la Luna</h3><p>La Luna no era una esfera perfecta y lisa: tenía cráteres y montañas, como la Tierra.</p></div>
+            <div><h3>Cuatro lunas de Júpiter</h3><p>Descubrió cuatro lunas girando alrededor de Júpiter. ¡No todo giraba alrededor de la Tierra! Hoy se llaman <em>lunas galileanas</em>: Ío, Europa, Ganímedes y Calisto.</p></div>
+            <div><h3>Las fases de Venus</h3><p>Venus cambia de forma como la Luna. Eso solo se explica bien si Venus gira alrededor del Sol.</p></div>
+            <div><h3>Muchísimas estrellas</h3><p>La Vía Láctea estaba formada por una cantidad enorme de estrellas que a simple vista no se distinguen.</p></div>
+          </div>
+          <figure class="l-figura l-figura-chica"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Galileo_moon_phases.jpg?width=585" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Galileo_moon_phases.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Galileo_moon_phases.jpg?width=585 585w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="585" height="818" alt="Dibujos a tinta de la Luna en distintas fases, con sombras que muestran cráteres y montañas." loading="lazy" decoding="async"><figcaption>Dibujos de la Luna hechos por Galileo en 1609, a partir de lo que veía con su telescopio.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Galileo_moon_phases.jpg" target="_blank" rel="noopener noreferrer">Galileo Galilei (1609)<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Estas observaciones fueron pruebas muy fuertes a favor del modelo de Copérnico. Desde entonces, la astronomía avanza de la mano de instrumentos cada vez mejores.</p>
+        </section>
+        <section class="l-sec" id="esfera" aria-labelledby="esfera-titulo">
+          <h2 id="esfera-titulo">La Tierra es (casi) una esfera</h2>
+          <p class="l-idea">Gran idea 1.10</p>
+          
+          <p>Algunas culturas antiguas imaginaron la Tierra como un plato o un disco. Pero la idea de que es una <strong>esfera</strong> tiene miles de años, y hace más de mil años ya era la idea más aceptada.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/The_Earth_seen_from_Apollo_17.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/The_Earth_seen_from_Apollo_17.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/The_Earth_seen_from_Apollo_17.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1281" alt="La Tierra vista desde el espacio: una esfera azul con nubes blancas, el continente africano y la Antártida." loading="lazy" decoding="async"><figcaption>La Tierra fotografiada en 1972 por la tripulación del Apolo 17, camino a la Luna. Hoy la vemos así desde el espacio, pero se supo que era redonda mucho antes.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:The_Earth_seen_from_Apollo_17.jpg" target="_blank" rel="noopener noreferrer">NASA / tripulación del Apolo 17<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>¿Cómo se podía saber sin viajar al espacio? Hay varias pistas que puedes comprobar tú mismo:</p>
+          <ul>
+            <li>Cuando un barco se aleja en el mar, primero desaparece el casco y por último la punta del mástil: el agua «se curva».</li>
+            <li>En los eclipses de Luna, la sombra de la Tierra sobre la Luna siempre es <strong>redonda</strong>.</li>
+            <li>Si viajas hacia el norte o hacia el sur, ves estrellas distintas. Desde Uruguay se ve la Cruz del Sur, que desde Europa no se ve.</li>
+          </ul>
+          <h3>Eratóstenes midió la Tierra con un palo</h3>
+          <p>Hace unos 2.200 años, el sabio griego <strong>Eratóstenes</strong>, que vivía en Egipto, supo que un día al año, al mediodía, el Sol iluminaba el fondo de un pozo en la ciudad de Siena (hoy Asuán): los objetos no hacían sombra. Ese mismo día, en Alejandría, más al norte, un palo vertical sí proyectaba una sombra pequeña.</p>
+          <figure class="l-diagrama">
+            <svg viewBox="0 0 520 320" role="img" aria-labelledby="era-t era-d">
+              <title id="era-t">El experimento de Eratóstenes</title>
+              <desc id="era-d">Los rayos del Sol llegan paralelos a la Tierra. En Siena, un palo vertical no hace sombra porque el Sol está justo encima. En Alejandría, más al norte, un palo igual hace una sombra corta. El ángulo de esa sombra, unos 7 grados, es el mismo ángulo que separa a las dos ciudades vistas desde el centro de la Tierra.</desc>
+              <text class="d-amb" x="20" y="30">Rayos del Sol (llegan paralelos)</text>
+              <path class="d-rayo" d="M20 60H200M20 100H200"/>
+              <path class="d-rayo" d="M196 54l8 6-8 6M196 94l8 6-8 6"/>
+              <path class="d-rayo" d="M20 128.3H279.8M20 190H232"/>
+              <circle class="d-tierra" cx="360" cy="190" r="100" opacity="0.22"/>
+              <circle class="d-linea" cx="360" cy="190" r="100"/>
+              <line class="d-guia" x1="360" y1="190" x2="260" y2="190"/>
+              <line class="d-guia" x1="360" y1="190" x2="272.4" y2="141.8"/>
+              <path class="d-rayo" d="M318 190A42 42 0 0 1 323.2 169.8"/>
+              <text class="d-amb" x="300" y="181" text-anchor="end">7°</text>
+              <line class="d-linea" x1="260" y1="190" x2="232" y2="190" style="stroke-width:4;stroke:#fff"/>
+              <line class="d-linea" x1="272.4" y1="141.8" x2="247.9" y2="128.3" style="stroke-width:4;stroke:#fff"/>
+              <line x1="272.4" y1="141.8" x2="279.8" y2="128.3" style="stroke:var(--amber);stroke-width:5;stroke-linecap:round"/>
+              <circle cx="360" cy="190" r="3.5" class="d-sol"/>
+              <text class="d-txt" x="110" y="152">Alejandría: sombra corta</text>
+              <text class="d-txt" x="88" y="214">Siena: sin sombra</text>
+              <text class="d-sub" x="360" y="212" text-anchor="middle">centro de la Tierra</text>
+              <text class="d-sub" x="20" y="300">El ángulo está exagerado para que se vea mejor.</text>
+            </svg>
+            <figcaption>El ángulo de la sombra en Alejandría (unos 7°, la cincuentava parte de una vuelta completa) es el mismo que separa a las dos ciudades desde el centro de la Tierra. Si 7° equivalen a unos 800 km, la vuelta entera mide unas 50 veces más: unos 40.000 km. ¡Muy cerca del valor real!</figcaption>
+          </figure>
+          <p>Para ser exactos, la Tierra no es una esfera perfecta: está un poquito <strong>achatada en los polos</strong> y ensanchada en el ecuador, porque gira sobre sí misma. Su nombre técnico es «esferoide achatado».</p>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <p>Si quieres seguir explorando, te recomendamos estos sitios:</p>
+          <ul class="l-recursos"><li><a href="movimientogeneraldiario.html">Movimiento general diario</a><span>En este mismo sitio: el recorrido aparente del Sol y las estrellas en 24 horas, con un simulador.</span></li><li><a href="astronomia.html">¿Qué es la astronomía?</a><span>En este mismo sitio: del ojo al telescopio espacial, y cómo el Sol pasó al centro.</span></li><li><a href="https://spaceplace.nasa.gov/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place (en español)<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Artículos fáciles de entender y juegos sobre el espacio.</span></li><li><a href="https://www.museogalileo.it/en/" target="_blank" rel="noopener noreferrer">Museo Galileo (en inglés e italiano)<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>El museo de Florencia donde se guardan los telescopios de Galileo.</span></li><li><a href="https://stellarium-web.org/" target="_blank" rel="noopener noreferrer">Stellarium Web<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Un planetario gratuito en línea: busca Júpiter y mira sus cuatro lunas galileanas.</span></li></ul>
+
+          <h3>Sigue el recorrido</h3>
+          <p>Esta guía es parte de una serie que recorre las grandes ideas de la astronomía, una por una.</p>
+          <ul class="l-recorrido"><li><a href="biia11to16version.html"><span class="l-rec-k">← Guía anterior · 1.1 a 1.6</span><span class="l-rec-t">Los orígenes de la observación del cielo</span></a></li><li><a href="biia21to25version.html"><span class="l-rec-k">Guía siguiente · 2.1 a 2.5 →</span><span class="l-rec-t">El cielo de todos los días</span></a></li></ul>
+
+          <h3>Material de referencia</h3>
+          <p>Este contenido está basado en las grandes ideas 1.7 a 1.10 del documento <a href="../docs/Big_Ideas_V2.0_ES.pdf">«Grandes Ideas de la Astronomía» (Big Ideas in Astronomy) de la Unión Astronómica Internacional, en PDF</a>, publicado con licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a>. También puedes leerlo en el sitio <a href="https://astro4edu.org/es/bigideas/" target="_blank" rel="noopener noreferrer">astro4edu.org<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.</p>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío: gana tus estrellas</h2>
+          <p>Es momento de poner a prueba lo que aprendiste en esta guía. Son 7 preguntas con 5 opciones cada una: cada respuesta correcta suma una estrella. Al final puedes descargar tu certificado.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión astronómica completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Jugar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Fotos de Wikimedia Commons con licencias libres: Andreas Cellarius (1660) / Jan van Loon (Dominio público); Autor desconocido (c. 1580) (Dominio público); Andreas Cellarius (1660) (Dominio público); Zde (CC BY-SA 4.0); Galileo Galilei (1609) (Dominio público); NASA / tripulación del Apolo 17 (Dominio público). Texto basado en «Big Ideas in Astronomy» (UAI, CC BY 4.0). <a href="../creditos.html#biia17to110">Créditos de las fotos y referencias</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
+       Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
+       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+    window.TRIVIA_META = {"id": "biia17to110", "titulo": "De la Tierra al Sol: cambiar el centro del Universo", "ideas": "Grandes ideas 1.7 a 1.10 · Big Ideas in Astronomy (UAI)", "mezclar": true};
+    window.TRIVIA = [
+ {
+  "question": "¿Qué afirma el geocentrismo?",
+  "options": [
+   "Que la Tierra está quieta en el centro del Universo y todo gira a su alrededor.",
+   "Que el Sol está en el centro del Sistema Solar.",
+   "Que el Universo no tiene centro.",
+   "Que la Tierra es plana como un disco.",
+   "Que la Luna gira alrededor del Sol."
+  ],
+  "correct": 0,
+  "explicacion": "«Geo» significa Tierra: el geocentrismo pone a la Tierra quieta en el centro. Parecía lógico porque vemos al Sol y a las estrellas moverse por el cielo."
+ },
+ {
+  "question": "¿Quién propuso en el siglo XVI que el Sol estaba en el centro y la Tierra giraba a su alrededor?",
+  "options": [
+   "Ptolomeo",
+   "Nicolás Copérnico",
+   "Eratóstenes",
+   "Isaac Newton",
+   "Aristóteles"
+  ],
+  "correct": 1,
+  "explicacion": "Nicolás Copérnico publicó su modelo heliocéntrico en 1543. Ptolomeo, en cambio, defendía el modelo con la Tierra en el centro."
+ },
+ {
+  "question": "¿Por qué se habla de una «revolución» copernicana que duró más de un siglo?",
+  "options": [
+   "Porque hubo una guerra entre astrónomos.",
+   "Porque el Sol tardó un siglo en moverse al centro.",
+   "Porque cambiar una idea tan arraigada llevó mucho tiempo y necesitó nuevas pruebas.",
+   "Porque Copérnico vivió más de cien años.",
+   "Porque los telescopios se inventaron cien años después de su muerte."
+  ],
+  "correct": 2,
+  "explicacion": "Una revolución científica es un cambio profundo en la forma de pensar. Hicieron falta las observaciones de Galileo, las leyes de Kepler y la gravedad de Newton para que el heliocentrismo se aceptara."
+ },
+ {
+  "question": "Según lo que sabemos hoy, ¿qué ocupa el centro del Sistema Solar?",
+  "options": [
+   "La Tierra",
+   "La Luna",
+   "El Sol",
+   "Júpiter",
+   "El centro de la Vía Láctea"
+  ],
+  "correct": 2,
+  "explicacion": "El Sol es el centro del Sistema Solar, pero no del Universo: el Universo no parece tener un centro."
+ },
+ {
+  "question": "¿Cuál de estas cosas descubrió Galileo con su telescopio?",
+  "options": [
+   "Los anillos de Neptuno",
+   "Cuatro lunas que giran alrededor de Júpiter",
+   "El planeta Urano",
+   "Que el Sol es una estrella enana amarilla",
+   "Los agujeros negros"
+  ],
+  "correct": 1,
+  "explicacion": "Galileo vio cuatro lunas alrededor de Júpiter (Ío, Europa, Ganímedes y Calisto). Fue una prueba de que no todo gira alrededor de la Tierra."
+ },
+ {
+  "question": "¿Cuál de estas pistas muestra que la Tierra es redonda?",
+  "options": [
+   "El Sol sale todos los días por el este.",
+   "En un eclipse de Luna, la sombra de la Tierra se ve siempre redonda.",
+   "De noche hace más frío que de día.",
+   "Las estrellas titilan.",
+   "La Luna tiene cráteres."
+  ],
+  "correct": 1,
+  "explicacion": "Solo un objeto con forma de esfera proyecta siempre una sombra redonda, la mires desde donde la mires. Otras pistas: los barcos que «se hunden» en el horizonte y las estrellas que cambian al viajar al norte o al sur."
+ },
+ {
+  "question": "¿Qué usó Eratóstenes para calcular el tamaño de la Tierra hace unos 2.200 años?",
+  "options": [
+   "Un telescopio muy potente",
+   "Un viaje alrededor del mundo",
+   "Las sombras de palos verticales en dos ciudades distintas",
+   "Fotografías tomadas desde una montaña",
+   "La duración de un eclipse de Sol"
+  ],
+  "correct": 2,
+  "explicacion": "Eratóstenes comparó la sombra de un palo en Alejandría con la ausencia de sombra en Siena el mismo día. Con ese ángulo (unos 7°) y la distancia entre las ciudades calculó la vuelta completa de la Tierra."
+ }
+];
+
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      if (aciertos === total) return { titulo: "¡Viajaste del centro de la Tierra al Sol!", html: "<p>Entendiste cómo la humanidad cambió de punto de vista: de una Tierra quieta en el centro a un planeta que gira alrededor del Sol, en un Universo sin centro.</p>" };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/certificado.js"></script>
+  <script src="../js/lectura.js"></script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>El cielo de todos los días · Astronomía para todos</title>
+  <meta name="description" content="El día y la noche, las estaciones, las fases de la Luna, los eclipses y las mareas: la astronomía que vivimos cada día, explicada desde el hemisferio sur. Con trivia y certificado.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+  </svg>
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">El cielo de todos los días</h1>
+          <p class="l-bajada">Grandes ideas de la astronomía · 2.1 a 2.5</p>
+          <p class="l-lead">No hace falta un telescopio para vivir la astronomía: está en cada amanecer, en el frío de julio, en la Luna que cambia de forma y en el mar que sube y baja. Descubre qué hay detrás de estos fenómenos cotidianos.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Unos 10 minutos de lectura</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Solar_eclipse_1999_4.jpg?width=1920" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Solar_eclipse_1999_4.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Solar_eclipse_1999_4.jpg?width=1280 1280w, https://commons.wikimedia.org/wiki/Special:FilePath/Solar_eclipse_1999_4.jpg?width=1920 1920w" sizes="(min-width: 64rem) 24rem, calc(100vw - 2rem)" width="1920" height="1891" alt="Eclipse total de Sol: un disco negro rodeado por la corona solar, un halo blanco y brillante." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#dia">El día y la noche</a></li><li><a href="#estaciones">Las estaciones</a></li><li><a href="#fases">Las fases de la Luna</a></li><li><a href="#eclipses">Los eclipses</a></li><li><a href="#mareas">Las mareas</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+            <li><a href="#quiz">Desafío: gana tus estrellas</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="dia" aria-labelledby="dia-titulo">
+          <h2 id="dia-titulo">El día y la noche</h2>
+          <p class="l-idea">Gran idea 2.1</p>
+          
+          <p>La Tierra gira sobre sí misma como un trompo, alrededor de una línea imaginaria llamada <strong>eje de rotación</strong>. La mitad que mira hacia el Sol tiene <strong>día</strong>, y la mitad que queda del otro lado tiene <strong>noche</strong>.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/ISS-59_Terminator_above_the_Gulf_of_Guinea.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/ISS-59_Terminator_above_the_Gulf_of_Guinea.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/ISS-59_Terminator_above_the_Gulf_of_Guinea.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="853" alt="La Tierra vista desde la Estación Espacial Internacional: una línea separa la parte iluminada de la parte en sombra, con nubes sobre el océano." loading="lazy" decoding="async"><figcaption>Desde la Estación Espacial Internacional se ve la línea que separa el día de la noche. Allí abajo, alguien está viendo un atardecer.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:ISS-59_Terminator_above_the_Gulf_of_Guinea.jpg" target="_blank" rel="noopener noreferrer">NASA<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>El tiempo que tarda el Sol en volver a la misma posición en el cielo (por ejemplo, de un mediodía al siguiente) es el <strong>día solar</strong>, que en promedio dura <strong>24 horas</strong>.</p>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>¿Sabías que...?</h3>
+            <p>Cuando en Montevideo es mediodía, en Tokio (Japón) es medianoche. Por eso existen los husos horarios: cada lugar del planeta pone su reloj de acuerdo con la posición del Sol.</p>
+          </div>
+        </section>
+        <section class="l-sec" id="estaciones" aria-labelledby="estaciones-titulo">
+          <h2 id="estaciones-titulo">¿Por qué hay estaciones?</h2>
+          <p class="l-idea">Gran idea 2.2</p>
+          
+          <p>Mucha gente cree que el verano llega porque la Tierra está más cerca del Sol. ¡No es así! De hecho, la Tierra está un poco <em>más cerca</em> del Sol a principios de enero, en pleno verano uruguayo… y en pleno invierno europeo.</p>
+          <p>La verdadera causa es que el eje de la Tierra está <strong>inclinado unos 23,4°</strong> y siempre apunta hacia el mismo lado mientras la Tierra da su vuelta anual alrededor del Sol.</p>
+          <figure class="l-diagrama">
+            <svg viewBox="0 0 560 270" role="img" aria-labelledby="est-t est-d">
+              <title id="est-t">Por qué hay estaciones</title>
+              <desc id="est-d">La Tierra gira alrededor del Sol con su eje siempre inclinado hacia el mismo lado. En junio, el hemisferio sur queda inclinado lejos del Sol y es invierno en Uruguay. En diciembre, el hemisferio sur queda inclinado hacia el Sol y es verano en Uruguay.</desc>
+              <ellipse class="d-guia" cx="280" cy="135" rx="200" ry="52"/>
+              <circle class="d-sol" cx="280" cy="135" r="34"/>
+              <text class="d-txt" x="280" y="195" text-anchor="middle" style="fill:var(--amber)">Sol</text>
+              <g transform="translate(80 135)">
+                <circle class="d-tierra" r="24"/>
+                <line class="d-linea" x1="-13" y1="30" x2="13" y2="-30" style="stroke:#fff;stroke-width:2"/>
+                <line class="d-linea" x1="-22" y1="-9.5" x2="22" y2="9.5" style="stroke:#0b1730"/>
+                <text class="d-sub" x="-30" y="45">S</text>
+              </g>
+              <g transform="translate(480 135)">
+                <circle class="d-tierra" r="24"/>
+                <line class="d-linea" x1="-13" y1="30" x2="13" y2="-30" style="stroke:#fff;stroke-width:2"/>
+                <line class="d-linea" x1="-22" y1="-9.5" x2="22" y2="9.5" style="stroke:#0b1730"/>
+                <text class="d-sub" x="-30" y="45">S</text>
+              </g>
+              <text class="d-txt" x="80" y="40" text-anchor="middle">Junio</text>
+              <text class="d-sub" x="80" y="60" text-anchor="middle">invierno en el sur</text>
+              <text class="d-txt" x="480" y="40" text-anchor="middle">Diciembre</text>
+              <text class="d-sub" x="480" y="60" text-anchor="middle">verano en el sur</text>
+              <text class="d-sub" x="280" y="250" text-anchor="middle">El eje de la Tierra (línea blanca) apunta siempre hacia el mismo lado.</text>
+            </svg>
+            <figcaption>En diciembre, el hemisferio sur está inclinado hacia el Sol: los rayos llegan más de frente y los días son más largos. Por eso en Uruguay el verano empieza en diciembre y el invierno en junio. (Dibujo sin escala.)</figcaption>
+          </figure>
+          <ul>
+            <li>El hemisferio inclinado <strong>hacia el Sol</strong> tiene verano: los rayos llegan más de frente, calientan más y el Sol sube más alto, así que los días son más largos.</li>
+            <li>El hemisferio inclinado <strong>lejos del Sol</strong> tiene invierno: los rayos llegan muy inclinados, su energía se reparte en un área mayor y los días son cortos.</li>
+            <li>Cerca del <strong>ecuador</strong> casi no se notan las estaciones, porque la luz llega de forma parecida todo el año.</li>
+          </ul>
+          <p>Por eso las estaciones están <strong>invertidas</strong> entre los dos hemisferios: cuando en Uruguay festejamos la Navidad con calor, en Canadá hay nieve.</p>
+        </section>
+        <section class="l-sec" id="fases" aria-labelledby="fases-titulo">
+          <h2 id="fases-titulo">Las fases de la Luna</h2>
+          <p class="l-idea">Gran idea 2.3</p>
+          
+          <p>La Luna no tiene luz propia: la vemos porque refleja la luz del Sol. Siempre hay una mitad de la Luna iluminada, pero mientras gira alrededor de la Tierra vemos <strong>una parte distinta</strong> de esa mitad. Así aparecen las <strong>fases</strong>: luna nueva, cuarto creciente, luna llena y cuarto menguante.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sur3_Moon_phases_es.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Sur3_Moon_phases_es.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Sur3_Moon_phases_es.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="512" alt="Secuencia de fotos de la Luna en sus distintas fases, de la luna nueva a la luna llena y de vuelta, tal como se ven desde el hemisferio sur, con sus nombres en español." loading="lazy" decoding="async"><figcaption>Las fases de la Luna vistas desde el hemisferio sur. Imagen de Ana Cichero, maestra uruguaya.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Sur3_Moon_phases_es.jpg" target="_blank" rel="noopener noreferrer">Ana Cichero, maestra uruguaya<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Ir de una luna llena a la siguiente lleva <strong>29,5 días</strong>, casi un mes. ¡De ahí viene la palabra «mes»!</p>
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-luna"/></svg>La Luna «de cabeza»</h3>
+            <p>Todas las personas del planeta ven la misma fase la misma noche, pero la ven <strong>girada</strong> según el hemisferio. Desde Uruguay, el cuarto creciente se ve como una «C» y el menguante como una «D». En el hemisferio norte es al revés. Por eso el viejo truco «la Luna es mentirosa» no funciona igual en el sur.</p>
+          </div>
+          <p>Para ver cómo cambian las fases moviendo la Luna en su órbita, prueba el simulador <a href="luna001.html">Fases de la Luna</a>.</p>
+        </section>
+        <section class="l-sec" id="eclipses" aria-labelledby="eclipses-titulo">
+          <h2 id="eclipses-titulo">Los eclipses: un juego de sombras</h2>
+          <p class="l-idea">Gran idea 2.4</p>
+          
+          <p>Un <strong>eclipse</strong> ocurre cuando el Sol, la Tierra y la Luna quedan perfectamente alineados y una sombra tapa la luz.</p>
+          <figure class="l-diagrama">
+            <svg viewBox="0 0 560 250" role="img" aria-labelledby="ecl-t ecl-d">
+              <title id="ecl-t">Eclipse de Sol y eclipse de Luna</title>
+              <desc id="ecl-d">Arriba, eclipse de Sol: la Luna se pone entre el Sol y la Tierra y su sombra cae sobre una pequeña zona de la Tierra. Abajo, eclipse de Luna: la Tierra se pone entre el Sol y la Luna, y la sombra de la Tierra cubre a la Luna.</desc>
+              <text class="d-amb" x="20" y="22">Eclipse de Sol</text>
+              <circle class="d-sol" cx="50" cy="70" r="28"/>
+              <path class="d-rayo" d="M50 42L300 62M50 98L300 78" style="stroke-width:1;opacity:.6"/>
+              <polygon points="300,62 300,78 470,70" style="fill:#000;opacity:.6"/>
+              <circle class="d-luna" cx="300" cy="70" r="8"/>
+              <circle class="d-tierra" cx="490" cy="70" r="24"/>
+              <text class="d-sub" x="50" y="118" text-anchor="middle">Sol</text>
+              <text class="d-sub" x="300" y="100" text-anchor="middle">Luna</text>
+              <text class="d-sub" x="490" y="112" text-anchor="middle">Tierra</text>
+              <text class="d-amb" x="20" y="148">Eclipse de Luna</text>
+              <circle class="d-sol" cx="50" cy="195" r="28"/>
+              <path class="d-rayo" d="M50 167L300 171M50 223L300 219" style="stroke-width:1;opacity:.6"/>
+              <polygon points="300,171 300,219 545,195" style="fill:#000;opacity:.6"/>
+              <circle class="d-tierra" cx="300" cy="195" r="24"/>
+              <circle class="d-luna" cx="490" cy="195" r="8" style="fill:#b5543a"/>
+              <text class="d-sub" x="50" y="242" text-anchor="middle">Sol</text>
+              <text class="d-sub" x="300" y="242" text-anchor="middle">Tierra</text>
+              <text class="d-sub" x="490" y="222" text-anchor="middle">Luna</text>
+            </svg>
+            <figcaption>Arriba, la sombra de la Luna cae sobre la Tierra (eclipse de Sol). Abajo, la sombra de la Tierra cae sobre la Luna (eclipse de Luna). Los tamaños y las distancias no están a escala.</figcaption>
+          </figure>
+          <div class="l-usos">
+            <div><h3>Eclipse de Sol</h3><p>La Luna pasa entre el Sol y la Tierra y nos tapa el Sol. Solo se ve desde la franja de la Tierra donde cae la sombra y dura pocos minutos. <strong>Nunca mires el Sol directamente</strong>: se necesitan filtros especiales.</p></div>
+            <div><h3>Eclipse de Luna</h3><p>La Tierra se pone entre el Sol y la Luna, y su sombra cubre a la Luna. Solo pasa en luna llena, se ve de noche desde medio planeta y puede durar horas. Se puede mirar sin ningún peligro.</p></div>
+          </div>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Eclipse_and_Super_blue_blood_moon_31.01.2018_DSCN9664.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Eclipse_and_Super_blue_blood_moon_31.01.2018_DSCN9664.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Eclipse_and_Super_blue_blood_moon_31.01.2018_DSCN9664.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1049" alt="La Luna llena de color rojo cobrizo durante un eclipse total de Luna, sobre un cielo negro." loading="lazy" decoding="async"><figcaption>Durante un eclipse total, la Luna se pone rojiza: le llega un poco de luz del Sol desviada por la atmósfera de la Tierra, como la luz de todos los atardeceres juntos.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Eclipse_and_Super_blue_blood_moon_31.01.2018_DSCN9664.jpg" target="_blank" rel="noopener noreferrer">Irvin calicut<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Los eclipses pueden ser <strong>parciales</strong> (se tapa solo una parte) o <strong>totales</strong> (se tapa todo). En un mismo lugar es más fácil ver un eclipse de Luna que uno de Sol.</p>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>Un eclipse para Uruguay</h3>
+            <p>El <strong>6 de febrero de 2027</strong> habrá un eclipse anular de Sol: la Luna tapará el centro del Sol y quedará un «anillo de fuego». Desde todo Uruguay se verá al menos como eclipse parcial, y en una franja del país se verá el anillo completo. ¡Prepara tus filtros certificados!</p>
+          </div>
+        </section>
+        <section class="l-sec" id="mareas" aria-labelledby="mareas-titulo">
+          <h2 id="mareas-titulo">Las mareas: la Luna mueve el mar</h2>
+          <p class="l-idea">Gran idea 2.5</p>
+          
+          <p>La gravedad de la Luna (y, en menor medida, la del Sol) tira de la Tierra, y sobre todo del agua de los océanos. Se forman dos pequeños «abultamientos» de agua: uno del lado que mira a la Luna y otro del lado opuesto. Como la Tierra gira, cada costa pasa por esos abultamientos y el mar <strong>sube y baja</strong> dos veces por día, más o menos.</p>
+          <div class="l-par"><figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bay_of_Fundy_High_Tide.jpg?width=300" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Bay_of_Fundy_High_Tide.jpg?width=300 300w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="300" height="450" alt="Un muelle de pescadores con barcos flotando en agua alta." loading="lazy" decoding="async"><figcaption>Marea alta en la bahía de Fundy (Canadá).<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Bay_of_Fundy_High_Tide.jpg" target="_blank" rel="noopener noreferrer">Samuel Wantman<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure><figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bay_of_Fundy_Low_Tide.jpg?width=300" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Bay_of_Fundy_Low_Tide.jpg?width=300 300w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="300" height="450" alt="El mismo muelle con los barcos apoyados sobre el barro, porque el agua bajó varios metros." loading="lazy" decoding="async"><figcaption>El mismo lugar con marea baja. Allí la diferencia supera los 10 metros.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Bay_of_Fundy_Low_Tide.jpg" target="_blank" rel="noopener noreferrer">Samuel Wantman<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure></div>
+          <div class="l-usos">
+            <div><h3>Mareas vivas</h3><p>En luna llena y luna nueva, el Sol, la Tierra y la Luna están casi en línea: sus tirones se suman y las mareas son las más grandes.</p></div>
+            <div><h3>Mareas muertas</h3><p>En cuarto creciente y cuarto menguante, el Sol y la Luna tiran en ángulo recto: se compensan en parte y las mareas son las más pequeñas.</p></div>
+          </div>
+          <p>En el Río de la Plata las mareas son pequeñas (unas decenas de centímetros), y el viento suele influir más que la Luna en la altura del agua. En otras costas, como la de la Patagonia, el mar sube y baja varios metros.</p>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <p>Si quieres seguir explorando, te recomendamos estos sitios:</p>
+          <ul class="l-recursos"><li><a href="luna001.html">Fases de la Luna</a><span>En este mismo sitio: mueve la Luna en su órbita y observa sus fases desde el hemisferio sur.</span></li><li><a href="movimientogeneraldiario.html">Movimiento general diario</a><span>En este mismo sitio: cómo se mueven el Sol y las estrellas en 24 horas.</span></li><li><a href="https://spaceplace.nasa.gov/seasons/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place: ¿Qué causa las estaciones?<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Explicación sencilla, con animaciones, de por qué hay estaciones.</span></li><li><a href="https://spaceplace.nasa.gov/eclipses/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place: Los eclipses<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Qué son los eclipses de Sol y de Luna, y cómo observarlos de forma segura.</span></li><li><a href="https://stellarium-web.org/" target="_blank" rel="noopener noreferrer">Stellarium Web<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Planetario en línea: adelanta el tiempo y mira cómo cambian las fases de la Luna.</span></li></ul>
+
+          <h3>Sigue el recorrido</h3>
+          <p>Esta guía es parte de una serie que recorre las grandes ideas de la astronomía, una por una.</p>
+          <ul class="l-recorrido"><li><a href="biia17to110version.html"><span class="l-rec-k">← Guía anterior · 1.7 a 1.10</span><span class="l-rec-t">De la Tierra al Sol: cambiar el centro del Universo</span></a></li><li><a href="biia26to28version.html"><span class="l-rec-k">Guía siguiente · 2.6 a 2.8 →</span><span class="l-rec-t">El Sol, las auroras y la tecnología del espacio</span></a></li></ul>
+
+          <h3>Material de referencia</h3>
+          <p>Este contenido está basado en las grandes ideas 2.1 a 2.5 del documento <a href="../docs/Big_Ideas_V2.0_ES.pdf">«Grandes Ideas de la Astronomía» (Big Ideas in Astronomy) de la Unión Astronómica Internacional, en PDF</a>, publicado con licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a>. También puedes leerlo en el sitio <a href="https://astro4edu.org/es/bigideas/" target="_blank" rel="noopener noreferrer">astro4edu.org<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.</p>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío: gana tus estrellas</h2>
+          <p>Es momento de poner a prueba lo que aprendiste en esta guía. Son 7 preguntas con 5 opciones cada una: cada respuesta correcta suma una estrella. Al final puedes descargar tu certificado.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión astronómica completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Jugar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Fotos de Wikimedia Commons con licencias libres: NASA (Dominio público); Ana Cichero, maestra uruguaya (CC BY-SA 3.0); Irvin calicut (CC BY-SA 4.0); Samuel Wantman (CC BY-SA 3.0); Samuel Wantman (CC BY-SA 3.0); Luc Viatour (CC BY-SA 3.0). Texto basado en «Big Ideas in Astronomy» (UAI, CC BY 4.0). <a href="../creditos.html#biia21to25">Créditos de las fotos y referencias</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
+       Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
+       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+    window.TRIVIA_META = {"id": "biia21to25", "titulo": "El cielo de todos los días", "ideas": "Grandes ideas 2.1 a 2.5 · Big Ideas in Astronomy (UAI)", "mezclar": true};
+    window.TRIVIA = [
+ {
+  "question": "¿Por qué existen el día y la noche?",
+  "options": [
+   "Porque el Sol gira alrededor de la Tierra una vez por día.",
+   "Porque la Tierra gira sobre su eje y solo una mitad mira al Sol.",
+   "Porque la Luna tapa al Sol cada noche.",
+   "Porque la Tierra se aleja del Sol de noche.",
+   "Porque el Sol se apaga durante algunas horas."
+  ],
+  "correct": 1,
+  "explicacion": "La Tierra rota sobre su eje: la mitad que mira hacia el Sol tiene día y la otra mitad, noche. Un giro completo respecto al Sol dura unas 24 horas."
+ },
+ {
+  "question": "¿Cuál es la causa principal de las estaciones del año?",
+  "options": [
+   "La distancia entre la Tierra y el Sol.",
+   "Las fases de la Luna.",
+   "La inclinación del eje de la Tierra mientras gira alrededor del Sol.",
+   "La cantidad de nubes en el cielo.",
+   "Los eclipses de Sol."
+  ],
+  "correct": 2,
+  "explicacion": "El eje de la Tierra está inclinado unos 23,4°. El hemisferio que queda inclinado hacia el Sol recibe la luz más de frente y tiene días más largos: es su verano."
+ },
+ {
+  "question": "Cuando en Uruguay es verano (diciembre), ¿qué estación hay en el hemisferio norte?",
+  "options": [
+   "También verano",
+   "Primavera",
+   "Otoño",
+   "Invierno",
+   "No hay estaciones en el norte"
+  ],
+  "correct": 3,
+  "explicacion": "Las estaciones están invertidas entre hemisferios: en diciembre el sur está inclinado hacia el Sol (verano) y el norte, lejos de él (invierno)."
+ },
+ {
+  "question": "¿Cuánto tarda la Luna en pasar de una luna llena a la siguiente?",
+  "options": [
+   "7 días",
+   "Unos 15 días",
+   "Unos 29,5 días",
+   "365 días",
+   "24 horas"
+  ],
+  "correct": 2,
+  "explicacion": "El ciclo de fases dura unos 29,5 días. De ese ritmo surgió la idea del «mes»."
+ },
+ {
+  "question": "¿Qué ocurre en un eclipse de Luna?",
+  "options": [
+   "La Luna pasa entre el Sol y la Tierra.",
+   "La Tierra se interpone entre el Sol y la Luna y le da sombra.",
+   "La Luna se apaga porque se le acaba la luz propia.",
+   "Una nube grande tapa la Luna.",
+   "El Sol pasa por detrás de la Luna."
+  ],
+  "correct": 1,
+  "explicacion": "En un eclipse de Luna, la sombra de la Tierra cubre a la Luna. Por eso solo puede ocurrir en luna llena, cuando la Luna está del lado opuesto al Sol."
+ },
+ {
+  "question": "¿Qué es lo más importante para observar un eclipse de Sol?",
+  "options": [
+   "Mirarlo con binoculares comunes.",
+   "Usar lentes de sol oscuros.",
+   "Usar filtros solares especiales certificados y nunca mirar el Sol directamente.",
+   "Mirarlo a través de una radiografía.",
+   "Observarlo solo de noche."
+  ],
+  "correct": 2,
+  "explicacion": "Mirar el Sol sin protección adecuada puede dañar la vista para siempre. Los lentes de sol comunes no alcanzan: se usan filtros certificados o métodos de proyección."
+ },
+ {
+  "question": "¿Cuándo se producen las mareas más grandes, llamadas mareas vivas?",
+  "options": [
+   "En cuarto creciente y cuarto menguante.",
+   "Solo en invierno.",
+   "En luna llena y luna nueva, cuando el Sol, la Tierra y la Luna están casi alineados.",
+   "Cuando la Luna no se ve en el cielo.",
+   "Al mediodía de cada día."
+  ],
+  "correct": 2,
+  "explicacion": "Cuando el Sol, la Tierra y la Luna están en línea, la gravedad del Sol y la de la Luna se suman y las mareas son más grandes."
+ }
+];
+
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      if (aciertos === total) return { titulo: "¡Experto en el cielo de todos los días!", html: "<p>Ahora sabes explicar el día y la noche, las estaciones, las fases de la Luna, los eclipses y las mareas. ¡La astronomía está en tu vida diaria!</p>" };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/certificado.js"></script>
+  <script src="../js/lectura.js"></script>
+</body>
+</html>

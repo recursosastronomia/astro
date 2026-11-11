@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Brazos espirales, agujeros negros y cúmulos de galaxias · Astronomía para todos</title>
+  <meta name="description" content="Por qué las galaxias tienen brazos espirales, los agujeros negros supermasivos de sus centros, las enormes distancias entre galaxias, los cúmulos y supercúmulos, y los choques entre galaxias. Con trivia y certificado.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+  </svg>
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">Brazos espirales, agujeros negros y cúmulos de galaxias</h1>
+          <p class="l-bajada">Grandes ideas de la astronomía · 9.6 a 9.10</p>
+          <p class="l-lead">Las galaxias tienen brazos que parecen remolinos, gigantes oscuros en el centro y vecinas con las que a veces chocan. Descubre cómo se organizan las galaxias en el Universo.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Unos 10 minutos de lectura</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Messier51_sRGB.jpg?width=1920" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Messier51_sRGB.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Messier51_sRGB.jpg?width=1280 1280w, https://commons.wikimedia.org/wiki/Special:FilePath/Messier51_sRGB.jpg?width=1920 1920w" sizes="(min-width: 64rem) 24rem, calc(100vw - 2rem)" width="1920" height="1332" alt="La galaxia del Remolino: una espiral vista de frente con brazos azulados y una pequeña galaxia compañera en la punta de uno de ellos." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#brazos">Los brazos espirales</a></li><li><a href="#supermasivos">Agujeros negros supermasivos</a></li><li><a href="#distancias">Galaxias muy lejanas</a></li><li><a href="#cumulos">Cúmulos de galaxias</a></li><li><a href="#choques">Galaxias que chocan</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+            <li><a href="#quiz">Desafío: gana tus estrellas</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="brazos" aria-labelledby="brazos-titulo">
+          <h2 id="brazos-titulo">¿Por qué las galaxias tienen brazos?</h2>
+          <p class="l-idea">Gran idea 9.6</p>
+          
+          <p>Los brazos de una galaxia espiral no son «objetos» fijos que giran como las aspas de un ventilador. Según la teoría más aceptada, son <strong>ondas de densidad</strong>: zonas donde las estrellas, el gas y el polvo se amontonan al pasar, como en un <strong>embotellamiento</strong> en una autopista.</p>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>El embotellamiento</h3>
+            <p>Imagina un camión lento en la ruta: los autos se amontonan detrás, lo pasan y siguen. El atasco siempre está ahí, pero los autos que lo forman cambian. Con los brazos espirales pasa algo parecido: las estrellas entran y salen, pero la zona apretada se mantiene.</p>
+          </div>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Messier51_sRGB.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Messier51_sRGB.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Messier51_sRGB.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="888" alt="Galaxia espiral vista de frente con dos grandes brazos curvados, regiones rosadas de formación de estrellas y líneas oscuras de polvo." loading="lazy" decoding="async"><figcaption>La galaxia del Remolino (M51). Las manchitas rosadas a lo largo de los brazos son nubes donde están naciendo estrellas.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Messier51_sRGB.jpg" target="_blank" rel="noopener noreferrer">NASA y ESA<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>En esas zonas apretadas se comprime el gas y nacen muchas estrellas nuevas. Por eso los brazos espirales están llenos de estrellas <strong>jóvenes, brillantes y azuladas</strong>.</p>
+        </section>
+        <section class="l-sec" id="supermasivos" aria-labelledby="supermasivos-titulo">
+          <h2 id="supermasivos-titulo">Gigantes oscuros en el centro</h2>
+          <p class="l-idea">Gran idea 9.7</p>
+          
+          <p>En una galaxia típica hay unos <strong>100 millones de agujeros negros</strong> estelares, que quedaron de la explosión de estrellas masivas. Pero en el centro de casi todas las galaxias grandes hay algo mucho mayor: un <strong>agujero negro supermasivo</strong>, con una masa de millones o miles de millones de soles.</p>
+          <div class="l-par"><figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Black_hole_-_Messier_87_crop_max_res.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Black_hole_-_Messier_87_crop_max_res.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Black_hole_-_Messier_87_crop_max_res.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1280" alt="Un anillo anaranjado brillante con un centro oscuro." loading="lazy" decoding="async"><figcaption>El agujero negro de la galaxia M87 (2019): unos 6.500 millones de veces la masa del Sol.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Black_hole_-_Messier_87_crop_max_res.jpg" target="_blank" rel="noopener noreferrer">Colaboración Event Horizon Telescope<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure><figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sag_A*.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Sag_A*.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Sag_A*.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1280" alt="Un anillo anaranjado con tres zonas más brillantes alrededor de un centro oscuro." loading="lazy" decoding="async"><figcaption>Sagitario A*, el agujero negro del centro de la Vía Láctea (2022): unos 4 millones de veces la masa del Sol.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Sag_A*.jpg" target="_blank" rel="noopener noreferrer">Colaboración Event Horizon Telescope<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure></div>
+          <p>Ambas imágenes las obtuvo el <strong>Event Horizon Telescope</strong>, que combinó radiotelescopios de todo el mundo, incluido ALMA en Chile. Lo que se ve no es el agujero negro en sí (que no emite luz), sino su <strong>sombra</strong> recortada sobre el gas brillante que gira a su alrededor.</p>
+        </section>
+        <section class="l-sec" id="distancias" aria-labelledby="distancias-titulo">
+          <h2 id="distancias-titulo">Galaxias a distancias enormes</h2>
+          <p class="l-idea">Gran idea 9.8</p>
+          
+          <p>Las galaxias pueden estar extremadamente lejos unas de otras. Nuestra vecina más cercana es la pequeña galaxia enana del <strong>Can Mayor</strong>, a unos 25.000 años luz del Sol, que está siendo absorbida por la Vía Láctea. Andrómeda, la gran galaxia más cercana, está a 2,5 millones de años luz.</p>
+          <p>Las galaxias más lejanas se ven muy débiles. Para fotografiarlas hacen falta telescopios enormes y <strong>exposiciones muy largas</strong>, que junten luz durante horas o días.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hubble_ultra_deep_field.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Hubble_ultra_deep_field.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Hubble_ultra_deep_field.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1280" alt="Miles de galaxias pequeñas de distintos colores y formas sobre fondo negro." loading="lazy" decoding="async"><figcaption>El Campo Ultra Profundo del Hubble: el telescopio juntó luz durante unos 11 días en un pedacito de cielo que parecía vacío. Encontró unas 10.000 galaxias.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Hubble_ultra_deep_field.jpg" target="_blank" rel="noopener noreferrer">NASA y ESA<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+        </section>
+        <section class="l-sec" id="cumulos" aria-labelledby="cumulos-titulo">
+          <h2 id="cumulos-titulo">Las galaxias viven en grupos</h2>
+          <p class="l-idea">Gran idea 9.9</p>
+          
+          <p>Las galaxias no están repartidas al azar. La mayoría vive en <strong>grupos</strong> o <strong>cúmulos</strong>, con cientos o miles de galaxias unidas por su gravedad. Y los cúmulos, a su vez, forman <strong>supercúmulos</strong>.</p>
+          <ol class="l-escala" aria-label="Nuestra dirección cósmica">
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-planeta"/></svg></span><span><strong>La Tierra</strong><span class="l-escala-txt">en el Sistema Solar</span></span></li>
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-sol"/></svg></span><span><strong>El Sistema Solar</strong><span class="l-escala-txt">en la Vía Láctea</span></span></li>
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg></span><span><strong>La Vía Láctea</strong><span class="l-escala-txt">en el Grupo Local, con más de 50 galaxias</span></span></li>
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-constelacion"/></svg></span><span><strong>El Grupo Local</strong><span class="l-escala-txt">en las afueras del Cúmulo de Virgo y del Supercúmulo de Virgo</span></span></li>
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-brujula"/></svg></span><span><strong>Laniakea</strong><span class="l-escala-txt">un supercúmulo gigantesco que contiene a todo lo anterior. Su nombre significa «cielo inmenso» en hawaiano.</span></span></li>
+          </ol>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Gravitational_lensing_in_the_galaxy_cluster_Abell_370_(captured_by_the_Hubble_Space_Telescope).jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Gravitational_lensing_in_the_galaxy_cluster_Abell_370_(captured_by_the_Hubble_Space_Telescope).jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Gravitational_lensing_in_the_galaxy_cluster_Abell_370_(captured_by_the_Hubble_Space_Telescope).jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1056" alt="Un cúmulo de galaxias con muchas galaxias amarillentas y arcos de luz azulada curvados alrededor." loading="lazy" decoding="async"><figcaption>El cúmulo de galaxias Abell 370. Su enorme gravedad, que incluye mucha materia oscura, curva la luz de galaxias más lejanas y forma esos arcos: es una lente gravitacional.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Gravitational_lensing_in_the_galaxy_cluster_Abell_370_(captured_by_the_Hubble_Space_Telescope).jpg" target="_blank" rel="noopener noreferrer">NASA, ESA, Hubble SM4 ERO Team y ST-ECF<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+        </section>
+        <section class="l-sec" id="choques" aria-labelledby="choques-titulo">
+          <h2 id="choques-titulo">Cuando las galaxias chocan</h2>
+          <p class="l-idea">Gran idea 9.10</p>
+          
+          <p>Como están relativamente cerca unas de otras dentro de los grupos y cúmulos, las galaxias a veces se <strong>atraen, se deforman y chocan</strong>. Estos encuentros duran cientos de millones de años y cambian por completo su aspecto.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Antennae_galaxies_xl.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Antennae_galaxies_xl.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Antennae_galaxies_xl.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1270" alt="Dos galaxias en pleno choque, con sus centros amarillentos, nubes rosadas y oscuras de polvo, y estrellas azules." loading="lazy" decoding="async"><figcaption>Las galaxias Antenas, dos galaxias espirales en pleno choque. Las zonas rosadas y azules son brotes de estrellas nuevas.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Antennae_galaxies_xl.jpg" target="_blank" rel="noopener noreferrer">NASA, ESA y Hubble Heritage Team (STScI/AURA)<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <ul>
+            <li>Al chocar, el gas se comprime y se produce un intenso <strong>brote de formación de estrellas</strong>.</li>
+            <li>Las estrellas casi nunca chocan entre sí: ¡hay muchísimo espacio entre ellas!</li>
+            <li>Cuando dos galaxias grandes se fusionan, pueden formar una <strong>galaxia elíptica</strong>.</li>
+          </ul>
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Lactómeda</h3>
+            <p>La Vía Láctea y Andrómeda se acercan. Dentro de unos cuantos miles de millones de años podrían chocar y fusionarse en una gran galaxia elíptica, a la que ya apodan «Lactómeda».</p>
+          </div>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <p>Si quieres seguir explorando, te recomendamos estos sitios:</p>
+          <ul class="l-recursos"><li><a href="exoplanetas.html">Exoplanetas</a><span>En este mismo sitio: planetas dentro de nuestra galaxia.</span></li><li><a href="sondas_voyager.html">Sondas Voyager</a><span>En este mismo sitio: nuestro viaje más lejano, todavía dentro de la Vía Láctea.</span></li><li><a href="https://spaceplace.nasa.gov/black-holes/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place: agujeros negros<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Qué son los agujeros negros, explicado de forma sencilla.</span></li><li><a href="https://eventhorizontelescope.org/" target="_blank" rel="noopener noreferrer">Event Horizon Telescope (en inglés)<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>El proyecto que fotografió las sombras de dos agujeros negros.</span></li><li><a href="https://esahubble.org/?lang=es" target="_blank" rel="noopener noreferrer">Hubble (ESA, en español)<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Imágenes de galaxias en choque y cúmulos de galaxias.</span></li></ul>
+
+          <h3>Sigue el recorrido</h3>
+          <p>Esta guía es parte de una serie que recorre las grandes ideas de la astronomía, una por una.</p>
+          <ul class="l-recorrido"><li><a href="biia91to95version.html"><span class="l-rec-k">← Guía anterior · 9.1 a 9.5</span><span class="l-rec-t">Galaxias: islas de estrellas</span></a></li><li><a href="biia101to104version.html"><span class="l-rec-k">Guía siguiente · 10.1 a 10.4 →</span><span class="l-rec-t">¿Hay vida más allá de la Tierra? Dónde buscar</span></a></li></ul>
+
+          <h3>Material de referencia</h3>
+          <p>Este contenido está basado en las grandes ideas 9.6 a 9.10 del documento <a href="../docs/Big_Ideas_V2.0_ES.pdf">«Grandes Ideas de la Astronomía» (Big Ideas in Astronomy) de la Unión Astronómica Internacional, en PDF</a>, publicado con licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a>. También puedes leerlo en el sitio <a href="https://astro4edu.org/es/bigideas/" target="_blank" rel="noopener noreferrer">astro4edu.org<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.</p>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío: gana tus estrellas</h2>
+          <p>Es momento de poner a prueba lo que aprendiste en esta guía. Son 7 preguntas con 5 opciones cada una: cada respuesta correcta suma una estrella. Al final puedes descargar tu certificado.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión astronómica completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Jugar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Fotos de Wikimedia Commons con licencias libres: NASA y ESA (Dominio público); Colaboración Event Horizon Telescope (CC BY 4.0); Colaboración Event Horizon Telescope (CC BY 4.0); NASA y ESA (Dominio público); NASA, ESA, Hubble SM4 ERO Team y ST-ECF (CC BY 4.0); NASA, ESA y Hubble Heritage Team (STScI/AURA) (Dominio público). Texto basado en «Big Ideas in Astronomy» (UAI, CC BY 4.0). <a href="../creditos.html#biia96to910">Créditos de las fotos y referencias</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
+       Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
+       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+    window.TRIVIA_META = {"id": "biia96to910", "titulo": "Brazos espirales, agujeros negros y cúmulos de galaxias", "ideas": "Grandes ideas 9.6 a 9.10 · Big Ideas in Astronomy (UAI)", "mezclar": true};
+    window.TRIVIA = [
+ {
+  "question": "Según la teoría más aceptada, ¿qué son los brazos espirales de una galaxia?",
+  "options": [
+   "Ríos de agua en el espacio",
+   "Ondas de densidad donde se amontonan estrellas, gas y polvo, como en un embotellamiento",
+   "Restos de cometas",
+   "Caminos que dejan los agujeros negros",
+   "Ilusiones ópticas de la atmósfera"
+  ],
+  "correct": 1,
+  "explicacion": "Los brazos son zonas de mayor densidad que recorren el disco: las estrellas entran y salen, como los autos en un embotellamiento."
+ },
+ {
+  "question": "¿Por qué los brazos espirales tienen muchas estrellas jóvenes y brillantes?",
+  "options": [
+   "Porque allí se comprime el gas y nacen muchas estrellas",
+   "Porque las estrellas viejas se esconden",
+   "Porque reciben luz del Sol",
+   "Porque allí no hay gravedad",
+   "Porque están más cerca de la Tierra"
+  ],
+  "correct": 0,
+  "explicacion": "En los brazos, el gas y el polvo se comprimen y se forman muchas estrellas nuevas, jóvenes y azuladas."
+ },
+ {
+  "question": "¿Cuánta masa tiene el agujero negro del centro de la Vía Láctea?",
+  "options": [
+   "Igual que el Sol",
+   "Unas 4 millones de veces la masa del Sol",
+   "Igual que la Tierra",
+   "Unas 10 veces la masa del Sol",
+   "No tiene masa"
+  ],
+  "correct": 1,
+  "explicacion": "Sagitario A*, el agujero negro supermasivo de nuestra galaxia, tiene unos 4 millones de masas solares. Su imagen se publicó en 2022."
+ },
+ {
+  "question": "¿Cómo se obtuvo la primera imagen de la sombra de un agujero negro?",
+  "options": [
+   "Con un solo telescopio óptico pequeño",
+   "Combinando radiotelescopios de todo el mundo",
+   "Enviando una sonda hasta el agujero negro",
+   "Con la cámara de un celular",
+   "Con un microscopio"
+  ],
+  "correct": 1,
+  "explicacion": "El Event Horizon Telescope unió radiotelescopios de distintos continentes para funcionar como un telescopio del tamaño de la Tierra."
+ },
+ {
+  "question": "¿Qué hace falta para fotografiar galaxias muy lejanas?",
+  "options": [
+   "Mirar de día",
+   "Telescopios grandes y exposiciones muy largas",
+   "Un flash muy potente",
+   "Ir en avión",
+   "Nada especial: se ven a simple vista"
+  ],
+  "correct": 1,
+  "explicacion": "Las galaxias lejanas son muy débiles: hay que juntar su luz durante mucho tiempo con telescopios grandes. El Campo Ultra Profundo del Hubble necesitó unos 11 días."
+ },
+ {
+  "question": "¿Cómo se llama el grupo de galaxias al que pertenece la Vía Láctea?",
+  "options": [
+   "El Grupo Local",
+   "El cinturón de Kuiper",
+   "La nube de Oort",
+   "La Cruz del Sur",
+   "El Sistema Solar"
+  ],
+  "correct": 0,
+  "explicacion": "La Vía Láctea pertenece al Grupo Local, con más de 50 galaxias, que a su vez forma parte del Supercúmulo de Laniakea."
+ },
+ {
+  "question": "¿Qué suele ocurrir cuando dos galaxias chocan?",
+  "options": [
+   "Todas sus estrellas explotan",
+   "Se produce un brote de formación de estrellas y pueden fusionarse",
+   "Desaparecen sin dejar rastro",
+   "Se convierten en planetas",
+   "Se detienen y quedan quietas"
+  ],
+  "correct": 1,
+  "explicacion": "El gas se comprime y nacen muchas estrellas nuevas. Las estrellas casi nunca chocan entre sí, y las galaxias pueden fusionarse en una sola, a veces elíptica."
+ }
+];
+
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      if (aciertos === total) return { titulo: "¡Navegante intergaláctico!", html: "<p>Recorriste brazos espirales, agujeros negros supermasivos, cúmulos de galaxias y choques cósmicos. ¡Ya conoces tu dirección en el Universo!</p>" };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/certificado.js"></script>
+  <script src="../js/lectura.js"></script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Mensajeros del Universo: luz, gravedad y más · Astronomía para todos</title>
+  <meta name="description" content="Cómo estudia la astronomía objetos a los que no podemos viajar: la luz en todas sus formas, la gravedad, las ondas gravitacionales, las partículas y los modelos por computadora. Con trivia y certificado.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+  </svg>
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">Mensajeros del Universo: luz, gravedad y más</h1>
+          <p class="l-bajada">Grandes ideas de la astronomía · 4.1 a 4.4</p>
+          <p class="l-lead">Casi nada de lo que estudia la astronomía se puede visitar ni tocar. Entonces, ¿cómo sabemos tanto? Gracias a los «mensajeros» que llegan desde el espacio y a las herramientas para entenderlos.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Unos 9 minutos de lectura</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Crab_Nebula.jpg?width=1920" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Crab_Nebula.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Crab_Nebula.jpg?width=1280 1280w, https://commons.wikimedia.org/wiki/Special:FilePath/Crab_Nebula.jpg?width=1920 1920w" sizes="(min-width: 64rem) 24rem, calc(100vw - 2rem)" width="1920" height="1920" alt="La nebulosa del Cangrejo: una nube de gas con filamentos anaranjados y un interior azulado, restos de una estrella que explotó." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#luz">La luz, el gran mensajero</a></li><li><a href="#gravedad">La gravedad manda</a></li><li><a href="#ondas">Ondas gravitacionales y partículas</a></li><li><a href="#modelos">Modelos y simulaciones</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+            <li><a href="#quiz">Desafío: gana tus estrellas</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="luz" aria-labelledby="luz-titulo">
+          <h2 id="luz-titulo">La luz: el principal mensajero</h2>
+          <p class="l-idea">Gran idea 4.1</p>
+          
+          <p>Las estrellas y las galaxias están demasiado lejos para viajar hasta ellas. Por eso la astronomía estudia, sobre todo, la <strong>luz</strong> que nos envían. En ciencia, a la luz se la llama <strong>radiación electromagnética</strong>.</p>
+          <p>Nuestros ojos solo ven una parte pequeñita de esa radiación: la <strong>luz visible</strong>, con los colores del arcoíris. Pero hay muchas otras «luces» invisibles para nosotros:</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/EM_Spectrum_Properties_es.svg?width=700" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/EM_Spectrum_Properties_es.svg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/EM_Spectrum_Properties_es.svg?width=700 700w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="700" height="400" alt="Diagrama del espectro electromagnético en español: de las ondas de radio, largas, a los rayos gamma, muy cortos, pasando por microondas, infrarrojo, luz visible, ultravioleta y rayos X." loading="lazy" decoding="async"><figcaption>El espectro electromagnético. La luz visible es solo una franja angosta en el medio.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:EM_Spectrum_Properties_es.svg" target="_blank" rel="noopener noreferrer">Crates, a partir de Inductiveload<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <div class="l-usos">
+            <div><h3>Radio y microondas</h3><p>Muestran el gas frío entre las estrellas y el «eco» del origen del Universo.</p></div>
+            <div><h3>Infrarrojo</h3><p>Atraviesa el polvo y deja ver estrellas que están naciendo.</p></div>
+            <div><h3>Ultravioleta</h3><p>Revela estrellas jóvenes y muy calientes.</p></div>
+            <div><h3>Rayos X y gamma</h3><p>Delatan los sucesos más violentos: explosiones de estrellas y gas que cae en agujeros negros.</p></div>
+          </div>
+          <p>La nebulosa del Cangrejo, la imagen de la portada, es un buen ejemplo: los restos de esa estrella que explotó brillan en <strong>todas</strong> las formas de luz, y cada una cuenta una parte distinta de su historia. En astronomía, cuando se dice «luz», puede referirse a cualquier parte de este espectro.</p>
+        </section>
+        <section class="l-sec" id="gravedad" aria-labelledby="gravedad-titulo">
+          <h2 id="gravedad-titulo">La gravedad: la fuerza que manda en el Universo</h2>
+          <p class="l-idea">Gran idea 4.2</p>
+          
+          <p>En la Tierra conocemos varias fuerzas: la de un imán, la electricidad que hace funcionar un celular… Pero a grandes distancias, en el espacio, la fuerza que manda es la <strong>gravedad</strong>: la atracción entre todo lo que tiene masa.</p>
+          <ul>
+            <li>La gravedad mantiene a los <strong>planetas</strong> girando alrededor del Sol.</li>
+            <li>Mantiene a las <strong>estrellas</strong> girando alrededor del centro de su galaxia.</li>
+            <li>Mantiene unido el gas caliente de cada estrella, con forma de esfera.</li>
+          </ul>
+          <p>¿Y la electricidad? Los planetas, las estrellas y las galaxias tienen, en conjunto, tantas cargas positivas como negativas, así que sus efectos eléctricos se compensan. Por eso, a gran escala, solo queda la gravedad.</p>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>Newton y Einstein</h3>
+            <p>Casi todo se puede calcular con la ley de gravitación de <strong>Isaac Newton</strong> (1687). Pero cerca de objetos extremos, como los agujeros negros, hace falta la <strong>teoría de la relatividad general</strong> de Albert Einstein (1915), que describe la gravedad como una curvatura del espacio y del tiempo.</p>
+          </div>
+        </section>
+        <section class="l-sec" id="ondas" aria-labelledby="ondas-titulo">
+          <h2 id="ondas-titulo">Nuevos mensajeros: ondas gravitacionales y partículas</h2>
+          <p class="l-idea">Gran idea 4.3</p>
+          
+          <p>Einstein predijo que los objetos muy masivos que se mueven con violencia producen «ondas» en el espacio-tiempo, como las ondas que se forman en el agua cuando tiras una piedra. Son las <strong>ondas gravitacionales</strong>.</p>
+          <p>Son tan débiles que hubo que esperar un siglo: la primera se detectó en <strong>2015</strong>, y venía del choque de dos agujeros negros a más de mil millones de años luz. ¡Fue como abrir un nuevo sentido para «escuchar» el Universo!</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Northern_leg_of_LIGO_interferometer_on_Hanford_Reservation.JPG?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Northern_leg_of_LIGO_interferometer_on_Hanford_Reservation.JPG?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Northern_leg_of_LIGO_interferometer_on_Hanford_Reservation.JPG?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="960" alt="Un largo túnel de hormigón recto que se pierde en el horizonte, en un paisaje seco, junto a un edificio." loading="lazy" decoding="async"><figcaption>Uno de los brazos de 4 km del detector LIGO en Hanford (Estados Unidos). Con láseres, mide cambios de longitud miles de veces más pequeños que un protón.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Northern_leg_of_LIGO_interferometer_on_Hanford_Reservation.JPG" target="_blank" rel="noopener noreferrer">Umptanum<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>La astronomía también estudia <strong>partículas</strong> que llegan del espacio:</p>
+          <div class="l-usos">
+            <div><h3>Neutrinos</h3><p>Partículas fantasma que atraviesan casi todo, incluso la Tierra entera. Nos cuentan qué pasa en el centro del Sol.</p></div>
+            <div><h3>Rayos cósmicos</h3><p>Protones y otras partículas muy veloces que vienen de los fenómenos más energéticos del cosmos.</p></div>
+          </div>
+        </section>
+        <section class="l-sec" id="modelos" aria-labelledby="modelos-titulo">
+          <h2 id="modelos-titulo">Observar, modelar y comparar</h2>
+          <p class="l-idea">Gran idea 4.4</p>
+          
+          <p>Con los datos de los telescopios, los astrónomos construyen <strong>modelos</strong>: descripciones matemáticas de cómo es un objeto y cómo cambia con el tiempo, basadas en las leyes de la física y la química.</p>
+          <ol class="l-pasos">
+            <li><h3>Observar</h3><p>Los telescopios y detectores registran luz, ondas o partículas.</p></li>
+            <li><h3>Modelar</h3><p>Se arma un modelo: a veces son unas pocas fórmulas, y otras veces, una simulación que necesita las computadoras más potentes del mundo.</p></li>
+            <li><h3>Comparar</h3><p>Se comparan las predicciones del modelo con nuevas observaciones.</p></li>
+            <li><h3>Mejorar</h3><p>Si no coinciden, se corrige el modelo… o se descubre algo nuevo. Y el ciclo vuelve a empezar.</p></li>
+          </ol>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kraken_Supercomputer_(3592578852).jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Kraken_Supercomputer_(3592578852).jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Kraken_Supercomputer_(3592578852).jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="813" alt="Filas de armarios negros de una supercomputadora en una sala con piso técnico." loading="lazy" decoding="async"><figcaption>Una supercomputadora. Algunas simulaciones del Universo tardan meses incluso en máquinas como esta.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Kraken_Supercomputer_(3592578852).jpg" target="_blank" rel="noopener noreferrer">Oak Ridge National Laboratory<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Este ir y venir entre observaciones y modelos es el corazón del <strong>método científico</strong> en astronomía.</p>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <p>Si quieres seguir explorando, te recomendamos estos sitios:</p>
+          <ul class="l-recursos"><li><a href="exoplanetas.html">Exoplanetas</a><span>En este mismo sitio: cómo se usa la luz de una estrella para descubrir planetas.</span></li><li><a href="../mhp/index.html">Misión Helios</a><span>En este mismo sitio: trabaja con imágenes reales del Sol.</span></li><li><a href="https://spaceplace.nasa.gov/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place: ¿Qué es la luz?<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Busca «espectro electromagnético» en el sitio en español de la NASA.</span></li><li><a href="https://www.esa.int/kids/es/home" target="_blank" rel="noopener noreferrer">ESA Kids<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>La Agencia Espacial Europea explica telescopios y misiones para chicos y chicas.</span></li><li><a href="https://www.ligo.caltech.edu/" target="_blank" rel="noopener noreferrer">LIGO (en inglés)<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>El sitio del observatorio que detectó las primeras ondas gravitacionales.</span></li></ul>
+
+          <h3>Sigue el recorrido</h3>
+          <p>Esta guía es parte de una serie que recorre las grandes ideas de la astronomía, una por una.</p>
+          <ul class="l-recorrido"><li><a href="biia31to37version.html"><span class="l-rec-k">← Guía anterior · 3.1 a 3.7</span><span class="l-rec-t">Un cielo nocturno lleno de sorpresas</span></a></li><li><a href="biia45to48version.html"><span class="l-rec-k">Guía siguiente · 4.5 a 4.8 →</span><span class="l-rec-t">Una ciencia de equipo, distancias gigantes y arcoíris de luz</span></a></li></ul>
+
+          <h3>Material de referencia</h3>
+          <p>Este contenido está basado en las grandes ideas 4.1 a 4.4 del documento <a href="../docs/Big_Ideas_V2.0_ES.pdf">«Grandes Ideas de la Astronomía» (Big Ideas in Astronomy) de la Unión Astronómica Internacional, en PDF</a>, publicado con licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a>. También puedes leerlo en el sitio <a href="https://astro4edu.org/es/bigideas/" target="_blank" rel="noopener noreferrer">astro4edu.org<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.</p>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío: gana tus estrellas</h2>
+          <p>Es momento de poner a prueba lo que aprendiste en esta guía. Son 7 preguntas con 5 opciones cada una: cada respuesta correcta suma una estrella. Al final puedes descargar tu certificado.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión astronómica completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Jugar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Fotos de Wikimedia Commons con licencias libres: Crates, a partir de Inductiveload (Dominio público); Umptanum (CC BY-SA 3.0); Oak Ridge National Laboratory (CC BY 2.0); NASA, ESA, J. Hester y A. Loll (Dominio público). Texto basado en «Big Ideas in Astronomy» (UAI, CC BY 4.0). <a href="../creditos.html#biia41to44">Créditos de las fotos y referencias</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
+       Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
+       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+    window.TRIVIA_META = {"id": "biia41to44", "titulo": "Mensajeros del Universo: luz, gravedad y más", "ideas": "Grandes ideas 4.1 a 4.4 · Big Ideas in Astronomy (UAI)", "mezclar": true};
+    window.TRIVIA = [
+ {
+  "question": "¿Cuál es la principal fuente de información para la astronomía?",
+  "options": [
+   "Las muestras de rocas de las estrellas",
+   "La radiación electromagnética (la luz en todas sus formas)",
+   "Los viajes tripulados a otras galaxias",
+   "El sonido que viaja por el espacio",
+   "Las predicciones de los horóscopos"
+  ],
+  "correct": 1,
+  "explicacion": "No podemos viajar a las estrellas, así que estudiamos la luz que nos envían, en todas sus formas: radio, infrarrojo, visible, ultravioleta, rayos X y gamma."
+ },
+ {
+  "question": "¿Qué parte del espectro electromagnético pueden ver nuestros ojos?",
+  "options": [
+   "Las ondas de radio",
+   "Los rayos X",
+   "Solo la luz visible",
+   "Todo el espectro",
+   "Solo el infrarrojo"
+  ],
+  "correct": 2,
+  "explicacion": "Nuestros ojos solo detectan la luz visible, una franja angosta del espectro. Para el resto hacen falta instrumentos especiales."
+ },
+ {
+  "question": "¿Qué fuerza domina las interacciones a grandes distancias en el Universo?",
+  "options": [
+   "El magnetismo de los imanes",
+   "La electricidad",
+   "La gravedad",
+   "La fuerza del viento",
+   "La fricción"
+  ],
+  "correct": 2,
+  "explicacion": "Los objetos astronómicos, en conjunto, no tienen carga eléctrica neta, así que a gran escala manda la gravedad: mantiene planetas, estrellas y galaxias en sus órbitas."
+ },
+ {
+  "question": "¿Qué teoría hace falta para describir con precisión la gravedad cerca de un agujero negro?",
+  "options": [
+   "La ley de Newton alcanza siempre",
+   "La relatividad general de Einstein",
+   "La teoría de la evolución",
+   "La teoría de los colores",
+   "El modelo de Ptolomeo"
+  ],
+  "correct": 1,
+  "explicacion": "Para casi todo alcanza la ley de Newton, pero en situaciones extremas, como cerca de los agujeros negros, se necesita la relatividad general de Einstein."
+ },
+ {
+  "question": "¿En qué año se detectaron por primera vez de forma directa las ondas gravitacionales?",
+  "options": [
+   "1609",
+   "1915",
+   "1969",
+   "2015",
+   "2025"
+  ],
+  "correct": 3,
+  "explicacion": "Einstein las predijo hace más de un siglo, pero la primera detección directa llegó en 2015, con el detector LIGO."
+ },
+ {
+  "question": "¿Qué partículas, capaces de atravesar la Tierra entera, nos informan sobre el interior del Sol?",
+  "options": [
+   "Los neutrinos",
+   "Los átomos de oxígeno",
+   "Las gotas de agua",
+   "Los granos de polvo",
+   "Los fotones de radio"
+  ],
+  "correct": 0,
+  "explicacion": "Los neutrinos casi no interactúan con la materia: salen directamente del centro del Sol y nos traen información de lo que ocurre allí."
+ },
+ {
+  "question": "¿Cómo avanza el conocimiento en astronomía?",
+  "options": [
+   "Repitiendo lo que dicen los libros antiguos",
+   "Comparando modelos con observaciones y corrigiéndolos cuando no coinciden",
+   "Votando qué idea gusta más",
+   "Solo con observaciones, sin modelos",
+   "Solo con computadoras, sin observar"
+  ],
+  "correct": 1,
+  "explicacion": "Las observaciones ponen a prueba los modelos y los modelos guían nuevas observaciones. Ese ida y vuelta es el corazón del método científico."
+ }
+];
+
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      if (aciertos === total) return { titulo: "¡Descifraste los mensajes del Universo!", html: "<p>Ahora sabes que la astronomía «escucha» al cosmos con la luz, la gravedad, las ondas gravitacionales y las partículas, y que pone a prueba sus ideas con modelos.</p>" };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/certificado.js"></script>
+  <script src="../js/lectura.js"></script>
+</body>
+</html>

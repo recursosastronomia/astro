@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Vida y muerte de las estrellas: somos polvo de estrellas · Astronomía para todos</title>
+  <meta name="description" content="Qué nos dice el color de una estrella, qué hay entre las estrellas, cómo viven y mueren según su masa, qué son los agujeros negros y por qué los átomos de tu cuerpo se fabricaron en estrellas. Con trivia y certificado.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+  </svg>
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">Vida y muerte de las estrellas: somos polvo de estrellas</h1>
+          <p class="l-bajada">Grandes ideas de la astronomía · 8.5 a 8.10</p>
+          <p class="l-lead">El calcio de tus huesos y el hierro de tu sangre se fabricaron dentro de estrellas que vivieron y murieron hace miles de millones de años. Descubre el ciclo de vida de las estrellas y por qué, literalmente, somos polvo de estrellas.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Unos 11 minutos de lectura</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Southern_Ring_Nebula_by_Webb_Telescope_(2022).jpg?width=1920" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Southern_Ring_Nebula_by_Webb_Telescope_(2022).jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Southern_Ring_Nebula_by_Webb_Telescope_(2022).jpg?width=1280 1280w, https://commons.wikimedia.org/wiki/Special:FilePath/Southern_Ring_Nebula_by_Webb_Telescope_(2022).jpg?width=1920 1920w" sizes="(min-width: 64rem) 24rem, calc(100vw - 2rem)" width="1920" height="1788" alt="La nebulosa del Anillo del Sur fotografiada por el telescopio James Webb: capas de gas de colores alrededor de una estrella que muere." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#color">El color y la temperatura</a></li><li><a href="#entre">Entre las estrellas</a></li><li><a href="#vida">La vida de una estrella</a></li><li><a href="#agujeros">Agujeros negros</a></li><li><a href="#reciclaje">El reciclaje cósmico</a></li><li><a href="#polvo">Somos polvo de estrellas</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+            <li><a href="#quiz">Desafío: gana tus estrellas</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="color" aria-labelledby="color-titulo">
+          <h2 id="color-titulo">El color de una estrella es su termómetro</h2>
+          <p class="l-idea">Gran idea 8.5</p>
+          
+          <p>Si miras con atención el cielo nocturno, verás que las estrellas no son todas blancas: hay algunas <strong>azuladas</strong>, otras <strong>amarillas</strong> y otras <strong>anaranjadas o rojizas</strong>. ¡Ese color nos dice su temperatura!</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Morgan-Keenan_spectral_classification_zoom.png?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Morgan-Keenan_spectral_classification_zoom.png?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Morgan-Keenan_spectral_classification_zoom.png?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="356" alt="Una franja con círculos de colores que van del azul al rojo, ordenados de las estrellas más calientes a las más frías." loading="lazy" decoding="async"><figcaption>Las estrellas ordenadas por temperatura: de las más calientes, azules, a las más frías, rojas.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Morgan-Keenan_spectral_classification_zoom.png" target="_blank" rel="noopener noreferrer">Kheider (Commons)<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <div class="l-usos">
+            <div><h3>Azules: muy calientes</h3><p>Hasta unos 50.000 °C en la superficie. Emiten mucha luz azul y ultravioleta.</p></div>
+            <div><h3>Rojas: más frías</h3><p>Unos 3.000 °C. Emiten sobre todo luz roja e infrarroja.</p></div>
+          </div>
+          <p>Es lo mismo que pasa con un trozo de hierro en una fragua: primero brilla rojo, después amarillo y, si se calienta mucho más, blanco azulado. El Sol, con unos 5.500 °C en la superficie, es una estrella amarilla.</p>
+          <figure class="l-figura l-figura-chica"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Betelgeuse_captured_by_ALMA.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Betelgeuse_captured_by_ALMA.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Betelgeuse_captured_by_ALMA.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1280" alt="Imagen de la estrella Betelgeuse tomada por ALMA: un disco anaranjado y rojizo." loading="lazy" decoding="async"><figcaption>Betelgeuse, la supergigante roja del hombro de Orión, vista por ALMA. Su color rojizo indica una superficie relativamente fría.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Betelgeuse_captured_by_ALMA.jpg" target="_blank" rel="noopener noreferrer">ALMA (ESO/NAOJ/NRAO) / E. O&#x27;Gorman / P. Kervella<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+        </section>
+        <section class="l-sec" id="entre" aria-labelledby="entre-titulo">
+          <h2 id="entre-titulo">¿Qué hay entre las estrellas?</h2>
+          <p class="l-idea">Gran idea 8.6</p>
+          
+          <p>El espacio entre las estrellas parece vacío, pero no lo está del todo. Contiene rastros diminutos de <strong>gas</strong>, <strong>polvo</strong> y partículas muy veloces llamadas <strong>rayos cósmicos</strong>. A todo eso se lo llama <strong>medio interestelar</strong>.</p>
+          <p>En algunas zonas el medio interestelar se junta en <strong>nubes</strong>, y de esas nubes nacen nuevas estrellas. Aun así, incluso las nubes más densas son <strong>mil veces más vacías</strong> que el mejor vacío que podemos crear en un laboratorio de la Tierra.</p>
+        </section>
+        <section class="l-sec" id="vida" aria-labelledby="vida-titulo">
+          <h2 id="vida-titulo">La vida de una estrella depende de su masa</h2>
+          <p class="l-idea">Gran idea 8.7</p>
+          
+          <p>Las estrellas nacen, viven y mueren. Lo que más decide cómo será su vida es su <strong>masa</strong> al nacer. Y, curiosamente, las estrellas más grandes viven <strong>menos</strong>: gastan su combustible muchísimo más rápido.</p>
+          <div class="l-tabla-wrap">
+            <table class="l-tabla">
+              <caption class="sr-only">Cómo viven y mueren las estrellas según su masa</caption>
+              <thead><tr><th scope="col">Tipo de estrella</th><th scope="col">Cuánto vive</th><th scope="col">Cómo termina</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Enana roja</th><td>Billones de años</td><td>Se apaga muy lentamente.</td></tr>
+                <tr><th scope="row">Como el Sol</th><td>Unos 10.000 millones de años</td><td>Se hincha como <strong>gigante roja</strong>, expulsa sus capas (una <strong>nebulosa planetaria</strong>) y deja una <strong>enana blanca</strong>.</td></tr>
+                <tr><th scope="row">Masiva (8 soles o más)</th><td>Unos pocos millones de años</td><td>Se vuelve <strong>supergigante roja</strong> y explota como <strong>supernova</strong>. Deja una estrella de neutrones o un agujero negro.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="l-par"><figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Southern_Ring_Nebula_by_Webb_Telescope_(2022).jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Southern_Ring_Nebula_by_Webb_Telescope_(2022).jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Southern_Ring_Nebula_by_Webb_Telescope_(2022).jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1192" alt="Nebulosa con capas de gas anaranjado y azul alrededor de una estrella central." loading="lazy" decoding="async"><figcaption>Una nebulosa planetaria: así terminará el Sol dentro de miles de millones de años.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Southern_Ring_Nebula_by_Webb_Telescope_(2022).jpg" target="_blank" rel="noopener noreferrer">NASA, ESA, CSA y STScI<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure><figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Crab_Nebula.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Crab_Nebula.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Crab_Nebula.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1280" alt="Nube de filamentos anaranjados con un interior azulado." loading="lazy" decoding="async"><figcaption>La nebulosa del Cangrejo: los restos de una supernova que se vio desde la Tierra en el año 1054.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Crab_Nebula.jpg" target="_blank" rel="noopener noreferrer">NASA, ESA, J. Hester y A. Loll<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure></div>
+          <p>Nuestro Sol tiene unos 4.600 millones de años: está más o menos en la mitad de su vida.</p>
+        </section>
+        <section class="l-sec" id="agujeros" aria-labelledby="agujeros-titulo">
+          <h2 id="agujeros-titulo">Agujeros negros estelares</h2>
+          <p class="l-idea">Gran idea 8.8</p>
+          
+          <p>Cuando una estrella muy masiva explota, su centro puede derrumbarse sobre sí mismo hasta formar un <strong>agujero negro</strong>: una región donde la gravedad es tan intensa que <strong>nada puede escapar</strong>, ni siquiera la luz.</p>
+          <p>El límite a partir del cual ya no hay vuelta atrás se llama <strong>horizonte de sucesos</strong>. Los agujeros negros que nacen de estrellas pueden tener decenas de veces la masa del Sol, ¡apretada en una esfera de apenas unos kilómetros o decenas de kilómetros!</p>
+          <figure class="l-figura l-figura-chica"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Black_hole_-_Messier_87_crop_max_res.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Black_hole_-_Messier_87_crop_max_res.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Black_hole_-_Messier_87_crop_max_res.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1280" alt="Un anillo anaranjado brillante alrededor de un centro oscuro." loading="lazy" decoding="async"><figcaption>La primera imagen de la sombra de un agujero negro (2019), en la galaxia M87. Este es supermasivo, mucho más grande que los estelares, pero muestra cómo se ve el horizonte de sucesos.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Black_hole_-_Messier_87_crop_max_res.jpg" target="_blank" rel="noopener noreferrer">Colaboración Event Horizon Telescope<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>No son aspiradoras</h3>
+            <p>Un agujero negro no «chupa» todo lo que hay en el Universo. Si el Sol se convirtiera en un agujero negro de la misma masa (cosa que no va a pasar), la Tierra seguiría girando en la misma órbita… aunque, eso sí, a oscuras.</p>
+          </div>
+        </section>
+        <section class="l-sec" id="reciclaje" aria-labelledby="reciclaje-titulo">
+          <h2 id="reciclaje-titulo">El gran reciclaje cósmico</h2>
+          <p class="l-idea">Gran idea 8.9</p>
+          
+          <p>Al comienzo, el Universo tenía casi solo <strong>hidrógeno y helio</strong> (y un poquito de litio). Todos los demás elementos químicos se fabricaron después, dentro de las estrellas:</p>
+          <ul>
+            <li>Las estrellas como el Sol fabrican elementos livianos, como el <strong>carbono</strong> y el <strong>oxígeno</strong>.</li>
+            <li>Las estrellas masivas fabrican elementos más pesados, hasta el <strong>hierro</strong>.</li>
+            <li>Los elementos más pesados que el hierro, como el <strong>oro</strong> y el uranio, se forman en las explosiones de supernovas y en los choques de estrellas de neutrones.</li>
+          </ul>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Element_Origins.jpg?width=1200" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Element_Origins.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Element_Origins.jpg?width=1200 1200w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1200" height="840" alt="Tabla periódica de los elementos coloreada según su origen: el Big Bang, estrellas pequeñas, estrellas grandes que explotan o choques de estrellas de neutrones." loading="lazy" decoding="async"><figcaption>Tabla periódica coloreada según dónde se formó cada elemento (en inglés). Casi todos los colores corresponden a estrellas.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Element_Origins.jpg" target="_blank" rel="noopener noreferrer">Jennifer Johnson (Universidad Estatal de Ohio)<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Cuando las estrellas mueren, devuelven ese material al espacio. Con él se forman nuevas nubes, nuevas estrellas y nuevos planetas. Es el <strong>reciclaje cósmico</strong>: el Sol y la Tierra se formaron con restos de estrellas anteriores.</p>
+        </section>
+        <section class="l-sec" id="polvo" aria-labelledby="polvo-titulo">
+          <h2 id="polvo-titulo">Somos polvo de estrellas</h2>
+          <p class="l-idea">Gran idea 8.10</p>
+          
+          <p>Si casi todos los elementos se fabricaron en estrellas, eso incluye a los que forman tu cuerpo:</p>
+          <ul class="l-cifras" aria-label="Elementos de nuestro cuerpo fabricados en estrellas">
+            <li><strong>Calcio</strong><span>en tus huesos y dientes.</span></li>
+            <li><strong>Hierro</strong><span>en tu sangre.</span></li>
+            <li><strong>Nitrógeno</strong><span>en tu ADN.</span></li>
+            <li><strong>Oxígeno</strong><span>en el agua de tu cuerpo.</span></li>
+          </ul>
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Una conexión con el cosmos</h3>
+            <p>Todos esos átomos se formaron en el interior de estrellas que vivieron y murieron hace miles de millones de años. Lo mismo pasa con los animales, las plantas y casi todo lo que te rodea. Como dijo el astrónomo Carl Sagan, <strong>estamos hechos de materia de estrellas</strong>.</p>
+          </div>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <p>Si quieres seguir explorando, te recomendamos estos sitios:</p>
+          <ul class="l-recursos"><li><a href="constelacionesV3.html">Constelaciones</a><span>En este mismo sitio: Betelgeuse y las estrellas de Orión en 3D.</span></li><li><a href="../mhp/index.html">Misión Helios</a><span>En este mismo sitio: estudia nuestra estrella con datos reales.</span></li><li><a href="https://spaceplace.nasa.gov/black-holes/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place: agujeros negros<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Qué es un agujero negro, explicado de forma sencilla.</span></li><li><a href="https://www.esa.int/kids/es/home" target="_blank" rel="noopener noreferrer">ESA Kids<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>La vida y la muerte de las estrellas para chicos y chicas.</span></li><li><a href="https://esawebb.org/" target="_blank" rel="noopener noreferrer">Telescopio James Webb (ESA, en inglés)<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Imágenes de nebulosas planetarias y restos de supernovas.</span></li></ul>
+
+          <h3>Sigue el recorrido</h3>
+          <p>Esta guía es parte de una serie que recorre las grandes ideas de la astronomía, una por una.</p>
+          <ul class="l-recorrido"><li><a href="biia81to84version.html"><span class="l-rec-k">← Guía anterior · 8.1 a 8.4</span><span class="l-rec-t">Estrellas: fábricas de luz</span></a></li><li><a href="biia91to95version.html"><span class="l-rec-k">Guía siguiente · 9.1 a 9.5 →</span><span class="l-rec-t">Galaxias: islas de estrellas</span></a></li></ul>
+
+          <h3>Material de referencia</h3>
+          <p>Este contenido está basado en las grandes ideas 8.5 a 8.10 del documento <a href="../docs/Big_Ideas_V2.0_ES.pdf">«Grandes Ideas de la Astronomía» (Big Ideas in Astronomy) de la Unión Astronómica Internacional, en PDF</a>, publicado con licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a>. También puedes leerlo en el sitio <a href="https://astro4edu.org/es/bigideas/" target="_blank" rel="noopener noreferrer">astro4edu.org<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.</p>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío: gana tus estrellas</h2>
+          <p>Es momento de poner a prueba lo que aprendiste en esta guía. Son 7 preguntas con 5 opciones cada una: cada respuesta correcta suma una estrella. Al final puedes descargar tu certificado.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión astronómica completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Jugar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Fotos de Wikimedia Commons con licencias libres: Kheider (Commons) (CC BY-SA 3.0); ALMA (ESO/NAOJ/NRAO) / E. O&#x27;Gorman / P. Kervella (CC BY 4.0); NASA, ESA, CSA y STScI (Dominio público); NASA, ESA, J. Hester y A. Loll (Dominio público); Colaboración Event Horizon Telescope (CC BY 4.0); Jennifer Johnson (Universidad Estatal de Ohio) (CC BY 2.0). Texto basado en «Big Ideas in Astronomy» (UAI, CC BY 4.0). <a href="../creditos.html#biia85to810">Créditos de las fotos y referencias</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
+       Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
+       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+    window.TRIVIA_META = {"id": "biia85to810", "titulo": "Vida y muerte de las estrellas: somos polvo de estrellas", "ideas": "Grandes ideas 8.5 a 8.10 · Big Ideas in Astronomy (UAI)", "mezclar": true};
+    window.TRIVIA = [
+ {
+  "question": "¿Qué nos dice el color de una estrella?",
+  "options": [
+   "Su edad exacta",
+   "La temperatura de su superficie",
+   "Si tiene planetas",
+   "Su distancia a la Tierra",
+   "Su nombre"
+  ],
+  "correct": 1,
+  "explicacion": "Las estrellas azuladas son las más calientes y las rojizas, las más frías. El color funciona como un termómetro."
+ },
+ {
+  "question": "¿Qué es el medio interestelar?",
+  "options": [
+   "El centro de la Vía Láctea",
+   "El gas, el polvo y los rayos cósmicos que hay entre las estrellas",
+   "La mitad de la vida de una estrella",
+   "Un tipo de planeta",
+   "La atmósfera del Sol"
+  ],
+  "correct": 1,
+  "explicacion": "Entre las estrellas hay rastros de gas, polvo y partículas veloces. En sus nubes más densas nacen nuevas estrellas."
+ },
+ {
+  "question": "¿Qué es lo que más determina cómo será la vida de una estrella?",
+  "options": [
+   "Su color al nacer",
+   "Su masa inicial",
+   "La cantidad de planetas que tiene",
+   "Su distancia a la Tierra",
+   "La galaxia donde está"
+  ],
+  "correct": 1,
+  "explicacion": "La masa inicial decide cuánto vive una estrella y cómo termina: las más masivas viven poco y explotan como supernovas."
+ },
+ {
+  "question": "¿Cómo terminará su vida una estrella como el Sol?",
+  "options": [
+   "Explotando como supernova",
+   "Convirtiéndose en agujero negro",
+   "Como gigante roja que expulsa sus capas y deja una enana blanca",
+   "Transformándose en un planeta",
+   "Nunca va a terminar"
+  ],
+  "correct": 2,
+  "explicacion": "El Sol se hinchará como gigante roja, expulsará sus capas formando una nebulosa planetaria y dejará una enana blanca. No tiene masa suficiente para explotar."
+ },
+ {
+  "question": "¿Qué es el horizonte de sucesos de un agujero negro?",
+  "options": [
+   "El anillo de polvo que lo rodea",
+   "El límite a partir del cual nada, ni la luz, puede escapar",
+   "La estrella que lo formó",
+   "Su sombra en la Tierra",
+   "El momento en que nace"
+  ],
+  "correct": 1,
+  "explicacion": "Una vez cruzado el horizonte de sucesos, la velocidad necesaria para escapar supera la de la luz: nada puede salir."
+ },
+ {
+  "question": "¿Dónde se forman elementos muy pesados como el oro?",
+  "options": [
+   "En el centro de la Tierra",
+   "En las explosiones de supernovas y los choques de estrellas de neutrones",
+   "En el Big Bang",
+   "En las colas de los cometas",
+   "En las nubes de la atmósfera"
+  ],
+  "correct": 1,
+  "explicacion": "Los elementos más pesados que el hierro, como el oro, se forman en sucesos muy violentos: supernovas y choques de estrellas de neutrones."
+ },
+ {
+  "question": "¿Por qué se dice que «somos polvo de estrellas»?",
+  "options": [
+   "Porque nacimos en el espacio",
+   "Porque muchos átomos de nuestro cuerpo, como el calcio y el hierro, se fabricaron en estrellas",
+   "Porque brillamos de noche",
+   "Porque comemos polvo",
+   "Porque es solo una frase poética, sin base científica"
+  ],
+  "correct": 1,
+  "explicacion": "Casi todos los elementos distintos del hidrógeno y el helio se formaron en estrellas. El calcio de los huesos, el hierro de la sangre y el nitrógeno del ADN vienen de allí."
+ }
+];
+
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      if (aciertos === total) return { titulo: "¡Eres polvo de estrellas!", html: "<p>Entendiste cómo viven y mueren las estrellas, qué son los agujeros negros y cómo los átomos de tu cuerpo se formaron en estrellas hace miles de millones de años.</p>" };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/certificado.js"></script>
+  <script src="../js/lectura.js"></script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>La edad del Universo y el viaje de la luz · Astronomía para todos</title>
+  <meta name="description" content="Cuántos años tiene el Universo, por qué se ve igual en todas las direcciones, por qué mirar lejos es mirar al pasado y qué es el Universo observable. Con trivia y certificado.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+  </svg>
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">La edad del Universo y el viaje de la luz</h1>
+          <p class="l-bajada">Grandes ideas de la astronomía · 6.1 a 6.4</p>
+          <p class="l-lead">Cuando miras una estrella, la ves como era hace años, siglos o milenios. Mirar lejos es como usar una máquina del tiempo. Descubre qué nos cuenta eso sobre la edad y el tamaño del Universo.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Unos 8 minutos de lectura</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hubble_ultra_deep_field.jpg?width=1920" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Hubble_ultra_deep_field.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Hubble_ultra_deep_field.jpg?width=1280 1280w, https://commons.wikimedia.org/wiki/Special:FilePath/Hubble_ultra_deep_field.jpg?width=1920 1920w" sizes="(min-width: 64rem) 24rem, calc(100vw - 2rem)" width="1920" height="1920" alt="El Campo Ultra Profundo del Hubble: miles de galaxias de colores y formas diferentes sobre un fondo negro." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#edad">13.800 millones de años</a></li><li><a href="#homogeneo">Igual en todas partes</a></li><li><a href="#pasado">Mirar es viajar al pasado</a></li><li><a href="#observable">El Universo observable</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+            <li><a href="#quiz">Desafío: gana tus estrellas</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="edad" aria-labelledby="edad-titulo">
+          <h2 id="edad-titulo">Un Universo de 13.800 millones de años</h2>
+          <p class="l-idea">Gran idea 6.1</p>
+          
+          <p>La <strong>cosmología</strong> es la parte de la astronomía que estudia el Universo entero: cómo empezó, cómo cambia y cómo está organizado. Uno de sus grandes logros fue calcular su edad: unos <strong>13.800 millones de años</strong>.</p>
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Toda la historia en un año</h3>
+            <p>Si toda la historia del Universo cupiera en un calendario de un año, con el origen el 1.º de enero, el Sol y la Tierra se formarían a principios de <strong>septiembre</strong>, los dinosaurios desaparecerían el <strong>30 de diciembre</strong>… y toda la historia humana escrita ocuparía solo los últimos <strong>diez segundos</strong> del 31 de diciembre.</p>
+          </div>
+          <p>Esa edad no es un invento: surge de combinar muchas observaciones distintas, como la luz más antigua del Universo, la expansión de las galaxias y la edad de las estrellas más viejas. Todas coinciden.</p>
+        </section>
+        <section class="l-sec" id="homogeneo" aria-labelledby="homogeneo-titulo">
+          <h2 id="homogeneo-titulo">Un Universo parecido en todas partes</h2>
+          <p class="l-idea">Gran idea 6.2</p>
+          
+          <p>De cerca, el Universo es muy desparejo: hay planetas, estrellas, galaxias y enormes espacios vacíos. Pero si nos alejamos lo suficiente (a escalas de más de <strong>300 millones de años luz</strong>), la materia aparece repartida de forma <strong>pareja</strong>.</p>
+          <div class="l-usos">
+            <div><h3>Homogéneo</h3><p>Se ve casi igual en cualquier lugar: no hay un barrio especial del Universo.</p></div>
+            <div><h3>Isótropo</h3><p>Se ve casi igual en todas las direcciones en que miremos.</p></div>
+          </div>
+          <p>Es como un vaso de leche: de muy cerca, con un microscopio, verías gotitas de grasa y espacios entre ellas; pero a simple vista, la leche es igual en todo el vaso.</p>
+        </section>
+        <section class="l-sec" id="pasado" aria-labelledby="pasado-titulo">
+          <h2 id="pasado-titulo">Mirar lejos es mirar al pasado</h2>
+          <p class="l-idea">Gran idea 6.3</p>
+          
+          <p>La luz es lo más rápido que existe, pero no es instantánea: viaja a unos <strong>300.000 km por segundo</strong>. Por eso, todo lo que vemos lo vemos <strong>como era</strong> cuando salió su luz, nunca como es ahora.</p>
+          <ul class="l-escala" aria-label="Cuánto tarda en llegar la luz">
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-luna"/></svg></span><span><strong>La Luna: 1,3 segundos</strong><span class="l-escala-txt">La vemos como era hace poco más de un segundo.</span></span></li>
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-sol"/></svg></span><span><strong>El Sol: unos 8 minutos</strong><span class="l-escala-txt">Si el Sol se apagara, tardaríamos 8 minutos en darnos cuenta.</span></span></li>
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg></span><span><strong>Próxima Centauri: 4,25 años</strong><span class="l-escala-txt">La estrella más cercana después del Sol.</span></span></li>
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-constelacion"/></svg></span><span><strong>Andrómeda: 2,5 millones de años</strong><span class="l-escala-txt">Su luz salió cuando en la Tierra recién aparecían nuestros primeros antepasados del género <em>Homo</em>.</span></span></li>
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-planeta"/></svg></span><span><strong>Las galaxias más lejanas: más de 13.000 millones de años</strong><span class="l-escala-txt">Las vemos como eran cuando el Universo era muy joven.</span></span></li>
+          </ul>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Andromeda_Galaxy_(with_h-alpha).jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Andromeda_Galaxy_(with_h-alpha).jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Andromeda_Galaxy_(with_h-alpha).jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="841" alt="La galaxia de Andrómeda, un gran disco de estrellas visto en diagonal, con su centro brillante y nubes rojizas en los brazos." loading="lazy" decoding="async"><figcaption>La galaxia de Andrómeda. La luz que forma esta foto salió de allí hace unos 2,5 millones de años.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Andromeda_Galaxy_(with_h-alpha).jpg" target="_blank" rel="noopener noreferrer">Adam Evans<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Así, mirar objetos a distintas distancias es como ver <strong>fotos de distintas épocas</strong> del Universo. Y como el Universo es parecido en todas partes, esas fotos nos cuentan también nuestra propia historia.</p>
+        </section>
+        <section class="l-sec" id="observable" aria-labelledby="observable-titulo">
+          <h2 id="observable-titulo">Solo vemos una parte: el Universo observable</h2>
+          <p class="l-idea">Gran idea 6.4</p>
+          
+          <p>Si la luz tarda en llegar y el Universo tiene una edad determinada, hay regiones tan lejanas que su luz <strong>todavía no tuvo tiempo</strong> de llegar hasta nosotros. No las podemos ver, por más grande que sea el telescopio.</p>
+          <p>Todo lo que sí podemos ver forma el <strong>Universo observable</strong>: una enorme esfera con la Tierra en el centro… ¡pero solo porque es <em>nuestro</em> punto de vista! Un observador en otra galaxia tendría su propio Universo observable, centrado en él.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Observable_universe_logarithmic_illustration.png?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Observable_universe_logarithmic_illustration.png?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Observable_universe_logarithmic_illustration.png?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1280" alt="Ilustración circular del Universo observable: el Sistema Solar en el centro, rodeado por las estrellas cercanas, la Vía Láctea, las galaxias vecinas, la red de galaxias y, en el borde, el resplandor del Universo temprano." loading="lazy" decoding="async"><figcaption>El Universo observable dibujado con una escala especial (logarítmica): cada anillo hacia afuera representa distancias muchísimo mayores. En el borde, la luz más antigua.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Observable_universe_logarithmic_illustration.png" target="_blank" rel="noopener noreferrer">Pablo Carlos Budassi<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hubble_ultra_deep_field.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Hubble_ultra_deep_field.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Hubble_ultra_deep_field.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1280" alt="Miles de galaxias pequeñas de distintos colores y formas sobre fondo negro." loading="lazy" decoding="async"><figcaption>El Campo Ultra Profundo del Hubble. Cada manchita es una galaxia; algunas se ven como eran hace más de 13.000 millones de años, cerca del borde del Universo observable.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Hubble_ultra_deep_field.jpg" target="_blank" rel="noopener noreferrer">NASA y ESA<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Los objetos más interesantes para la cosmología están justamente cerca de ese borde: los vemos como eran cuando el Universo acababa de empezar.</p>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <p>Si quieres seguir explorando, te recomendamos estos sitios:</p>
+          <ul class="l-recursos"><li><a href="exoplanetas.html">Exoplanetas</a><span>En este mismo sitio: mundos que orbitan otras estrellas.</span></li><li><a href="constelacionesV3.html">Constelaciones</a><span>En este mismo sitio: estrellas que parecen juntas pero están a distancias muy distintas.</span></li><li><a href="https://spaceplace.nasa.gov/light-year/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place: ¿Qué es un año luz?<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Explicación sencilla de las distancias en el espacio.</span></li><li><a href="https://www.esa.int/kids/es/home" target="_blank" rel="noopener noreferrer">ESA Kids<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Artículos para chicos y chicas sobre el origen y la historia del Universo.</span></li><li><a href="https://esahubble.org/?lang=es" target="_blank" rel="noopener noreferrer">Hubble (ESA, en español)<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Imágenes y noticias del telescopio espacial Hubble.</span></li></ul>
+
+          <h3>Sigue el recorrido</h3>
+          <p>Esta guía es parte de una serie que recorre las grandes ideas de la astronomía, una por una.</p>
+          <ul class="l-recorrido"><li><a href="biia55to58version.html"><span class="l-rec-k">← Guía anterior · 5.5 a 5.8</span><span class="l-rec-t">Gran ciencia: datos, supercomputadoras y sondas espaciales</span></a></li><li><a href="biia65to611version.html"><span class="l-rec-k">Guía siguiente · 6.5 a 6.11 →</span><span class="l-rec-t">Lo que no vemos: materia oscura, expansión y Big Bang</span></a></li></ul>
+
+          <h3>Material de referencia</h3>
+          <p>Este contenido está basado en las grandes ideas 6.1 a 6.4 del documento <a href="../docs/Big_Ideas_V2.0_ES.pdf">«Grandes Ideas de la Astronomía» (Big Ideas in Astronomy) de la Unión Astronómica Internacional, en PDF</a>, publicado con licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a>. También puedes leerlo en el sitio <a href="https://astro4edu.org/es/bigideas/" target="_blank" rel="noopener noreferrer">astro4edu.org<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.</p>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío: gana tus estrellas</h2>
+          <p>Es momento de poner a prueba lo que aprendiste en esta guía. Son 7 preguntas con 5 opciones cada una: cada respuesta correcta suma una estrella. Al final puedes descargar tu certificado.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión astronómica completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Jugar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Fotos de Wikimedia Commons con licencias libres: Adam Evans (CC BY 2.0); Pablo Carlos Budassi (CC BY-SA 3.0); NASA y ESA (Dominio público). Texto basado en «Big Ideas in Astronomy» (UAI, CC BY 4.0). <a href="../creditos.html#biia61to64">Créditos de las fotos y referencias</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
+       Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
+       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+    window.TRIVIA_META = {"id": "biia61to64", "titulo": "La edad del Universo y el viaje de la luz", "ideas": "Grandes ideas 6.1 a 6.4 · Big Ideas in Astronomy (UAI)", "mezclar": true};
+    window.TRIVIA = [
+ {
+  "question": "¿Qué edad tiene el Universo, según las observaciones actuales?",
+  "options": [
+   "Unos 6.000 años",
+   "Unos 4.600 millones de años",
+   "Unos 13.800 millones de años",
+   "Unos 100 billones de años",
+   "Siempre existió, no tiene edad"
+  ],
+  "correct": 2,
+  "explicacion": "El Universo tiene unos 13.800 millones de años. Los 4.600 millones de años corresponden a la edad del Sistema Solar."
+ },
+ {
+  "question": "¿Qué estudia la cosmología?",
+  "options": [
+   "Los cosméticos",
+   "El Universo como un todo: su origen, su estructura y su evolución",
+   "Solo los planetas",
+   "El clima de la Tierra",
+   "Los horóscopos"
+  ],
+  "correct": 1,
+  "explicacion": "La cosmología es la rama de la astronomía que estudia el Universo en su conjunto."
+ },
+ {
+  "question": "¿Qué significa que el Universo sea «isótropo»?",
+  "options": [
+   "Que es muy pequeño",
+   "Que se ve casi igual en todas las direcciones",
+   "Que está quieto",
+   "Que tiene forma de huevo",
+   "Que solo tiene estrellas"
+  ],
+  "correct": 1,
+  "explicacion": "Isótropo significa que se ve casi igual mires hacia donde mires. Homogéneo, que se ve igual en cualquier lugar, a gran escala."
+ },
+ {
+  "question": "¿Cuánto tarda la luz del Sol en llegar a la Tierra?",
+  "options": [
+   "Es instantánea",
+   "Unos 8 segundos",
+   "Unos 8 minutos",
+   "Unas 8 horas",
+   "Unos 8 años"
+  ],
+  "correct": 2,
+  "explicacion": "La luz del Sol tarda unos 8 minutos en llegar. Por eso siempre vemos al Sol como era 8 minutos antes."
+ },
+ {
+  "question": "Si miras la galaxia de Andrómeda, ¿cómo la ves?",
+  "options": [
+   "Exactamente como es ahora",
+   "Como era hace unos 2,5 millones de años",
+   "Como será en el futuro",
+   "Como era hace 8 minutos",
+   "Como era ayer"
+  ],
+  "correct": 1,
+  "explicacion": "La luz de Andrómeda tarda unos 2,5 millones de años en llegar, así que la vemos como era entonces. Mirar lejos es mirar al pasado."
+ },
+ {
+  "question": "¿Por qué no podemos ver todo el Universo?",
+  "options": [
+   "Porque los telescopios son muy chicos",
+   "Porque la luz de las regiones más lejanas todavía no tuvo tiempo de llegar",
+   "Porque el Universo está a oscuras",
+   "Porque la Luna lo tapa",
+   "Porque está prohibido"
+  ],
+  "correct": 1,
+  "explicacion": "La luz viaja a velocidad finita y el Universo tiene una edad: la luz de las regiones más lejanas aún no nos alcanzó. Lo que vemos forma el Universo observable."
+ },
+ {
+  "question": "¿Por qué la Tierra parece estar en el centro del Universo observable?",
+  "options": [
+   "Porque la Tierra es el centro del Universo",
+   "Porque es nuestro punto de vista: cada observador tiene su propio Universo observable",
+   "Porque la Tierra es el planeta más grande",
+   "Porque el Sol nos ilumina",
+   "Porque lo decidió Ptolomeo"
+  ],
+  "correct": 1,
+  "explicacion": "El Universo observable es la región cuya luz llegó hasta nosotros, así que está centrado en quien observa. En otra galaxia, estaría centrado allí."
+ }
+];
+
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      if (aciertos === total) return { titulo: "¡Viajero del tiempo cósmico!", html: "<p>Ahora sabes que el Universo tiene unos 13.800 millones de años, que mirar lejos es mirar al pasado y que solo vemos una parte: el Universo observable.</p>" };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/certificado.js"></script>
+  <script src="../js/lectura.js"></script>
+</body>
+</html>

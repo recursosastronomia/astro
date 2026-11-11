@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Una ciencia de equipo, distancias gigantes y arcoíris de luz · Astronomía para todos</title>
+  <meta name="description" content="Qué ciencias se combinan en la astronomía, cuáles son sus especialidades, cómo imaginar sus enormes distancias y tiempos, y qué nos cuenta el arcoíris de la luz de las estrellas. Con trivia y certificado.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+  </svg>
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">Una ciencia de equipo, distancias gigantes y arcoíris de luz</h1>
+          <p class="l-bajada">Grandes ideas de la astronomía · 4.5 a 4.8</p>
+          <p class="l-lead">La astronomía necesita física, química, matemática, ingeniería, informática y hasta biología. Y trabaja con números tan grandes que hubo que inventar unidades nuevas. Descubre cómo se las arregla.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Unos 9 minutos de lectura</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/ESO_-_Milky_Way.jpg?width=1920" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/ESO_-_Milky_Way.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/ESO_-_Milky_Way.jpg?width=1280 1280w, https://commons.wikimedia.org/wiki/Special:FilePath/ESO_-_Milky_Way.jpg?width=1920 1920w" sizes="(min-width: 64rem) 24rem, calc(100vw - 2rem)" width="1920" height="960" alt="Panorama completo de la Vía Láctea, con millones de estrellas y nubes oscuras de polvo." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#equipo">Muchas ciencias juntas</a></li><li><a href="#especialidades">Las especialidades</a></li><li><a href="#escalas">Distancias y tiempos gigantes</a></li><li><a href="#espectro">El arcoíris de las estrellas</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+            <li><a href="#quiz">Desafío: gana tus estrellas</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="equipo" aria-labelledby="equipo-titulo">
+          <h2 id="equipo-titulo">Muchas ciencias trabajando juntas</h2>
+          <p class="l-idea">Gran idea 4.5</p>
+          
+          <p>Para entender una estrella, no alcanza con mirarla: hay que saber de muchas cosas a la vez. La astronomía profesional combina conocimientos de distintas áreas:</p>
+          <div class="l-usos">
+            <div><h3>Física</h3><p>Explica cómo las estrellas producen energía con reacciones nucleares en su centro.</p></div>
+            <div><h3>Química</h3><p>Permite saber de qué están hechas las estrellas y las nubes de gas a partir de su luz.</p></div>
+            <div><h3>Matemática</h3><p>Es el idioma de los modelos: órbitas, distancias, estadísticas de millones de datos.</p></div>
+            <div><h3>Ingeniería</h3><p>Diseña y construye telescopios, detectores, cohetes y sondas espaciales.</p></div>
+            <div><h3>Informática</h3><p>Crea programas para analizar enormes cantidades de datos y hacer simulaciones.</p></div>
+            <div><h3>Geología y biología</h3><p>Ayudan a estudiar otros planetas y a buscar vida fuera de la Tierra.</p></div>
+          </div>
+          <p>Por eso, si te gusta la astronomía, hay muchos caminos para llegar a ella: no solo estudiando astronomía.</p>
+        </section>
+        <section class="l-sec" id="especialidades" aria-labelledby="especialidades-titulo">
+          <h2 id="especialidades-titulo">Las especialidades de la astronomía</h2>
+          <p class="l-idea">Gran idea 4.6</p>
+          
+          <p>El Universo es tan grande y variado que la astronomía se divide en <strong>especialidades</strong>, según el tema que estudian. Algunas de ellas:</p>
+          <ul class="l-temas" aria-label="Algunas especialidades de la astronomía">
+            <li>Astrobiología</li><li>Cosmología</li><li>Astronomía observacional</li><li>Astroquímica</li><li>Ciencias planetarias</li><li>Física solar</li><li>Astrofísica estelar</li><li>Astronomía galáctica</li><li>Radioastronomía</li><li>Astronomía computacional</li>
+          </ul>
+          <div class="l-glosario"><dl>
+            <dt>Astrobiología</dt><dd>Busca vida fuera de la Tierra y estudia cómo surgió la vida aquí.</dd>
+            <dt>Cosmología</dt><dd>Estudia el Universo como un todo: su origen, su edad y su futuro.</dd>
+            <dt>Ciencias planetarias</dt><dd>Estudian planetas, lunas, asteroides y cometas.</dd>
+            <dt>Astroquímica</dt><dd>Investiga las moléculas que hay en el espacio.</dd>
+          </dl></div>
+          <p>También hay quienes se especializan en un solo tipo de objeto, como las estrellas enanas blancas o las galaxias lejanas. Y como la física es tan importante, las palabras <strong>astronomía</strong> y <strong>astrofísica</strong> se usan casi como sinónimos.</p>
+        </section>
+        <section class="l-sec" id="escalas" aria-labelledby="escalas-titulo">
+          <h2 id="escalas-titulo">Distancias y tiempos gigantes</h2>
+          <p class="l-idea">Gran idea 4.7</p>
+          
+          <p>En astronomía, los números son tan grandes que cuesta imaginarlos. Vamos de a poco, desde lo más cerca a lo más lejos:</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Earth_and_Moon_to_scale.png?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Earth_and_Moon_to_scale.png?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Earth_and_Moon_to_scale.png?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="137" alt="La Tierra a la izquierda y la Luna a la derecha, dibujadas a escala: entre ellas cabe un espacio negro enorme." loading="lazy" decoding="async"><figcaption>La Tierra y la Luna, con sus tamaños y su distancia a escala. Entre ambas cabrían unas 30 Tierras en fila.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Earth_and_Moon_to_scale.png" target="_blank" rel="noopener noreferrer">António Miguel de Campos<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <ul class="l-cifras" aria-label="Distancias en el Universo">
+            <li><strong>384.400 km</strong><span>Distancia a la Luna, el astro más cercano.</span></li>
+            <li><strong>150 millones de km</strong><span>Distancia al Sol: es la <em>unidad astronómica</em> (UA).</span></li>
+            <li><strong>4,25 años luz</strong><span>Distancia a Próxima Centauri, la estrella más cercana después del Sol.</span></li>
+            <li><strong>100.000 años luz</strong><span>Diámetro aproximado de la Vía Láctea.</span></li>
+          </ul>
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>¿Qué es un año luz?</h3>
+            <p>Aunque suene a tiempo, un <strong>año luz es una distancia</strong>: la que recorre la luz en un año, a 300.000 km por segundo. Son unos <strong>9,5 billones de kilómetros</strong>. Un auto a 100 km/h tardaría más de diez millones de años en recorrerla.</p>
+          </div>
+          <p>El Sol es enorme: mide 1,39 millones de km de diámetro (unas 109 Tierras en fila). Y los tiempos también son gigantes: en astronomía, millones o miles de millones de años son edades comunes. El Sol, por ejemplo, tiene unos 4.600 millones de años.</p>
+        </section>
+        <section class="l-sec" id="espectro" aria-labelledby="espectro-titulo">
+          <h2 id="espectro-titulo">Leer el arcoíris de las estrellas</h2>
+          <p class="l-idea">Gran idea 4.8</p>
+          
+          <p>Si haces pasar la luz blanca por un prisma, se separa en todos los colores, como en un arcoíris. Eso es un <strong>espectro</strong>. Los astrónomos hacen lo mismo con la luz de las estrellas, pero con instrumentos que la separan en <strong>miles</strong> de colores. A esta técnica se la llama <strong>espectroscopía</strong>.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Fraunhofer_lines.svg?width=768" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Fraunhofer_lines.svg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Fraunhofer_lines.svg?width=768 768w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="768" height="225" alt="El espectro de colores del Sol, del violeta al rojo, cruzado por muchas líneas oscuras finas de distinto grosor." loading="lazy" decoding="async"><figcaption>El espectro del Sol, con sus líneas oscuras (llamadas líneas de Fraunhofer). Cada sustancia química deja su propio patrón de líneas, como un código de barras.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Fraunhofer_lines.svg" target="_blank" rel="noopener noreferrer">MaureenV y Phrood (Commons)<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>En el espectro aparecen líneas oscuras o brillantes. Cada elemento químico (hidrógeno, helio, sodio, hierro…) deja un patrón propio de líneas, como una <strong>huella digital</strong>. Así, sin viajar a una estrella, podemos saber:</p>
+          <ul>
+            <li>de qué está hecha;</li>
+            <li>qué temperatura y presión tiene;</li>
+            <li>si tiene campos magnéticos;</li>
+            <li>y si se acerca o se aleja de nosotros.</li>
+          </ul>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>¿Sabías que...?</h3>
+            <p>El <strong>helio</strong> se descubrió primero en el espectro del Sol, en 1868, y recién años después se encontró en la Tierra. Su nombre viene de <em>helios</em>, «Sol» en griego.</p>
+          </div>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <p>Si quieres seguir explorando, te recomendamos estos sitios:</p>
+          <ul class="l-recursos"><li><a href="astronomia.html">¿Qué es la astronomía?</a><span>En este mismo sitio: qué estudia la astronomía y cómo se construye su conocimiento.</span></li><li><a href="exoplanetas.html">Exoplanetas</a><span>En este mismo sitio: la espectroscopía también ayuda a encontrar planetas en otras estrellas.</span></li><li><a href="https://spaceplace.nasa.gov/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place (en español)<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Artículos y juegos sobre la luz, las estrellas y las distancias en el espacio.</span></li><li><a href="https://www.esa.int/kids/es/home" target="_blank" rel="noopener noreferrer">ESA Kids<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Curiosidades sobre el Universo y las profesiones del espacio.</span></li><li><a href="https://stellarium-web.org/" target="_blank" rel="noopener noreferrer">Stellarium Web<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Toca una estrella para ver a qué distancia está en años luz.</span></li></ul>
+
+          <h3>Sigue el recorrido</h3>
+          <p>Esta guía es parte de una serie que recorre las grandes ideas de la astronomía, una por una.</p>
+          <ul class="l-recorrido"><li><a href="biia41to44version.html"><span class="l-rec-k">← Guía anterior · 4.1 a 4.4</span><span class="l-rec-t">Mensajeros del Universo: luz, gravedad y más</span></a></li><li><a href="biia51to54version.html"><span class="l-rec-k">Guía siguiente · 5.1 a 5.4 →</span><span class="l-rec-t">Telescopios: ojos gigantes para mirar el cielo</span></a></li></ul>
+
+          <h3>Material de referencia</h3>
+          <p>Este contenido está basado en las grandes ideas 4.5 a 4.8 del documento <a href="../docs/Big_Ideas_V2.0_ES.pdf">«Grandes Ideas de la Astronomía» (Big Ideas in Astronomy) de la Unión Astronómica Internacional, en PDF</a>, publicado con licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a>. También puedes leerlo en el sitio <a href="https://astro4edu.org/es/bigideas/" target="_blank" rel="noopener noreferrer">astro4edu.org<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.</p>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío: gana tus estrellas</h2>
+          <p>Es momento de poner a prueba lo que aprendiste en esta guía. Son 7 preguntas con 5 opciones cada una: cada respuesta correcta suma una estrella. Al final puedes descargar tu certificado.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión astronómica completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Jugar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Fotos de Wikimedia Commons con licencias libres: António Miguel de Campos (Dominio público); MaureenV y Phrood (Commons) (Dominio público); ESO / S. Brunier (CC BY 4.0). Texto basado en «Big Ideas in Astronomy» (UAI, CC BY 4.0). <a href="../creditos.html#biia45to48">Créditos de las fotos y referencias</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
+       Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
+       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+    window.TRIVIA_META = {"id": "biia45to48", "titulo": "Una ciencia de equipo, distancias gigantes y arcoíris de luz", "ideas": "Grandes ideas 4.5 a 4.8 · Big Ideas in Astronomy (UAI)", "mezclar": true};
+    window.TRIVIA = [
+ {
+  "question": "¿Por qué la astronomía necesita la química?",
+  "options": [
+   "Para fabricar los colores de las fotos",
+   "Para saber de qué están hechas las estrellas a partir de su luz",
+   "Para calcular la hora exacta",
+   "Para construir cohetes de juguete",
+   "No la necesita"
+  ],
+  "correct": 1,
+  "explicacion": "La química permite reconocer los elementos presentes en las estrellas y en el gas del espacio estudiando su luz."
+ },
+ {
+  "question": "¿Qué especialidad estudia el Universo como un todo: su origen, su edad y su evolución?",
+  "options": [
+   "La astrobiología",
+   "La cosmología",
+   "La astroquímica",
+   "La geología",
+   "La meteorología"
+  ],
+  "correct": 1,
+  "explicacion": "La cosmología estudia el Universo en su conjunto. La astrobiología busca vida fuera de la Tierra y la astroquímica estudia las moléculas del espacio."
+ },
+ {
+  "question": "¿Qué mide un año luz?",
+  "options": [
+   "Un tiempo: lo que dura un año en otra estrella",
+   "Una distancia: lo que recorre la luz en un año",
+   "El brillo de una estrella",
+   "La edad del Sol",
+   "La velocidad de la Tierra"
+  ],
+  "correct": 1,
+  "explicacion": "Aunque diga «año», un año luz es una distancia: unos 9,5 billones de kilómetros, lo que recorre la luz en un año."
+ },
+ {
+  "question": "¿A qué distancia está la Luna de la Tierra, aproximadamente?",
+  "options": [
+   "3.844 km",
+   "384.400 km",
+   "150 millones de km",
+   "4,25 años luz",
+   "1 unidad astronómica"
+  ],
+  "correct": 1,
+  "explicacion": "La Luna está a unos 384.400 km. Es el astro más cercano a la Tierra."
+ },
+ {
+  "question": "¿Cómo se llama la distancia media entre la Tierra y el Sol, unos 150 millones de km?",
+  "options": [
+   "Año luz",
+   "Kilómetro solar",
+   "Unidad astronómica",
+   "Pársec lunar",
+   "Metro estelar"
+  ],
+  "correct": 2,
+  "explicacion": "La unidad astronómica (UA) equivale a la distancia media Tierra-Sol y se usa para medir distancias dentro del Sistema Solar."
+ },
+ {
+  "question": "¿Qué es la espectroscopía?",
+  "options": [
+   "Una forma de ver fantasmas en el espacio",
+   "Separar la luz de un objeto en sus colores para estudiar sus características",
+   "Medir la temperatura con un termómetro gigante",
+   "Fotografiar estrellas con flash",
+   "Contar estrellas a simple vista"
+  ],
+  "correct": 1,
+  "explicacion": "La espectroscopía descompone la luz en miles de colores. Sus líneas revelan composición, temperatura, presión, campos magnéticos y movimiento."
+ },
+ {
+  "question": "¿Qué elemento químico se descubrió primero en el Sol, gracias a su espectro?",
+  "options": [
+   "El hierro",
+   "El oxígeno",
+   "El helio",
+   "El oro",
+   "El carbono"
+  ],
+  "correct": 2,
+  "explicacion": "En 1868 se vieron en el espectro del Sol unas líneas desconocidas: eran del helio, que años después se encontró en la Tierra. Su nombre viene de «helios», Sol."
+ }
+];
+
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      if (aciertos === total) return { titulo: "¡Mente de astrofísico!", html: "<p>Entendiste que la astronomía es una ciencia de equipo, que maneja distancias y tiempos gigantes, y que puede leer la composición de las estrellas en su luz.</p>" };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/certificado.js"></script>
+  <script src="../js/lectura.js"></script>
+</body>
+</html>

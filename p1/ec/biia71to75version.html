@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Nuestro vecindario: el Sistema Solar · Astronomía para todos</title>
+  <meta name="description" content="Cómo y cuándo se formó el Sistema Solar, qué objetos lo componen, qué hace falta para ser planeta, qué son los planetas enanos y en qué se diferencian los planetas rocosos de los gigantes. Con trivia y certificado.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+  </svg>
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">Nuestro vecindario: el Sistema Solar</h1>
+          <p class="l-bajada">Grandes ideas de la astronomía · 7.1 a 7.5</p>
+          <p class="l-lead">Vivimos en un barrio cósmico con una estrella, ocho planetas, planetas enanos, cientos de lunas y millones de rocas y bolas de hielo. Descubre cómo nació y quién es quién en el Sistema Solar.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Unos 9 minutos de lectura</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Saturn_during_Equinox.jpg?width=1920" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Saturn_during_Equinox.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Saturn_during_Equinox.jpg?width=1280 1280w, https://commons.wikimedia.org/wiki/Special:FilePath/Saturn_during_Equinox.jpg?width=1920 1920w" sizes="(min-width: 64rem) 24rem, calc(100vw - 2rem)" width="1920" height="929" alt="Saturno con sus anillos vistos casi de canto, iluminado por el Sol, fotografiado por la sonda Cassini." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#origen">Cómo nació</a></li><li><a href="#componentes">Quién es quién</a></li><li><a href="#planetas">Ocho planetas</a></li><li><a href="#enanos">Planetas enanos</a></li><li><a href="#tipos">Rocosos y gigantes</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+            <li><a href="#quiz">Desafío: gana tus estrellas</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="origen" aria-labelledby="origen-titulo">
+          <h2 id="origen-titulo">Un Sistema Solar de 4.600 millones de años</h2>
+          <p class="l-idea">Gran idea 7.1</p>
+          
+          <p>El Sistema Solar se formó hace unos <strong>4.600 millones de años</strong> a partir de una nube de gas y polvo que se contrajo por su propia gravedad. En el centro se encendió el Sol, y con el material que sobró, girando en un disco a su alrededor, se formaron los planetas, las lunas y los cuerpos más pequeños.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/HL_Tau_protoplanetary_disk.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/HL_Tau_protoplanetary_disk.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/HL_Tau_protoplanetary_disk.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1280" alt="Un disco anaranjado visto en diagonal con anillos oscuros concéntricos, alrededor de una estrella joven." loading="lazy" decoding="async"><figcaption>El disco de gas y polvo alrededor de la estrella joven HL Tauri, fotografiado por ALMA. Los anillos oscuros podrían ser caminos que abren planetas en formación. Así habría sido el Sistema Solar al nacer.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:HL_Tau_protoplanetary_disk.jpg" target="_blank" rel="noopener noreferrer">ALMA (ESO / NAOJ / NRAO)<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>¿Cómo se sabe su edad? Midiendo la <strong>radiactividad</strong> de los meteoritos, que funcionan como relojes naturales: ciertos átomos se transforman en otros a un ritmo conocido. Esa edad coincide con la de las rocas que trajeron los astronautas de la Luna y con la de las rocas más antiguas de la Tierra.</p>
+        </section>
+        <section class="l-sec" id="componentes" aria-labelledby="componentes-titulo">
+          <h2 id="componentes-titulo">¿Qué hay en el Sistema Solar?</h2>
+          <p class="l-idea">Gran idea 7.2</p>
+          
+          <p>El Sistema Solar está formado por el <strong>Sol</strong> y todo lo que gira a su alrededor atrapado por su gravedad:</p>
+          <div class="l-usos">
+            <div><h3>Planetas</h3><p>Ocho grandes mundos, con sus lunas (satélites naturales).</p></div>
+            <div><h3>Planetas enanos</h3><p>Mundos redondos más pequeños, como Plutón y Ceres.</p></div>
+            <div><h3>Asteroides</h3><p>Rocas y metales de todos los tamaños, sobre todo entre Marte y Júpiter.</p></div>
+            <div><h3>Cometas</h3><p>Bolas de hielo y polvo que forman colas al acercarse al Sol.</p></div>
+            <div><h3>Meteoroides</h3><p>Pedacitos de roca y metal que viajan por el espacio.</p></div>
+            <div><h3>Polvo y gas</h3><p>Partículas que llenan el espacio entre los planetas.</p></div>
+          </div>
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-sol"/></svg>El Sol se lleva casi todo</h3>
+            <p>El Sol tiene más del <strong>99,8 %</strong> de toda la masa del Sistema Solar. Todos los planetas, lunas, asteroides y cometas juntos son apenas las «migas» que sobraron.</p>
+          </div>
+        </section>
+        <section class="l-sec" id="planetas" aria-labelledby="planetas-titulo">
+          <h2 id="planetas-titulo">Ocho planetas</h2>
+          <p class="l-idea">Gran idea 7.3</p>
+          
+          <p>En 2006, la Unión Astronómica Internacional definió qué es un planeta. Un objeto es planeta si cumple <strong>tres condiciones</strong>:</p>
+          <ol class="l-pasos">
+            <li><h3>Gira alrededor del Sol</h3><p>No alrededor de otro planeta (si no, sería una luna).</p></li>
+            <li><h3>Es redondo</h3><p>Tiene suficiente masa para que su propia gravedad le dé forma casi esférica.</p></li>
+            <li><h3>Despejó su órbita</h3><p>Su gravedad «limpió» su camino alrededor del Sol de otros objetos de tamaño parecido.</p></li>
+          </ol>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Planets_and_sun_size_comparison.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Planets_and_sun_size_comparison.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Planets_and_sun_size_comparison.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="720" alt="Los ocho planetas dibujados en fila según su tamaño real, al lado de una porción enorme del Sol." loading="lazy" decoding="async"><figcaption>Los planetas y el Sol a escala de tamaños (no de distancias). Júpiter es el más grande; la Tierra es pequeñita a su lado.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Planets_and_sun_size_comparison.jpg" target="_blank" rel="noopener noreferrer">Lsmpascal<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Contando desde el Sol, los planetas son: <strong>Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano y Neptuno</strong>.</p>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>Una frase para recordarlos</h3>
+            <p>«<strong>M</strong>i <strong>V</strong>ecina <strong>T</strong>iene <strong>M</strong>uchas <strong>J</strong>oyas, <strong>S</strong>ólo <strong>U</strong>sa <strong>N</strong>ueve». Cada palabra empieza con la inicial de un planeta, en orden. ¡Puedes inventar tu propia frase!</p>
+          </div>
+        </section>
+        <section class="l-sec" id="enanos" aria-labelledby="enanos-titulo">
+          <h2 id="enanos-titulo">Los planetas enanos</h2>
+          <p class="l-idea">Gran idea 7.4</p>
+          
+          <p>Los objetos que cumplen las dos primeras condiciones pero <strong>no la tercera</strong> (no despejaron su órbita) se llaman <strong>planetas enanos</strong>. Por eso Plutón, que fue considerado planeta durante 76 años, pasó en 2006 a esta categoría.</p>
+          <div class="l-par"><figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pluto_in_True_Color_-_High-Res.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Pluto_in_True_Color_-_High-Res.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Pluto_in_True_Color_-_High-Res.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1280" alt="Plutón en colores reales: una esfera de tonos beige y anaranjados con una gran zona clara con forma de corazón." loading="lazy" decoding="async"><figcaption>Plutón, fotografiado por la sonda New Horizons en 2015. ¡Tiene un «corazón» de hielo!<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Pluto_in_True_Color_-_High-Res.jpg" target="_blank" rel="noopener noreferrer">NASA / JHUAPL / SwRI<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure><figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ceres_-_RC3_-_Haulani_Crater_(22381131691)_(cropped).jpg?width=852" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Ceres_-_RC3_-_Haulani_Crater_(22381131691)_(cropped).jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Ceres_-_RC3_-_Haulani_Crater_(22381131691)_(cropped).jpg?width=852 852w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="852" height="836" alt="Ceres: una esfera gris con cráteres y algunas manchas brillantes." loading="lazy" decoding="async"><figcaption>Ceres, el planeta enano del cinturón de asteroides, visto por la sonda Dawn.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Ceres_-_RC3_-_Haulani_Crater_(22381131691)_(cropped).jpg" target="_blank" rel="noopener noreferrer">NASA / JPL-Caltech / UCLA / MPS / DLR / IDA / Justin Cowart<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure></div>
+          <p>La Unión Astronómica Internacional reconoce hoy cinco: <strong>Plutón</strong> (el más grande), <strong>Eris</strong>, <strong>Haumea</strong>, <strong>Makemake</strong> y <strong>Ceres</strong>. Todos son más pequeños que nuestra Luna, sólidos y con superficies heladas. Ceres está en el cinturón de asteroides, entre Marte y Júpiter; los otros cuatro están más allá de Neptuno, en el <strong>cinturón de Kuiper</strong>. Y es probable que haya muchos más esperando a ser confirmados.</p>
+        </section>
+        <section class="l-sec" id="tipos" aria-labelledby="tipos-titulo">
+          <h2 id="tipos-titulo">Planetas rocosos y planetas gigantes</h2>
+          <p class="l-idea">Gran idea 7.5</p>
+          
+          <p>Los ocho planetas se dividen en dos grandes familias:</p>
+          <div class="l-tabla-wrap">
+            <table class="l-tabla">
+              <caption class="sr-only">Comparación entre planetas rocosos y gigantes</caption>
+              <thead><tr><td></td><th scope="col">Rocosos (terrestres)</th><th scope="col">Gigantes</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Cuáles</th><td>Mercurio, Venus, Tierra y Marte</td><td>Júpiter, Saturno, Urano y Neptuno</td></tr>
+                <tr><th scope="row">Ubicación</th><td>Los cuatro más cercanos al Sol</td><td>Los cuatro más lejanos</td></tr>
+                <tr><th scope="row">Tamaño</th><td>Pequeños</td><td>Enormes</td></tr>
+                <tr><th scope="row">Composición</th><td>Roca y metal, con superficie sólida</td><td>Sobre todo hidrógeno y helio (Urano y Neptuno, también mucho hielo)</td></tr>
+                <tr><th scope="row">Atmósfera</th><td>Ninguna (Mercurio), muy densa (Venus) o tenue (Marte)</td><td>Muy densa y profunda</td></tr>
+                <tr><th scope="row">Anillos</th><td>No</td><td>Sí, todos</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Jupiter_and_its_shrunken_Great_Red_Spot.jpg?width=940" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Jupiter_and_its_shrunken_Great_Red_Spot.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Jupiter_and_its_shrunken_Great_Red_Spot.jpg?width=940 940w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="940" height="940" alt="Júpiter con sus bandas de nubes anaranjadas, blancas y marrones, y la Gran Mancha Roja." loading="lazy" decoding="async"><figcaption>Júpiter, el planeta más grande. Su Gran Mancha Roja es una tormenta más grande que la Tierra.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Jupiter_and_its_shrunken_Great_Red_Spot.jpg" target="_blank" rel="noopener noreferrer">NASA, ESA y A. Simon (GSFC)<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Saturno tiene el sistema de anillos más espectacular: ¡se ve incluso con un telescopio pequeño! Los anillos de Júpiter, Urano y Neptuno son mucho más finos y oscuros.</p>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <p>Si quieres seguir explorando, te recomendamos estos sitios:</p>
+          <ul class="l-recursos"><li><a href="asteruy/index.html">Uruguayos en el espacio</a><span>En este mismo sitio: asteroides con nombres uruguayos.</span></li><li><a href="exoplanetas.html">Exoplanetas</a><span>En este mismo sitio: planetas que giran alrededor de otras estrellas.</span></li><li><a href="https://spaceplace.nasa.gov/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place: planetas<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Fichas y juegos sobre cada planeta del Sistema Solar.</span></li><li><a href="https://eyes.nasa.gov/apps/solar-system/" target="_blank" rel="noopener noreferrer">NASA Eyes on the Solar System<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Recorre el Sistema Solar en 3D desde tu computadora.</span></li><li><a href="https://stellarium-web.org/" target="_blank" rel="noopener noreferrer">Stellarium Web<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Busca qué planetas se ven esta noche desde tu ciudad.</span></li></ul>
+
+          <h3>Sigue el recorrido</h3>
+          <p>Esta guía es parte de una serie que recorre las grandes ideas de la astronomía, una por una.</p>
+          <ul class="l-recorrido"><li><a href="biia65to611version.html"><span class="l-rec-k">← Guía anterior · 6.5 a 6.11</span><span class="l-rec-t">Lo que no vemos: materia oscura, expansión y Big Bang</span></a></li><li><a href="biia76to710version.html"><span class="l-rec-k">Guía siguiente · 7.6 a 7.10 →</span><span class="l-rec-t">Lunas, asteroides, cometas y la frontera del Sistema Solar</span></a></li></ul>
+
+          <h3>Material de referencia</h3>
+          <p>Este contenido está basado en las grandes ideas 7.1 a 7.5 del documento <a href="../docs/Big_Ideas_V2.0_ES.pdf">«Grandes Ideas de la Astronomía» (Big Ideas in Astronomy) de la Unión Astronómica Internacional, en PDF</a>, publicado con licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a>. También puedes leerlo en el sitio <a href="https://astro4edu.org/es/bigideas/" target="_blank" rel="noopener noreferrer">astro4edu.org<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.</p>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío: gana tus estrellas</h2>
+          <p>Es momento de poner a prueba lo que aprendiste en esta guía. Son 7 preguntas con 5 opciones cada una: cada respuesta correcta suma una estrella. Al final puedes descargar tu certificado.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión astronómica completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Jugar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Fotos de Wikimedia Commons con licencias libres: ALMA (ESO / NAOJ / NRAO) (CC BY 4.0); Lsmpascal (CC BY-SA 3.0); NASA / JHUAPL / SwRI (Dominio público); NASA / JPL-Caltech / UCLA / MPS / DLR / IDA / Justin Cowart (Dominio público); NASA, ESA y A. Simon (GSFC) (Dominio público); NASA / JPL / Space Science Institute (Dominio público). Texto basado en «Big Ideas in Astronomy» (UAI, CC BY 4.0). <a href="../creditos.html#biia71to75">Créditos de las fotos y referencias</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
+       Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
+       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+    window.TRIVIA_META = {"id": "biia71to75", "titulo": "Nuestro vecindario: el Sistema Solar", "ideas": "Grandes ideas 7.1 a 7.5 · Big Ideas in Astronomy (UAI)", "mezclar": true};
+    window.TRIVIA = [
+ {
+  "question": "¿Hace cuánto tiempo se formó el Sistema Solar?",
+  "options": [
+   "Unos 6.000 años",
+   "Unos 4.600 millones de años",
+   "Unos 13.800 millones de años",
+   "Unos 65 millones de años",
+   "Unos 400 años"
+  ],
+  "correct": 1,
+  "explicacion": "El Sistema Solar tiene unos 4.600 millones de años. Su edad se calculó con la radiactividad de los meteoritos y coincide con la de las rocas lunares."
+ },
+ {
+  "question": "¿Qué porcentaje de la masa del Sistema Solar tiene el Sol?",
+  "options": [
+   "Cerca del 10 %",
+   "Cerca del 50 %",
+   "Más del 99,8 %",
+   "Cerca del 1 %",
+   "Lo mismo que Júpiter"
+  ],
+  "correct": 2,
+  "explicacion": "El Sol concentra más del 99,8 % de la masa. Planetas, lunas, asteroides y cometas juntos son una parte muy pequeña."
+ },
+ {
+  "question": "¿Cuál de estas NO es una de las tres condiciones para ser planeta?",
+  "options": [
+   "Girar alrededor del Sol",
+   "Ser casi esférico por su propia gravedad",
+   "Haber despejado su órbita de otros objetos",
+   "Tener al menos una luna",
+   "Ninguna: las cuatro son condiciones"
+  ],
+  "correct": 3,
+  "explicacion": "Para ser planeta hay que girar alrededor del Sol, ser redondo y haber despejado la órbita. Tener lunas no es necesario: Mercurio y Venus no tienen ninguna."
+ },
+ {
+  "question": "¿Cuál es el orden correcto de los planetas desde el Sol?",
+  "options": [
+   "Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano, Neptuno",
+   "Venus, Mercurio, Tierra, Marte, Saturno, Júpiter, Neptuno, Urano",
+   "Tierra, Marte, Venus, Mercurio, Júpiter, Saturno, Urano, Neptuno",
+   "Mercurio, Venus, Marte, Tierra, Júpiter, Urano, Saturno, Neptuno",
+   "Mercurio, Tierra, Venus, Marte, Júpiter, Saturno, Neptuno, Urano"
+  ],
+  "correct": 0,
+  "explicacion": "Desde el Sol: Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano y Neptuno. Una frase como «Mi Vecina Tiene Muchas Joyas, Sólo Usa Nueve» ayuda a recordarlo."
+ },
+ {
+  "question": "¿Por qué Plutón es un planeta enano y no un planeta?",
+  "options": [
+   "Porque no es redondo",
+   "Porque no gira alrededor del Sol",
+   "Porque no despejó su órbita de otros objetos",
+   "Porque es de color rosa",
+   "Porque no tiene atmósfera"
+  ],
+  "correct": 2,
+  "explicacion": "Plutón es redondo y gira alrededor del Sol, pero comparte su zona con muchos otros objetos del cinturón de Kuiper: no despejó su órbita."
+ },
+ {
+  "question": "¿Qué planeta enano se encuentra en el cinturón de asteroides, entre Marte y Júpiter?",
+  "options": [
+   "Plutón",
+   "Eris",
+   "Ceres",
+   "Makemake",
+   "Haumea"
+  ],
+  "correct": 2,
+  "explicacion": "Ceres es el único planeta enano reconocido en el cinturón de asteroides. Plutón, Eris, Haumea y Makemake están más allá de Neptuno."
+ },
+ {
+  "question": "¿Qué tienen en común los cuatro planetas gigantes?",
+  "options": [
+   "Tienen superficie de roca sólida",
+   "Están más cerca del Sol que la Tierra",
+   "Son muy grandes, con atmósferas densas y anillos",
+   "No tienen lunas",
+   "Son más pequeños que la Luna"
+  ],
+  "correct": 2,
+  "explicacion": "Júpiter, Saturno, Urano y Neptuno son enormes, están hechos sobre todo de gases (y hielos) y todos tienen anillos, aunque los de Saturno son los más llamativos."
+ }
+];
+
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      if (aciertos === total) return { titulo: "¡Conoces tu vecindario cósmico!", html: "<p>Ya sabes cuándo nació el Sistema Solar, qué lo compone, qué es un planeta y en qué se diferencian los rocosos de los gigantes.</p>" };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/certificado.js"></script>
+  <script src="../js/lectura.js"></script>
+</body>
+</html>

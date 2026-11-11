@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Exoplanetas y la búsqueda de otras civilizaciones · Astronomía para todos</title>
+  <meta name="description" content="Qué son los exoplanetas, qué variedad de mundos se descubrió, qué es la zona habitable y cómo se buscan señales de vida inteligente. Con trivia y certificado.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+  </svg>
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">Exoplanetas y la búsqueda de otras civilizaciones</h1>
+          <p class="l-bajada">Grandes ideas de la astronomía · 10.5 a 10.8</p>
+          <p class="l-lead">Hace treinta años no conocíamos ni un solo planeta fuera del Sistema Solar. Hoy conocemos miles, y algunos podrían parecerse a la Tierra. Descubre la variedad de mundos que hay allá afuera y cómo buscamos a otros posibles «vecinos».</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Unos 8 minutos de lectura</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Artist's_view_of_planets_transiting_red_dwarf_star_in_TRAPPIST-1_system.jpg?width=1920" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Artist's_view_of_planets_transiting_red_dwarf_star_in_TRAPPIST-1_system.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Artist's_view_of_planets_transiting_red_dwarf_star_in_TRAPPIST-1_system.jpg?width=1280 1280w, https://commons.wikimedia.org/wiki/Special:FilePath/Artist's_view_of_planets_transiting_red_dwarf_star_in_TRAPPIST-1_system.jpg?width=1920 1920w" sizes="(min-width: 64rem) 24rem, calc(100vw - 2rem)" width="1920" height="1536" alt="Ilustración de varios planetas rocosos pasando frente a una estrella roja, en el sistema TRAPPIST-1." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#exoplanetas">¿Qué es un exoplaneta?</a></li><li><a href="#diversos">Mundos muy diversos</a></li><li><a href="#tierra2">¿Otra Tierra?</a></li><li><a href="#seti">La búsqueda de inteligencia</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+            <li><a href="#quiz">Desafío: gana tus estrellas</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="exoplanetas" aria-labelledby="exoplanetas-titulo">
+          <h2 id="exoplanetas-titulo">Planetas alrededor de otras estrellas</h2>
+          <p class="l-idea">Gran idea 10.5</p>
+          
+          <p>Un <strong>exoplaneta</strong> es un planeta que gira alrededor de una estrella que no es el Sol. Los primeros alrededor de estrellas como el Sol se descubrieron en <strong>1995</strong>, y desde entonces la lista no para de crecer: ya se confirmaron <strong>más de 6.000</strong>.</p>
+          <div class="l-usos">
+            <div><h3>Método del tránsito</h3><p>Cuando un planeta pasa por delante de su estrella, la tapa un poquito y su brillo baja. ¡Como una mosca pasando frente a una linterna!</p></div>
+            <div><h3>Método del bamboleo</h3><p>La gravedad del planeta hace que la estrella se balancee un poquito. Ese balanceo se detecta en su espectro.</p></div>
+          </div>
+          <p>¿Quieres probar tu destreza para encontrarlos? Juega en la guía <a href="exoplanetas.html">Exoplanetas</a> de este sitio.</p>
+        </section>
+        <section class="l-sec" id="diversos" aria-labelledby="diversos-titulo">
+          <h2 id="diversos-titulo">Una enorme variedad de mundos</h2>
+          <p class="l-idea">Gran idea 10.6</p>
+          
+          <p>Los exoplanetas nos sorprendieron: hay mundos que no se parecen a nada del Sistema Solar.</p>
+          <ul>
+            <li>Masas que van desde la de Mercurio hasta <strong>varias veces la de Júpiter</strong>.</li>
+            <li>Planetas que dan la vuelta a su estrella en <strong>pocas horas</strong> (¡un año más corto que un día!).</li>
+            <li>Órbitas muy alargadas, como las de los cometas.</li>
+            <li>«Júpiteres calientes»: gigantes de gas pegados a su estrella, a más de 1.000 °C.</li>
+          </ul>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Artist's_view_of_planets_transiting_red_dwarf_star_in_TRAPPIST-1_system.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Artist's_view_of_planets_transiting_red_dwarf_star_in_TRAPPIST-1_system.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Artist's_view_of_planets_transiting_red_dwarf_star_in_TRAPPIST-1_system.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1024" alt="Ilustración: una estrella roja con varios planetas pequeños pasando frente a ella, uno en primer plano." loading="lazy" decoding="async"><figcaption>Ilustración del sistema TRAPPIST-1: siete planetas rocosos del tamaño de la Tierra alrededor de una pequeña estrella roja, a unos 40 años luz.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Artist's_view_of_planets_transiting_red_dwarf_star_in_TRAPPIST-1_system.jpg" target="_blank" rel="noopener noreferrer">NASA, ESA y G. Bacon (STScI)<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Y la mayoría de los exoplanetas no están solos: forman <strong>sistemas</strong>, con varios planetas girando alrededor de la misma estrella, como en nuestro Sistema Solar.</p>
+        </section>
+        <section class="l-sec" id="tierra2" aria-labelledby="tierra2-titulo">
+          <h2 id="tierra2-titulo">¿Habrá otra Tierra?</h2>
+          <p class="l-idea">Gran idea 10.7</p>
+          
+          <p>Con instrumentos cada vez más precisos, hoy podemos encontrar planetas tan pequeños como la Tierra. Algunos están en la <strong>zona habitable</strong> de su estrella.</p>
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-planeta"/></svg>La zona habitable</h3>
+            <p>Es la franja alrededor de una estrella donde un planeta recibe la cantidad <strong>justa</strong> de luz y calor para que pueda haber <strong>agua líquida</strong> en su superficie: ni tan cerca que se evapore, ni tan lejos que se congele. A veces se la llama «zona Ricitos de Oro».</p>
+          </div>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/First_Potentially_Habitable_Earth-Sized_Planet_Confirmed_By_Gemini_And_Keck_Observatories_(gemini1403a).jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/First_Potentially_Habitable_Earth-Sized_Planet_Confirmed_By_Gemini_And_Keck_Observatories_(gemini1403a).jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/First_Potentially_Habitable_Earth-Sized_Planet_Confirmed_By_Gemini_And_Keck_Observatories_(gemini1403a).jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="720" alt="Ilustración de un planeta rocoso con océanos y nubes, con una estrella roja al fondo." loading="lazy" decoding="async"><figcaption>Ilustración de Kepler-186f, el primer planeta del tamaño de la Tierra descubierto en la zona habitable de su estrella (2014). No sabemos cómo es en realidad.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:First_Potentially_Habitable_Earth-Sized_Planet_Confirmed_By_Gemini_And_Keck_Observatories_(gemini1403a).jpg" target="_blank" rel="noopener noreferrer">NASA Ames / SETI Institute / JPL-Caltech<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Estar en la zona habitable no garantiza que haya vida: también importan la atmósfera, la actividad de la estrella y muchas cosas más. Por eso telescopios como el <strong>James Webb</strong> estudian la luz que atraviesa las atmósferas de estos planetas para saber de qué están hechas.</p>
+        </section>
+        <section class="l-sec" id="seti" aria-labelledby="seti-titulo">
+          <h2 id="seti-titulo">¿Hay alguien ahí? La búsqueda de inteligencia extraterrestre</h2>
+          <p class="l-idea">Gran idea 10.8</p>
+          
+          <p>Además de buscar microbios, algunos científicos buscan <strong>civilizaciones</strong>. ¿Cómo? Escuchando el cielo con radiotelescopios en busca de <strong>señales que ninguna estrella ni galaxia podría producir</strong> de forma natural, como una señal de radio muy concentrada o un patrón que se repite.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Allen_Telescope_Array_-_Flickr_-_brewbooks.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Allen_Telescope_Array_-_Flickr_-_brewbooks.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Allen_Telescope_Array_-_Flickr_-_brewbooks.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="986" alt="Muchas antenas de radio blancas con forma de plato, en un valle con árboles." loading="lazy" decoding="async"><figcaption>El conjunto de antenas Allen (California), construido para buscar señales de inteligencia extraterrestre.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Allen_Telescope_Array_-_Flickr_-_brewbooks.jpg" target="_blank" rel="noopener noreferrer">brewbooks<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 2.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Esta búsqueda se llama <strong>SETI</strong> (sigla en inglés de «Búsqueda de Inteligencia Extraterrestre»). Hasta ahora <strong>no se encontró ninguna señal</strong> de ese tipo, pero el Universo es enorme y la búsqueda sigue.</p>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>También mandamos mensajes</h3>
+            <p>En 1974, el radiotelescopio de Arecibo (Puerto Rico) envió un mensaje de radio hacia un cúmulo de estrellas. Y las sondas Voyager llevan un disco de oro con sonidos e imágenes de la Tierra, por si alguien lo encuentra.</p>
+          </div>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <p>Si quieres seguir explorando, te recomendamos estos sitios:</p>
+          <ul class="l-recursos"><li><a href="exoplanetas.html">Exoplanetas</a><span>En este mismo sitio: métodos para encontrar exoplanetas y un desafío para ponerte a prueba.</span></li><li><a href="sondas_voyager.html">Sondas Voyager</a><span>En este mismo sitio: el disco de oro, un mensaje para posibles civilizaciones.</span></li><li><a href="https://science.nasa.gov/exoplanets/" target="_blank" rel="noopener noreferrer">NASA: exoplanetas (en inglés)<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Cuántos exoplanetas se conocen hoy y cómo son.</span></li><li><a href="https://spaceplace.nasa.gov/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place (en español)<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Busca «exoplanetas» para ver explicaciones y juegos.</span></li><li><a href="https://www.seti.org/" target="_blank" rel="noopener noreferrer">Instituto SETI (en inglés)<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Cómo se buscan señales de vida inteligente en el Universo.</span></li></ul>
+
+          <h3>Sigue el recorrido</h3>
+          <p>Esta guía es parte de una serie que recorre las grandes ideas de la astronomía, una por una.</p>
+          <ul class="l-recorrido"><li><a href="biia101to104version.html"><span class="l-rec-k">← Guía anterior · 10.1 a 10.4</span><span class="l-rec-t">¿Hay vida más allá de la Tierra? Dónde buscar</span></a></li><li><a href="biia111to117version.html"><span class="l-rec-k">Guía siguiente · 11.1 a 11.7 →</span><span class="l-rec-t">Cuidar la Tierra, nuestro único hogar</span></a></li></ul>
+
+          <h3>Material de referencia</h3>
+          <p>Este contenido está basado en las grandes ideas 10.5 a 10.8 del documento <a href="../docs/Big_Ideas_V2.0_ES.pdf">«Grandes Ideas de la Astronomía» (Big Ideas in Astronomy) de la Unión Astronómica Internacional, en PDF</a>, publicado con licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a>. También puedes leerlo en el sitio <a href="https://astro4edu.org/es/bigideas/" target="_blank" rel="noopener noreferrer">astro4edu.org<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.</p>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío: gana tus estrellas</h2>
+          <p>Es momento de poner a prueba lo que aprendiste en esta guía. Son 7 preguntas con 5 opciones cada una: cada respuesta correcta suma una estrella. Al final puedes descargar tu certificado.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión astronómica completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Jugar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Fotos de Wikimedia Commons con licencias libres: NASA, ESA y G. Bacon (STScI) (CC BY 4.0); NASA Ames / SETI Institute / JPL-Caltech (CC BY 4.0); brewbooks (CC BY-SA 2.0). Texto basado en «Big Ideas in Astronomy» (UAI, CC BY 4.0). <a href="../creditos.html#biia105to108">Créditos de las fotos y referencias</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
+       Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
+       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+    window.TRIVIA_META = {"id": "biia105to108", "titulo": "Exoplanetas y la búsqueda de otras civilizaciones", "ideas": "Grandes ideas 10.5 a 10.8 · Big Ideas in Astronomy (UAI)", "mezclar": true};
+    window.TRIVIA = [
+ {
+  "question": "¿Qué es un exoplaneta?",
+  "options": [
+   "Un planeta que gira alrededor de una estrella que no es el Sol",
+   "Un planeta enano",
+   "Un planeta que ya no existe",
+   "Una luna muy grande",
+   "Un asteroide con atmósfera"
+  ],
+  "correct": 0,
+  "explicacion": "Los exoplanetas son planetas de otros sistemas: giran alrededor de estrellas distintas al Sol."
+ },
+ {
+  "question": "¿Cuántos exoplanetas confirmados se conocen hoy, aproximadamente?",
+  "options": [
+   "Ninguno",
+   "Unos 10",
+   "Unos 100",
+   "Más de 6.000",
+   "Más de mil millones"
+  ],
+  "correct": 3,
+  "explicacion": "Desde el primer descubrimiento alrededor de una estrella como el Sol, en 1995, ya se confirmaron más de 6.000 exoplanetas, y la cifra sigue creciendo."
+ },
+ {
+  "question": "¿En qué consiste el método del tránsito?",
+  "options": [
+   "En viajar hasta el planeta",
+   "En detectar la pequeña baja de brillo de una estrella cuando un planeta pasa por delante",
+   "En escuchar los sonidos del planeta",
+   "En fotografiar sus ciudades",
+   "En medir su temperatura con un termómetro"
+  ],
+  "correct": 1,
+  "explicacion": "Cuando un planeta pasa frente a su estrella, la tapa un poco y su brillo baja. Esa pequeña «sombra» delata al planeta."
+ },
+ {
+  "question": "¿Cuál de estas afirmaciones sobre los exoplanetas es correcta?",
+  "options": [
+   "Todos son iguales a la Tierra",
+   "Son muy diversos y muchos forman sistemas con varios planetas",
+   "Ninguno es rocoso",
+   "Todos giran en órbitas de exactamente un año",
+   "Solo existen en la Vía Láctea y en ningún otro lugar"
+  ],
+  "correct": 1,
+  "explicacion": "Hay exoplanetas de masas, tamaños y órbitas muy variadas, y la mayoría forma parte de sistemas con varios planetas."
+ },
+ {
+  "question": "¿Qué es la zona habitable de una estrella?",
+  "options": [
+   "La zona donde viven los astronautas",
+   "La franja donde un planeta podría tener agua líquida en su superficie",
+   "El centro de la estrella",
+   "La zona donde hay más asteroides",
+   "El lugar donde nacen las estrellas"
+  ],
+  "correct": 1,
+  "explicacion": "En la zona habitable, un planeta recibe la luz justa para que el agua pueda estar líquida: ni demasiado calor ni demasiado frío."
+ },
+ {
+  "question": "¿Qué busca el proyecto SETI?",
+  "options": [
+   "Nuevos asteroides peligrosos",
+   "Señales de civilizaciones extraterrestres que no tengan un origen natural",
+   "Agua en la Luna",
+   "Restos de dinosaurios",
+   "Estrellas que explotan"
+  ],
+  "correct": 1,
+  "explicacion": "SETI busca, sobre todo con radiotelescopios, señales que ningún fenómeno natural conocido podría producir."
+ },
+ {
+  "question": "¿Se ha encontrado alguna señal confirmada de inteligencia extraterrestre?",
+  "options": [
+   "Sí, en 1974",
+   "Sí, la recibe la NASA todos los días",
+   "No, hasta ahora no se encontró ninguna",
+   "Sí, desde Marte",
+   "Sí, en la Luna"
+  ],
+  "correct": 2,
+  "explicacion": "Hasta hoy no se encontró ninguna señal confirmada. En 1974 lo que ocurrió fue lo contrario: la Tierra envió un mensaje desde Arecibo."
+ }
+];
+
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      if (aciertos === total) return { titulo: "¡Buscador de mundos!", html: "<p>Ahora sabes qué son los exoplanetas, cuán diversos son, qué es la zona habitable y cómo se buscan señales de otras civilizaciones.</p>" };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/certificado.js"></script>
+  <script src="../js/lectura.js"></script>
+</body>
+</html>

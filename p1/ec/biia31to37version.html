@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Un cielo nocturno lleno de sorpresas · Astronomía para todos</title>
+  <meta name="description" content="Cuántas estrellas vemos a simple vista, cómo orientarnos con el cielo, por qué las estrellas titilan y qué son las estrellas fugaces. Una guía para mirar la noche desde el hemisferio sur. Con trivia y certificado.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+  </svg>
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">Un cielo nocturno lleno de sorpresas</h1>
+          <p class="l-bajada">Grandes ideas de la astronomía · 3.1 a 3.7</p>
+          <p class="l-lead">En una noche oscura y despejada, el cielo se llena de estrellas, planetas, nubes de luz y estrellas fugaces. Y nada está quieto: todo se mueve, cambia y titila. Aprende a mirarlo con otros ojos.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Unos 11 minutos de lectura</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Milky_Way_and_star_trails_over_ALMA_(startrail-2-cc).jpg?width=1920" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Milky_Way_and_star_trails_over_ALMA_(startrail-2-cc).jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Milky_Way_and_star_trails_over_ALMA_(startrail-2-cc).jpg?width=1280 1280w, https://commons.wikimedia.org/wiki/Special:FilePath/Milky_Way_and_star_trails_over_ALMA_(startrail-2-cc).jpg?width=1920 1920w" sizes="(min-width: 64rem) 24rem, calc(100vw - 2rem)" width="1920" height="1282" alt="Estelas circulares de estrellas sobre las antenas del observatorio ALMA, en el desierto de Atacama, y la Vía Láctea." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#miles">Miles de estrellas</a></li><li><a href="#orientarse">Orientarse con el cielo</a></li><li><a href="#precesion">El eje que se bambolea</a></li><li><a href="#dia-cielo">Astros de día</a></li><li><a href="#este-oeste">Del este al oeste</a></li><li><a href="#titilar">Por qué titilan</a></li><li><a href="#meteoros">Estrellas fugaces</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+            <li><a href="#quiz">Desafío: gana tus estrellas</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="miles" aria-labelledby="miles-titulo">
+          <h2 id="miles-titulo">¿Cuántas estrellas podemos ver?</h2>
+          <p class="l-idea">Gran idea 3.1</p>
+          
+          <p>Lejos de las luces de la ciudad, sin Luna y con el cielo despejado, a simple vista se pueden ver <strong>unas 4.000 estrellas</strong>. Todas ellas pertenecen a nuestra galaxia, la <strong>Vía Láctea</strong>.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/ESO_-_Milky_Way.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/ESO_-_Milky_Way.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/ESO_-_Milky_Way.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="640" alt="Panorama de todo el cielo con la banda de la Vía Láctea cruzándolo de lado a lado, llena de estrellas y nubes oscuras de polvo." loading="lazy" decoding="async"><figcaption>La Vía Láctea fotografiada de lado a lado desde los observatorios de ESO en Chile. Esa franja luminosa es nuestra propia galaxia vista desde adentro.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:ESO_-_Milky_Way.jpg" target="_blank" rel="noopener noreferrer">ESO / S. Brunier<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Además de estrellas, a simple vista también podemos ver:</p>
+          <ul>
+            <li>Los <strong>cinco planetas</strong> más brillantes: Mercurio, Venus, Marte, Júpiter y Saturno.</li>
+            <li>La <strong>Vía Láctea</strong>, como una franja de luz suave que cruza el cielo.</li>
+            <li>Las <strong>Nubes de Magallanes</strong>: dos pequeñas galaxias vecinas que desde Uruguay se ven como manchitas de luz. ¡Son un regalo del cielo del sur!</li>
+            <li>La <strong>galaxia de Andrómeda</strong>, la más lejana visible a simple vista: su luz viaja 2,5 millones de años para llegar a nosotros.</li>
+          </ul>
+          <p>Hay billones de estrellas en otras galaxias, pero están tan lejos que no las podemos distinguir una por una sin telescopio.</p>
+        </section>
+        <section class="l-sec" id="orientarse" aria-labelledby="orientarse-titulo">
+          <h2 id="orientarse-titulo">El cielo como brújula</h2>
+          <p class="l-idea">Gran idea 3.2</p>
+          
+          <p>Las estrellas sirven para encontrar los puntos cardinales. En el <strong>hemisferio norte</strong> es fácil: la <strong>Estrella Polar</strong> está casi justo encima del polo norte del cielo, y se encuentra a partir de la Osa Mayor y la Osa Menor.</p>
+          <p>En el <strong>hemisferio sur</strong> no tenemos una estrella polar brillante: la estrella más cercana al polo sur del cielo, <em>Sigma Octantis</em>, apenas se ve. Por eso usamos la <strong>Cruz del Sur</strong> y dos estrellas brillantes de la constelación del Centauro, los «punteros».</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Crux_Watches_Over_ALMA_(potw1924a).jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Crux_Watches_Over_ALMA_(potw1924a).jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Crux_Watches_Over_ALMA_(potw1924a).jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="608" alt="La Cruz del Sur y las estrellas brillantes del Centauro sobre las antenas de radio de ALMA, con la Vía Láctea de fondo." loading="lazy" decoding="async"><figcaption>La Cruz del Sur «vigilando» las antenas de ALMA en Chile. Desde Uruguay se ve todas las noches del año.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Crux_Watches_Over_ALMA_(potw1924a).jpg" target="_blank" rel="noopener noreferrer">P. Horálek / ESO<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>En la <a href="../index.html#sur">portada del sitio</a> te mostramos, paso a paso, cómo encontrar el sur con la Cruz del Sur.</p>
+        </section>
+        <section class="l-sec" id="precesion" aria-labelledby="precesion-titulo">
+          <h2 id="precesion-titulo">El eje de la Tierra se bambolea</h2>
+          <p class="l-idea">Gran idea 3.3</p>
+          
+          <p>¿Alguna vez viste un trompo que, mientras gira, se inclina y describe un círculo lento con su punta de arriba? La Tierra hace algo parecido: su eje de rotación dibuja un círculo en el cielo muy, muy despacio. Este movimiento se llama <strong>precesión</strong> y tarda unos <strong>26.000 años</strong> en completarse.</p>
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Las estrellas polares cambian</h3>
+            <p>Como el eje cambia de dirección, los polos del cielo se mueven entre las estrellas. Dentro de unos 12.000 años, la estrella polar del norte será <strong>Vega</strong>, y no la actual Estrella Polar. ¡Y en el futuro el sur también tendrá una estrella brillante cerca de su polo!</p>
+          </div>
+          <p>Es un cambio tan lento que en toda una vida humana no se nota a simple vista, pero los astrónomos de la antigüedad ya lo habían detectado comparando sus registros con los de siglos anteriores.</p>
+        </section>
+        <section class="l-sec" id="dia-cielo" aria-labelledby="dia-cielo-titulo">
+          <h2 id="dia-cielo-titulo">¿Qué se ve en el cielo de día?</h2>
+          <p class="l-idea">Gran idea 3.4</p>
+          
+          <p>Las estrellas no desaparecen de día: siguen ahí, pero la luz del Sol ilumina tanto el aire que las tapa. Pasa algo parecido de noche en las ciudades, donde la <strong>contaminación lumínica</strong> deja ver solo unas pocas estrellas.</p>
+          <p>Solo unos pocos astros son tan brillantes que se ven con el Sol arriba del horizonte:</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Moon,_clouds_and_blue_sky_in_Australia.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Moon,_clouds_and_blue_sky_in_Australia.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Moon,_clouds_and_blue_sky_in_Australia.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="960" alt="La Luna en fase gibosa sobre un cielo azul con nubes blancas, de día." loading="lazy" decoding="async"><figcaption>La Luna se ve de día muchas veces al mes, según su fase.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Moon,_clouds_and_blue_sky_in_Australia.jpg" target="_blank" rel="noopener noreferrer">Kgbo<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <div class="l-usos">
+            <div><h3>La Luna</h3><p>Según su fase, es fácil verla de tarde o de mañana con el cielo celeste.</p></div>
+            <div><h3>Venus</h3><p>Es el planeta más brillante. Se lo llama «lucero del alba» o «lucero de la tarde», y si sabes dónde mirar, ¡se ve incluso al mediodía!</p></div>
+          </div>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Dawning_of_Venus_at_Cerro-Tololo_(iotw2520a).jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Dawning_of_Venus_at_Cerro-Tololo_(iotw2520a).jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Dawning_of_Venus_at_Cerro-Tololo_(iotw2520a).jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="640" alt="Venus brillando sobre el horizonte al amanecer, por encima de las cúpulas del observatorio Cerro Tololo, en Chile." loading="lazy" decoding="async"><figcaption>Venus anuncia el amanecer sobre el observatorio Cerro Tololo (Chile).<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Dawning_of_Venus_at_Cerro-Tololo_(iotw2520a).jpg" target="_blank" rel="noopener noreferrer">CTIO / NOIRLab / NSF / AURA / P. Horálek<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Muy de vez en cuando, un cometa muy brillante también puede verse de día.</p>
+        </section>
+        <section class="l-sec" id="este-oeste" aria-labelledby="este-oeste-titulo">
+          <h2 id="este-oeste-titulo">Todo sale por el este y se pone por el oeste</h2>
+          <p class="l-idea">Gran idea 3.5</p>
+          
+          <p>La Tierra gira sobre su eje <strong>de oeste a este</strong>. Nosotros giramos con ella sin sentirlo, así que vemos todo el cielo moverse en sentido contrario: de este a oeste. A ese movimiento aparente se lo llama <strong>movimiento diurno</strong>.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Milky_Way_and_star_trails_over_ALMA_(startrail-2-cc).jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Milky_Way_and_star_trails_over_ALMA_(startrail-2-cc).jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Milky_Way_and_star_trails_over_ALMA_(startrail-2-cc).jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="854" alt="Fotografía de larga exposición: las estrellas dibujan arcos alrededor de un punto del cielo, sobre las antenas de ALMA." loading="lazy" decoding="async"><figcaption>En una foto de varias horas, las estrellas dejan estelas circulares alrededor del polo sur celeste. Así se ve la rotación de la Tierra.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Milky_Way_and_star_trails_over_ALMA_(startrail-2-cc).jpg" target="_blank" rel="noopener noreferrer">S. Otarola / ESO<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Por eso el Sol, la Luna, los planetas y las estrellas salen por la mitad <strong>este</strong> del horizonte y se ponen por la mitad <strong>oeste</strong>. Algunas estrellas cercanas al polo sur celeste, como la Cruz del Sur vista desde Uruguay, nunca llegan a ponerse: dan vueltas alrededor del polo toda la noche.</p>
+          <p>Para ver este movimiento en acción, prueba el simulador <a href="movimientogeneraldiario.html">Movimiento general diario</a>.</p>
+        </section>
+        <section class="l-sec" id="titilar" aria-labelledby="titilar-titulo">
+          <h2 id="titilar-titulo">¿Por qué titilan las estrellas?</h2>
+          <p class="l-idea">Gran idea 3.6</p>
+          
+          <p>La luz de una estrella viaja por el espacio casi sin cambios durante años… hasta que entra en nuestra atmósfera. El aire tiene capas con distinta temperatura y densidad que se mueven todo el tiempo, y cada capa <strong>desvía un poco la luz</strong> (eso se llama refracción). Por eso el brillo y la posición de la estrella cambian muy rápido: ¡titila!</p>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>Truco para reconocer planetas</h3>
+            <p>Las estrellas están tan lejos que las vemos como puntitos, y toda su luz llega por un solo «caminito» que el aire mueve con facilidad. Los planetas, en cambio, se ven como discos diminutos: el temblor de cada punto del disco se compensa con el de los demás. Por eso <strong>los planetas casi no titilan</strong>. Si ves un punto brillante con luz firme, ¡probablemente sea un planeta!</p>
+          </div>
+          <p>Este temblor también molesta a los telescopios. Por eso los grandes observatorios se construyen en montañas, con aire muy estable, o se envían al espacio.</p>
+        </section>
+        <section class="l-sec" id="meteoros" aria-labelledby="meteoros-titulo">
+          <h2 id="meteoros-titulo">Estrellas fugaces: millones cada día</h2>
+          <p class="l-idea">Gran idea 3.7</p>
+          
+          <p>Una «estrella fugaz» no es una estrella. Es un <strong>meteoro</strong>: el destello que produce un pedacito de roca o metal del espacio, llamado <strong>meteoroide</strong>, cuando entra a toda velocidad en la atmósfera y se calienta hasta brillar.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/In_the_photo_there_is_one_Perseid,_Milky_Way_and_Andromega_galaxy_and_light_pollution_on_the_horizon_-_Luhasoo_bog_in_Estonia.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/In_the_photo_there_is_one_Perseid,_Milky_Way_and_Andromega_galaxy_and_light_pollution_on_the_horizon_-_Luhasoo_bog_in_Estonia.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/In_the_photo_there_is_one_Perseid,_Milky_Way_and_Andromega_galaxy_and_light_pollution_on_the_horizon_-_Luhasoo_bog_in_Estonia.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="854" alt="Cielo nocturno con la Vía Láctea y el rastro brillante de un meteoro que lo cruza en diagonal." loading="lazy" decoding="async"><figcaption>Un meteoro de la lluvia de las Perseidas cruza el cielo junto a la Vía Láctea.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:In_the_photo_there_is_one_Perseid,_Milky_Way_and_Andromega_galaxy_and_light_pollution_on_the_horizon_-_Luhasoo_bog_in_Estonia.jpg" target="_blank" rel="noopener noreferrer">Martin Mark<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <div class="l-usos">
+            <div><h3>Meteoroide</h3><p>El objeto en el espacio: desde un grano de arena hasta unos metros.</p></div>
+            <div><h3>Meteoro</h3><p>El destello de luz cuando atraviesa la atmósfera.</p></div>
+            <div><h3>Meteorito</h3><p>El pedazo que logra llegar al suelo sin quemarse por completo.</p></div>
+            <div><h3>Lluvia de meteoros</h3><p>Muchos meteoros en pocas noches, cuando la Tierra cruza el polvo que dejó un cometa.</p></div>
+          </div>
+          <p>Cada día entran <strong>millones</strong> de meteoroides en la atmósfera. Casi todos se desintegran en gas y polvo antes de tocar el suelo.</p>
+          <figure class="l-figura l-figura-chica"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Willamette_Meteorite_AMNH.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Willamette_Meteorite_AMNH.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Willamette_Meteorite_AMNH.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1707" alt="Un enorme meteorito de hierro, oscuro y lleno de huecos, exhibido en un museo." loading="lazy" decoding="async"><figcaption>El meteorito Willamette, de unas 15 toneladas, en el Museo Americano de Historia Natural (Nueva York).<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Willamette_Meteorite_AMNH.jpg" target="_blank" rel="noopener noreferrer">Dante Alighieri (usuario de Commons)<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <p>Si quieres seguir explorando, te recomendamos estos sitios:</p>
+          <ul class="l-recursos"><li><a href="movimientogeneraldiario.html">Movimiento general diario</a><span>En este mismo sitio: simulador de estelas de estrellas en ambos hemisferios.</span></li><li><a href="contlumv1.html">Contaminación lumínica</a><span>En este mismo sitio: por qué en la ciudad vemos tan pocas estrellas.</span></li><li><a href="constelacionesV3.html">Constelaciones</a><span>En este mismo sitio: dibujos con estrellas y Orión en 3D.</span></li><li><a href="https://stellarium-web.org/" target="_blank" rel="noopener noreferrer">Stellarium Web<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Planetario gratuito en línea: busca tu ciudad y mira qué hay en el cielo esta noche.</span></li><li><a href="https://www.esa.int/kids/es/home" target="_blank" rel="noopener noreferrer">ESA Kids<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>La Agencia Espacial Europea explica el cielo nocturno para chicos y chicas.</span></li><li><a href="https://globeatnight.org/" target="_blank" rel="noopener noreferrer">Globe at Night<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Proyecto de ciencia ciudadana: cuenta estrellas desde tu casa y ayuda a medir la contaminación lumínica.</span></li></ul>
+
+          <h3>Sigue el recorrido</h3>
+          <p>Esta guía es parte de una serie que recorre las grandes ideas de la astronomía, una por una.</p>
+          <ul class="l-recorrido"><li><a href="biia26to28version.html"><span class="l-rec-k">← Guía anterior · 2.6 a 2.8</span><span class="l-rec-t">El Sol, las auroras y la tecnología del espacio</span></a></li><li><a href="biia41to44version.html"><span class="l-rec-k">Guía siguiente · 4.1 a 4.4 →</span><span class="l-rec-t">Mensajeros del Universo: luz, gravedad y más</span></a></li></ul>
+
+          <h3>Material de referencia</h3>
+          <p>Este contenido está basado en las grandes ideas 3.1 a 3.7 del documento <a href="../docs/Big_Ideas_V2.0_ES.pdf">«Grandes Ideas de la Astronomía» (Big Ideas in Astronomy) de la Unión Astronómica Internacional, en PDF</a>, publicado con licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a>. También puedes leerlo en el sitio <a href="https://astro4edu.org/es/bigideas/" target="_blank" rel="noopener noreferrer">astro4edu.org<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.</p>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío: gana tus estrellas</h2>
+          <p>Es momento de poner a prueba lo que aprendiste en esta guía. Son 7 preguntas con 5 opciones cada una: cada respuesta correcta suma una estrella. Al final puedes descargar tu certificado.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión astronómica completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Jugar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Fotos de Wikimedia Commons con licencias libres: ESO / S. Brunier (CC BY 4.0); P. Horálek / ESO (CC BY 4.0); Kgbo (CC BY-SA 4.0); CTIO / NOIRLab / NSF / AURA / P. Horálek (CC BY 4.0); S. Otarola / ESO (CC BY 4.0); Martin Mark (CC BY-SA 4.0); Dante Alighieri (usuario de Commons) (CC BY-SA 3.0). Texto basado en «Big Ideas in Astronomy» (UAI, CC BY 4.0). <a href="../creditos.html#biia31to37">Créditos de las fotos y referencias</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
+       Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
+       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+    window.TRIVIA_META = {"id": "biia31to37", "titulo": "Un cielo nocturno lleno de sorpresas", "ideas": "Grandes ideas 3.1 a 3.7 · Big Ideas in Astronomy (UAI)", "mezclar": true};
+    window.TRIVIA = [
+ {
+  "question": "En una noche oscura, sin Luna y lejos de la ciudad, ¿cuántas estrellas se pueden ver a simple vista, aproximadamente?",
+  "options": [
+   "Unas 40",
+   "Unas 400",
+   "Unas 4.000",
+   "Unos 4 millones",
+   "Todas las estrellas del Universo"
+  ],
+  "correct": 2,
+  "explicacion": "Se ven unas 4.000 estrellas a simple vista, y todas pertenecen a nuestra galaxia, la Vía Láctea."
+ },
+ {
+  "question": "¿Qué galaxias se ven a simple vista desde el hemisferio sur como pequeñas manchas de luz?",
+  "options": [
+   "Las Nubes de Magallanes",
+   "Las galaxias Antenas",
+   "La galaxia del Remolino",
+   "Las Pléyades",
+   "Los anillos de Saturno"
+  ],
+  "correct": 0,
+  "explicacion": "Las Nubes de Magallanes son dos pequeñas galaxias vecinas de la Vía Láctea, muy fáciles de ver desde el cielo del sur."
+ },
+ {
+  "question": "¿Qué usamos en el hemisferio sur para encontrar el polo sur del cielo?",
+  "options": [
+   "La Estrella Polar",
+   "La Osa Mayor",
+   "La Cruz del Sur y los punteros del Centauro",
+   "El planeta Venus",
+   "La Luna llena"
+  ],
+  "correct": 2,
+  "explicacion": "En el sur no hay una estrella polar brillante, así que usamos la Cruz del Sur y las dos estrellas brillantes del Centauro como guía."
+ },
+ {
+  "question": "¿Qué es la precesión?",
+  "options": [
+   "El titileo de las estrellas",
+   "Un movimiento lento del eje de la Tierra, como un trompo, que tarda unos 26.000 años",
+   "El paso de un año a otro",
+   "El brillo de una estrella fugaz",
+   "La caída de un meteorito"
+  ],
+  "correct": 1,
+  "explicacion": "El eje de la Tierra dibuja un círculo en el cielo en unos 26.000 años. Por eso las estrellas polares cambian con el paso de los milenios."
+ },
+ {
+  "question": "¿Cuál de estos astros se puede ver a simple vista con el Sol arriba del horizonte?",
+  "options": [
+   "La galaxia de Andrómeda",
+   "Las Nubes de Magallanes",
+   "El planeta Venus",
+   "La Vía Láctea",
+   "Neptuno"
+  ],
+  "correct": 2,
+  "explicacion": "Venus es tan brillante que puede verse de día si sabes dónde mirar. La Luna también se ve de día con frecuencia."
+ },
+ {
+  "question": "¿Por qué titilan las estrellas?",
+  "options": [
+   "Porque se encienden y se apagan.",
+   "Porque giran muy rápido.",
+   "Porque el aire en movimiento de nuestra atmósfera desvía su luz.",
+   "Porque las tapan los satélites.",
+   "Porque están muy calientes."
+  ],
+  "correct": 2,
+  "explicacion": "Las capas de aire con distinta temperatura desvían la luz una y otra vez. Los planetas casi no titilan porque los vemos como pequeños discos y no como puntos."
+ },
+ {
+  "question": "¿Cómo se llama el pedazo de roca espacial que logra llegar al suelo?",
+  "options": [
+   "Meteoroide",
+   "Meteoro",
+   "Meteorito",
+   "Cometa",
+   "Estrella fugaz"
+  ],
+  "correct": 2,
+  "explicacion": "En el espacio es un meteoroide; el destello en la atmósfera es un meteoro (o estrella fugaz); y si llega al suelo, se llama meteorito."
+ }
+];
+
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      if (aciertos === total) return { titulo: "¡Ojos de astrónomo!", html: "<p>Ya sabes qué buscar en el cielo nocturno: estrellas, planetas, galaxias vecinas y estrellas fugaces, y cómo orientarte con la Cruz del Sur.</p>" };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/certificado.js"></script>
+  <script src="../js/lectura.js"></script>
+</body>
+</html>

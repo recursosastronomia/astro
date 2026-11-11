@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Lo que no vemos: materia oscura, expansión y Big Bang · Astronomía para todos</title>
+  <meta name="description" content="De qué está hecho el Universo, por qué se expande cada vez más rápido, qué es el corrimiento al rojo, la red cósmica, el fondo cósmico de microondas y el modelo del Big Bang. Con trivia y certificado.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+  </svg>
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">Lo que no vemos: materia oscura, expansión y Big Bang</h1>
+          <p class="l-bajada">Grandes ideas de la astronomía · 6.5 a 6.11</p>
+          <p class="l-lead">Todo lo que ves (estrellas, planetas, tu propio cuerpo) es apenas el 5 % del Universo. El resto es un misterio que la ciencia está tratando de resolver. Descubre la gran historia del cosmos, desde el Big Bang hasta hoy.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Unos 12 minutos de lectura</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cosmic_Microwave_Background_(CMB).jpeg?width=1920" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Cosmic_Microwave_Background_(CMB).jpeg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Cosmic_Microwave_Background_(CMB).jpeg?width=1280 1280w, https://commons.wikimedia.org/wiki/Special:FilePath/Cosmic_Microwave_Background_(CMB).jpeg?width=1920 1920w" sizes="(min-width: 64rem) 24rem, calc(100vw - 2rem)" width="1920" height="960" alt="Mapa ovalado de todo el cielo con manchas de colores rojos, amarillos y azules: la luz más antigua del Universo." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#oscuro">Materia y energía oscuras</a></li><li><a href="#expansion">Un Universo en expansión</a></li><li><a href="#rojo">El corrimiento al rojo</a></li><li><a href="#leyes">Las mismas leyes</a></li><li><a href="#red">La red cósmica</a></li><li><a href="#fondo">La luz más antigua</a></li><li><a href="#bigbang">El modelo del Big Bang</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+            <li><a href="#quiz">Desafío: gana tus estrellas</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="oscuro" aria-labelledby="oscuro-titulo">
+          <h2 id="oscuro-titulo">¿De qué está hecho el Universo?</h2>
+          <p class="l-idea">Gran idea 6.5</p>
+          
+          <p>Las estrellas, el aire, el agua y tu cuerpo están hechos de <strong>átomos</strong>. A esta materia «común» se la llama materia bariónica. Sorprendentemente, las observaciones muestran que es solo una pequeña parte del Universo:</p>
+          <ul class="l-proporcion" aria-label="Composición del Universo">
+            <li><span class="l-prop-t"><span>Energía oscura</span><span>68 %</span></span><span class="l-prop-b" aria-hidden="true"><i style="--v:68%"></i></span></li>
+            <li><span class="l-prop-t"><span>Materia oscura</span><span>27 %</span></span><span class="l-prop-b" aria-hidden="true"><i style="--v:27%"></i></span></li>
+            <li><span class="l-prop-t"><span>Materia común (átomos)</span><span>5 %</span></span><span class="l-prop-b" aria-hidden="true"><i style="--v:5%"></i></span></li>
+          </ul>
+          <div class="l-usos">
+            <div><h3>Materia oscura</h3><p>No emite ni refleja luz, así que no la vemos. Pero tiene masa y su gravedad se nota: mantiene unidas a las galaxias y desvía la luz.</p></div>
+            <div><h3>Energía oscura</h3><p>Una forma de energía desconocida que parece llenar todo el espacio y hace que el Universo se expanda cada vez más rápido.</p></div>
+          </div>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/1e0657_scale.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/1e0657_scale.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/1e0657_scale.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="925" alt="Dos nubes de gas caliente de color rosado que chocaron, con zonas azules a los lados que marcan dónde está la mayor parte de la masa, sobre un fondo de galaxias." loading="lazy" decoding="async"><figcaption>El cúmulo Bala: dos cúmulos de galaxias que chocaron. En rosa, el gas caliente (materia común); en azul, dónde está la mayor parte de la masa, medida por cómo desvía la luz. La masa no está donde está el gas: es una pista de la materia oscura.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:1e0657_scale.jpg" target="_blank" rel="noopener noreferrer">NASA / CXC / M. Weiss<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Nadie sabe todavía qué son exactamente. ¡Es uno de los grandes misterios de la ciencia actual!</p>
+        </section>
+        <section class="l-sec" id="expansion" aria-labelledby="expansion-titulo">
+          <h2 id="expansion-titulo">Un Universo que se estira cada vez más rápido</h2>
+          <p class="l-idea">Gran idea 6.6</p>
+          
+          <p>Las galaxias se están alejando unas de otras. No es que salgan disparadas por el espacio: es el <strong>espacio mismo</strong> el que se estira. Y cuanto más lejos está una galaxia, más rápido se aleja de nosotros: es la <strong>ley de Hubble-Lemaître</strong>.</p>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>El pan con pasas</h3>
+            <p>Imagina una masa de pan con pasas que se infla en el horno. Desde cualquier pasa, todas las demás se alejan, y las más lejanas se alejan más rápido. Ninguna pasa es el centro. Con las galaxias pasa lo mismo: un observador en cualquier galaxia vería lo mismo que nosotros.</p>
+          </div>
+          <p>Además, la expansión se está <strong>acelerando</strong>, y se cree que la responsable es la energía oscura. Ojo: lo que está unido por su propia gravedad (una galaxia, un grupo de galaxias, el Sistema Solar o tu cuerpo) no se estira. De hecho, la Vía Láctea y Andrómeda se están acercando y dentro de unos miles de millones de años se fusionarán.</p>
+        </section>
+        <section class="l-sec" id="rojo" aria-labelledby="rojo-titulo">
+          <h2 id="rojo-titulo">Luz estirada: el corrimiento al rojo</h2>
+          <p class="l-idea">Gran idea 6.7</p>
+          
+          <p>Mientras la luz de una galaxia lejana viaja hacia nosotros, el espacio se estira… y la luz se estira con él. Sus ondas se hacen más largas y sus colores se corren hacia el <strong>rojo</strong>. Esto se llama <strong>corrimiento al rojo cosmológico</strong>.</p>
+          <figure class="l-diagrama">
+            <svg viewBox="0 0 540 200" role="img" aria-labelledby="rojo-t rojo-d">
+              <title id="rojo-t">La luz se estira con el espacio</title>
+              <desc id="rojo-d">Arriba, una onda de luz corta, de color azulado, como sale de una galaxia. Abajo, la misma onda después de un largo viaje por el espacio en expansión: sus ondas son más largas y su color se corrió hacia el rojo.</desc>
+              <text class="d-txt" x="20" y="28">Al salir de la galaxia: ondas cortas</text>
+              <path d="M20 65.0 L24 54.4 L28 47.9 L32 47.9 L36 54.4 L40 65.0 L44 75.6 L48 82.1 L52 82.1 L56 75.6 L60 65.0 L64 54.4 L68 47.9 L72 47.9 L76 54.4 L80 65.0 L84 75.6 L88 82.1 L92 82.1 L96 75.6 L100 65.0 L104 54.4 L108 47.9 L112 47.9 L116 54.4 L120 65.0 L124 75.6 L128 82.1 L132 82.1 L136 75.6 L140 65.0 L144 54.4 L148 47.9 L152 47.9 L156 54.4 L160 65.0 L164 75.6 L168 82.1 L172 82.1 L176 75.6 L180 65.0 L184 54.4 L188 47.9 L192 47.9 L196 54.4 L200 65.0 L204 75.6 L208 82.1 L212 82.1 L216 75.6 L220 65.0 L224 54.4 L228 47.9 L232 47.9 L236 54.4 L240 65.0 L244 75.6 L248 82.1 L252 82.1 L256 75.6 L260 65.0 L264 54.4 L268 47.9 L272 47.9 L276 54.4 L280 65.0 L284 75.6 L288 82.1 L292 82.1 L296 75.6 L300 65.0 L304 54.4 L308 47.9 L312 47.9 L316 54.4 L320 65.0 L324 75.6 L328 82.1 L332 82.1 L336 75.6 L340 65.0 L344 54.4 L348 47.9 L352 47.9 L356 54.4 L360 65.0 L364 75.6 L368 82.1 L372 82.1 L376 75.6 L380 65.0 L384 54.4 L388 47.9 L392 47.9 L396 54.4 L400 65.0 L404 75.6 L408 82.1 L412 82.1 L416 75.6 L420 65.0 L424 54.4 L428 47.9 L432 47.9 L436 54.4 L440 65.0 L444 75.6 L448 82.1 L452 82.1 L456 75.6 L460 65.0 L464 54.4 L468 47.9 L472 47.9 L476 54.4 L480 65.0 L484 75.6 L488 82.1 L492 82.1 L496 75.6 L500 65.0 L504 54.4 L508 47.9 L512 47.9 L516 54.4 L520 65.0" style="fill:none;stroke:#8cc0ff;stroke-width:3"/>
+              <text class="d-txt" x="20" y="128">Al llegar a la Tierra: ondas estiradas, más rojas</text>
+              <path d="M20 165.0 L24 160.5 L28 156.3 L32 152.7 L36 149.8 L40 147.9 L44 147.0 L48 147.3 L52 148.7 L56 151.1 L60 154.4 L64 158.4 L68 162.7 L72 167.3 L76 171.6 L80 175.6 L84 178.9 L88 181.3 L92 182.7 L96 183.0 L100 182.1 L104 180.2 L108 177.3 L112 173.7 L116 169.5 L120 165.0 L124 160.5 L128 156.3 L132 152.7 L136 149.8 L140 147.9 L144 147.0 L148 147.3 L152 148.7 L156 151.1 L160 154.4 L164 158.4 L168 162.7 L172 167.3 L176 171.6 L180 175.6 L184 178.9 L188 181.3 L192 182.7 L196 183.0 L200 182.1 L204 180.2 L208 177.3 L212 173.7 L216 169.5 L220 165.0 L224 160.5 L228 156.3 L232 152.7 L236 149.8 L240 147.9 L244 147.0 L248 147.3 L252 148.7 L256 151.1 L260 154.4 L264 158.4 L268 162.7 L272 167.3 L276 171.6 L280 175.6 L284 178.9 L288 181.3 L292 182.7 L296 183.0 L300 182.1 L304 180.2 L308 177.3 L312 173.7 L316 169.5 L320 165.0 L324 160.5 L328 156.3 L332 152.7 L336 149.8 L340 147.9 L344 147.0 L348 147.3 L352 148.7 L356 151.1 L360 154.4 L364 158.4 L368 162.7 L372 167.3 L376 171.6 L380 175.6 L384 178.9 L388 181.3 L392 182.7 L396 183.0 L400 182.1 L404 180.2 L408 177.3 L412 173.7 L416 169.5 L420 165.0 L424 160.5 L428 156.3 L432 152.7 L436 149.8 L440 147.9 L444 147.0 L448 147.3 L452 148.7 L456 151.1 L460 154.4 L464 158.4 L468 162.7 L472 167.3 L476 171.6 L480 175.6 L484 178.9 L488 181.3 L492 182.7 L496 183.0 L500 182.1 L504 180.2 L508 177.3 L512 173.7 L516 169.5 L520 165.0" style="fill:none;stroke:#ef8f86;stroke-width:3"/>
+            </svg>
+            <figcaption>Mientras la luz viaja, el espacio se estira y la onda se estira con él. (Dibujo esquemático.)</figcaption>
+          </figure>
+          <p>Cuanto más lejos está la galaxia, más se estiró su luz. Por eso:</p>
+          <ul>
+            <li>Las galaxias más lejanas solo se ven bien en <strong>infrarrojo</strong> o en ondas de radio: su luz se estiró tanto que salió del rango visible. ¡Por eso el telescopio James Webb observa en infrarrojo!</li>
+            <li>La luz más antigua del Universo nos llega hoy como <strong>microondas</strong>.</li>
+          </ul>
+        </section>
+        <section class="l-sec" id="leyes" aria-labelledby="leyes-titulo">
+          <h2 id="leyes-titulo">Las mismas leyes en todo el Universo</h2>
+          <p class="l-idea">Gran idea 6.8</p>
+          
+          <p>¿Funciona la gravedad igual en una galaxia lejana que en tu casa? ¿Brilla el hidrógeno de la misma manera en una estrella a miles de millones de años luz? Los científicos lo han puesto a prueba muchísimas veces.</p>
+          <p>Hasta ahora, todas las pruebas indican que <strong>sí</strong>: las leyes de la física (la gravedad, el electromagnetismo, la termodinámica) funcionan igual en todo el Universo y lo hicieron también en el pasado. Gracias a eso, lo que aprendemos en un laboratorio de la Tierra sirve para entender estrellas y galaxias lejanísimas.</p>
+        </section>
+        <section class="l-sec" id="red" aria-labelledby="red-titulo">
+          <h2 id="red-titulo">La red cósmica</h2>
+          <p class="l-idea">Gran idea 6.9</p>
+          
+          <p>Si pudiéramos ver el Universo desde muy lejos, veríamos que las galaxias no están repartidas al azar: forman una gigantesca <strong>red tridimensional</strong>, parecida a una esponja o a una telaraña.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cosmic_web.jpg?width=678" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Cosmic_web.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Cosmic_web.jpg?width=678 678w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="678" height="452" alt="Simulación por computadora: filamentos brillantes anaranjados que se cruzan formando una red, con nudos muy luminosos y huecos oscuros entre ellos." loading="lazy" decoding="async"><figcaption>La red cósmica en una simulación por supercomputadora. Los filamentos y nudos brillantes están llenos de galaxias; los huecos oscuros son los vacíos.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Cosmic_web.jpg" target="_blank" rel="noopener noreferrer">Volker Springel / Instituto Max Planck de Astrofísica<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <div class="l-usos">
+            <div><h3>Filamentos y láminas</h3><p>Largas hebras y paredes con millones de galaxias, de cientos de millones de años luz de largo.</p></div>
+            <div><h3>Vacíos</h3><p>Enormes burbujas casi vacías, de cientos de millones de años luz de diámetro, con muy pocas galaxias.</p></div>
+          </div>
+        </section>
+        <section class="l-sec" id="fondo" aria-labelledby="fondo-titulo">
+          <h2 id="fondo-titulo">La luz más antigua: el fondo cósmico de microondas</h2>
+          <p class="l-idea">Gran idea 6.10</p>
+          
+          <p>Al principio, el Universo era tan caliente y denso que la luz no podía viajar libremente. Unos <strong>380.000 años</strong> después del inicio, se enfrió lo suficiente y la luz quedó libre. Esa luz sigue llegándonos hoy desde todas las direcciones, estirada en forma de microondas: es el <strong>fondo cósmico de microondas</strong>.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cosmic_Microwave_Background_(CMB).jpeg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Cosmic_Microwave_Background_(CMB).jpeg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Cosmic_Microwave_Background_(CMB).jpeg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="640" alt="Mapa ovalado de todo el cielo cubierto de pequeñas manchas rojas, amarillas y azules." loading="lazy" decoding="async"><figcaption>El fondo cósmico de microondas medido por el satélite Planck. Los colores muestran diferencias de temperatura muy pequeñitas: de allí nacieron, con el tiempo, las galaxias.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Cosmic_Microwave_Background_(CMB).jpeg" target="_blank" rel="noopener noreferrer">ESA y la Colaboración Planck<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Es como la «foto de bebé» del Universo. Estudiándola, los científicos midieron cuánta materia oscura, materia común y energía oscura hay, la forma del Universo y qué tan rápido se expande. Además, es casi igual en todas las direcciones: otra prueba de que el Universo es isótropo.</p>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>¿Sabías que...?</h3>
+            <p>En los viejos televisores analógicos, una pequeña parte de la «lluvia» de la pantalla sin señal se debía a este fondo cósmico.</p>
+          </div>
+        </section>
+        <section class="l-sec" id="bigbang" aria-labelledby="bigbang-titulo">
+          <h2 id="bigbang-titulo">El modelo del Big Bang</h2>
+          <p class="l-idea">Gran idea 6.11</p>
+          
+          <p>Según las mejores pruebas disponibles, hace unos 13.800 millones de años toda la materia y la energía que hoy vemos estaban concentradas en un estado extremadamente <strong>denso y caliente</strong>. Desde entonces, el Universo se expandió y se enfrió. A esa etapa inicial se la llama <strong>Big Bang</strong> («gran explosión», en inglés).</p>
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>No fue una explosión</h3>
+            <p>A pesar del nombre, el Big Bang <strong>no fue una explosión</strong> que lanzó materia hacia un espacio vacío. El espacio entero estaba lleno de materia desde el principio y es el propio espacio el que se fue estirando, haciendo que la materia se repartiera cada vez más.</p>
+          </div>
+          <ol class="l-linea" aria-label="Breve historia del Universo">
+            <li><span class="l-fecha">Inicio</span><span>Un Universo muy denso y caliente empieza a expandirse.</span></li>
+            <li><span class="l-fecha">380.000 años</span><span>La luz queda libre: es el fondo cósmico de microondas.</span></li>
+            <li><span class="l-fecha">Unos cientos de millones de años</span><span>Se encienden las primeras estrellas y se forman las primeras galaxias.</span></li>
+            <li><span class="l-fecha">9.200 millones de años</span><span>Nace el Sistema Solar (hace 4.600 millones de años).</span></li>
+            <li><span class="l-fecha">13.800 millones de años</span><span>Hoy: el Universo sigue expandiéndose, cada vez más rápido.</span></li>
+          </ol>
+          <p>El modelo que describe esta historia se llama <strong>Lambda-CDM</strong> (Lambda por la energía oscura y CDM por la materia oscura fría). Hizo muchas predicciones que se comprobaron con observaciones, aunque, como toda teoría científica, sigue poniéndose a prueba.</p>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <p>Si quieres seguir explorando, te recomendamos estos sitios:</p>
+          <ul class="l-recursos"><li><a href="exoplanetas.html">Exoplanetas</a><span>En este mismo sitio: otros mundos en nuestra galaxia.</span></li><li><a href="astronomia.html">¿Qué es la astronomía?</a><span>En este mismo sitio: cómo se construye el conocimiento científico sobre el cielo.</span></li><li><a href="https://spaceplace.nasa.gov/big-bang/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place: el Big Bang<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Qué fue el Big Bang, explicado de forma sencilla.</span></li><li><a href="https://www.esa.int/kids/es/home" target="_blank" rel="noopener noreferrer">ESA Kids<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Artículos sobre el Universo, el satélite Planck y mucho más.</span></li><li><a href="https://esahubble.org/?lang=es" target="_blank" rel="noopener noreferrer">Hubble (ESA, en español)<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Imágenes de galaxias lejanas y del Universo temprano.</span></li></ul>
+
+          <h3>Sigue el recorrido</h3>
+          <p>Esta guía es parte de una serie que recorre las grandes ideas de la astronomía, una por una.</p>
+          <ul class="l-recorrido"><li><a href="biia61to64version.html"><span class="l-rec-k">← Guía anterior · 6.1 a 6.4</span><span class="l-rec-t">La edad del Universo y el viaje de la luz</span></a></li><li><a href="biia71to75version.html"><span class="l-rec-k">Guía siguiente · 7.1 a 7.5 →</span><span class="l-rec-t">Nuestro vecindario: el Sistema Solar</span></a></li></ul>
+
+          <h3>Material de referencia</h3>
+          <p>Este contenido está basado en las grandes ideas 6.5 a 6.11 del documento <a href="../docs/Big_Ideas_V2.0_ES.pdf">«Grandes Ideas de la Astronomía» (Big Ideas in Astronomy) de la Unión Astronómica Internacional, en PDF</a>, publicado con licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a>. También puedes leerlo en el sitio <a href="https://astro4edu.org/es/bigideas/" target="_blank" rel="noopener noreferrer">astro4edu.org<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.</p>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío: gana tus estrellas</h2>
+          <p>Es momento de poner a prueba lo que aprendiste en esta guía. Son 7 preguntas con 5 opciones cada una: cada respuesta correcta suma una estrella. Al final puedes descargar tu certificado.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión astronómica completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Jugar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Fotos de Wikimedia Commons con licencias libres: NASA / CXC / M. Weiss (Dominio público); Volker Springel / Instituto Max Planck de Astrofísica (CC BY-SA 4.0); ESA y la Colaboración Planck (CC BY 4.0). Texto basado en «Big Ideas in Astronomy» (UAI, CC BY 4.0). <a href="../creditos.html#biia65to611">Créditos de las fotos y referencias</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
+       Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
+       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+    window.TRIVIA_META = {"id": "biia65to611", "titulo": "Lo que no vemos: materia oscura, expansión y Big Bang", "ideas": "Grandes ideas 6.5 a 6.11 · Big Ideas in Astronomy (UAI)", "mezclar": true};
+    window.TRIVIA = [
+ {
+  "question": "¿Qué porcentaje del Universo es materia común, la de los átomos que forman estrellas, planetas y personas?",
+  "options": [
+   "Cerca del 5 %",
+   "Cerca del 27 %",
+   "Cerca del 50 %",
+   "Cerca del 68 %",
+   "El 100 %"
+  ],
+  "correct": 0,
+  "explicacion": "La materia común es solo un 5 %. El resto es materia oscura (27 %) y energía oscura (68 %)."
+ },
+ {
+  "question": "¿Cómo sabemos que existe la materia oscura, si no se puede ver?",
+  "options": [
+   "Porque brilla en la oscuridad",
+   "Por los efectos de su gravedad sobre la materia visible y la luz",
+   "Porque la tocaron los astronautas",
+   "Porque aparece en las fotos de la Luna",
+   "Porque hace ruido"
+  ],
+  "correct": 1,
+  "explicacion": "La materia oscura no emite luz, pero su gravedad afecta el movimiento de estrellas y galaxias y desvía la luz de objetos más lejanos."
+ },
+ {
+  "question": "¿Qué dice la ley de Hubble-Lemaître?",
+  "options": [
+   "Que las galaxias más lejanas se alejan más rápido de nosotros",
+   "Que todas las galaxias están quietas",
+   "Que la Tierra es el centro del Universo",
+   "Que las galaxias más cercanas se alejan más rápido",
+   "Que la Luna se aleja de la Tierra"
+  ],
+  "correct": 0,
+  "explicacion": "Como el espacio se estira, cuanto más lejos está una galaxia, más rápido se aleja. Y cualquier observador en otra galaxia vería lo mismo."
+ },
+ {
+  "question": "¿Qué es el corrimiento al rojo cosmológico?",
+  "options": [
+   "Que las galaxias son de color rojo",
+   "El estiramiento de la luz de las galaxias lejanas por la expansión del espacio",
+   "El color del cielo al atardecer",
+   "Que las estrellas se calientan",
+   "Un tipo de eclipse"
+  ],
+  "correct": 1,
+  "explicacion": "La expansión estira las ondas de luz mientras viajan, que se vuelven más largas y «más rojas». Por eso las galaxias muy lejanas se estudian en infrarrojo."
+ },
+ {
+  "question": "¿Cómo se llama la gran estructura en forma de esponja que forman las galaxias?",
+  "options": [
+   "El cinturón de asteroides",
+   "La red cósmica",
+   "La nube de Oort",
+   "La heliosfera",
+   "El Grupo Local"
+  ],
+  "correct": 1,
+  "explicacion": "A gran escala, las galaxias forman filamentos y láminas alrededor de enormes vacíos: la red cósmica."
+ },
+ {
+  "question": "¿Qué es el fondo cósmico de microondas?",
+  "options": [
+   "La señal de los teléfonos celulares",
+   "La luz más antigua del Universo, de cuando tenía unos 380.000 años",
+   "El calor que sale de los hornos de microondas",
+   "El brillo de la Vía Láctea",
+   "La luz del Sol reflejada en la Luna"
+  ],
+  "correct": 1,
+  "explicacion": "Es la luz que quedó libre cuando el Universo tenía unos 380.000 años. Hoy nos llega estirada en forma de microondas, desde todas las direcciones."
+ },
+ {
+  "question": "Según el modelo del Big Bang, ¿qué pasó hace unos 13.800 millones de años?",
+  "options": [
+   "Una bomba explotó en el centro del espacio vacío",
+   "El Universo, muy denso y caliente, comenzó a expandirse y enfriarse",
+   "Se formó la Tierra",
+   "Se apagaron las primeras estrellas",
+   "Nació el Sol"
+  ],
+  "correct": 1,
+  "explicacion": "El Big Bang no fue una explosión en un espacio vacío: todo el espacio estaba lleno de materia muy densa y caliente, y comenzó a estirarse y enfriarse."
+ }
+];
+
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      if (aciertos === total) return { titulo: "¡Cosmólogo en acción!", html: "<p>Recorriste los grandes misterios del Universo: la materia y la energía oscuras, la expansión, la red cósmica, la luz más antigua y el modelo del Big Bang.</p>" };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/certificado.js"></script>
+  <script src="../js/lectura.js"></script>
+</body>
+</html>

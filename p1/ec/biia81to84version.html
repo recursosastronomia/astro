@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Estrellas: fábricas de luz · Astronomía para todos</title>
+  <meta name="description" content="Qué es una estrella y de dónde saca su energía, cómo nacen las estrellas en nubes de gas y polvo, cómo es el Sol comparado con otras estrellas y por qué es una estrella activa. Con trivia y certificado.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+  </svg>
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">Estrellas: fábricas de luz</h1>
+          <p class="l-bajada">Grandes ideas de la astronomía · 8.1 a 8.4</p>
+          <p class="l-lead">El Sol es una estrella como las que ves de noche, solo que muchísimo más cerca. Descubre qué hace brillar a las estrellas, dónde nacen y por qué nuestro Sol nunca está quieto.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Unos 9 minutos de lectura</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA's_Solar_Dynamics_Observatory_-_20100819.jpg?width=1920" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA's_Solar_Dynamics_Observatory_-_20100819.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA's_Solar_Dynamics_Observatory_-_20100819.jpg?width=1280 1280w, https://commons.wikimedia.org/wiki/Special:FilePath/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA's_Solar_Dynamics_Observatory_-_20100819.jpg?width=1920 1920w" sizes="(min-width: 64rem) 24rem, calc(100vw - 2rem)" width="1920" height="1833" alt="El Sol fotografiado en luz ultravioleta: una esfera anaranjada con zonas brillantes y arcos de gas en su superficie." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#estrella">¿Qué es una estrella?</a></li><li><a href="#nacen">Dónde nacen</a></li><li><a href="#sol">El Sol, nuestra estrella</a></li><li><a href="#dinamico">Un Sol activo</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+            <li><a href="#quiz">Desafío: gana tus estrellas</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="estrella" aria-labelledby="estrella-titulo">
+          <h2 id="estrella-titulo">¿Qué es una estrella?</h2>
+          <p class="l-idea">Gran idea 8.1</p>
+          
+          <p>Una <strong>estrella</strong> es una enorme esfera de gas muy caliente que brilla con <strong>luz propia</strong>. Su gas está tan caliente que los átomos se rompen: es un <strong>plasma</strong>, el cuarto estado de la materia.</p>
+          <p>¿De dónde sale su energía? De su centro. Allí la temperatura y la presión son tan grandes que los núcleos de <strong>hidrógeno</strong> chocan y se unen para formar <strong>helio</strong>. Esta unión se llama <strong>fusión nuclear</strong> y libera muchísima energía. En el centro del Sol hay unos 15 millones de grados.</p>
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-sol"/></svg>Un equilibrio perfecto</h3>
+            <p>Una estrella vive en una «pulseada» constante: su propia <strong>gravedad</strong> la aprieta hacia adentro, y la <strong>energía</strong> de la fusión empuja hacia afuera. Mientras las dos fuerzas estén equilibradas, la estrella se mantiene estable. Estrellas como el Sol pueden estar así miles de millones de años.</p>
+          </div>
+          <p>Cuando se les acaba el hidrógeno del centro, las estrellas pueden fusionar elementos más pesados, como el carbono y el oxígeno. ¡Las estrellas son fábricas de elementos químicos!</p>
+        </section>
+        <section class="l-sec" id="nacen" aria-labelledby="nacen-titulo">
+          <h2 id="nacen-titulo">Las estrellas nacen en nubes de gas y polvo</h2>
+          <p class="l-idea">Gran idea 8.2</p>
+          
+          <p>En el espacio hay nubes gigantescas y muy frías de gas y polvo, llamadas <strong>nubes moleculares</strong>. A veces, una parte de la nube empieza a contraerse por su propia gravedad.</p>
+          <ol class="l-pasos">
+            <li><h3>La nube se contrae</h3><p>Se divide en grumos que se hacen cada vez más densos y calientes en el centro.</p></li>
+            <li><h3>Se enciende la fusión</h3><p>Cuando el centro alcanza la temperatura y la presión necesarias, empieza la fusión nuclear: ¡nace una estrella!</p></li>
+            <li><h3>Un disco de material</h3><p>La estrella joven queda rodeada por un disco de gas y polvo. Durante millones de años, ese material forma planetas y cuerpos más pequeños.</p></li>
+          </ol>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pillars_of_creation_2014_HST_WFC3-UVIS_full-res_denoised.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Pillars_of_creation_2014_HST_WFC3-UVIS_full-res_denoised.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Pillars_of_creation_2014_HST_WFC3-UVIS_full-res_denoised.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1335" alt="Tres grandes columnas oscuras de gas y polvo que se elevan sobre un fondo azul verdoso brillante." loading="lazy" decoding="async"><figcaption>Los «Pilares de la Creación», en la nebulosa del Águila, fotografiados por el Hubble. Dentro de estas columnas de gas y polvo están naciendo estrellas.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Pillars_of_creation_2014_HST_WFC3-UVIS_full-res_denoised.jpg" target="_blank" rel="noopener noreferrer">NASA, ESA y Hubble Heritage Team (STScI/AURA)<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1280" alt="La nebulosa de Orión: una gran nube de gas de colores rosados, anaranjados y azules, llena de estrellas." loading="lazy" decoding="async"><figcaption>La nebulosa de Orión, la gran región de formación de estrellas más cercana, a unos 1.350 años luz. Desde Uruguay se ve a simple vista como una manchita junto a las «Tres Marías».<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg" target="_blank" rel="noopener noreferrer">NASA, ESA, M. Robberto (STScI/ESA) y el equipo Hubble Orion Treasury<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+        </section>
+        <section class="l-sec" id="sol" aria-labelledby="sol-titulo">
+          <h2 id="sol-titulo">El Sol, la estrella más cercana</h2>
+          <p class="l-idea">Gran idea 8.3</p>
+          
+          <p>El <strong>Sol</strong> es la estrella más cercana a la Tierra, a unos 150 millones de kilómetros. Es enorme: mide unos <strong>1,4 millones de km</strong> de diámetro, y dentro de él cabrían alrededor de <strong>1,3 millones de Tierras</strong>.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Star-sizes.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Star-sizes.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Star-sizes.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="840" alt="Comparación de tamaños de estrellas: el Sol es un punto diminuto al lado de estrellas gigantes y supergigantes." loading="lazy" decoding="async"><figcaption>Comparación de tamaños entre el Sol y otras estrellas. El Sol, que es enorme para nosotros, es un puntito al lado de las supergigantes.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Star-sizes.jpg" target="_blank" rel="noopener noreferrer">Dave Jarvis<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Sin embargo, el Sol es una estrella <strong>mediana</strong>. Hay estrellas mucho más grandes y mucho más pequeñas:</p>
+          <div class="l-usos">
+            <div><h3>VY Canis Majoris</h3><p>Una supergigante roja unas 1.400 veces más ancha que el Sol. Puesta en su lugar, su superficie llegaría más allá de Júpiter.</p></div>
+            <div><h3>Próxima Centauri</h3><p>La estrella más cercana después del Sol es una <strong>enana roja</strong> de apenas unos 200.000 km de diámetro: solo unas 16 veces el ancho de la Tierra.</p></div>
+          </div>
+        </section>
+        <section class="l-sec" id="dinamico" aria-labelledby="dinamico-titulo">
+          <h2 id="dinamico-titulo">Un Sol que nunca está quieto</h2>
+          <p class="l-idea">Gran idea 8.4</p>
+          
+          <p>A simple vista el Sol parece una esfera pareja y tranquila (¡que nunca hay que mirar directamente!). Pero con instrumentos especiales se ve que es una estrella muy activa:</p>
+          <div class="l-usos">
+            <div><h3>Manchas solares</h3><p>Zonas oscuras con campos magnéticos muy intensos. Se ven oscuras porque son <strong>más frías</strong> que lo que las rodea.</p></div>
+            <div><h3>Ciclo de 11 años</h3><p>Cada unos 11 años, el Sol pasa de tener muchísimas manchas a tener muy pocas, y vuelve a empezar.</p></div>
+            <div><h3>Llamaradas y eyecciones</h3><p>A veces su campo magnético se retuerce y libera de golpe una enorme explosión de luz y partículas.</p></div>
+            <div><h3>Viento solar</h3><p>Incluso en calma, el Sol lanza al espacio unos 1.500 millones de kilos de gas por segundo, que llegan hasta los planetas.</p></div>
+          </div>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA's_Solar_Dynamics_Observatory_-_20100819.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA's_Solar_Dynamics_Observatory_-_20100819.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA's_Solar_Dynamics_Observatory_-_20100819.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1222" alt="El Sol en luz ultravioleta extrema, de color anaranjado, con regiones brillantes y arcos de gas." loading="lazy" decoding="async"><figcaption>El Sol fotografiado por el observatorio espacial SDO en luz ultravioleta. Las zonas más brillantes son regiones con mucha actividad magnética.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA's_Solar_Dynamics_Observatory_-_20100819.jpg" target="_blank" rel="noopener noreferrer">NASA / SDO (AIA)<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Otras estrellas también tienen manchas, llamaradas y vientos. Para estudiar las manchas solares con imágenes reales, prueba el laboratorio <a href="../mhp/index.html">Misión Helios</a>.</p>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <p>Si quieres seguir explorando, te recomendamos estos sitios:</p>
+          <ul class="l-recursos"><li><a href="../mhp/index.html">Misión Helios</a><span>En este mismo sitio: cuenta manchas solares y calcula el número de Wolf.</span></li><li><a href="constelacionesV3.html">Constelaciones</a><span>En este mismo sitio: las estrellas de Orión en 3D.</span></li><li><a href="https://spaceplace.nasa.gov/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place: el Sol<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Datos y curiosidades sobre nuestra estrella.</span></li><li><a href="https://www.esa.int/kids/es/home" target="_blank" rel="noopener noreferrer">ESA Kids<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>La vida de las estrellas explicada para chicos y chicas.</span></li><li><a href="https://esahubble.org/?lang=es" target="_blank" rel="noopener noreferrer">Hubble (ESA, en español)<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Imágenes de nebulosas donde nacen estrellas.</span></li></ul>
+
+          <h3>Sigue el recorrido</h3>
+          <p>Esta guía es parte de una serie que recorre las grandes ideas de la astronomía, una por una.</p>
+          <ul class="l-recorrido"><li><a href="biia76to710version.html"><span class="l-rec-k">← Guía anterior · 7.6 a 7.10</span><span class="l-rec-t">Lunas, asteroides, cometas y la frontera del Sistema Solar</span></a></li><li><a href="biia85to810version.html"><span class="l-rec-k">Guía siguiente · 8.5 a 8.10 →</span><span class="l-rec-t">Vida y muerte de las estrellas: somos polvo de estrellas</span></a></li></ul>
+
+          <h3>Material de referencia</h3>
+          <p>Este contenido está basado en las grandes ideas 8.1 a 8.4 del documento <a href="../docs/Big_Ideas_V2.0_ES.pdf">«Grandes Ideas de la Astronomía» (Big Ideas in Astronomy) de la Unión Astronómica Internacional, en PDF</a>, publicado con licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a>. También puedes leerlo en el sitio <a href="https://astro4edu.org/es/bigideas/" target="_blank" rel="noopener noreferrer">astro4edu.org<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.</p>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío: gana tus estrellas</h2>
+          <p>Es momento de poner a prueba lo que aprendiste en esta guía. Son 7 preguntas con 5 opciones cada una: cada respuesta correcta suma una estrella. Al final puedes descargar tu certificado.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión astronómica completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Jugar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Fotos de Wikimedia Commons con licencias libres: NASA, ESA y Hubble Heritage Team (STScI/AURA) (Dominio público); NASA, ESA, M. Robberto (STScI/ESA) y el equipo Hubble Orion Treasury (Dominio público); Dave Jarvis (CC BY-SA 3.0); NASA / SDO (AIA) (Dominio público). Texto basado en «Big Ideas in Astronomy» (UAI, CC BY 4.0). <a href="../creditos.html#biia81to84">Créditos de las fotos y referencias</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
+       Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
+       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+    window.TRIVIA_META = {"id": "biia81to84", "titulo": "Estrellas: fábricas de luz", "ideas": "Grandes ideas 8.1 a 8.4 · Big Ideas in Astronomy (UAI)", "mezclar": true};
+    window.TRIVIA = [
+ {
+  "question": "¿Qué es una estrella?",
+  "options": [
+   "Un planeta muy brillante",
+   "Una esfera de gas muy caliente que brilla con luz propia",
+   "Una roca que refleja la luz del Sol",
+   "Un agujero en el cielo",
+   "Un satélite artificial"
+  ],
+  "correct": 1,
+  "explicacion": "Las estrellas son esferas de plasma muy caliente que producen su propia luz. Los planetas y la Luna, en cambio, reflejan la luz del Sol."
+ },
+ {
+  "question": "¿De dónde obtienen su energía las estrellas como el Sol?",
+  "options": [
+   "De quemar carbón",
+   "De la fusión nuclear de hidrógeno en helio en su centro",
+   "De la luz que reciben de otras estrellas",
+   "De la electricidad",
+   "De los volcanes de su superficie"
+  ],
+  "correct": 1,
+  "explicacion": "En el centro de la estrella, los núcleos de hidrógeno se unen para formar helio. Esa fusión nuclear libera una enorme cantidad de energía."
+ },
+ {
+  "question": "¿Qué mantiene estable a una estrella durante millones de años?",
+  "options": [
+   "El equilibrio entre su gravedad hacia adentro y la energía de la fusión hacia afuera",
+   "Que gira muy rápido",
+   "Que tiene planetas alrededor",
+   "Que está muy fría por dentro",
+   "Su color"
+  ],
+  "correct": 0,
+  "explicacion": "La gravedad aprieta la estrella hacia adentro y la energía de la fusión empuja hacia afuera. Mientras se equilibran, la estrella es estable."
+ },
+ {
+  "question": "¿Dónde nacen las estrellas?",
+  "options": [
+   "En el centro de los planetas",
+   "En nubes frías y gigantes de gas y polvo",
+   "Dentro de los agujeros negros",
+   "En las colas de los cometas",
+   "En la atmósfera de la Tierra"
+  ],
+  "correct": 1,
+  "explicacion": "Las estrellas se forman cuando partes de nubes moleculares frías se contraen por su gravedad hasta encender la fusión nuclear."
+ },
+ {
+  "question": "¿Qué se forma con el disco de gas y polvo que rodea a una estrella recién nacida?",
+  "options": [
+   "Otra estrella igual",
+   "Planetas y cuerpos más pequeños",
+   "Un agujero negro",
+   "Una galaxia",
+   "Nada: desaparece enseguida"
+  ],
+  "correct": 1,
+  "explicacion": "Durante millones de años, el material del disco se junta y forma planetas, lunas, asteroides y cometas."
+ },
+ {
+  "question": "¿Cómo es el Sol comparado con otras estrellas?",
+  "options": [
+   "Es la estrella más grande del Universo",
+   "Es la estrella más pequeña que existe",
+   "Es una estrella mediana: hay estrellas mucho más grandes y mucho más pequeñas",
+   "No es una estrella",
+   "Es igual a todas las demás"
+  ],
+  "correct": 2,
+  "explicacion": "El Sol es enorme para nosotros, pero es una estrella mediana: VY Canis Majoris es unas 1.400 veces más ancha, y Próxima Centauri es una enana roja mucho más pequeña."
+ },
+ {
+  "question": "¿Por qué las manchas solares se ven oscuras?",
+  "options": [
+   "Porque son agujeros en el Sol",
+   "Porque son más frías que la superficie que las rodea",
+   "Porque son sombras de los planetas",
+   "Porque son nubes de polvo de la Tierra",
+   "Porque están apagadas"
+  ],
+  "correct": 1,
+  "explicacion": "Las manchas solares son regiones con campos magnéticos intensos y algo más frías que su entorno. Por contraste, se ven oscuras."
+ }
+];
+
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      if (aciertos === total) return { titulo: "¡Eres una fábrica de luz!", html: "<p>Ahora sabes qué hace brillar a las estrellas, dónde nacen, cómo es el Sol comparado con otras estrellas y por qué es una estrella activa.</p>" };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/certificado.js"></script>
+  <script src="../js/lectura.js"></script>
+</body>
+</html>

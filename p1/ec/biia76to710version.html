@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Lunas, asteroides, cometas y la frontera del Sistema Solar · Astronomía para todos</title>
+  <meta name="description" content="Los planetas con decenas de lunas, la Tierra y su Luna, los asteroides, los cometas y sus colas, y la heliopausa, la frontera del Sistema Solar. Con trivia y certificado.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+  </svg>
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">Lunas, asteroides, cometas y la frontera del Sistema Solar</h1>
+          <p class="l-bajada">Grandes ideas de la astronomía · 7.6 a 7.10</p>
+          <p class="l-lead">Hay planetas con cientos de lunas, rocas que son restos del nacimiento del Sistema Solar y bolas de hielo que despliegan colas de millones de kilómetros. Viaja desde la Tierra hasta la frontera donde termina el reino del Sol.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Unos 10 minutos de lectura</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Comet_Hale-Bopp_1995O1.jpg?width=1500" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Comet_Hale-Bopp_1995O1.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Comet_Hale-Bopp_1995O1.jpg?width=1280 1280w, https://commons.wikimedia.org/wiki/Special:FilePath/Comet_Hale-Bopp_1995O1.jpg?width=1500 1500w" sizes="(min-width: 64rem) 24rem, calc(100vw - 2rem)" width="1500" height="1500" alt="El cometa Hale-Bopp en el cielo nocturno, con su cola blanca de polvo y su cola azul de gas." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#lunas">Planetas con muchas lunas</a></li><li><a href="#tierra">La Tierra y la Luna</a></li><li><a href="#asteroides">Asteroides</a></li><li><a href="#cometas">Cometas</a></li><li><a href="#heliopausa">La frontera: la heliopausa</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+            <li><a href="#quiz">Desafío: gana tus estrellas</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="lunas" aria-labelledby="lunas-titulo">
+          <h2 id="lunas-titulo">Planetas con decenas de lunas</h2>
+          <p class="l-idea">Gran idea 7.6</p>
+          
+          <p>Casi todos los planetas tienen <strong>satélites naturales</strong>, es decir, lunas. Las excepciones son Mercurio y Venus, que no tienen ninguna.</p>
+          <ul class="l-cifras" aria-label="Lunas de cada planeta">
+            <li><strong>1</strong><span>La Tierra: el único planeta con una sola luna.</span></li>
+            <li><strong>2</strong><span>Marte: Fobos y Deimos, dos lunas pequeñas con forma de papa.</span></li>
+            <li><strong>+90</strong><span>Júpiter.</span></li>
+            <li><strong>+270</strong><span>Saturno, el campeón de las lunas.</span></li>
+          </ul>
+          <p>Urano y Neptuno también tienen decenas. Los números cambian a menudo, porque con mejores telescopios se descubren lunas nuevas, la mayoría muy pequeñas.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Jupiter_System_Montage_-_GPN-2000-000451.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Jupiter_System_Montage_-_GPN-2000-000451.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Jupiter_System_Montage_-_GPN-2000-000451.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1017" alt="Montaje con Júpiter a un lado y sus cuatro lunas más grandes, Ío, Europa, Ganímedes y Calisto." loading="lazy" decoding="async"><figcaption>Júpiter y sus cuatro lunas más grandes, las que descubrió Galileo en 1610. Ganímedes es más grande que el planeta Mercurio.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Jupiter_System_Montage_-_GPN-2000-000451.jpg" target="_blank" rel="noopener noreferrer">NASA / JPL<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+        </section>
+        <section class="l-sec" id="tierra" aria-labelledby="tierra-titulo">
+          <h2 id="tierra-titulo">La Tierra y su Luna</h2>
+          <p class="l-idea">Gran idea 7.7</p>
+          
+          <p>Nuestro planeta es el <strong>tercero</strong> contando desde el Sol y sigue una órbita casi circular. Tiene características muy especiales:</p>
+          <ul>
+            <li>Una atmósfera hecha sobre todo de <strong>nitrógeno y oxígeno</strong>.</li>
+            <li>Más del <strong>70 %</strong> de su superficie cubierta de agua.</li>
+            <li>Una temperatura media de unos <strong>15 °C</strong>, ideal para el agua líquida.</li>
+            <li>Y, hasta donde sabemos, es el único lugar del Universo con vida.</li>
+          </ul>
+          <figure class="l-figura l-figura-chica"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Earth_and_Moon_from_Mars_PIA04531.jpg?width=961" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Earth_and_Moon_from_Mars_PIA04531.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Earth_and_Moon_from_Mars_PIA04531.jpg?width=961 961w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="961" height="961" alt="La Tierra y la Luna como dos pequeños discos iluminados a medias sobre un fondo negro, fotografiados desde muy lejos." loading="lazy" decoding="async"><figcaption>La Tierra y la Luna fotografiadas desde la órbita de Marte por la sonda Mars Global Surveyor.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Earth_and_Moon_from_Mars_PIA04531.jpg" target="_blank" rel="noopener noreferrer">NASA / JPL / Malin Space Science Systems<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>La <strong>Luna</strong> es nuestro único satélite natural y el <strong>único astro que los seres humanos pisaron</strong>: doce astronautas caminaron sobre ella entre 1969 y 1972, en las misiones Apolo. Hoy varios países preparan el regreso de personas a la Luna.</p>
+        </section>
+        <section class="l-sec" id="asteroides" aria-labelledby="asteroides-titulo">
+          <h2 id="asteroides-titulo">Millones de asteroides</h2>
+          <p class="l-idea">Gran idea 7.8</p>
+          
+          <p>Los <strong>asteroides</strong> son rocas y trozos de metal que sobraron de la formación del Sistema Solar, hace 4.600 millones de años. Por eso son como «fósiles» que nos cuentan cómo era todo al principio.</p>
+          <figure class="l-figura l-figura-chica"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Eros_-_PIA02923_(color).jpg?width=760" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Eros_-_PIA02923_(color).jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Eros_-_PIA02923_(color).jpg?width=760 760w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="760" height="838" alt="El asteroide Eros: una roca alargada con forma de maní, de color beige, con cráteres." loading="lazy" decoding="async"><figcaption>El asteroide Eros, de unos 33 km de largo, visto por la sonda NEAR Shoemaker, que llegó a posarse sobre él en 2001.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Eros_-_PIA02923_(color).jpg" target="_blank" rel="noopener noreferrer">NASA / JPL / JHUAPL<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <p>Se encuentran sobre todo en dos zonas:</p>
+          <div class="l-usos">
+            <div><h3>El cinturón de asteroides</h3><p>Entre las órbitas de Marte y Júpiter.</p></div>
+            <div><h3>El cinturón de Kuiper</h3><p>Más allá de Neptuno, con objetos helados como Plutón y Arrokoth.</p></div>
+          </div>
+          <p>Hay <strong>millones</strong> de asteroides, de unos pocos metros hasta casi 1.000 km. Aun así, todos juntos pesan menos que nuestra Luna. Varios asteroides llevan nombres de personas, lugares e historia del Uruguay: conócelos en el álbum <a href="asteruy/index.html">Uruguayos en el espacio</a>.</p>
+        </section>
+        <section class="l-sec" id="cometas" aria-labelledby="cometas-titulo">
+          <h2 id="cometas-titulo">Cometas: bolas de hielo con cola</h2>
+          <p class="l-idea">Gran idea 7.9</p>
+          
+          <p>Un <strong>cometa</strong> es como una «bola de nieve sucia»: hielo mezclado con polvo y roca. Pasa la mayor parte del tiempo muy lejos y helado. Pero cuando se acerca al Sol, el calor evapora su hielo y se forman una nube brillante alrededor (la <em>coma</em>) y <strong>dos colas</strong>:</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Comet_Hale-Bopp_1995O1.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Comet_Hale-Bopp_1995O1.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Comet_Hale-Bopp_1995O1.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="1280" alt="El cometa Hale-Bopp con dos colas: una blanca y curvada, y otra azul, recta y más fina." loading="lazy" decoding="async"><figcaption>El cometa Hale-Bopp en 1997. Se ven sus dos colas: la de polvo, blanca y curvada, y la de gas, azulada y recta.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Comet_Hale-Bopp_1995O1.jpg" target="_blank" rel="noopener noreferrer">E. Kolmhofer, H. Raab; Observatorio Johannes Kepler, Linz<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <div class="l-usos">
+            <div><h3>Cola de polvo</h3><p>Blanca o amarillenta y algo curvada. Puede medir millones de kilómetros.</p></div>
+            <div><h3>Cola de gas (plasma)</h3><p>Recta y azulada, empujada por el viento solar. A menudo no se ve a simple vista.</p></div>
+          </div>
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-sol"/></svg>La cola no va detrás</h3>
+            <p>Aunque parezca raro, las colas de un cometa <strong>siempre apuntan en dirección contraria al Sol</strong>, sin importar hacia dónde viaje el cometa. ¡Cuando se aleja del Sol, el cometa va «con la cola adelante»!</p>
+          </div>
+          <p>Se cree que la mayoría de los cometas vienen de dos «depósitos» lejanos: el <strong>cinturón de Kuiper</strong> y la <strong>nube de Oort</strong>, una enorme esfera de objetos helados en los bordes del Sistema Solar.</p>
+        </section>
+        <section class="l-sec" id="heliopausa" aria-labelledby="heliopausa-titulo">
+          <h2 id="heliopausa-titulo">¿Dónde termina el Sistema Solar?</h2>
+          <p class="l-idea">Gran idea 7.10</p>
+          
+          <p>El Sol sopla constantemente el <strong>viento solar</strong>, que junto con su campo magnético forma una enorme burbuja que envuelve a todos los planetas: la <strong>heliosfera</strong>.</p>
+          <figure class="l-figura"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ibexheliosphererevised.jpg?width=1280" srcset="https://commons.wikimedia.org/wiki/Special:FilePath/Ibexheliosphererevised.jpg?width=500 500w, https://commons.wikimedia.org/wiki/Special:FilePath/Ibexheliosphererevised.jpg?width=1280 1280w" sizes="(min-width: 64rem) 44rem, calc(100vw - 2rem)" width="1280" height="737" alt="Ilustración de la heliosfera: una burbuja alrededor del Sol, con una cola, moviéndose a través del gas interestelar, con las trayectorias de las sondas Voyager." loading="lazy" decoding="async"><figcaption>Ilustración de la heliosfera, la burbuja del Sol, avanzando por el espacio entre las estrellas.<span class="l-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Ibexheliosphererevised.jpg" target="_blank" rel="noopener noreferrer">NASA / IBEX / Planetario Adler<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noopener noreferrer">Dominio público<span class="sr-only"> (se abre en una pestaña nueva)</span></a></span></figcaption></figure>
+          <ol class="l-pasos">
+            <li><h3>Heliofunda</h3><p>Una zona turbulenta donde el viento solar se frena al chocar con el gas y los campos magnéticos de otras estrellas.</p></li>
+            <li><h3>Heliopausa</h3><p>El borde exterior de esa zona: la frontera de la burbuja del Sol.</p></li>
+            <li><h3>Espacio interestelar</h3><p>Lo que hay más allá: el espacio entre las estrellas.</p></li>
+          </ol>
+          <p>En <strong>2012</strong>, la sonda <strong>Voyager 1</strong> se convirtió en el primer objeto hecho por seres humanos en cruzar la heliopausa. Su gemela, la Voyager 2, lo hizo en 2018. Conoce su historia en <a href="sondas_voyager.html">Sondas Voyager</a>.</p>
+          <p>Aun así, la gravedad del Sol sigue dominando mucho más lejos: la nube de Oort se extiende miles de veces más allá de la heliopausa.</p>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <p>Si quieres seguir explorando, te recomendamos estos sitios:</p>
+          <ul class="l-recursos"><li><a href="sondas_voyager.html">Sondas Voyager</a><span>En este mismo sitio: las naves que cruzaron la frontera del Sistema Solar.</span></li><li><a href="asteruy/index.html">Uruguayos en el espacio</a><span>En este mismo sitio: álbum de cromos con asteroides de nombres uruguayos.</span></li><li><a href="luna001.html">Fases de la Luna</a><span>En este mismo sitio: simulador de las fases de nuestro satélite.</span></li><li><a href="https://spaceplace.nasa.gov/comets/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place: cometas<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Qué son los cometas y de dónde vienen.</span></li><li><a href="https://spaceplace.nasa.gov/asteroid/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place: asteroides<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Qué son los asteroides, explicado de forma sencilla.</span></li><li><a href="https://eyes.nasa.gov/apps/solar-system/" target="_blank" rel="noopener noreferrer">NASA Eyes on the Solar System<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Sigue en 3D a las Voyager y a otras sondas.</span></li></ul>
+
+          <h3>Sigue el recorrido</h3>
+          <p>Esta guía es parte de una serie que recorre las grandes ideas de la astronomía, una por una.</p>
+          <ul class="l-recorrido"><li><a href="biia71to75version.html"><span class="l-rec-k">← Guía anterior · 7.1 a 7.5</span><span class="l-rec-t">Nuestro vecindario: el Sistema Solar</span></a></li><li><a href="biia81to84version.html"><span class="l-rec-k">Guía siguiente · 8.1 a 8.4 →</span><span class="l-rec-t">Estrellas: fábricas de luz</span></a></li></ul>
+
+          <h3>Material de referencia</h3>
+          <p>Este contenido está basado en las grandes ideas 7.6 a 7.10 del documento <a href="../docs/Big_Ideas_V2.0_ES.pdf">«Grandes Ideas de la Astronomía» (Big Ideas in Astronomy) de la Unión Astronómica Internacional, en PDF</a>, publicado con licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener noreferrer">CC BY 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a>. También puedes leerlo en el sitio <a href="https://astro4edu.org/es/bigideas/" target="_blank" rel="noopener noreferrer">astro4edu.org<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.</p>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío: gana tus estrellas</h2>
+          <p>Es momento de poner a prueba lo que aprendiste en esta guía. Son 7 preguntas con 5 opciones cada una: cada respuesta correcta suma una estrella. Al final puedes descargar tu certificado.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión astronómica completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Jugar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Fotos de Wikimedia Commons con licencias libres: NASA / JPL (Dominio público); NASA / JPL / Malin Space Science Systems (Dominio público); NASA / JPL / JHUAPL (Dominio público); E. Kolmhofer, H. Raab; Observatorio Johannes Kepler, Linz (CC BY-SA 3.0); NASA / IBEX / Planetario Adler (Dominio público). Texto basado en «Big Ideas in Astronomy» (UAI, CC BY 4.0). <a href="../creditos.html#biia76to710">Créditos de las fotos y referencias</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
+       Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
+       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+    window.TRIVIA_META = {"id": "biia76to710", "titulo": "Lunas, asteroides, cometas y la frontera del Sistema Solar", "ideas": "Grandes ideas 7.6 a 7.10 · Big Ideas in Astronomy (UAI)", "mezclar": true};
+    window.TRIVIA = [
+ {
+  "question": "¿Qué planetas no tienen ninguna luna?",
+  "options": [
+   "Júpiter y Saturno",
+   "Mercurio y Venus",
+   "La Tierra y Marte",
+   "Urano y Neptuno",
+   "Todos tienen lunas"
+  ],
+  "correct": 1,
+  "explicacion": "Mercurio y Venus son los únicos planetas sin satélites naturales. La Tierra tiene una y Marte, dos."
+ },
+ {
+  "question": "¿Qué planeta tiene la mayor cantidad de lunas conocidas?",
+  "options": [
+   "La Tierra",
+   "Marte",
+   "Júpiter",
+   "Saturno",
+   "Neptuno"
+  ],
+  "correct": 3,
+  "explicacion": "Saturno tiene más de 270 lunas conocidas, y Júpiter más de 90. Los números cambian porque se siguen descubriendo lunas pequeñas."
+ },
+ {
+  "question": "¿Cuál es el único astro, además de la Tierra, que los seres humanos han pisado?",
+  "options": [
+   "Marte",
+   "La Luna",
+   "Venus",
+   "El asteroide Eros",
+   "Titán"
+  ],
+  "correct": 1,
+  "explicacion": "Doce astronautas caminaron sobre la Luna entre 1969 y 1972, en las misiones Apolo."
+ },
+ {
+  "question": "¿Qué son los asteroides?",
+  "options": [
+   "Estrellas pequeñas",
+   "Restos de roca y metal de la formación del Sistema Solar",
+   "Lunas que se escaparon de sus planetas",
+   "Pedazos del Sol",
+   "Nubes de gas"
+  ],
+  "correct": 1,
+  "explicacion": "Los asteroides son restos del nacimiento del Sistema Solar, hace 4.600 millones de años. Se encuentran sobre todo entre Marte y Júpiter."
+ },
+ {
+  "question": "¿De qué está hecho principalmente un cometa?",
+  "options": [
+   "De hierro",
+   "De fuego",
+   "De hielo, con polvo y roca",
+   "De gas caliente como el Sol",
+   "De agua líquida"
+  ],
+  "correct": 2,
+  "explicacion": "Los cometas son principalmente hielo con polvo y roca. Al acercarse al Sol, el hielo se evapora y forma la coma y las colas."
+ },
+ {
+  "question": "¿Hacia dónde apuntan siempre las colas de un cometa?",
+  "options": [
+   "Hacia la Tierra",
+   "Hacia atrás, en la dirección de donde viene el cometa",
+   "En dirección contraria al Sol",
+   "Hacia el Sol",
+   "Hacia Júpiter"
+  ],
+  "correct": 2,
+  "explicacion": "El viento solar y la luz del Sol empujan las colas, así que siempre apuntan en dirección contraria al Sol, viaje hacia donde viaje el cometa."
+ },
+ {
+  "question": "¿Qué sonda fue el primer objeto humano en cruzar la heliopausa, en 2012?",
+  "options": [
+   "Voyager 1",
+   "Cassini",
+   "New Horizons",
+   "Apolo 11",
+   "Hubble"
+  ],
+  "correct": 0,
+  "explicacion": "La Voyager 1 cruzó la heliopausa, la frontera de la burbuja del Sol, en 2012. La Voyager 2 lo hizo en 2018."
+ }
+];
+
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      if (aciertos === total) return { titulo: "¡Llegaste a la frontera del Sistema Solar!", html: "<p>Recorriste lunas, asteroides y cometas, y viajaste hasta la heliopausa, donde termina la burbuja del Sol.</p>" };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/certificado.js"></script>
+  <script src="../js/lectura.js"></script>
+</body>
+</html>
