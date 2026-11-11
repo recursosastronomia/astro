@@ -1217,3 +1217,13 @@ html[data-theme="dark"] .sitio-pie-logo { background: #fff; padding: 0.4rem 0.6r
 /* Código único del navegador (control para el docente) */
 .m-codigo { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem; padding: 0.5rem 0.9rem; border-radius: 8px; background: var(--line-soft); }
 .m-codigo strong { background: none; font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 1.15rem; letter-spacing: 0.06em; }
+
+/* Trivia: invitación a volver a leer la guía (preguntas falladas y secciones) */
+.l-repaso { max-width: 38rem; margin: 1.25rem auto; padding: 1rem 1.25rem; text-align: left; border: 1px solid var(--line); border-left: 4px solid var(--amber); border-radius: var(--radius); background: var(--surface); }
+.l-repaso p { margin: 0 0 0.6rem; }
+.l-repaso ul { margin: 0 0 0.9rem; padding-left: 1.25rem; }
+.l-repaso li { margin-bottom: 0.3rem; }
+.l-repaso-sec { columns: 2 14rem; column-gap: 1.5rem; }
+.l-repaso-sec li { break-inside: avoid; }
+.l-repaso-accion { text-align: center; margin: 0.5rem 0 0 !important; }
+.l-repaso-accion .l-btn { text-decoration: none; display: inline-flex; }

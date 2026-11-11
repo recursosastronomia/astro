@@ -179,7 +179,7 @@
   <script>
     /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
        Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
-       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+       y «explicacion» es la retroalimentación formativa que se muestra al acertar (al fallar no se revela la respuesta). */
     window.TRIVIA_META = {"id": "biia101to104", "titulo": "¿Hay vida más allá de la Tierra? Dónde buscar", "ideas": "Grandes ideas 10.1 a 10.4 · Big Ideas in Astronomy (UAI)", "mezclar": true};
     window.TRIVIA = [
  {
@@ -270,7 +270,7 @@
 
     window.TRIVIA_RESULTADO = (aciertos, total) => {
       if (aciertos === total) return { titulo: "¡Cazador de vida extraterrestre!", html: "<p>Ya sabes qué ingredientes de la vida hay en el espacio, qué nos enseñan los extremófilos y por qué Marte, Europa y Titán son los lugares más prometedores.</p>" };
-      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa en la guía los temas de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
       return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
     };
   </script>

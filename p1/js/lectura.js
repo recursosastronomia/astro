@@ -177,12 +177,16 @@ window.AstroRegistro = (() => {
 
   let score = 0;
   let isVerified = false;
+  let fallos = [];  // índices de las preguntas respondidas mal en este intento (para orientar la relectura)
+  // Con menos de estas estrellas se invita a volver a leer la guía antes de reintentar
+  const MIN_LECTURA = Math.min(5, questions.length);
   let orden = [];   // orden[i] = índices de las opciones de la pregunta i tal como se muestran
   const icono = id => `<svg class="ico" aria-hidden="true"><use href="#${id}"/></svg>`;
   const FELICITA = ['¡Correcto!', '¡Muy bien!', '¡Excelente!', '¡Así es!', '¡Bien hecho!', '¡Exacto!', '¡Impecable!'];
   const mezclar = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
   function buildQuiz() {
+    fallos = [];
     orden = questions.map(q => {
       const idx = q.options.map((_, i) => i);
       return meta && meta.mezclar !== false ? mezclar(idx) : idx;
@@ -218,19 +222,23 @@ window.AstroRegistro = (() => {
     questions[qIndex].options.forEach((_, i) => document.getElementById(`label-${qIndex}-${i}`).classList.toggle('elegida', i === optIndex));
   }
 
-  // Texto de la retroalimentación según el formato de la pregunta
+  /* Texto de la retroalimentación según el formato de la pregunta.
+     Al acertar se muestra la explicación de la página. Al fallar NO se muestra la respuesta correcta
+     ni la explicación (que la revela): se invita a buscarla en la lectura. Así se estimula volver
+     al texto en lugar de recolectar estrellas por ensayo y error. */
+  const NO_ES = ['No es esa.', 'Todavía no.', 'Esa no es.', 'No es correcta.'];
+  const PISTA = [
+    'La respuesta está en la guía: al terminar la trivia, vuelve a leer la sección sobre este tema y descúbrela.',
+    'No te mostramos la respuesta para que la descubras tú: búscala en la lectura antes de volver a intentarlo.',
+    'Vuelve al texto con esta pregunta en mente: ahí está la clave para responderla.'
+  ];
   function textos(q, selected, index) {
+    const mal = `<b>${NO_ES[index % NO_ES.length]}</b> ${PISTA[index % PISTA.length]}`;
     if (q.explicacion) { // formato de las guías «Grandes ideas»: una explicación formativa por pregunta
-      return {
-        bien: `<b>${FELICITA[index % FELICITA.length]}</b> ${q.explicacion}`,
-        mal: `<b>No es esa.</b> La respuesta correcta es: <b>«${q.options[q.correct]}»</b>. <span class="l-fb-sig"><b>Para recordar:</b> ${q.explicacion}</span>`
-      };
+      return { bien: `<b>${FELICITA[index % FELICITA.length]}</b> ${q.explicacion}`, mal };
     }
     const exp = q.explanations; // explicación por opción (si la pregunta la trae)
-    return {
-      bien: exp ? `¡Correcto! ${exp[selected]}` : q.feedbackCorrect,
-      mal: exp ? `Incorrecto: ${exp[selected]} <span class="l-fb-sig">La opción correcta: ${exp[q.correct]}</span>` : q.feedbackIncorrect
-    };
+    return { bien: exp ? `¡Correcto! ${exp[selected]}` : q.feedbackCorrect, mal };
   }
 
   function verifyAnswer(index) {
@@ -248,8 +256,9 @@ window.AstroRegistro = (() => {
       feedback.className = 'l-fb bien';
       score++;
     } else {
+      // Solo se marca la opción elegida: la correcta no se señala
       document.getElementById(`label-${index}-${selected}`).classList.add('mal');
-      document.getElementById(`label-${index}-${q.correct}`).classList.add('bien');
+      fallos.push(index);
       feedback.innerHTML = `${icono('i-mal')}<span>${t.mal}</span>`;
       feedback.className = 'l-fb mal';
     }
@@ -345,13 +354,35 @@ window.AstroRegistro = (() => {
     let txt;
     if (subio) txt = `<b>¡Ganaste la medalla de ${g.medalla.nombre.toLowerCase()}!</b> Ya está guardada en tu medallero.`;
     else if (g.medalla) txt = `Tu mejor medalla en esta guía sigue siendo la de <b>${g.medalla.nombre.toLowerCase()}</b> (${g.mejor} de ${g.total} estrellas).`;
-    else txt = `Con <b>${Math.ceil(questions.length * 0.5)} respuestas correctas</b> ganas la medalla de bronce. ¡Inténtalo de nuevo!`;
+    else txt = `Con <b>${Math.ceil(questions.length * 0.5)} respuestas correctas</b> ganas la medalla de bronce. Vuelve a leer la guía e inténtalo de nuevo.`;
     const extra = g.medalla && g.medalla.id !== 'oro' ? ` Si respondes todo bien, ganas el oro.` : '';
     caja.innerHTML = `
       <div class="l-medalla-fila">${M.svgMedalla(g.medalla, 72)}<p>${txt}${extra}</p></div>
       ${rangoNuevo ? `<p class="l-logro-nuevo"><b>¡Subiste de rango!</b> Ahora eres <b>${ahora.rango.nombre}</b>.</p>` : ''}
       ${nuevos.map(l => `<p class="l-logro-nuevo"><b>Logro desbloqueado: ${l.nombre}.</b> ${l.texto}</p>`).join('')}
       <p><a class="l-btn-medallero" href="${window.ASTRO_RAIZ}medallero.html">Ver mi medallero (${ahora.conMedalla} ${ahora.conMedalla === 1 ? 'medalla' : 'medallas'})</a></p>`;
+  }
+
+  // Preguntas falladas (sin sus respuestas), para buscarlas en la lectura
+  function listaFallos() {
+    if (!fallos.length) return '';
+    return `<p>Busca en la guía las respuestas a ${fallos.length === 1 ? 'la pregunta que fallaste' : 'las preguntas que fallaste'}:</p>
+      <ul class="l-repaso-preg">${fallos.map(i => `<li>${questions[i].question}</li>`).join('')}</ul>`;
+  }
+
+  // Invitación a volver a leer la guía (menos de MIN_LECTURA estrellas)
+  function bloqueRelectura() {
+    const fuera = ['#quiz', '#mas'];
+    const secs = [...document.querySelectorAll('.l-indice a[href^="#"]')]
+      .filter(a => !fuera.includes(a.getAttribute('href')) && document.querySelector(a.getAttribute('href')));
+    const inicio = secs.length ? secs[0].getAttribute('href') : '#';
+    return `<div class="l-repaso l-repaso-aviso">
+      <p><b>Conseguiste ${score} ${score === 1 ? 'estrella' : 'estrellas'}. Con menos de ${MIN_LECTURA}, te recomendamos volver a leer la sección con calma antes de jugar otra vez.</b></p>
+      <p>Las estrellas se ganan descubriendo los conceptos en el texto, no probando opciones hasta acertar. Lee de nuevo, con las preguntas en mente, y vuelve cuando sientas que encontraste las respuestas.</p>
+      ${listaFallos()}
+      ${secs.length ? `<p>Secciones de la guía:</p><ul class="l-repaso-sec">${secs.map(a => `<li><a href="${a.getAttribute('href')}">${a.textContent.trim()}</a></li>`).join('')}</ul>` : ''}
+      <p class="l-repaso-accion"><a class="l-btn" href="${inicio}">Volver a leer la guía</a></p>
+    </div>`;
   }
 
   function showResults() {
@@ -372,11 +403,24 @@ window.AstroRegistro = (() => {
     window.AstroRegistro.anotar({ id, titulo: (meta && meta.titulo) || (h1 ? h1.textContent.trim() : document.title), ideas: meta ? meta.ideas : '', total: questions.length, estrellas: score });
     bloqueMedalla(id, antes);
     // Mensaje final propio de la página (opcional): window.TRIVIA_RESULTADO(aciertos, total) → { titulo, html }
-    const extra = document.getElementById('score-extra');
-    if (typeof window.TRIVIA_RESULTADO === 'function') {
-      const r = window.TRIVIA_RESULTADO(score, questions.length) || {};
-      if (r.titulo) h.textContent = r.titulo;
-      if (extra) extra.innerHTML = r.html || '';
+    let extra = document.getElementById('score-extra');
+    if (!extra) {
+      extra = document.createElement('div');
+      extra.id = 'score-extra';
+      document.getElementById('reintentar').before(extra);
+    }
+    extra.innerHTML = '';
+    if (score < MIN_LECTURA) {
+      // Pocas estrellas: en lugar del mensaje de la página, invitación a revisitar el contenido
+      h.textContent = 'Vuelve a la lectura';
+      extra.innerHTML = bloqueRelectura();
+    } else {
+      if (typeof window.TRIVIA_RESULTADO === 'function') {
+        const r = window.TRIVIA_RESULTADO(score, questions.length) || {};
+        if (r.titulo) h.textContent = r.titulo;
+        extra.innerHTML = r.html || '';
+      }
+      if (fallos.length) extra.insertAdjacentHTML('beforeend', `<div class="l-repaso">${listaFallos()}</div>`);
     }
     if (meta) bloqueCertificado();
     h.setAttribute('tabindex', '-1');

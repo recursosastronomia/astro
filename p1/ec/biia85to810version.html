@@ -217,7 +217,7 @@
   <script>
     /* ---------- Trivia (el funcionamiento está en js/lectura.js) ----------
        Cada pregunta: 5 opciones, «correct» es el índice de la correcta (el orden se mezcla en cada intento)
-       y «explicacion» es la retroalimentación formativa que se muestra al responder. */
+       y «explicacion» es la retroalimentación formativa que se muestra al acertar (al fallar no se revela la respuesta). */
     window.TRIVIA_META = {"id": "biia85to810", "titulo": "Vida y muerte de las estrellas: somos polvo de estrellas", "ideas": "Grandes ideas 8.5 a 8.10 · Big Ideas in Astronomy (UAI)", "mezclar": true};
     window.TRIVIA = [
  {
@@ -308,7 +308,7 @@
 
     window.TRIVIA_RESULTADO = (aciertos, total) => {
       if (aciertos === total) return { titulo: "¡Eres polvo de estrellas!", html: "<p>Entendiste cómo viven y mueren las estrellas, qué son los agujeros negros y cómo los átomos de tu cuerpo se formaron en estrellas hace miles de millones de años.</p>" };
-      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa las explicaciones de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Repasa en la guía los temas de las preguntas que fallaste y vuelve a intentarlo cuando quieras.</p>` };
       return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio: así se aprende. Vuelve a leer las secciones de la guía y juega otra vez.</p>' };
     };
   </script>
