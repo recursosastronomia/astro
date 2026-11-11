@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es" class="portal">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <title>Astronomía para todos · Uruguay Educa</title>
+  <meta name="description" content="Simuladores, laboratorios, lecturas y juegos de astronomía y astronáutica hechos en Uruguay, para aprender en clase, en casa o por pura curiosidad.">
+  <meta name="theme-color" content="#0b1730">
+  <link rel="preload" href="fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/astro.css">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <!-- Íconos (trazo de 1,75 en una grilla de 24) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-sonda" viewBox="0 0 24 24"><path d="M3.5 9.5a8 8 0 0 0 11 11"/><path d="M3.5 9.5l11 11"/><path d="M9 15l3.5-3.5"/><circle cx="13.5" cy="10.5" r="1.4"/><path d="M15.5 8.5l3-3M16.5 3.5l4 4"/></symbol>
+    <symbol id="i-farol" viewBox="0 0 24 24"><path d="M7 21V8a4 4 0 0 1 4-4h3"/><path d="M13 4h6l-1.5 3h-3z"/><path d="M16 10v2.5M13 11.5l-1.2 1.8M19 11.5l1.2 1.8"/><path d="M4 21h6"/></symbol>
+    <symbol id="i-planeta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M5.4 15.6C2.7 17.5 1.6 19.3 2.3 20.2c1.2 1.6 7.3-.9 13.6-5.6s10.3-9.9 9.1-11.5c-.7-.9-2.8-.6-5.6.7"/><circle cx="4" cy="5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-constelacion" viewBox="0 0 24 24"><circle cx="5" cy="18" r="1.6"/><circle cx="10" cy="8.5" r="1.6"/><circle cx="17" cy="11.5" r="1.6"/><circle cx="19" cy="4" r="1.6"/><path d="M5.8 16.5 9.2 10M11.6 9.1l3.9 1.8M17.4 9.9l1.2-4.3"/></symbol>
+    <symbol id="i-trazos" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.2" fill="currentColor"/><path d="M12 7.5a4.5 4.5 0 0 1 4.5 4.5M12 4a8 8 0 0 1 8 8M7.5 12a4.5 4.5 0 0 0 4.5 4.5M4 12a8 8 0 0 0 8 8"/></symbol>
+    <symbol id="i-celular" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><circle cx="12" cy="10" r="3"/><path d="M10.5 18h3"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/><circle cx="10.6" cy="11.2" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17a4.5 8.5 0 0 0 0-17z" fill="currentColor"/></symbol>
+    <symbol id="i-cromo" viewBox="0 0 24 24"><rect x="4.5" y="2.5" width="15" height="19" rx="2"/><path d="M9 8.6c1.3-1.8 4.3-2 5.6-.5s.9 4-1.1 4.9-4.6.4-4.7-1.4c0-1 .5-1.9.2-3z"/><path d="M8 17h8"/></symbol>
+    <symbol id="i-tablero" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9.5h18M3 15h18M9 4v16M15 4v16"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="13.5" height="13" rx="2"/><path d="M16 10.5l5.5-3.2v9.4L16 13.5z"/><path d="M7.5 9.5v5l4-2.5z"/></symbol>
+    <symbol id="i-candado" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></symbol>
+  </svg>
+
+  <header class="barra">
+    <div class="wrap barra-in">
+      <div class="ue-brand">
+        <img class="ue-brand-logo" src="img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+        <span class="ue-brand-sep" aria-hidden="true"></span>
+        <span class="ue-brand-text">
+          <span class="ue-brand-title">Astronomía para todos</span>
+          <span class="ue-brand-sub">DGES · EDyTIC</span>
+        </span>
+      </div>
+      <div class="barra-acciones">
+        <button type="button" class="l-tema" id="tema" aria-pressed="false">
+          <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+        </button>
+        <a class="barra-link" href="https://edytic.ces.edu.uy/index.php/inicio" target="_blank" rel="noopener noreferrer">
+          <span><span class="largo">Portal </span>EDyTIC</span>
+          <svg class="ico" aria-hidden="true"><use href="#i-externo"/></svg>
+          <span class="visually-hidden">(se abre en una pestaña nueva)</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="portada" aria-labelledby="titulo">
+      <div class="wrap portada-grid">
+        <div class="portada-texto">
+          <h1 id="titulo">Astronomía para todos <em>desde el cielo del sur</em></h1>
+          <p class="lead">Simuladores, laboratorios y juegos de astronomía hechos en Uruguay, para aprender en clase, en casa o por pura curiosidad.</p>
+          <div class="portada-acciones">
+            <a class="btn btn-primary" href="ec/astronomia.html">Descubre qué es la astronomía <svg class="ico" aria-hidden="true"><use href="#i-flecha"/></svg></a>
+            <a class="btn btn-ghost" href="#temas">Ver todas las actividades</a>
+          </div>
+        </div>
+
+        <div class="portada-foto">
+          <img src="img/fotos/vlt-via-lactea-640.webp" srcset="img/fotos/vlt-via-lactea-640.webp 640w, img/fotos/vlt-via-lactea-1280.webp 1280w" sizes="(min-width: 56rem) 34rem, calc(100vw - 2rem)" width="1280" height="1236" alt="Los telescopios del Observatorio Paranal, en Chile, bajo el centro de la Vía Láctea en el cielo del sur." fetchpriority="high">
+        </div>
+      </div>
+    </section>
+
+    <nav class="indice" aria-label="Secciones de la portada">
+      <ul class="wrap">
+        <li><a href="#empeza">Empieza aquí</a></li>
+        <li><a href="#temas">Temas<span class="indice-n">7</span></a></li>
+        <li><a href="#laboratorios">Laboratorios y juegos<span class="indice-n">3</span></a></li>
+        <li><a href="#sur">Encuentra el sur</a></li>
+        <li><a href="#docentes">Para docentes<span class="indice-n">3</span></a></li>
+      </ul>
+    </nav>
+    <section class="seccion" id="empeza" aria-labelledby="empeza-t">
+      <div class="wrap">
+        <div class="seccion-cab">
+          <h2 id="empeza-t">Empieza aquí</h2>
+          <p>Si es tu primera vez, comienza por lo esencial: qué estudia la astronomía y cómo sabemos lo que sabemos del cielo.</p>
+        </div>
+        <article class="hoja">
+          <div class="hoja-texto">
+            <h3>¿Qué es la astronomía?</h3>
+            <p>Una ciencia que empezó mirando hacia arriba. Qué estudia, en qué se diferencia de la astrología y cómo se construye el conocimiento sobre el cielo, con la mirada puesta en Uruguay y la región.</p>
+            <ul class="hoja-datos" aria-label="Datos de la guía">
+              <li class="dato">Lectura interactiva</li>
+              <li class="dato">15 minutos</li>
+              <li class="dato">Trivia al final</li>
+            </ul>
+            <a class="btn btn-primary" href="ec/astronomia.html">Abrir la guía <svg class="ico" aria-hidden="true"><use href="#i-flecha"/></svg></a>
+          </div>
+          <div>
+            <p class="hoja-lista-t" id="en-guia">En esta guía vas a…</p>
+            <ol class="hoja-lista" aria-labelledby="en-guia">
+              <li>Anotar qué piensas antes de empezar, y revisarlo al final.</li>
+              <li>Distinguir astronomía de astrología con un detector de pseudociencia.</li>
+              <li>Seguir cómo el Sol pasó al centro: del ojo al telescopio espacial.</li>
+              <li>Conocer la astronomía que se hace en Uruguay y la región.</li>
+            </ol>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="seccion" id="temas" aria-labelledby="temas-t">
+      <div class="wrap">
+        <div class="seccion-cab">
+          <h2 id="temas-t">Temas</h2>
+          <p>Lecturas interactivas con simuladores y preguntas para comprobar lo que aprendiste.</p>
+        </div>
+        <ul class="registro dos">
+          <li class="entrada">
+            <span class="entrada-foto"><img src="img/fotos/nebra-640.webp" width="640" height="630" alt="El disco celeste de Nebra, de bronce y oro, con el Sol o la Luna llena, una luna creciente y estrellas." loading="lazy" decoding="async"></span>
+            <h3><a href="ec/biia11to16version.html">Los orígenes de la observación del cielo<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></h3>
+            <p>Cómo la humanidad empezó a mirar el cielo: constelaciones de distintas culturas, calendarios para sembrar y navegación con las estrellas.</p>
+            <ul class="datos" aria-label="Datos"><li class="dato">Historia</li><li class="dato">Trivia</li></ul>
+          </li>
+          <li class="entrada">
+            <span class="entrada-foto"><img src="img/fotos/voyager-jpl-640.webp" width="640" height="640" alt="Una de las sondas Voyager durante las pruebas en el laboratorio de la NASA, en 1977." loading="lazy" decoding="async"></span>
+            <h3><a href="ec/sondas_voyager.html">Sondas Voyager<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></h3>
+            <p>Qué son estas «botellas al mar» cósmicas, su historia y su legado: los objetos hechos por la humanidad que más lejos llegaron.</p>
+            <ul class="datos" aria-label="Datos"><li class="dato">Astronáutica</li></ul>
+          </li>
+          <li class="entrada">
+            <span class="entrada-foto"><img src="img/fotos/cielo-contaminado-640.webp" width="640" height="640" alt="El resplandor naranja de una ciudad tapa las estrellas sobre el horizonte." loading="lazy" decoding="async"></span>
+            <h3><a href="ec/contlumv1.html">Contaminación lumínica<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></h3>
+            <p>Cómo la luz mal usada afecta la salud, la biodiversidad y el cielo nocturno. Con un comparador antes/después y una trivia.</p>
+            <ul class="datos" aria-label="Datos"><li class="dato">Comparador</li><li class="dato">Trivia</li></ul>
+          </li>
+          <li class="entrada">
+            <span class="entrada-foto"><img src="img/fotos/kepler-640.webp" width="640" height="640" alt="El telescopio espacial Kepler, que encontró miles de exoplanetas, antes de su lanzamiento." loading="lazy" decoding="async"></span>
+            <h3><a href="ec/exoplanetas.html">Exoplanetas<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></h3>
+            <p>Mundos más allá del sistema solar: cómo se buscan y qué métodos usa la ciencia. Al final, pon a prueba tu destreza para encontrarlos.</p>
+            <ul class="datos" aria-label="Datos"><li class="dato">Desafío</li></ul>
+          </li>
+          <li class="entrada">
+            <span class="entrada-foto"><img src="img/fotos/orion-640.webp" width="640" height="640" alt="La constelación de Orión fotografiada con larga exposición." loading="lazy" decoding="async"></span>
+            <h3><a href="ec/constelacionesV3.html">Constelaciones<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></h3>
+            <p>Por qué unir estrellas en figuras es tan antiguo como la humanidad, y cómo se ven en volumen las estrellas de Orión.</p>
+            <ul class="datos" aria-label="Datos"><li class="dato">Simulador 3D</li></ul>
+          </li>
+          <li class="entrada">
+            <span class="entrada-foto"><img src="img/fotos/estelas-alma-640.webp" width="640" height="640" alt="Estelas de estrellas girando alrededor del polo sur celeste sobre las antenas de ALMA, en Chile." loading="lazy" decoding="async"></span>
+            <h3><a href="ec/movimientogeneraldiario.html">Movimiento general diario<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></h3>
+            <p>El recorrido aparente del Sol, la Luna y las estrellas en 24 horas, con un simulador de trazos de estrellas como en una foto de larga exposición.</p>
+            <ul class="datos" aria-label="Datos"><li class="dato">Simulador</li><li class="dato">Hemisferio sur y norte</li></ul>
+          </li>
+          <li class="entrada">
+            <span class="entrada-foto"><img src="img/fotos/paranal-noche-640.webp" width="640" height="640" alt="Cielo estrellado sobre el desierto de Atacama visto desde el Observatorio Paranal." loading="lazy" decoding="async"></span>
+            <h3><a href="ec/astrocelular.html">Astrofotografía con celular<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></h3>
+            <p>Técnicas sencillas para fotografiar la Luna, las estrellas y la Vía Láctea con la cámara de tu teléfono.</p>
+            <ul class="datos" aria-label="Datos"><li class="dato">Guía práctica</li></ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="seccion" id="laboratorios" aria-labelledby="laboratorios-t">
+      <div class="wrap">
+        <div class="seccion-cab">
+          <h2 id="laboratorios-t">Laboratorios y juegos</h2>
+          <p>Trabaja con datos reales, mueve la Luna o completa un álbum.</p>
+        </div>
+        <ul class="registro dos">
+          <li class="entrada" data-new-until="2026-12-31">
+            <span class="entrada-foto"><img src="img/fotos/sol-manchas-640.webp" width="640" height="640" alt="El Sol con un grupo de manchas solares visible cerca del centro." loading="lazy" decoding="async"></span>
+            <h3><a href="mhp/index.html">Misión Helios<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></h3>
+            <p>Marca manchas solares en imágenes reales tomadas desde el espacio, calcula el número de Wolf y compáralo con la serie histórica SILSO. Ganas medallas por el camino.</p>
+            <ul class="datos" aria-label="Datos"><li class="dato dato-nuevo" hidden>Nuevo</li><li class="dato">Laboratorio</li><li class="dato">6 idiomas</li></ul>
+          </li>
+          <li class="entrada">
+            <span class="entrada-foto"><img src="img/fotos/luna-llena-640.webp" width="640" height="640" alt="La Luna llena con sus mares y cráteres." loading="lazy" decoding="async"></span>
+            <h3><a href="ec/luna001.html">Fases de la Luna<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></h3>
+            <p>Mueve la Luna en su órbita y observa cómo cambia su fase vista desde el hemisferio sur. Después, pon a prueba lo que observaste.</p>
+            <ul class="datos" aria-label="Datos"><li class="dato">Simulador 3D</li><li class="dato">Hemisferio sur</li></ul>
+          </li>
+          <li class="entrada" data-new-until="2026-12-31">
+            <span class="entrada-foto"><img src="img/fotos/bennu-640.webp" width="640" height="640" alt="El asteroide Bennu fotografiado por la sonda OSIRIS-REx." loading="lazy" decoding="async"></span>
+            <h3><a href="ec/asteruy/index.html">Uruguayos en el espacio<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></h3>
+            <p>39 asteroides llevan nombres de astrónomas, artistas, docentes, lugares e historia del Uruguay. Desbloquea cada cromo con un código de 4 letras: te los da tu docente o los encuentras en ferias de ciencia.</p>
+            <ul class="datos" aria-label="Datos"><li class="dato dato-nuevo" hidden>Nuevo</li><li class="dato">Álbum de cromos</li><li class="dato">6 idiomas</li></ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="seccion sur" id="sur" aria-labelledby="sur-t">
+      <div class="wrap sur-grid">
+        <div class="sur-texto">
+          <h2 id="sur-t">Encuentra el sur con la Cruz del Sur</h2>
+          <p class="sur-lead">Desde Uruguay, la Cruz del Sur nunca se oculta: está en el cielo todas las noches del año. Con ella puedes encontrar el sur sin brújula.</p>
+          <ol class="sur-pasos">
+            <li><span><strong>Busca la cruz.</strong> Cuatro estrellas brillantes en forma de cometa y, a su lado, dos estrellas aún más brillantes: los punteros, Alfa y Beta Centauri.</span></li>
+            <li><span><strong>Prolonga el palo largo.</strong> Mide la distancia de Gacrux a Acrux y extiéndela unas cuatro veces y media en dirección hacia la estrella de la base de la Cruz.</span></li>
+            <li><span><strong>Ese punto sin estrellas es el polo sur celeste.</strong>  Justo debajo, proyectando verticalmente hacia abajo al horizonte, está el punto cardinal sur.</span></li>
+          </ol>
+          <p class="sur-sigue">Para ver cómo gira el cielo alrededor de ese punto, abre <a href="ec/movimientogeneraldiario.html">Movimiento general diario</a>.</p>
+        </div>
+        <figure class="carta">
+          <svg viewBox="0 0 360 330" role="img" aria-labelledby="carta-t carta-d">
+            <title id="carta-t">Carta de la Cruz del Sur</title>
+            <desc id="carta-d">Las cinco estrellas de la Cruz del Sur (Gacrux, Mimosa, Imai, Ginan y Acrux) y, a su izquierda, los punteros Alfa y Beta Centauri. Una línea punteada sigue el palo largo de la cruz hacia abajo, en dirección al polo sur celeste.</desc>
+            <g class="reticula">
+              <path d="M0 34H360M0 82H360M0 130H360"/>
+              <path d="M111 0V250M229 0V250M288.5 0V250"/>
+            </g>
+            <text class="reticula-txt" x="152" y="78">−60°</text>
+            <text class="reticula-txt" x="152" y="30">−57°</text>
+            <text class="reticula-txt" x="152" y="126">−63°</text>
+
+            <line class="linea" x1="33.2" y1="95.3" x2="103.6" y2="87.9" style="--len:71;--d:.9s"/>
+            <line class="linea" x1="286.2" y1="35.8" x2="295.1" y2="131.6" style="--len:97;--d:.2s"/>
+            <line class="linea" x1="253.5" y1="77" x2="317.7" y2="62" style="--len:66;--d:.55s"/>
+
+            <g class="polo-guia">
+              <line class="polo" x1="297" y1="148" x2="309.5" y2="286"/>
+              <path class="polo" d="M303 278l6.5 9 5-10" style="stroke-dasharray:none"/>
+            </g>
+
+            <circle class="anillo" cx="295.1" cy="131.6" r="11"/>
+            <circle class="estrella" cx="33.2" cy="95.3" r="7"/>
+            <circle class="estrella" cx="103.6" cy="87.9" r="5.8"/>
+            <circle class="estrella" cx="295.1" cy="131.6" r="5.6"/>
+            <circle class="estrella" cx="253.5" cy="77" r="4.8"/>
+            <circle class="estrella calida" cx="286.2" cy="35.8" r="4.4"/>
+            <circle class="estrella" cx="317.7" cy="62" r="2.8"/>
+            <circle class="estrella" cx="305.5" cy="88.4" r="2"/>
+
+            <text class="nombre" x="297" y="33">Gacrux</text>
+            <text class="nombre" x="243" y="81" text-anchor="end">Mimosa</text>
+            <text class="nombre" x="325" y="60">Imai</text>
+            <text class="nombre-sec" x="313" y="98">Ginan</text>
+            <text class="nombre" x="280" y="136" text-anchor="end">Acrux</text>
+            <text class="nombre" x="10" y="120">α Centauri</text>
+            <text class="nombre" x="104" y="72" text-anchor="middle">β Centauri</text>
+            <text class="nombre-sec" x="10" y="138">los punteros</text>
+            <text class="nombre-polo" x="356" y="306" text-anchor="end">Hacia el polo sur celeste</text>
+            <text class="nombre-sec" x="356" y="324" text-anchor="end">a unas 4½ cruces de distancia</text>
+          </svg>
+        </figure>
+      </div>
+    </section>
+
+    <section class="seccion docentes" id="docentes" aria-labelledby="docentes-t">
+      <div class="wrap">
+        <div class="seccion-cab">
+          <h2 id="docentes-t">Para docentes</h2>
+          <p>Herramientas para preparar y jugar en clase. Las preguntas se cargan con hojas de cálculo de Excel.</p>
+        </div>
+        <ul class="registro dos">
+          <li class="entrada">
+            <span class="entrada-ico"><svg class="ico" aria-hidden="true"><use href="#i-tablero"/></svg></span>
+            <h3><a href="quizV5.html">Quiz Show<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></h3>
+            <p>Juego de preguntas por equipos, al estilo Jeopardy, para el aula. Cargas tus preguntas con una hoja de cálculo de Excel que puedes descargar.</p>
+            <ul class="datos" aria-label="Datos"><li class="dato">Trivia por equipos</li></ul>
+          </li>
+          <li class="entrada">
+            <span class="entrada-ico"><svg class="ico" aria-hidden="true"><use href="#i-video"/></svg></span>
+            <h3><a href="video_quiz_interactivo.html">Video quiz<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></h3>
+            <p>Un video que se detiene solo en los momentos que elijas para hacer preguntas. Los tiempos y las preguntas van en una hoja de cálculo de Excel.</p>
+            <ul class="datos" aria-label="Datos"><li class="dato">Video con preguntas</li></ul>
+          </li>
+          <li class="entrada">
+            <span class="entrada-ico"><svg class="ico" aria-hidden="true"><use href="#i-candado"/></svg></span>
+            <h3><button type="button" id="codes-btn" aria-haspopup="dialog">Códigos del álbum de asteroides<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></button></h3>
+            <p>PDF con los códigos de «Uruguayos en el espacio» para darlos como premio o desafío, o esconderlos en una muestra. Necesitas el PIN docente de 8 números, que el equipo de Astronomía para todos entrega a docentes.</p>
+            <ul class="datos" aria-label="Datos"><li class="dato">PDF</li><li class="dato">Con PIN</li></ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA.</p>
+        <p class="sitio-pie-a11y">Fotografías de ESO, NASA y fotógrafos de Wikimedia Commons, con licencias libres. <a href="creditos.html">Ver créditos de las fotos</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Descarga de los códigos del álbum: solo con el PIN docente.
+       El PDF se publica cifrado (AES-GCM; clave derivada del PIN con PBKDF2-SHA256).
+       Ni el PIN ni el archivo legible están en el código de esta página. -->
+  <dialog id="codes-dialog" class="dialogo" aria-labelledby="codes-title" aria-describedby="codes-desc">
+    <form id="codes-form" method="dialog" novalidate>
+      <h2 id="codes-title">Códigos para docentes</h2>
+      <p id="codes-desc">El archivo con los códigos del álbum es solo para docentes. Escribe el PIN de 8 números para descargarlo. ¿No lo tienes? Lo entrega el equipo de Astronomía para todos a docentes.</p>
+      <label for="codes-pin">PIN docente</label>
+      <input id="codes-pin" name="pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="off" spellcheck="false" aria-describedby="codes-msg">
+      <p id="codes-msg" class="dialogo-msg" role="status" aria-live="polite"></p>
+      <div class="dialogo-acciones">
+        <button type="button" id="codes-cancel" class="btn btn-line">Cancelar</button>
+        <button type="submit" id="codes-ok" class="btn btn-primary">Descargar PDF</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    (() => {
+      const FILE = 'ec/asteruy/docentes.bin';
+      const NAME = 'codigos-album-asteroides.pdf';
+      const dlg = document.getElementById('codes-dialog');
+      const form = document.getElementById('codes-form');
+      const pin = document.getElementById('codes-pin');
+      const msg = document.getElementById('codes-msg');
+      const ok = document.getElementById('codes-ok');
+      const say = (text, error) => { msg.textContent = text; msg.dataset.error = String(!!error); pin.setAttribute('aria-invalid', String(!!error)); };
+
+      document.getElementById('codes-btn').addEventListener('click', () => {
+        pin.value = ''; say('', false); dlg.showModal(); pin.focus();
+      });
+      document.getElementById('codes-cancel').addEventListener('click', () => dlg.close());
+      pin.addEventListener('input', () => { pin.value = pin.value.replace(/\D/g, '').slice(0, 8); });
+
+      async function decrypt(buf, code) {
+        const b = new Uint8Array(buf);
+        const iter = new DataView(buf).getUint32(4);
+        const salt = b.slice(8, 24), iv = b.slice(24, 36), data = b.slice(36);
+        const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(code), 'PBKDF2', false, ['deriveKey']);
+        const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', hash: 'SHA-256', salt, iterations: iter }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+        return crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, data);
+      }
+
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const code = pin.value;
+        if (!/^\d{8}$/.test(code)) { say('El PIN tiene 8 números.', true); pin.focus(); return; }
+        if (!window.crypto || !crypto.subtle) { say('Este navegador no permite la descarga. Prueba con otro navegador actualizado.', true); return; }
+        ok.disabled = true; say('Comprobando…', false);
+        try {
+          const res = await fetch(FILE, { cache: 'no-store' });
+          if (!res.ok) throw new Error('red');
+          const buf = await res.arrayBuffer();
+          let pdf;
+          try { pdf = await decrypt(buf, code); }
+          catch { say('PIN incorrecto. Prueba de nuevo.', true); pin.select(); return; }
+          const url = URL.createObjectURL(new Blob([pdf], { type: 'application/pdf' }));
+          const a = Object.assign(document.createElement('a'), { href: url, download: NAME });
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 10000);
+          say('Listo: el PDF se está descargando.', false);
+          setTimeout(() => dlg.close(), 1500);
+        } catch {
+          say('No se pudo descargar el archivo. Revisa la conexión y prueba de nuevo.', true);
+        } finally { ok.disabled = false; }
+      });
+    })();
+
+    // La carta de la Cruz del Sur se traza cuando aparece en pantalla
+    (() => {
+      const carta = document.querySelector('.carta');
+      if (!carta || !('IntersectionObserver' in window)) return;
+      carta.classList.add('espera');
+      const io = new IntersectionObserver(([e]) => {
+        if (e.isIntersecting) { carta.classList.remove('espera'); io.disconnect(); }
+      }, { threshold: 0.4 });
+      io.observe(carta);
+    })();
+
+    // Etiqueta «Nuevo»: visible hasta el final del día indicado en data-new-until (hora local)
+    document.querySelectorAll('[data-new-until]').forEach(item => {
+      const [y, m, d] = item.dataset.newUntil.split('-').map(Number);
+      const tag = item.querySelector('.dato-nuevo');
+      if (tag && new Date() < new Date(y, m - 1, d + 1)) tag.hidden = false;
+    });
+  </script>
+
+  <!-- Código de analítica GoatCounter -->
+  <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script src="js/tema.js"></script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Contaminación lumínica · Astronomía para todos</title>
+  <meta name="description" content="La contaminación lumínica: qué es, sus cuatro efectos negativos y cómo iluminar de forma inteligente. Con comparador de cielos, video y trivia.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-comparar" viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></symbol>
+    <symbol id="i-lapiz" viewBox="0 0 24 24"><path d="M4 20l1-4.5L16 4.5a2.1 2.1 0 0 1 3 3L8 18.5z"/><path d="M14 7l3 3"/></symbol>
+    <symbol id="i-abajo" viewBox="0 0 24 24"><path d="M5 7h14l-2.5 4h-9z"/><path d="M12 11v2M8 16l-2 4M12 15v5M16 16l2 4"/></symbol>
+    <symbol id="i-calida" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-intensidad" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 12V8a4 4 0 0 1 0 8z" fill="currentColor"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  </svg>
+
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">La contaminación lumínica</h1>
+          <p class="l-bajada">El brillo que nos roba el Universo</p>
+          <p class="l-lead">¿Sabías que una gran parte de la iluminación artificial nocturna está mal diseñada? No se trata de prohibir la luz, sino de usarla con inteligencia y dirección. ¡Acompáñanos a descubrir por qué la noche necesita oscuridad natural!</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-comparar"/></svg>Comparador de cielos</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="../img/fotos/cielo-contaminado-640.webp" srcset="../img/fotos/cielo-contaminado-640.webp 640w, ../img/fotos/cielo-contaminado-1280.webp 1280w" sizes="(min-width: 64rem) 26rem, calc(100vw - 2rem)" width="1280" height="815" alt="El resplandor naranja de una ciudad tapa las estrellas sobre el horizonte." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#comparar">Compara dos cielos</a></li>
+            <li><a href="#definicion">Definición de base</a></li>
+            <li><a href="#efectos">Los 4 efectos negativos</a></li>
+            <li><a href="#video">¿Cómo afecta al planeta?</a></li>
+            <li><a href="#soluciones">Iluminación inteligente</a></li>
+            <li><a href="#quiz">Demuestra tu comprensión</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="comparar" aria-labelledby="comparar-titulo">
+          <h2 id="comparar-titulo">Desliza para comparar el impacto</h2>
+          <p>Usa el deslizador del centro para ver cómo un cielo afectado por luces urbanas (izquierda) se transforma en un cielo perfectamente preservado (derecha).</p>
+          <div class="l-comparar" id="comparar-caja" style="--pos: 50%">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Echinopsis_Atacamensis_and_the_Milky_Way.jpg/1280px-Echinopsis_Atacamensis_and_the_Milky_Way.jpg" width="1280" height="853" alt="Cielo nocturno perfectamente estrellado donde es perfectamente visible la Vía Láctea en el desierto de Atacama chileno junto a un gran cactus" onerror="this.src='https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=1200&amp;q=80'">
+            <img class="l-comparar-arriba" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/M%C3%A9xico_City_at_Night_2005.jpg/1280px-M%C3%A9xico_City_at_Night_2005.jpg" width="1280" height="853" alt="Cielo urbano con un fuerte resplandor artificial de color naranja que impide por completo ver las estrellas en la Ciudad de México" onerror="this.src='https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1200&amp;q=80'">
+            <span class="l-comparar-tag izq" aria-hidden="true">Cielo contaminado (ciudad)</span>
+            <span class="l-comparar-tag der" aria-hidden="true">Cielo protegido (Atacama)</span>
+            <span class="l-comparar-linea" aria-hidden="true"><span><svg class="ico"><use href="#i-comparar"/></svg></span></span>
+            <input type="range" min="0" max="100" value="50" id="comparar-rango" aria-label="Comparar cielos: a la izquierda la ciudad, a la derecha Atacama" aria-valuetext="Mitad y mitad">
+          </div>
+        </section>
+
+        <section class="l-sec" id="definicion" aria-labelledby="definicion-titulo">
+          <h2 id="definicion-titulo">Definición de base</h2>
+          <blockquote class="l-cita">
+            <p>"Se produce cuando la luz artificial se utiliza de forma inadecuada o excesiva, especialmente de noche..."</p>
+          </blockquote>
+          <p>La contaminación lumínica se produce cuando parte de la luz artificial de ciudades, calles y edificios se dispersa hacia el cielo nocturno. Al interactuar con moléculas del aire, gotas de agua y pequeñas partículas en suspensión, esa luz se difunde en todas direcciones, creando un brillo artificial que reduce el contraste del cielo y dificulta la observación de estrellas, planetas y otros astros.</p>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-lapiz"/></svg>Para registrar en el cuaderno</h3>
+            <p>La contaminación lumínica <strong>es evitable</strong>. Es el resultado directo de luminarias mal dirigidas (que apuntan hacia arriba o hacia los lados), bombillas sobrepotenciadas o el uso innecesario de reflectores durante la madrugada.</p>
+            <p>Dato curioso: en un cielo realmente oscuro pueden verse unas 2.500 estrellas a simple vista, mientras que en el centro de una gran ciudad a veces solo se distinguen unas pocas decenas.</p>
+          </div>
+        </section>
+
+        <section class="l-sec" id="efectos" aria-labelledby="efectos-titulo">
+          <h2 id="efectos-titulo">Los 4 efectos negativos más importantes</h2>
+          <p>La luz ineficiente afecta mucho más que solo la vista de las estrellas.</p>
+          <ol class="l-pasos">
+            <li>
+              <h3>Alteración de la flora y fauna</h3>
+              <p class="l-categoria">Ecosistemas nocturnos</p>
+              <p>Las especies nocturnas dependen de la oscuridad total para alimentarse, camuflarse y reproducirse. Las aves migratorias se desorientan al confundir las luces artificiales con los astros guías, y las tortugas recién nacidas caminan en dirección contraria al océano al ser atraídas por luces costeras artificiales.</p>
+              <figure class="l-figura">
+                <img src="images/contlum_ecosistemas_gemini-1280.webp" width="1280" height="698" loading="lazy" decoding="async" alt="Diagrama conceptual de los efectos negativos de la luz artificial en ecosistemas nocturnos, mostrando desorientación de especies salvajes" onerror="this.src='https://images.unsplash.com/photo-1544441893-675973e31985?w=600&amp;q=80'">
+              </figure>
+            </li>
+            <li>
+              <h3>La calidad de nuestro sueño</h3>
+              <p class="l-categoria">Salud humana</p>
+              <p>Nuestro cuerpo regula su descanso mediante ciclos circadianos de 24 horas guiados por la luz natural. La luz artificial intrusa de noche inhibe la secreción de <strong>melatonina</strong> (la hormona del sueño), lo que causa trastornos de sueño, fatiga crónica, estrés, ansiedad e incluso riesgos a largo plazo para la salud metabólica.</p>
+              <figure class="l-figura">
+                <img src="images/contlum_salud_gemini-1280.webp" width="1280" height="698" loading="lazy" decoding="async" alt="Ilustración esquemática que describe cómo la luz artificial nocturna altera el cerebro y la producción de la hormona melatonina en los seres humanos" onerror="this.src='https://images.unsplash.com/photo-1511295742364-927943530c83?w=600&amp;q=80'">
+              </figure>
+            </li>
+            <li>
+              <h3>Desperdicio económico y de recursos</h3>
+              <p class="l-categoria">Economía y energía</p>
+              <p>Iluminar el cielo no aporta seguridad ni visibilidad terrestre; es simplemente desperdicio de energía. Se estima que miles de millones de kilovatios-hora anuales se pierden apuntando en direcciones innecesarias. Esto se traduce en facturas públicas astronómicas y toneladas de emisiones innecesarias de CO<sub>2</sub> de las centrales térmicas que producen esa energía desaprovechada.</p>
+              <p class="l-recuadro"><b>¿Sabías que?</b> Una luminaria bien apantallada que solo dirija la luz hacia el suelo requiere hasta un 50% menos de potencia para alumbrar la misma superficie de manera mucho más uniforme y eficiente.</p>
+            </li>
+            <li>
+              <h3>Pérdida del patrimonio estelar</h3>
+              <p class="l-categoria">Paisaje nocturno</p>
+              <p>El cielo estrellado es un patrimonio natural, cultural e histórico indiscutible de la humanidad. Hoy en día, una de cada tres personas en la Tierra no puede ver la Vía Láctea desde su lugar de origen. Esto no solo dificulta el trabajo de los centros de investigación astronómica, sino que también rompe el vínculo emocional de las nuevas generaciones con el cosmos infinito que nos rodea.</p>
+              <p class="l-recuadro"><b>Patrimonio en peligro:</b> Culturas antiguas guiaban su vida, siembras y cosmología observando las constelaciones. Perder el cielo estrellado es borrar parte de nuestra historia colectiva.</p>
+            </li>
+          </ol>
+        </section>
+
+        <section class="l-sec" id="video" aria-labelledby="video-titulo">
+          <h2 id="video-titulo">¿Cómo afecta la luz artificial al planeta?</h2>
+          <p>Te invitamos a ver este breve vídeo para consolidar lo aprendido sobre contaminación lumínica. Explica con claridad y gráficos la diferencia entre iluminar adecuadamente y sobreiluminar.</p>
+          <ul class="l-check">
+            <li>Presta atención a los ejemplos de diseño de farolas.</li>
+            <li>Registra los datos que consideres importantes en tu cuaderno.</li>
+          </ul>
+          <div class="l-video">
+            <iframe src="https://www.youtube.com/embed/u5AwDJWlVNc?start=7" title="Vídeo educativo sobre Contaminación Lumínica" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+        </section>
+
+        <section class="l-sec" id="soluciones" aria-labelledby="soluciones-titulo">
+          <h2 id="soluciones-titulo">Iluminación inteligente: ¿cómo solucionarlo?</h2>
+          <p>La luz artificial ha sido uno de los inventos que más bienestar ha traído a la humanidad. No se trata de volver a la edad de piedra, sino de usarla con responsabilidad.</p>
+          <div class="l-usos">
+            <div><h3><svg class="ico" aria-hidden="true"><use href="#i-abajo"/></svg>Apuntar hacia abajo</h3><p>Las luminarias deben contar con pantallas o apantallamientos superiores para evitar que la luz escape hacia los lados o arriba.</p></div>
+            <div><h3><svg class="ico" aria-hidden="true"><use href="#i-calida"/></svg>Usar luz cálida</h3><p>Evitar lámparas LED blancas frías (5000K+). Las luces de tonos cálidos (2700K o menos) dañan mucho menos los ritmos biológicos.</p></div>
+            <div><h3><svg class="ico" aria-hidden="true"><use href="#i-intensidad"/></svg>Regular la intensidad</h3><p>Usar solamente la potencia necesaria para garantizar la visibilidad en calles y evitar reflejos o deslumbramiento peligroso.</p></div>
+            <div><h3><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Apagar o atenuar</h3><p>Instalar sensores de movimiento o temporizadores para reducir la luz en zonas poco transitadas a altas horas de la madrugada.</p></div>
+          </div>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Demuestra tu comprensión</h2>
+          <p>Responde las 5 preguntas (¡incluye una pregunta extra para conseguir un bonus point!). Si respondes bien, iluminarás las estrellas de tu constelación.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión completada con éxito!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Reiniciar la actividad</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Foto de portada: Petr Hykš (CC0). <a href="../creditos.html">Créditos de las fotos</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Comparador de cielos (deslizador real: funciona con mouse, dedo y teclado) ---------- */
+    (() => {
+      const caja = document.getElementById('comparar-caja');
+      const rango = document.getElementById('comparar-rango');
+      const texto = v => v < 15 ? 'Casi todo ciudad' : v > 85 ? 'Casi todo Atacama' : v === 50 ? 'Mitad y mitad' : `${v}% ciudad, ${100 - v}% Atacama`;
+      const mover = () => {
+        const v = Number(rango.value);
+        caja.style.setProperty('--pos', v + '%');
+        rango.setAttribute('aria-valuetext', texto(v));
+      };
+      rango.addEventListener('input', mover);
+      mover();
+    })();
+
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ---------- */
+    window.TRIVIA = [
+        {
+            "question": "1. ¿Qué es la contaminación lumínica?",
+            "options": [
+                "Cualquier luz artificial instalada de forma inadecuada o desmedida que altera los cielos nocturnos.",
+                "La luz solar que se filtra en la atmósfera durante los atardeceres veraniegos.",
+                "Cualquier tipo de luz que emiten los planetas lejanos y galaxias al ser observados."
+            ],
+            "correct": 0,
+            "feedbackCorrect": "¡Excelente trabajo! Es la dispersión ineficiente de luz de origen humano que escapa hacia el cielo en vez de iluminar el suelo.",
+            "feedbackIncorrect": "Inténtalo de nuevo en la siguiente ronda. La respuesta correcta está marcada en verde. Es la dispersión ineficiente de luz de origen humano que escapa hacia el cielo en vez de iluminar el suelo."
+        },
+        {
+            "question": "2. ¿Por qué la contaminación lumínica perjudica a las tortugas recién nacidas?",
+            "options": [
+                "Porque el calor de las bombillas les calienta demasiado los caparazones.",
+                "Porque se confunden y avanzan hacia las luces artificiales costeras en lugar de hacia el océano guiadas por la luna.",
+                "Porque las tortugas prefieren dormir con las luces completamente apagadas."
+            ],
+            "correct": 1,
+            "feedbackCorrect": "¡Excelente trabajo! Su instinto natural las guía hacia el horizonte más claro (el reflejo de la luna en el mar), pero las luces costeras artificiales las desorientan por completo.",
+            "feedbackIncorrect": "Inténtalo de nuevo en la siguiente ronda. La respuesta correcta está marcada en verde. Su instinto natural las guía hacia el horizonte más claro (el reflejo de la luna en el mar), pero las luces costeras artificiales las desorientan por completo."
+        },
+        {
+            "question": "3. ¿Qué hormona humana de regulación biológica del sueño resulta inhibida ante la intrusión de luz artificial de noche?",
+            "options": [
+                "La insulina metabólica.",
+                "La melatonina, que regula nuestros ritmos circadianos de sueño.",
+                "La adrenalina deportiva."
+            ],
+            "correct": 1,
+            "feedbackCorrect": "¡Excelente trabajo! Nuestro cerebro genera melatonina de forma natural con la oscuridad, facilitando el descanso reparador de nuestras neuronas.",
+            "feedbackIncorrect": "Inténtalo de nuevo en la siguiente ronda. La respuesta correcta está marcada en verde. Nuestro cerebro genera melatonina de forma natural con la oscuridad, facilitando el descanso reparador de nuestras neuronas."
+        },
+        {
+            "question": "4. ¿Cuál de estas opciones representa el diseño de iluminación más correcto y eficiente?",
+            "options": [
+                "Luminarias potentes blancas frías orientadas directamente hacia arriba.",
+                "Farolas sin tapa superior que dispersan la luz en todas las direcciones.",
+                "Luminarias apantalladas que dirigen la luz cálida únicamente hacia abajo."
+            ],
+            "correct": 2,
+            "feedbackCorrect": "¡Excelente trabajo! Al direccionar la luz al suelo de forma protegida y con colores cálidos, ahorramos dinero y salvamos el cielo.",
+            "feedbackIncorrect": "Inténtalo de nuevo en la siguiente ronda. La respuesta correcta está marcada en verde. Al direccionar la luz al suelo de forma protegida y con colores cálidos, ahorramos dinero y salvamos el cielo."
+        },
+        {
+            "question": "PREGUNTA EXTRA (BONUS): ¿Qué porcentaje aproximado del planeta sufre de contaminación lumínica hoy en día limitando la vista de la Vía Láctea?",
+            "options": [
+                "Apenas un 5% de la superficie del hemisferio norte.",
+                "Cerca del 80% del planeta entero, afectando a la mayoría de sus habitantes.",
+                "Exactamente el 100% de la Tierra."
+            ],
+            "correct": 1,
+            "feedbackCorrect": "¡Excelente trabajo! El 80% de la humanidad padece de intrusión lumínica nocturna. ¡La educación es el primer paso para corregir el diseño!",
+            "feedbackIncorrect": "Inténtalo de nuevo en la siguiente ronda. La respuesta correcta está marcada en verde. El 80% de la humanidad padece de intrusión lumínica nocturna. ¡La educación es el primer paso para corregir el diseño!"
+        }
+    ];
+
+    // Certificado final para mostrar al docente
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      const fecha = new Date().toLocaleDateString('es-UY', { year: 'numeric', month: 'long', day: 'numeric' });
+      return { html: `
+        <p>Has demostrado comprender las bases de la contaminación lumínica y cómo mitigarla para preservar la noche astronómica.</p>
+        <div class="l-certificado">
+          <p class="l-certificado-k">Evidencia para el docente</p>
+          <p class="l-certificado-t">Guardián del cielo nocturno</p>
+          <p>Puntaje obtenido: <strong>${aciertos}/${total}</strong> estrellas</p>
+          <p class="l-certificado-f">Fecha del certificado: ${fecha}</p>
+        </div>` };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/lectura.js"></script>
+
+  <!-- Código de analítica GoatCounter -->
+  <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- La Cruz del Sur, con las posiciones reales de sus estrellas; Acrux en ámbar -->
+  <rect width="64" height="64" rx="14" fill="#0b1730"/>
+  <circle cx="32.3" cy="12" r="4.6" fill="#ffe2b0"/>
+  <circle cx="45.5" cy="23" r="3.6" fill="#fff"/>
+  <circle cx="18.6" cy="29.3" r="4.8" fill="#fff"/>
+  <circle cx="40.3" cy="34" r="2.2" fill="#fff"/>
+  <circle cx="35.9" cy="52.2" r="5.8" fill="#ffb627"/>
+</svg>

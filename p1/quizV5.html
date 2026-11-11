@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <title>Quiz Show · Astronomía para todos</title>
+  <meta name="description" content="Quiz Show: creador de trivias estilo Jeopardy para jugar en clase por equipos. Incluye una trivia de astronomía lista para usar y plantilla de Excel para crear la tuya.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></symbol>
+    <symbol id="i-descargar" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+    <symbol id="i-subir" viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 20h14"/></symbol>
+    <symbol id="i-salir" viewBox="0 0 24 24"><path d="M15 12H4M8 8l-4 4 4 4M13 4h6v16h-6"/></symbol>
+    <symbol id="i-volver" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></symbol>
+  </svg>
+
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido" class="q-app">
+    <div id="loading-container" class="q-carga" role="status">
+      <span class="q-carga-giro" aria-hidden="true"></span>
+      <p>Inicializando entorno interactivo...</p>
+    </div>
+
+    <!-- PANTALLA 1: MENÚ DE CONFIGURACIÓN Y CARGA -->
+    <div id="menu-screen" class="hidden">
+      <section class="l-portada l-portada-corta" aria-labelledby="titulo">
+        <div class="wrap">
+          <div class="l-portada-in">
+            <h1 id="titulo">Quiz Show</h1>
+            <p class="l-bajada">Creador de trivias dinámicas estilo Jeopardy</p>
+            <p class="l-lead">Un tablero de preguntas por categorías para jugar en clase, por equipos.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="wrap q-menu">
+        <div id="xlsx-offline-warning" class="hidden l-nota q-aviso">
+          <p><strong>Modo limitado sin conexión:</strong> No se pudo cargar la librería externa de Excel. Aún puedes jugar la <b>Trivia de astronomía (demo)</b> con total normalidad, pero la carga de archivos Excel personalizados está desactivada.</p>
+        </div>
+
+        <section class="q-opcion destacada" aria-labelledby="demo-t">
+          <h2 id="demo-t">¿Deseas probar la aplicación ahora?</h2>
+          <p>Juega inmediatamente con un cuestionario educativo precargado de Astronomía sin necesidad de archivos.</p>
+          <button type="button" id="btn-load-demo" class="l-btn"><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg>Iniciar trivia de astronomía (demo)</button>
+        </section>
+
+        <p class="q-o">O arma tu propia trivia en dos pasos:</p>
+
+        <ol class="q-pasos">
+          <li id="step-download-container" class="q-opcion">
+            <h2>Descarga la plantilla estructurada</h2>
+            <p>Revisa la pestaña <b>«Configuracion»</b> para ajustar el tiempo y el nombre de la sesión, y la pestaña <b>«Juego»</b> para tus preguntas.</p>
+            <button type="button" id="btn-download-template" class="l-btn sec"><svg class="ico" aria-hidden="true"><use href="#i-descargar"/></svg>Descargar plantilla en Excel (.xlsx)</button>
+          </li>
+          <li id="step-upload-container" class="q-opcion">
+            <h2>Carga tu propia trivia</h2>
+            <p>Sube el archivo Excel que personalizaste para desplegar el panel de juego automáticamente.</p>
+            <label id="file-upload-label" class="l-btn sec q-subir"><svg class="ico" aria-hidden="true"><use href="#i-subir"/></svg>Cargar Excel y jugar<input type="file" id="file-uploader" accept=".xlsx, .xls" class="sr-only"></label>
+          </li>
+        </ol>
+
+        <div id="error-message-box" class="hidden q-error" role="alert"></div>
+      </div>
+    </div>
+
+    <!-- PANTALLA 2: EL TABLERO DE JUEGO -->
+    <div id="board-screen" class="hidden q-tablero-pantalla">
+      <header class="q-tablero-cab">
+        <button type="button" id="btn-exit-trigger" class="l-btn sec q-salir"><svg class="ico" aria-hidden="true"><use href="#i-salir"/></svg>Salir</button>
+        <h1 id="board-title" class="q-titulo" tabindex="-1">Quiz Show</h1>
+        <p id="board-subtitle" class="q-subtitulo">La trivia competitiva</p>
+      </header>
+
+      <div id="board-grid" class="q-tablero"></div>
+
+      <div class="q-controles">
+        <button type="button" id="btn-final-jeopardy" class="q-final">Pregunta final</button>
+        <div class="q-controles-fila">
+          <div class="q-equipos-elegir">
+            <p class="l-control-t" id="equipos-t">Marcadores: ver equipos</p>
+            <div class="l-segmentos tres" role="group" aria-labelledby="equipos-t">
+              <button type="button" data-teams="2" class="team-qty-btn" aria-pressed="false">2</button>
+              <button type="button" data-teams="3" class="team-qty-btn" aria-pressed="false">3</button>
+              <button type="button" data-teams="4" class="team-qty-btn" aria-pressed="false">4</button>
+            </div>
+          </div>
+          <button type="button" id="btn-reset-scores" class="l-btn sec"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Reiniciar puntos</button>
+        </div>
+        <div id="team-scores-container" class="q-equipos n2"></div>
+      </div>
+    </div>
+
+    <!-- PANTALLA DE PREGUNTA ACTIVA -->
+    <div id="question-modal" class="hidden q-pregunta-pantalla" role="dialog" aria-modal="true" aria-labelledby="modal-question-text">
+      <div class="q-pregunta-cab">
+        <div id="modal-cat-name" class="q-pregunta-cat">CATEGORÍA</div>
+        <div id="modal-points" class="q-pregunta-pts">0 pts</div>
+      </div>
+      <div class="q-pregunta-cuerpo">
+        <div id="modal-timer" class="q-reloj" aria-live="off">00:40</div>
+        <h2 id="modal-question-text" class="q-pregunta">¿Cuál es la pregunta?</h2>
+        <div id="modal-answer-section" class="q-respuesta oculta" aria-live="polite">
+          <p id="modal-answer-text" class="q-respuesta-txt" tabindex="-1">Esta es la respuesta correcta</p>
+          <div class="q-otorgar-caja">
+            <p class="l-control-t">¿Quién respondió correctamente? Otorgar puntos:</p>
+            <div id="modal-award-buttons-container" class="q-otorgar n2"></div>
+          </div>
+        </div>
+      </div>
+      <div class="q-pregunta-pie">
+        <button type="button" id="btn-show-answer" class="l-btn q-grande">Mostrar respuesta</button>
+        <button type="button" id="btn-close-question" class="hidden l-btn q-grande"><svg class="ico" aria-hidden="true"><use href="#i-volver"/></svg>Volver al tablero</button>
+        <button type="button" id="btn-skip-question" class="l-btn sec">Saltar pregunta</button>
+      </div>
+    </div>
+
+    <!-- CONFIRMACIÓN DE SALIDA -->
+    <div id="exit-modal" class="hidden q-velo" role="dialog" aria-modal="true" aria-labelledby="salir-t">
+      <div class="q-dialogo">
+        <h2 id="salir-t">¿Deseas salir del juego?</h2>
+        <p>Si sales del juego, perderás todos los puntajes y respuestas del tablero actual.</p>
+        <div class="q-dialogo-botones">
+          <button type="button" id="btn-exit-confirm" class="l-btn">Sí, salir</button>
+          <button type="button" id="btn-exit-cancel" class="l-btn sec">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="index.html">Volver a la portada</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Librería para leer y crear archivos Excel -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script>
+        // ESTADO GLOBAL DE LA APLICACIÓN
+        const state = {
+            gameState: 'menu', 
+            gameData: [],
+            finalJeopardy: null,
+            answeredState: {},
+            activeQuestion: null,
+            showAnswer: false,
+            timer: 40,
+            scores: { equipo1: 0, equipo2: 0, equipo3: 0, equipo4: 0 },
+            numTeams: 4,
+            teamNames: {
+                equipo1: 'Equipo 1',
+                equipo2: 'Equipo 2',
+                equipo3: 'Equipo 3',
+                equipo4: 'Equipo 4'
+            },
+            defaultTimer: 40,
+            quizTitle: 'Quiz Show',
+            quizSubtitle: 'La trivia competitiva'
+        };
+
+        let timerInterval = null;
+
+        // EFECTOS DE SONIDO MEDIANTE WEB AUDIO API (100% Nativo y Offline)
+        const playSound = (type) => {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                if (type === 'tick') {
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); 
+                    gainNode.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                    oscillator.start();
+                    gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.1);
+                    oscillator.stop(audioCtx.currentTime + 0.1);
+                } else if (type === 'timeout') {
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.setValueAtTime(100, audioCtx.currentTime); 
+                    gainNode.gain.setValueAtTime(0.18, audioCtx.currentTime);
+                    oscillator.start();
+                    gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.9);
+                    oscillator.stop(audioCtx.currentTime + 0.9);
+                } else if (type === 'reveal') {
+                    oscillator.type = 'triangle';
+                    oscillator.frequency.setValueAtTime(523.25, audioCtx.currentTime); 
+                    gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    oscillator.start();
+                    oscillator.stop(audioCtx.currentTime + 0.25);
+                    
+                    setTimeout(() => {
+                        const osc2 = audioCtx.createOscillator();
+                        const gain2 = audioCtx.createGain();
+                        osc2.connect(gain2);
+                        gain2.connect(audioCtx.destination);
+                        osc2.type = 'triangle';
+                        osc2.frequency.setValueAtTime(659.25, audioCtx.currentTime); 
+                        gain2.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                        osc2.start();
+                        gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.35);
+                        osc2.stop(audioCtx.currentTime + 0.35);
+                    }, 120);
+                }
+            } catch (e) {
+                console.log('AudioContext deshabilitado o bloqueado por el navegador.');
+            }
+        };
+
+        // GESTIÓN DE PANTALLAS
+        function setView(viewName) {
+            state.gameState = viewName;
+            if (viewName === 'menu') {
+                document.getElementById('menu-screen').classList.remove('hidden');
+                document.getElementById('board-screen').classList.add('hidden');
+            } else {
+                document.getElementById('menu-screen').classList.add('hidden');
+                document.getElementById('board-screen').classList.remove('hidden');
+            }
+        }
+
+        // DESPLIEGUE DE ERRORES EN INTERFAZ
+        function showError(message) {
+            const errBox = document.getElementById('error-message-box');
+            if (message) {
+                errBox.textContent = message;
+                errBox.classList.remove('hidden');
+            } else {
+                errBox.classList.add('hidden');
+            }
+        }
+
+        // 1. GENERAR PLANTILLA EXCEL
+        function handleDownloadTemplate() {
+            if (!window.XLSX) return;
+            const templateData = [
+                { Categoria: "El Sol", Puntos: 100, Pregunta: "¿Qué tipo de astro es el Sol?", Respuesta: "Una estrella" },
+                { Categoria: "El Sol", Puntos: 200, Pregunta: "¿Gas más abundante en el Sol?", Respuesta: "Hidrógeno" },
+                { Categoria: "Planetas", Puntos: 100, Pregunta: "¿Planeta más cercano al Sol?", Respuesta: "Mercurio" },
+                { Categoria: "Planetas", Puntos: 200, Pregunta: "¿Planeta conocido como el planeta rojo?", Respuesta: "Marte" },
+                { Categoria: "Pregunta Final", Puntos: "Final", Pregunta: "¿Qué sondas llevan discos de oro con sonidos de la Tierra?", Respuesta: "Las sondas Voyager" }
+            ];
+            
+            const configData = [
+                { Parametro: "Nombre del Quiz", Valor: "Quiz Show" },
+                { Parametro: "Subtitulo", Valor: "Sistema Solar - La Trivia" },
+                { Parametro: "Tiempo (segundos)", Valor: 40 }
+            ];
+            
+            const wsJuego = XLSX.utils.json_to_sheet(templateData);
+            const wsConfig = XLSX.utils.json_to_sheet(configData);
+            
+            wsConfig['!cols'] = [{ wch: 25 }, { wch: 30 }];
+
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, wsJuego, "Juego");
+            XLSX.utils.book_append_sheet(wb, wsConfig, "Configuracion");
+            
+            XLSX.writeFile(wb, "Plantilla_QuizShow.xlsx");
+        }
+
+        // Cargar Trivia de Demostración sobre Astronomía
+        function handleLoadDemo() {
+            showError('');
+            const demoQuestions = [
+                { Categoria: "El Sol", Puntos: 100, Pregunta: "¿Qué tipo de objeto celeste es el Sol?", Respuesta: "Una estrella enana amarilla" },
+                { Categoria: "El Sol", Puntos: 200, Pregunta: "¿Cuál es el gas más abundante en el Sol?", Respuesta: "Hidrógeno (aproximadamente 74%)" },
+                { Categoria: "El Sol", Puntos: 300, Pregunta: "¿Cuántos minutos tarda la luz solar en llegar a la Tierra?", Respuesta: "Aproximadamente 8 minutos y 20 segundos" },
+                
+                { Categoria: "Planetas", Puntos: 100, Pregunta: "¿Cuál es el planeta más grande de nuestro Sistema Solar?", Respuesta: "Júpiter" },
+                { Categoria: "Planetas", Puntos: 200, Pregunta: "¿Qué planeta tiene el conjunto de anillos más visible y espectacular?", Respuesta: "Saturno" },
+                { Categoria: "Planetas", Puntos: 300, Pregunta: "¿Cuál es el planeta más cálido del Sistema Solar debido a su denso efecto invernadero?", Respuesta: "Venus" },
+
+                { Categoria: "La Luna", Puntos: 100, Pregunta: "¿Cuántas fases principales tiene el ciclo lunar?", Respuesta: "4 fases principales (Nueva, Creciente, Llena y Menguante)" },
+                { Categoria: "La Luna", Puntos: 200, Pregunta: "¿Qué fuerza gravitatoria terrestre provoca la Luna principalmente en los océanos?", Respuesta: "Las mareas" },
+                { Categoria: "La Luna", Puntos: 300, Pregunta: "¿Cómo se llama el fenómeno cuando la Luna pasa directamente por la sombra de la Tierra?", Respuesta: "Eclipse lunar" },
+
+                { Categoria: "Cosmología", Puntos: 100, Pregunta: "¿En qué galaxia se encuentra nuestro Sistema Solar?", Respuesta: "La Vía Láctea" },
+                { Categoria: "Cosmología", Puntos: 200, Pregunta: "¿Cómo se llama la teoría científica más aceptada sobre el origen del universo?", Respuesta: "La teoría del Big Bang" },
+                { Categoria: "Cosmología", Puntos: 300, Pregunta: "¿Cuál es el exoplaneta rocoso más cercano descubierto a nuestro sistema?", Respuesta: "Próxima Centauri b" }
+            ];
+
+            const demoConfig = {
+                title: "Quiz de Astronomía",
+                subtitle: "Demostración didáctica: universo interactivo",
+                timer: 30
+            };
+
+            processExcelData(demoQuestions, demoConfig);
+        }
+
+        // Cargar archivo personalizado de Excel
+        function handleFileUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            showError('');
+            const reader = new FileReader();
+            
+            reader.onload = (evt) => {
+                try {
+                    const bstr = evt.target.result;
+                    const wb = XLSX.read(bstr, { type: 'binary' });
+                    
+                    let config = { title: "Quiz Show", subtitle: "", timer: 40 };
+                    
+                    // Buscar hoja de configuración de manera robusta
+                    const cleanSheetNames = wb.SheetNames.map(name => 
+                        name.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                    );
+                    
+                    const configIdx = cleanSheetNames.indexOf("configuracion");
+                    if (configIdx !== -1) {
+                        const sheetName = wb.SheetNames[configIdx];
+                        const wsConfig = wb.Sheets[sheetName];
+                        const configData = XLSX.utils.sheet_to_json(wsConfig);
+                        
+                        configData.forEach(row => {
+                            const cleanRow = {};
+                            Object.keys(row).forEach(k => {
+                                cleanRow[String(k).trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")] = row[k];
+                            });
+                            
+                            const param = String(cleanRow["parametro"] || "").toLowerCase();
+                            if (param.includes("nombre")) config.title = cleanRow["valor"];
+                            if (param.includes("subtitulo")) config.subtitle = cleanRow["valor"];
+                            if (param.includes("tiempo") || param.includes("segundo")) config.timer = parseInt(cleanRow["valor"]) || 40;
+                        });
+                    }
+
+                    const juegoIdx = cleanSheetNames.indexOf("juego");
+                    const wsJuegoName = juegoIdx !== -1 ? wb.SheetNames[juegoIdx] : wb.SheetNames[0];
+                    const wsJuego = wb.Sheets[wsJuegoName];
+                    const data = XLSX.utils.sheet_to_json(wsJuego);
+                    
+                    processExcelData(data, config);
+                } catch (err) {
+                    showError("Error al procesar el archivo. Asegúrate de subir un archivo Excel (.xlsx o .xls) válido.");
+                }
+            };
+            reader.readAsBinaryString(file);
+        }
+
+        // Procesar la estructura del Excel de forma tolerante a fallos
+        function processExcelData(jsonData, config) {
+            let categoriesMap = {};
+            let finalQ = null;
+
+            jsonData.forEach(row => {
+                const normalizedRow = {};
+                Object.keys(row).forEach(key => {
+                    const cleanKey = String(key)
+                        .trim()
+                        .toLowerCase()
+                        .normalize("NFD")
+                        .replace(/[\u0300-\u036f]/g, "");
+                    normalizedRow[cleanKey] = row[key];
+                });
+
+                const cat = normalizedRow["categoria"];
+                const pts = normalizedRow["puntos"];
+                const q = normalizedRow["pregunta"];
+                const a = normalizedRow["respuesta"];
+
+                if (!cat || !pts || !q || !a) return; 
+
+                const cleanPts = String(pts).trim().toLowerCase();
+                if (cleanPts === 'final' || cleanPts === 'pregunta final' || cleanPts.includes('final')) {
+                    finalQ = { category: String(cat).trim(), q: String(q).trim(), a: String(a).trim() };
+                } else {
+                    const digitMatch = cleanPts.match(/\d+/);
+                    if (!digitMatch) return; 
+                    const parsedPts = parseInt(digitMatch[0], 10);
+                    
+                    const catStr = String(cat).trim();
+                    if (!categoriesMap[catStr]) {
+                        categoriesMap[catStr] = [];
+                    }
+                    categoriesMap[catStr].push({ 
+                        points: parsedPts, 
+                        q: String(q).trim(), 
+                        a: String(a).trim() 
+                    });
+                }
+            });
+
+            const finalGameData = Object.keys(categoriesMap).map(catName => ({
+                category: catName,
+                questions: categoriesMap[catName].sort((a, b) => a.points - b.points)
+            }));
+
+            if (finalGameData.length === 0) {
+                showError("No se encontraron preguntas válidas. Verifica que tu hoja Excel tenga las columnas: 'Categoria', 'Puntos', 'Pregunta' y 'Respuesta'.");
+                return;
+            }
+
+            // Guardar en Estado
+            state.quizTitle = config.title || "Quiz Show";
+            state.quizSubtitle = config.subtitle || "";
+            state.defaultTimer = config.timer || 40;
+            state.gameData = finalGameData;
+            state.finalJeopardy = finalQ || { category: "Pregunta Final", q: "¿Qué sonda espacial transporta el Disco de Oro con sonidos de la Tierra?", a: "Sonda Voyager" };
+            state.answeredState = {};
+            state.scores = { equipo1: 0, equipo2: 0, equipo3: 0, equipo4: 0 };
+
+            // Dibujar interfaz
+            initGameUi();
+            setView('playing');
+        }
+
+        // DIBUJADO DE LA GRILLA DE TRIVIA
+        function renderBoardGrid() {
+            const gridContainer = document.getElementById('board-grid');
+            gridContainer.innerHTML = '';
+
+            // Configurar columnas de grilla de forma dinámica
+            gridContainer.style.gridTemplateColumns = `repeat(${state.gameData.length}, minmax(0, 1fr))`;
+
+            // 1. Cabezal de categorías
+            state.gameData.forEach(cat => {
+                const header = document.createElement('div');
+                header.className = "q-cat";
+                header.textContent = cat.category;
+                gridContainer.appendChild(header);
+            });
+
+            // 2. Grilla de puntuaciones por fila
+            const maxQuestions = Math.max(...state.gameData.map(cat => cat.questions.length));
+
+            for (let rowIndex = 0; rowIndex < maxQuestions; rowIndex++) {
+                state.gameData.forEach((cat, catIndex) => {
+                    const q = cat.questions[rowIndex];
+                    const cellKey = `${catIndex}-${rowIndex}`;
+                    
+                    if (!q) {
+                        // Div para rellenar hueco
+                        const spacer = document.createElement('div');
+                        spacer.className = "q-hueco";
+                        gridContainer.appendChild(spacer);
+                        return;
+                    }
+
+                    const btn = document.createElement('button');
+                    const isAnswered = state.answeredState[cellKey];
+
+                    if (isAnswered) {
+                        btn.className = "q-celda usada";
+                        btn.disabled = true;
+                    } else {
+                        btn.className = "q-celda";
+                        btn.textContent = q.points;
+                        btn.dataset.key = cellKey;
+                        btn.setAttribute('aria-label', `${cat.category}, ${q.points} puntos`);
+                        btn.addEventListener('click', () => {
+                            triggerQuestion({
+                                ...q,
+                                catName: cat.category,
+                                key: cellKey
+                            });
+                        });
+                    }
+                    gridContainer.appendChild(btn);
+                });
+            }
+        }
+
+        // ADJUDICAR Y MODIFICAR MARCADORES
+        function adjustScore(teamKey, amount) {
+            state.scores[teamKey] += amount;
+            
+            // Actualizar tablero principal
+            const display = document.getElementById(`score-display-${teamKey}`);
+            if (display) display.textContent = state.scores[teamKey];
+
+            // Actualizar dentro de la pregunta activa si estuviese abierta
+            const modalDisplay = document.getElementById(`modal-score-display-${teamKey}`);
+            if (modalDisplay) modalDisplay.textContent = `(${state.scores[teamKey]} pts)`;
+        }
+
+        function renderScoreboard() {
+            const container = document.getElementById('team-scores-container');
+            container.innerHTML = '';
+
+            // Configurar número de columnas
+            if (state.numTeams === 2) container.className = "q-equipos n2";
+            else if (state.numTeams === 3) container.className = "q-equipos n3";
+            else container.className = "q-equipos n4";
+
+            const teamKeys = ['equipo1', 'equipo2', 'equipo3', 'equipo4'].slice(0, state.numTeams);
+
+            teamKeys.forEach(team => {
+                const card = document.createElement('div');
+                card.className = "q-equipo";
+
+                // Entrada editable del nombre
+                const nameInput = document.createElement('input');
+                nameInput.type = "text";
+                nameInput.value = state.teamNames[team];
+                nameInput.className = "q-nombre";
+                nameInput.title = "Haz clic para personalizar el nombre";
+                nameInput.setAttribute('aria-label', "Nombre del equipo");
+                nameInput.addEventListener('input', (evt) => {
+                    state.teamNames[team] = evt.target.value;
+                });
+
+                // Display del puntaje
+                const scoreDisplay = document.createElement('div');
+                scoreDisplay.id = `score-display-${team}`;
+                scoreDisplay.className = "q-puntos";
+                scoreDisplay.textContent = state.scores[team];
+
+                // Botonera de control directo (+/-)
+                const buttonsDiv = document.createElement('div');
+                buttonsDiv.className = "q-mas-menos";
+
+                const plusBtn = document.createElement('button');
+                plusBtn.className = "q-mas";
+                plusBtn.textContent = "+";
+                plusBtn.title = "Sumar 100";
+                plusBtn.setAttribute('aria-label', "Sumar 100 puntos");
+                plusBtn.addEventListener('click', () => adjustScore(team, 100));
+
+                const minusBtn = document.createElement('button');
+                minusBtn.className = "q-menos";
+                minusBtn.textContent = "-";
+                minusBtn.title = "Restar 100";
+                minusBtn.setAttribute('aria-label', "Restar 100 puntos");
+                minusBtn.addEventListener('click', () => adjustScore(team, -100));
+
+                buttonsDiv.appendChild(plusBtn);
+                buttonsDiv.appendChild(minusBtn);
+
+                card.appendChild(nameInput);
+                card.appendChild(scoreDisplay);
+                card.appendChild(buttonsDiv);
+
+                container.appendChild(card);
+            });
+        }
+
+        // PANTALLAS MODALES: el resto de la página queda inerte (no se alcanza con Tab ni con el lector
+        // de pantalla), el foco entra en la pantalla y, al cerrarla, vuelve a donde estaba.
+        const modal = { origen: null };
+        function abrirModal(el, foco) {
+            modal.origen = document.activeElement;
+            [...document.body.children].forEach(n => { if (!n.contains(el)) n.inert = true; });
+            [...el.parentElement.children].forEach(n => { if (n !== el) n.inert = true; });
+            el.classList.remove('hidden');
+            (foco || el.querySelector('button:not(.hidden)')).focus();
+        }
+        function cerrarModal(el, destino) {
+            el.classList.add('hidden');
+            document.querySelectorAll('[inert]').forEach(n => { n.inert = false; });
+            const d = destino || modal.origen;
+            if (d && document.contains(d) && d.offsetParent !== null) d.focus();
+            else document.getElementById('board-title').focus();
+            modal.origen = null;
+        }
+
+        // GESTIÓN DEL MODAL DE PREGUNTA ACTIVA
+        function triggerQuestion(questionObj) {
+            state.activeQuestion = questionObj;
+            state.timer = state.defaultTimer;
+            state.showAnswer = false;
+
+            // Rellenar datos en interfaz
+            document.getElementById('modal-cat-name').textContent = questionObj.catName;
+            
+            const pointsEl = document.getElementById('modal-points');
+            if (typeof questionObj.points === 'number') {
+                pointsEl.textContent = `${questionObj.points} pts`;
+                pointsEl.classList.remove('hidden');
+            } else {
+                pointsEl.classList.add('hidden');
+            }
+
+            document.getElementById('modal-question-text').textContent = questionObj.q;
+            document.getElementById('modal-answer-text').textContent = questionObj.a;
+
+            // Esconder paneles de respuesta
+            document.getElementById('modal-answer-section').className = "q-respuesta oculta";
+            document.getElementById('btn-show-answer').classList.remove('hidden');
+            document.getElementById('btn-close-question').classList.add('hidden');
+
+            // Preparar temporizador
+            updateTimerDisplay();
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (state.timer <= 1) {
+                    clearInterval(timerInterval);
+                    state.timer = 0;
+                    playSound('timeout');
+                    updateTimerDisplay();
+                    return;
+                }
+                state.timer--;
+                if (state.timer <= 5) {
+                    playSound('tick');
+                }
+                updateTimerDisplay();
+            }, 1000);
+
+            // Mostrar el modal: el foco va a «Mostrar respuesta» y se anuncia la pregunta
+            abrirModal(document.getElementById('question-modal'), document.getElementById('btn-show-answer'));
+        }
+
+        function updateTimerDisplay() {
+            const timerEl = document.getElementById('modal-timer');
+            if (state.timer > 0) {
+                timerEl.textContent = `00:${state.timer.toString().padStart(2, '0')}`;
+            } else {
+                timerEl.textContent = '¡Tiempo agotado!';
+            }
+
+            // Cambios de colores dinámicos
+            if (state.timer === 0) {
+                timerEl.className = "q-reloj alerta";
+            } else if (state.timer <= 10) {
+                timerEl.className = "q-reloj aviso";
+            } else {
+                timerEl.className = "q-reloj";
+            }
+        }
+
+        // MOSTRAR LA RESPUESTA CORRECTA E INICIALIZAR ADJUDICACIONES
+        function revealAnswer() {
+            state.showAnswer = true;
+            clearInterval(timerInterval);
+            playSound('reveal');
+
+            // Animación de aparición
+            const revealSection = document.getElementById('modal-answer-section');
+            revealSection.className = "q-respuesta";
+
+            document.getElementById('btn-show-answer').classList.add('hidden');
+            document.getElementById('btn-close-question').classList.remove('hidden');
+            // El botón enfocado desaparece: el foco pasa a la respuesta, que se lee en voz alta
+            document.getElementById('modal-answer-text').focus();
+
+            // Renderizar botones de adjudicación rápida de puntos
+            const buttonsContainer = document.getElementById('modal-award-buttons-container');
+            buttonsContainer.innerHTML = '';
+
+            // Grid según número de equipos
+            if (state.numTeams === 2) buttonsContainer.className = "q-otorgar n2";
+            else if (state.numTeams === 3) buttonsContainer.className = "q-otorgar n3";
+            else buttonsContainer.className = "q-otorgar n4";
+
+            const teamKeys = ['equipo1', 'equipo2', 'equipo3', 'equipo4'].slice(0, state.numTeams);
+            const ptsToAward = typeof state.activeQuestion.points === 'number' ? state.activeQuestion.points : 200;
+
+            teamKeys.forEach(team => {
+                const btn = document.createElement('button');
+                btn.className = "q-otorgar-btn";
+                
+                const nameLabel = document.createElement('span');
+                nameLabel.className = "q-otorgar-nombre";
+                nameLabel.textContent = state.teamNames[team];
+
+                const awardPtsLabel = document.createElement('span');
+                awardPtsLabel.id = `modal-score-display-${team}`;
+                awardPtsLabel.className = "q-otorgar-pts";
+                awardPtsLabel.textContent = `(+${ptsToAward} pts)`;
+
+                btn.appendChild(nameLabel);
+                btn.appendChild(awardPtsLabel);
+
+                btn.addEventListener('click', () => {
+                    adjustScore(team, ptsToAward);
+                    playSound('reveal');
+                });
+
+                buttonsContainer.appendChild(btn);
+            });
+        }
+
+        // CERRAR LA PREGUNTA ACTIVA
+        function closeActiveQuestion(markAsAnswered) {
+            clearInterval(timerInterval);
+            if (state.activeQuestion && markAsAnswered) {
+                state.answeredState[state.activeQuestion.key] = true;
+            }
+            const clave = state.activeQuestion ? state.activeQuestion.key : null;
+            state.activeQuestion = null;
+
+            // Refrescar grilla del tablero
+            renderBoardGrid();
+            updateFinalJeopardyStatus();
+
+            // El foco vuelve a la misma celda si sigue disponible; si no, al título del tablero
+            const celda = clave && clave !== 'final' ? document.querySelector(`.q-celda[data-key="${clave}"]`) : null;
+            cerrarModal(document.getElementById('question-modal'), celda || document.getElementById('board-title'));
+        }
+
+        function updateFinalJeopardyStatus() {
+            const finalBtn = document.getElementById('btn-final-jeopardy');
+            if (state.answeredState['final']) {
+                finalBtn.disabled = true;
+                finalBtn.className = "q-final hecha";
+                finalBtn.textContent = 'Pregunta final completada';
+            } else {
+                finalBtn.disabled = false;
+                finalBtn.className = "q-final";
+                finalBtn.textContent = 'Pregunta final';
+            }
+        }
+
+        // REINICIALIZAR TODO EL ENTORNO DE JUEGO (DIBUJADOS)
+        function initGameUi() {
+            document.getElementById('board-title').textContent = state.quizTitle;
+            document.getElementById('board-subtitle').textContent = state.quizSubtitle;
+
+            // Resaltar cantidad de equipos seleccionados
+            document.querySelectorAll('.team-qty-btn').forEach(b => {
+                if (parseInt(b.dataset.teams) === state.numTeams) {
+                    b.setAttribute('aria-pressed', 'true');
+                } else {
+                    b.setAttribute('aria-pressed', 'false');
+                }
+            });
+
+            renderBoardGrid();
+            renderScoreboard();
+            updateFinalJeopardyStatus();
+        }
+
+        // CONFIGURACIONES Y ASIGNACIONES EN CALIENTE DE EVENTOS (ONLOAD)
+        window.addEventListener('DOMContentLoaded', () => {
+            
+            // Ocultar pantalla de carga inicial
+            document.getElementById('loading-container').classList.add('hidden');
+            setView('menu');
+
+            // Si SheetJS (XLSX) no se descargó (Entorno 100% Offline)
+            if (!window.XLSX) {
+                document.getElementById('xlsx-offline-warning').classList.remove('hidden');
+                document.getElementById('step-download-container').classList.add('opacity-50', 'pointer-events-none');
+                document.getElementById('file-upload-label').className = "l-btn sec q-subir desactivado";
+                document.getElementById('file-uploader').disabled = true;
+            }
+
+            // Asignar eventos de click del menú
+            document.getElementById('btn-load-demo').addEventListener('click', handleLoadDemo);
+            document.getElementById('btn-download-template').addEventListener('click', handleDownloadTemplate);
+            document.getElementById('file-uploader').addEventListener('change', handleFileUpload);
+
+            // Salir del juego (Modal Confirmación)
+            document.getElementById('btn-exit-trigger').addEventListener('click', () => {
+                abrirModal(document.getElementById('exit-modal'), document.getElementById('btn-exit-cancel'));
+            });
+
+            document.getElementById('btn-exit-confirm').addEventListener('click', () => {
+                cerrarModal(document.getElementById('exit-modal'), document.getElementById('btn-load-demo'));
+                setView('menu');
+                document.getElementById('btn-load-demo').focus();
+            });
+
+            document.getElementById('btn-exit-cancel').addEventListener('click', () => {
+                cerrarModal(document.getElementById('exit-modal'));
+            });
+
+            // Escape cierra la confirmación de salida (como «Cancelar»)
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape' && !document.getElementById('exit-modal').classList.contains('hidden')) {
+                    cerrarModal(document.getElementById('exit-modal'));
+                }
+            });
+
+            // Cambiar cantidad de equipos (2, 3 o 4)
+            document.querySelectorAll('.team-qty-btn').forEach(btn => {
+                btn.addEventListener('click', (evt) => {
+                    state.numTeams = parseInt(evt.currentTarget.dataset.teams);
+                    initGameUi();
+                });
+            });
+
+            // Reiniciar puntajes
+            document.getElementById('btn-reset-scores').addEventListener('click', () => {
+                state.scores = { equipo1: 0, equipo2: 0, equipo3: 0, equipo4: 0 };
+                renderScoreboard();
+            });
+
+            // Trigger pregunta final
+            document.getElementById('btn-final-jeopardy').addEventListener('click', () => {
+                if (state.answeredState['final']) return;
+                triggerQuestion({
+                    ...state.finalJeopardy,
+                    catName: 'Pregunta final',
+                    key: 'final'
+                });
+            });
+
+            // Acciones de pregunta activa
+            document.getElementById('btn-show-answer').addEventListener('click', revealAnswer);
+            document.getElementById('btn-close-question').addEventListener('click', () => {
+                closeActiveQuestion(true);
+            });
+            document.getElementById('btn-skip-question').addEventListener('click', () => {
+                closeActiveQuestion(false);
+            });
+        });
+  </script>
+  <script src="js/tema.js"></script>
+  <script src="js/lectura.js"></script>
+
+  <!-- Código de analítica GoatCounter -->
+  <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

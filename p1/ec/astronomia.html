@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Qué es la Astronomía · Astronomía para todos</title>
+  <meta name="description" content="Guía didáctica para estudiantes de 14 a 16 años: qué es la Astronomía y cómo se construye el conocimiento astronómico. Incluye trivia.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-tierra" viewBox="0 0 24 24"><circle cx="10" cy="13" r="7"/><path d="M4.5 10.5c2 .5 3 2 2.5 4M11 6.2c-.5 2 1 3 3 3.3M10 20c0-2 1.5-3 3.5-3"/><circle cx="20" cy="5" r="2"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></symbol>
+    <symbol id="i-vecinas" viewBox="0 0 24 24"><path d="M8 3.5l1.6 3.4 3.7.5-2.7 2.6.7 3.7L8 11.9l-3.3 1.8.7-3.7-2.7-2.6 3.7-.5z"/><circle cx="17.5" cy="15.5" r="1.4"/><circle cx="13" cy="19.5" r="1"/><circle cx="20" cy="9" r=".9"/></symbol>
+    <symbol id="i-galaxia" viewBox="0 0 24 24"><path d="M12 12c0-2 2-3 3.5-2s1 4-1.5 5-6 0-6.5-3 2-6.5 6-6.5 7 3 6.5 7-4.5 7.5-8.5 7"/><circle cx="12" cy="12" r=".9" fill="currentColor"/></symbol>
+    <symbol id="i-galaxias" viewBox="0 0 24 24"><ellipse cx="8" cy="9" rx="5" ry="2.2" transform="rotate(-25 8 9)"/><ellipse cx="16.5" cy="16" rx="4" ry="1.7" transform="rotate(20 16.5 16)"/><circle cx="8" cy="9" r=".8" fill="currentColor"/><circle cx="16.5" cy="16" r=".7" fill="currentColor"/></symbol>
+    <symbol id="i-universo" viewBox="0 0 24 24"><path d="M3 8c3 1 4 4 7 4s4-5 7-5 3 2 4 2M3 17c2-1 3-3 6-3s5 4 8 4 3-2 4-3"/><circle cx="6" cy="8.8" r=".9" fill="currentColor"/><circle cx="12" cy="11.6" r=".9" fill="currentColor"/><circle cx="17" cy="7" r=".9" fill="currentColor"/><circle cx="9" cy="14" r=".9" fill="currentColor"/><circle cx="17" cy="18" r=".9" fill="currentColor"/></symbol>
+    <symbol id="i-lupa" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/><path d="M8 10.5h5"/></symbol>
+    <symbol id="i-pasado" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.64-6.36L3 8.3"/><path d="M3 3.5v4.8h4.8"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-equipo" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.5"/><path d="M2.5 20c.5-4 3-6 5.5-6s5 2 5.5 6M13.5 14.6c.9-.4 1.9-.6 3-.6 2.3 0 4.5 1.8 5 5.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-antena" viewBox="0 0 24 24"><path d="M4 9a9 9 0 0 0 11 11L4 9z"/><path d="M9.5 14.5l4-4"/><circle cx="14.5" cy="9.5" r="1.3"/><path d="M8 21h8"/><path d="M17 4a5 5 0 0 1 3 3M16 1.5a8 8 0 0 1 6.5 6.5"/></symbol>
+    <symbol id="i-satelite" viewBox="0 0 24 24"><rect x="9" y="9" width="6" height="6" rx="1" transform="rotate(45 12 12)"/><path d="M8.5 8.5 5 5M15.5 15.5 19 19"/><rect x="1.5" y="1.5" width="5" height="5" rx=".5" transform="rotate(45 4 4)"/><rect x="17.5" y="17.5" width="5" height="5" rx=".5" transform="rotate(45 20 20)"/></symbol>
+    <symbol id="i-cohete" viewBox="0 0 24 24"><path d="M12 2.5c3 2.5 4 6 4 9.5v4H8v-4c0-3.5 1-7 4-9.5z"/><circle cx="12" cy="9.5" r="1.6"/><path d="M8 13l-3 3v3l3-1.5M16 13l3 3v3l-3-1.5M10.5 19.5l1.5 2.5 1.5-2.5"/></symbol>
+    <symbol id="i-compu" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/><path d="M6.5 12l3-3 2.5 2 4-4"/></symbol>
+  </svg>
+
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">¿Qué es la Astronomía y cómo se construye el conocimiento astronómico?</h1>
+          <p class="l-bajada">Una ciencia que empezó mirando hacia arriba</p>
+          <p class="l-lead">Esta noche, sal a mirar el cielo. Verás puntos que brillan, quizás la Luna y, si tienes suerte, una "estrella fugaz". Ahora pregúntate: <strong>¿Qué son esas luces? ¿Qué tan lejos están? ¿Cómo podemos saberlo si nunca nadie fue hasta allí?</strong></p>
+          <p class="l-lead">Esas preguntas son el punto de partida de la Astronomía. En esta guía vas a descubrir qué estudia, por qué es una de las ciencias más antiguas y, sobre todo, <strong>cómo las personas que investigan el cielo logran saber cosas de lugares a los que nunca podremos viajar</strong>.</p>
+          <ul class="l-datos" aria-label="Datos de la guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Lectura estimada: 15 minutos</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="../img/fotos/yepun-via-lactea-640.webp" srcset="../img/fotos/yepun-via-lactea-640.webp 640w, ../img/fotos/yepun-via-lactea-1280.webp 1280w" sizes="(min-width: 64rem) 26rem, calc(100vw - 2rem)" width="1280" height="1348" alt="El centro de la Vía Láctea sobre el telescopio Yepun, en el Observatorio Paranal (Chile)." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#ideas">Antes de empezar</a></li>
+            <li><a href="#que-es">¿Qué es la Astronomía?</a></li>
+            <li><a href="#astrologia">Astronomía no es Astrología</a></li>
+            <li><a href="#como">Cómo se construye el conocimiento</a></li>
+            <li><a href="#herramientas">Las herramientas</a></li>
+            <li><a href="#historia">Cuando el Sol pasó al centro</a></li>
+            <li><a href="#hoy">Y hoy</a></li>
+            <li><a href="#culturas">Un cielo, muchas miradas</a></li>
+            <li><a href="#uruguay">Uruguay y la región</a></li>
+            <li><a href="#cts">En la vida diaria</a></li>
+            <li><a href="#glosario">Mini glosario</a></li>
+            <li><a href="#pensar">Para pensar</a></li>
+            <li><a href="#quiz">Misión de verificación</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <!-- Ideas previas -->
+        <section class="l-sec" id="ideas" aria-labelledby="ideas-titulo">
+          <h2 id="ideas-titulo">Antes de empezar: ¿qué piensas tú?</h2>
+          <p>Lee cada frase y decide si te parece verdadera o falsa. Después, abre la tarjeta para comparar tu idea con lo que sabe la ciencia hoy. ¡Equivocarse es parte de aprender!</p>
+          <div class="l-hipotesis">
+            <details>
+              <summary>"De día no hay estrellas en el cielo."</summary>
+              <div class="l-respuesta"><p><span class="l-veredicto f">Falso</span> Las estrellas siguen allí todo el tiempo. De día no las vemos porque la luz del Sol, al atravesar el aire, ilumina todo el cielo y su brillo tapa el de las estrellas, que es mucho más débil.</p></div>
+            </details>
+            <details>
+              <summary>"Todas las estrellas que veo están a la misma distancia."</summary>
+              <div class="l-respuesta"><p><span class="l-veredicto f">Falso</span> Parecen estar pegadas en una gran cúpula, pero algunas están a pocos años luz y otras a miles. Una estrella puede verse débil porque está muy lejos, no porque sea pequeña.</p></div>
+            </details>
+            <details>
+              <summary>"La Astrología es una parte de la Astronomía."</summary>
+              <div class="l-respuesta"><p><span class="l-veredicto f">Falso</span> Comparten un origen histórico, pero hoy son cosas muy distintas. La Astronomía es una ciencia; la Astrología no lo es. Más abajo verás por qué.</p></div>
+            </details>
+            <details>
+              <summary>"Lo que sabemos del Universo puede cambiar."</summary>
+              <div class="l-respuesta"><p><span class="l-veredicto v">Verdadero</span> El conocimiento científico es sólido, pero no definitivo. Cuando aparecen nuevas observaciones, los modelos se revisan y mejoran. Esa capacidad de corregirse es una de las fortalezas de la ciencia.</p></div>
+            </details>
+          </div>
+        </section>
+
+        <!-- Qué es la Astronomía -->
+        <section class="l-sec" id="que-es" aria-labelledby="que-es-titulo">
+          <h2 id="que-es-titulo">¿Qué es la Astronomía?</h2>
+          <div class="l-definicion">
+            <p><strong>La Astronomía es la ciencia que estudia los astros</strong> (los objetos que existen en el espacio, como planetas, lunas, estrellas y galaxias), <strong>los fenómenos que ocurren en el cielo y el Universo en su conjunto</strong>: cómo es, cómo funciona, cómo se originó y cómo cambia.</p>
+          </div>
+          <p>Es una de las ciencias más antiguas. Hace miles de años, distintos pueblos ya observaban el cielo con atención y descubrían <strong>regularidades</strong> (cosas que se repiten siempre de la misma manera): el Sol sale y se pone cada día, la Luna cambia de forma cada mes, algunas estrellas aparecen solo en ciertas épocas del año. Gracias a esos ciclos pudieron crear calendarios, saber cuándo sembrar y orientarse en sus viajes.</p>
+
+          <h3>Una ciencia de muchas escalas</h3>
+          <p>La Astronomía estudia sistemas que están unos dentro de otros, como muñecas rusas. Recorre la escalera de abajo hacia arriba y observa cómo crecen las distancias. Para medirlas usamos el <strong>año luz</strong> (la distancia que recorre la luz en un año: unos 9,5 billones de kilómetros).</p>
+          <ol class="l-escala" aria-label="Escalas del Universo, de la más cercana a la más lejana">
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-tierra"/></svg></span><div><strong>La Tierra y la Luna</strong><span class="l-escala-txt">La luz de la Luna tarda poco más de 1 segundo en llegarnos.</span></div></li>
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-sol"/></svg></span><div><strong>El Sistema Solar</strong><span class="l-escala-txt">El Sol y todo lo que gira a su alrededor. La luz del Sol tarda unos 8 minutos en llegar a la Tierra.</span></div></li>
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-vecinas"/></svg></span><div><strong>Las estrellas vecinas</strong><span class="l-escala-txt">La más cercana después del Sol, Próxima Centauri, está a unos 4,2 años luz.</span></div></li>
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-galaxia"/></svg></span><div><strong>La Vía Láctea, nuestra galaxia</strong><span class="l-escala-txt">Una <em>galaxia</em> (un enorme conjunto de estrellas, gas y polvo que se mantiene unido por la gravedad). La nuestra mide unos 100.000 años luz de lado a lado.</span></div></li>
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-galaxias"/></svg></span><div><strong>Otras galaxias</strong><span class="l-escala-txt">Andrómeda, la galaxia grande más cercana, está a unos 2,5 millones de años luz.</span></div></li>
+            <li><span class="l-escala-ico"><svg class="ico" aria-hidden="true"><use href="#i-universo"/></svg></span><div><strong>El Universo</strong><span class="l-escala-txt">Miles de millones de galaxias organizadas en grupos, cúmulos y grandes filamentos.</span></div></li>
+          </ol>
+
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-pasado"/></svg>Mirar lejos es mirar al pasado</h3>
+            <p>Como la luz tarda en viajar, nunca vemos los astros como son ahora, sino como eran cuando esa luz salió de ellos. Ves al Sol como era hace 8 minutos y a la galaxia de Andrómeda como era hace 2,5 millones de años. <strong>Un telescopio funciona, en cierto modo, como una máquina del tiempo.</strong></p>
+          </div>
+
+          <h3>Una ciencia que se conecta con todas las demás</h3>
+          <p>Para entender el cielo, la Astronomía trabaja junto con otras disciplinas:</p>
+          <ul class="l-temas">
+            <li><b>Matemática:</b> calcular distancias, órbitas y tiempos</li>
+            <li><b>Física:</b> entender la luz, la gravedad y la energía</li>
+            <li><b>Química:</b> saber de qué están hechos los astros</li>
+            <li><b>Biología:</b> buscar vida fuera de la Tierra (astrobiología)</li>
+            <li><b>Informática:</b> analizar enormes cantidades de datos y simular</li>
+            <li><b>Historia y filosofía:</b> cómo cambió nuestra idea del cosmos</li>
+          </ul>
+          <p>La Astronomía nos invita a "mirar hacia afuera", hacia el cosmos, pero también a "mirar hacia adentro": las grandes preguntas sobre el Universo terminan siendo preguntas sobre nosotros mismos, nuestro planeta y nuestro futuro como especie.</p>
+        </section>
+
+        <!-- Astronomía vs Astrología -->
+        <section class="l-sec" id="astrologia" aria-labelledby="astrologia-titulo">
+          <h2 id="astrologia-titulo">Astronomía no es lo mismo que Astrología</h2>
+          <p>En redes sociales y en los medios se mezclan a menudo. Por eso conviene saber distinguirlas:</p>
+          <div class="l-tabla-wrap" role="region" aria-label="Comparación entre Astronomía y Astrología" tabindex="0">
+            <table class="l-tabla">
+              <caption class="sr-only">Comparación entre Astronomía y Astrología</caption>
+              <thead>
+                <tr><th scope="col">Pregunta</th><th scope="col">Astronomía</th><th scope="col">Astrología</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">¿Qué busca?</th><td>Explicar cómo es y cómo funciona el Universo.</td><td>Afirma que la posición de los astros influye en la personalidad o el destino.</td></tr>
+                <tr><th scope="row">¿En qué se basa?</th><td>En observaciones, mediciones y pruebas que cualquiera puede repetir.</td><td>En tradiciones e interpretaciones que no se ponen a prueba.</td></tr>
+                <tr><th scope="row">¿Qué pasa si una idea falla?</th><td>Se revisa o se descarta.</td><td>Se mantiene igual.</td></tr>
+                <tr><th scope="row">¿Es una ciencia?</th><td>Sí.</td><td>No. Es una <em>pseudociencia</em> (algo que parece ciencia pero no sigue sus métodos).</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-lupa"/></svg>Tu detector de pseudociencia</h3>
+            <p>Cuando leas una noticia sobre el cielo ("un asteroide destruirá la Tierra", "la Luna llena te cambia el humor"), hazte estas preguntas:</p>
+            <ul class="l-check">
+              <li>¿Quién lo dice? ¿Es una agencia espacial, un observatorio o una universidad?</li>
+              <li>¿Muestra datos, imágenes o mediciones?</li>
+              <li>¿Otras fuentes confiables dicen lo mismo?</li>
+              <li>¿El título busca asustar o sorprender más que informar?</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Cómo se construye el conocimiento -->
+        <section class="l-sec" id="como" aria-labelledby="como-titulo">
+          <h2 id="como-titulo">¿Cómo se construye el conocimiento astronómico?</h2>
+          <p>Un químico puede mezclar sustancias en un laboratorio y un biólogo puede cultivar plantas. Pero <strong>nadie puede llevar una estrella a un laboratorio</strong>, ni esperar millones de años para ver cómo cambia. Entonces, ¿cómo trabaja la Astronomía?</p>
+          <p>La clave es la <strong>luz</strong>. Casi todo lo que sabemos del Universo lo aprendimos analizando la luz que nos llega de los astros. La luz trae información sobre su color, su temperatura, de qué están hechos y si se acercan o se alejan. Es como un mensaje que debemos aprender a leer.</p>
+          <p>Con esa información, la comunidad científica avanza combinando cuatro tipos de trabajo, que no siempre siguen el mismo orden y que se repiten una y otra vez:</p>
+
+          <figure class="l-ciclo">
+            <svg viewBox="0 0 400 400" role="img" aria-labelledby="ciclo-titulo ciclo-desc">
+              <title id="ciclo-titulo">El ciclo del conocimiento astronómico</title>
+              <desc id="ciclo-desc">Cuatro etapas conectadas en un círculo: observar, investigar, modelizar y teorizar. De teorizar surgen predicciones que llevan a nuevas observaciones.</desc>
+              <defs>
+                <marker id="flecha-ciclo" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="punta"/></marker>
+              </defs>
+              <circle cx="200" cy="200" r="128" class="anillo"/>
+              <path d="M 262 88 A 128 128 0 0 1 312 138" class="arco" marker-end="url(#flecha-ciclo)"/>
+              <path d="M 312 262 A 128 128 0 0 1 262 312" class="arco" marker-end="url(#flecha-ciclo)"/>
+              <path d="M 138 312 A 128 128 0 0 1 88 262" class="arco" marker-end="url(#flecha-ciclo)"/>
+              <path d="M 88 138 A 128 128 0 0 1 138 88" class="arco" marker-end="url(#flecha-ciclo)"/>
+              <g class="nodo"><circle cx="200" cy="72" r="48"/><path class="glifo" d="M186 62c8-9 20-9 28 0-8 9-20 9-28 0z"/><circle class="glifo" cx="200" cy="62" r="3.5"/><text x="200" y="96">Observar</text></g>
+              <g class="nodo"><circle cx="328" cy="200" r="48"/><path class="glifo" d="M314 198v-12M322 198v-18M330 198v-8M338 198v-14M311 198h31"/><text x="328" y="224">Investigar</text></g>
+              <g class="nodo"><circle cx="200" cy="328" r="48"/><circle class="glifo" cx="200" cy="315" r="9"/><ellipse class="glifo" cx="200" cy="315" rx="17" ry="5"/><text x="200" y="352">Modelizar</text></g>
+              <g class="nodo"><circle cx="72" cy="200" r="48"/><path class="glifo" d="M66 204h12M68 209h8M72 176a10 10 0 0 0-6 18c1 1 1.5 2 1.5 3.5V200h9v-2.5c0-1.5.5-2.5 1.5-3.5A10 10 0 0 0 72 176z"/><text x="72" y="228">Teorizar</text></g>
+              <text x="200" y="196" class="centro">Nuevas</text>
+              <text x="200" y="218" class="centro">preguntas</text>
+            </svg>
+            <figcaption>El conocimiento no avanza en línea recta: es un ciclo que se vuelve a recorrer cada vez que aparece un dato nuevo.</figcaption>
+          </figure>
+
+          <ol class="l-pasos">
+            <li>
+              <h3>Observar</h3>
+              <p>Mirar el cielo con atención y <strong>registrar</strong> lo que se ve: con los ojos, con telescopios, con cámaras o con sondas espaciales. Una buena observación anota qué, cuándo, dónde y con qué instrumento.</p>
+              <p class="l-ejemplo"><b>Ejemplo:</b> anotar durante un mes la forma de la Luna y la hora en que aparece.</p>
+            </li>
+            <li>
+              <h3>Investigar</h3>
+              <p>Hacerse preguntas sobre lo observado, medir, comparar datos y buscar <strong>patrones</strong> (cosas que se repiten). Hoy esto incluye analizar millones de datos con computadoras.</p>
+              <p class="l-ejemplo"><b>Ejemplo:</b> descubrir que la Luna repite sus formas cada 29 días y medio.</p>
+            </li>
+            <li>
+              <h3>Modelizar</h3>
+              <p>Construir un <strong>modelo</strong> (una representación simplificada de la realidad, que puede ser un dibujo, una maqueta, una ecuación o una simulación) para explicar lo observado y hacer predicciones.</p>
+              <p class="l-ejemplo"><b>Ejemplo:</b> usar una lámpara y una pelota para mostrar que las fases dependen de cuánto de la mitad iluminada de la Luna vemos desde la Tierra.</p>
+            </li>
+            <li>
+              <h3>Teorizar</h3>
+              <p>Reunir muchos modelos y observaciones en una <strong>teoría</strong> (una explicación amplia, que fue puesta a prueba muchas veces y explica muchos fenómenos a la vez).</p>
+              <p class="l-ejemplo"><b>Ejemplo:</b> la teoría de la gravitación explica a la vez las fases de la Luna, las mareas y las órbitas de los planetas.</p>
+            </li>
+          </ol>
+
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-equipo"/></svg>La ciencia es un trabajo en equipo</h3>
+            <p>Ningún descubrimiento es válido solo porque lo diga una persona famosa. Los resultados se publican para que otros equipos, en otros países, puedan revisarlos y repetir las observaciones. Si alguien encuentra un error, el modelo se corrige. Por eso decimos que el conocimiento científico es <strong>colectivo</strong> y <strong>provisorio</strong> (válido mientras las evidencias lo sostengan).</p>
+          </div>
+        </section>
+
+        <!-- Herramientas -->
+        <section class="l-sec" id="herramientas" aria-labelledby="herramientas-titulo">
+          <h2 id="herramientas-titulo">Las herramientas: de los ojos a los telescopios espaciales</h2>
+          <p>Durante miles de años, el único instrumento fueron los ojos. Hoy contamos con muchas formas de "mirar" el Universo:</p>
+          <div class="l-acordeon">
+            <details>
+              <summary><svg class="ico" aria-hidden="true"><use href="#i-telescopio"/></svg>Telescopios ópticos</summary>
+              <div class="l-acordeon-txt"><p>Reúnen mucha más luz que el ojo humano y permiten ver objetos débiles y detalles finos. En 1609 Galileo Galilei apuntó uno de los primeros telescopios al cielo y cambió la Astronomía para siempre. Los grandes observatorios actuales se construyen en montañas altas y secas, lejos de la contaminación lumínica.</p></div>
+            </details>
+            <details>
+              <summary><svg class="ico" aria-hidden="true"><use href="#i-antena"/></svg>Radiotelescopios y otras "luces invisibles"</summary>
+              <div class="l-acordeon-txt"><p>La luz que vemos es solo una parte de la <strong>radiación electromagnética</strong> (la familia de "luces" que incluye las ondas de radio, el infrarrojo, el ultravioleta y los rayos X). Cada tipo muestra algo distinto: el infrarrojo atraviesa nubes de polvo y deja ver estrellas naciendo; las ondas de radio revelan gas frío entre las estrellas. Para captarlas se usan antenas gigantes llamadas radiotelescopios.</p></div>
+            </details>
+            <details>
+              <summary><svg class="ico" aria-hidden="true"><use href="#i-satelite"/></svg>Telescopios espaciales</summary>
+              <div class="l-acordeon-txt"><p>La atmósfera de la Tierra desenfoca y bloquea parte de la luz. Por eso se envían telescopios al espacio. El <strong>Hubble</strong>, lanzado en 1990, tomó algunas de las imágenes más famosas del cosmos. El <strong>James Webb</strong>, lanzado en 2021, observa en infrarrojo y puede ver galaxias muy lejanas que se formaron poco después del origen del Universo.</p></div>
+            </details>
+            <details>
+              <summary><svg class="ico" aria-hidden="true"><use href="#i-cohete"/></svg>Sondas y vehículos robóticos</summary>
+              <div class="l-acordeon-txt"><p>Son naves sin tripulación que viajan a otros mundos para estudiarlos de cerca. Algunas pasan junto a los planetas, otras orbitan a su alrededor y otras, como los <em>rovers</em> (vehículos robóticos con ruedas), recorren la superficie de Marte analizando rocas.</p></div>
+            </details>
+            <details>
+              <summary><svg class="ico" aria-hidden="true"><use href="#i-compu"/></svg>Computadoras y simuladores</summary>
+              <div class="l-acordeon-txt"><p>Permiten procesar enormes cantidades de datos y crear simulaciones (modelos en computadora) de procesos que duran millones de años, como el nacimiento de una estrella o el choque de dos galaxias. Con programas gratuitos como <strong>Stellarium</strong> puedes ver el cielo de cualquier lugar y fecha desde tu computadora o celular.</p></div>
+            </details>
+          </div>
+        </section>
+
+        <!-- Ejemplo histórico -->
+        <section class="l-sec" id="historia" aria-labelledby="historia-titulo">
+          <h2 id="historia-titulo">Un ejemplo: cuando el Sol pasó al centro</h2>
+          <p>La historia del lugar de la Tierra en el Universo muestra muy bien cómo funciona el ciclo del conocimiento: los modelos cambian cuando aparecen nuevas observaciones.</p>
+          <ol class="l-linea">
+            <li><span class="l-fecha">Antigüedad</span><div><strong>Observar:</strong> se nota que, entre las estrellas, unos pocos astros "se mueven" de noche en noche. Los griegos los llamaron <em>planetas</em> (que significa "errantes", los que vagan).</div></li>
+            <li><span class="l-fecha">Siglo II</span><div><strong>Modelizar:</strong> Claudio Ptolomeo organiza el <em>modelo geocéntrico</em> (la Tierra quieta en el centro y todo gira a su alrededor). Funcionó para predecir posiciones durante más de mil años.</div></li>
+            <li><span class="l-fecha">1543</span><div><strong>Nuevo modelo:</strong> Nicolás Copérnico propone el <em>modelo heliocéntrico</em> (el Sol en el centro y la Tierra girando a su alrededor como un planeta más).</div></li>
+            <li><span class="l-fecha">1609 – 1610</span><div><strong>Nuevas evidencias:</strong> con su telescopio, Galileo descubre lunas girando alrededor de Júpiter y ve que Venus tiene fases como la Luna. Eso no encajaba con el modelo antiguo.</div></li>
+            <li><span class="l-fecha">1609 – 1619</span><div><strong>Mejorar el modelo:</strong> usando años de mediciones muy precisas de Tycho Brahe, Johannes Kepler muestra que los planetas giran en <em>elipses</em> (óvalos), no en círculos perfectos.</div></li>
+            <li><span class="l-fecha">1687</span><div><strong>Teorizar:</strong> Isaac Newton explica por qué se mueven así: la <em>gravedad</em> (la fuerza con la que los cuerpos se atraen entre sí) es la misma que hace caer una manzana y la que mantiene a la Luna en su órbita.</div></li>
+          </ol>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>¿Te diste cuenta?</h3>
+            <p>El modelo geocéntrico no era "tonto": explicaba lo que se podía observar a simple vista. Fue reemplazado porque <strong>nuevos instrumentos trajeron nuevas evidencias</strong>. Así avanza la ciencia.</p>
+          </div>
+        </section>
+
+        <!-- Ejemplo actual -->
+        <section class="l-sec" id="hoy" aria-labelledby="hoy-titulo">
+          <h2 id="hoy-titulo">Y hoy: el ciclo sigue funcionando</h2>
+          <p>Hace apenas 30 años no sabíamos si existían planetas fuera del Sistema Solar. En 1995 se confirmó el primero que gira alrededor de una estrella parecida al Sol. Como están tan lejos y brillan tan poco, casi nunca se ven directamente: se detectan, por ejemplo, midiendo la pequeña baja de brillo de una estrella cuando un planeta pasa por delante de ella (el llamado <em>método del tránsito</em>).</p>
+          <p>Hoy se conocen <strong>más de 5.000 exoplanetas</strong> (planetas que giran alrededor de otras estrellas), y cada descubrimiento obliga a revisar las ideas sobre cómo se forman los sistemas planetarios. Algo parecido ocurre con el origen del Universo: el modelo del <em>Big Bang</em> (la idea de que el Universo comenzó muy caliente y denso hace unos 13.800 millones de años y desde entonces se expande) se apoya en muchas observaciones, y los telescopios actuales lo siguen poniendo a prueba.</p>
+        </section>
+
+        <!-- Culturas -->
+        <section class="l-sec" id="culturas" aria-labelledby="culturas-titulo">
+          <h2 id="culturas-titulo">Un cielo, muchas miradas</h2>
+          <p>Todos los pueblos del mundo observaron el cielo y construyeron conocimientos sobre él. A esto se lo estudia como <strong>astronomía cultural</strong> (cómo cada cultura interpreta y usa el cielo).</p>
+          <ul>
+            <li>Los pueblos <strong>guaraníes</strong> reconocían en el cielo del sur la figura de un <strong>ñandú</strong>, cerca de la Cruz del Sur. Su aparición en el cielo marcaba cambios de estación importantes para la vida cotidiana.</li>
+            <li>Los pueblos <strong>andinos</strong> no solo unían estrellas: también veían figuras en las <strong>manchas oscuras</strong> de la Vía Láctea, como una llama, una serpiente o un sapo.</li>
+            <li>Muchas civilizaciones usaron el cielo como <strong>reloj y calendario</strong>, para organizar la siembra, las fiestas y los viajes.</li>
+          </ul>
+          <p>Mirar desde el <strong>hemisferio sur</strong> nos da un cielo propio, con estrellas y figuras que no se ven desde Europa o Norteamérica. Por eso es valioso conocer también las miradas de nuestra región.</p>
+        </section>
+
+        <!-- Uruguay y región -->
+        <section class="l-sec" id="uruguay" aria-labelledby="uruguay-titulo">
+          <h2 id="uruguay-titulo">La Astronomía en Uruguay y la región</h2>
+          <p>Uruguay tiene una tradición especial: la Astronomía forma parte de la educación formal desde hace mucho tiempo, algo poco común en el mundo. Además:</p>
+          <ul>
+            <li>En la <strong>Facultad de Ciencias de la Universidad de la República</strong> se forman personas que investigan en Astronomía.</li>
+            <li>El <strong>Observatorio Astronómico Los Molinos</strong>, en Montevideo, se ha dedicado entre otras cosas al estudio de asteroides y cometas.</li>
+            <li>El <strong>Planetario de Montevideo</strong> acerca el cielo a estudiantes y familias desde hace décadas.</li>
+            <li>En países vecinos como <strong>Chile</strong>, gracias a sus cielos muy secos y oscuros, funcionan algunos de los observatorios más grandes del planeta.</li>
+          </ul>
+        </section>
+
+        <!-- CTS -->
+        <section class="l-sec" id="cts" aria-labelledby="cts-titulo">
+          <h2 id="cts-titulo">¿Para qué sirve todo esto en la vida diaria?</h2>
+          <p>Estudiar el cielo también trajo beneficios a la Tierra:</p>
+          <div class="l-usos">
+            <div><h3>Ubicarnos</h3><p>El GPS de tu celular usa satélites y relojes muy precisos; para que funcione bien hay que tener en cuenta conocimientos de física y astronomía.</p></div>
+            <div><h3>Fotografiar</h3><p>Los sensores de imagen digitales se perfeccionaron, en buena parte, por la necesidad de captar la luz débil de las estrellas.</p></div>
+            <div><h3>Cuidar el planeta</h3><p>Los satélites que miran a la Tierra ayudan a pronosticar el tiempo y a estudiar el clima.</p></div>
+            <div><h3>Cuidar el cielo</h3><p>La <em>contaminación lumínica</em> (el exceso de luz artificial de noche) nos está quitando las estrellas. Conocer el cielo nos ayuda a protegerlo.</p></div>
+          </div>
+        </section>
+
+        <!-- Glosario -->
+        <section class="l-sec l-glosario" id="glosario" aria-labelledby="glosario-titulo">
+          <h2 id="glosario-titulo">Mini glosario</h2>
+          <details>
+            <summary>Ver las palabras clave de esta guía</summary>
+            <dl>
+              <dt>Astro</dt><dd>Cualquier objeto natural del espacio: planetas, lunas, estrellas, cometas, galaxias.</dd>
+              <dt>Año luz</dt><dd>Distancia que recorre la luz en un año, unos 9,5 billones de kilómetros. Mide distancias, no tiempo.</dd>
+              <dt>Galaxia</dt><dd>Enorme conjunto de estrellas, gas y polvo unidos por la gravedad. Vivimos en la Vía Láctea.</dd>
+              <dt>Modelo</dt><dd>Representación simplificada de la realidad que sirve para explicar y predecir.</dd>
+              <dt>Teoría</dt><dd>Explicación amplia y muy comprobada que reúne muchas observaciones y modelos.</dd>
+              <dt>Evidencia</dt><dd>Dato u observación que permite apoyar o descartar una idea.</dd>
+              <dt>Exoplaneta</dt><dd>Planeta que gira alrededor de una estrella distinta del Sol.</dd>
+              <dt>Pseudociencia</dt><dd>Creencia que se presenta como científica pero no se pone a prueba con evidencias.</dd>
+            </dl>
+          </details>
+        </section>
+
+        <!-- Reflexión final -->
+        <section class="l-sec" id="pensar" aria-labelledby="pensar-titulo">
+          <div class="l-pensar">
+            <h2 id="pensar-titulo">Para pensar</h2>
+            <p>Elige una pregunta sobre el cielo que te dé curiosidad (por ejemplo: <em>¿por qué la Luna a veces se ve de día?</em>). <strong>¿Cómo la investigarías?</strong></p>
+            <ol>
+              <li>¿Qué observarías y cómo lo registrarías?</li>
+              <li>¿Qué datos necesitarías medir o comparar?</li>
+              <li>¿Qué modelo podrías construir para explicarlo?</li>
+              <li>¿Cómo comprobarías si tu explicación es correcta?</li>
+            </ol>
+            <p class="l-cierre">Acabas de pensar como alguien que investiga en Astronomía.</p>
+          </div>
+        </section>
+
+        <!-- Evaluación interactiva -->
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Misión de verificación</h2>
+          <p>Pon a prueba lo que has descubierto. Al final, coleccionarás estrellas por cada respuesta correcta.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión completada!</h3>
+            <p>Has recolectado las siguientes estrellas:</p>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Volver a intentar</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Foto de portada: ESO/J. Colosimo (CC BY 4.0). <a href="../creditos.html">Créditos de las fotos</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* Preguntas de la trivia (el funcionamiento está en js/lectura.js) */
+    window.TRIVIA = [
+    {
+        "question": "1. ¿Qué estudia la Astronomía?",
+        "options": [
+            "Cómo influyen los astros en la personalidad de las personas",
+            "Los astros, los fenómenos del cielo y el Universo en su conjunto",
+            "Solo los planetas del Sistema Solar",
+            "El clima y las nubes de la Tierra"
+        ],
+        "correct": 1,
+        "feedbackCorrect": "¡Excelente! La Astronomía estudia los astros, los fenómenos del cielo y el Universo como un todo: cómo es, cómo funciona y cómo cambia.",
+        "feedbackIncorrect": "Casi. La opción correcta es 'Los astros, los fenómenos del cielo y el Universo en su conjunto'. Estudiar la influencia de los astros en la personalidad es Astrología, y el clima lo estudia la Meteorología."
+    },
+    {
+        "question": "2. Si nadie puede viajar hasta una estrella, ¿de dónde obtiene la Astronomía casi toda su información?",
+        "options": [
+            "De la luz y otras radiaciones que nos llegan de los astros",
+            "De muestras de estrellas traídas a la Tierra",
+            "De las opiniones de personas famosas",
+            "De los horóscopos antiguos"
+        ],
+        "correct": 0,
+        "feedbackCorrect": "¡Muy bien! La luz (visible e invisible) es el gran mensajero del cosmos: nos cuenta el color, la temperatura y la composición de los astros.",
+        "feedbackIncorrect": "No es así. La opción correcta es 'De la luz y otras radiaciones que nos llegan de los astros'. Ninguna estrella puede llevarse a un laboratorio, pero su luz sí llega hasta nosotros."
+    },
+    {
+        "question": "3. ¿Qué es un modelo en ciencia?",
+        "options": [
+            "Una copia exacta y perfecta de la realidad",
+            "Una idea que nunca se puede cambiar",
+            "Una representación simplificada que sirve para explicar y predecir",
+            "Una persona que posa para una foto del cielo"
+        ],
+        "correct": 2,
+        "feedbackCorrect": "¡Correcto! Un modelo simplifica la realidad (con un dibujo, una maqueta, una ecuación o una simulación) para explicarla y hacer predicciones.",
+        "feedbackIncorrect": "Atención. La opción correcta es 'Una representación simplificada que sirve para explicar y predecir'. Los modelos no son copias perfectas y pueden mejorarse cuando aparecen nuevas evidencias."
+    },
+    {
+        "question": "4. Ves la galaxia de Andrómeda, que está a unos 2,5 millones de años luz. ¿Qué significa eso?",
+        "options": [
+            "Que la ves tal como es en este momento",
+            "Que la ves como era hace unos 2,5 millones de años",
+            "Que tardarías 2,5 millones de años en llegar caminando",
+            "Que es 2,5 millones de veces más grande que la Tierra"
+        ],
+        "correct": 1,
+        "feedbackCorrect": "¡Muy bien! Su luz viajó 2,5 millones de años hasta llegar a tus ojos, así que la ves como era en el pasado. Mirar lejos es mirar al pasado.",
+        "feedbackIncorrect": "No exactamente. La opción correcta es 'Que la ves como era hace unos 2,5 millones de años'. El año luz es una distancia: la que recorre la luz en un año."
+    },
+    {
+        "question": "5. ¿Por qué se abandonó el modelo geocéntrico (la Tierra en el centro)?",
+        "options": [
+            "Porque un rey lo prohibió",
+            "Porque nunca había servido para nada",
+            "Porque nuevas observaciones con telescopio no encajaban con él",
+            "Porque la Astrología lo reemplazó"
+        ],
+        "correct": 2,
+        "feedbackCorrect": "¡Exacto! Observaciones como las lunas de Júpiter y las fases de Venus, vistas por Galileo, mostraron que hacía falta un modelo mejor.",
+        "feedbackIncorrect": "Revisa la línea de tiempo. La opción correcta es 'Porque nuevas observaciones con telescopio no encajaban con él'. El modelo antiguo funcionaba a simple vista, pero los nuevos instrumentos trajeron nuevas evidencias."
+    },
+    {
+        "question": "6. Lees en redes: \"La Luna llena de este mes cambiará tu suerte en el amor\". ¿Qué es lo más razonable pensar?",
+        "options": [
+            "Es ciencia, porque habla de la Luna",
+            "Es una afirmación pseudocientífica: no muestra evidencias ni puede comprobarse",
+            "Es verdad si lo compartió mucha gente",
+            "Solo es cierto en el hemisferio sur"
+        ],
+        "correct": 1,
+        "feedbackCorrect": "¡Gran detector de pseudociencia! Que mencione un astro no la vuelve científica: no presenta datos ni puede ponerse a prueba.",
+        "feedbackIncorrect": "Cuidado. La opción correcta es 'Es una afirmación pseudocientífica'. Que algo hable de la Luna o se comparta mucho no lo convierte en ciencia: hacen falta evidencias que cualquiera pueda comprobar."
+    },
+    {
+        "question": "BONUS: ¿Por qué decimos que el conocimiento científico es \"provisorio\"?",
+        "options": [
+            "Porque es inventado y no vale nada",
+            "Porque es válido mientras las evidencias lo sostengan y puede mejorarse",
+            "Porque cambia según la opinión de cada persona",
+            "Porque solo dura un año"
+        ],
+        "correct": 1,
+        "feedbackCorrect": "¡Excelente! Es sólido porque se apoya en evidencias, y a la vez puede corregirse cuando aparecen datos nuevos. Esa es su gran fortaleza.",
+        "feedbackIncorrect": "No es así. La opción correcta es 'Porque es válido mientras las evidencias lo sostengan y puede mejorarse'. Provisorio no significa débil: significa que la ciencia está abierta a corregirse."
+    }
+];
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/lectura.js"></script>
+
+  <!-- Código de analítica GoatCounter -->
+  <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

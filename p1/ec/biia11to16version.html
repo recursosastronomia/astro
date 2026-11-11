@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Los orígenes de la observación del cielo · Astronomía para todos</title>
+  <meta name="description" content="Cómo la humanidad empezó a observar el cielo: constelaciones, arte, calendarios y navegación con las estrellas. Con video, recursos y una trivia.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-telescopio" viewBox="0 0 24 24"><path d="M3.5 13.5l13-6 1.5 3.2-13 6z"/><path d="M16.5 7.5l3-1.4 1.5 3.2-3 1.4"/><path d="M10 15l-3 6M11.5 14.5l3 6.5"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+  </svg>
+
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">Los orígenes de la observación del cielo</h1>
+          <p class="l-bajada">Grandes ideas de la astronomía</p>
+          <p class="l-lead">¡Te damos la bienvenida a este viaje espacial! Descubre cómo la humanidad comenzó a observar el cielo y por qué el movimiento de los astros transformó nuestra forma de vivir para siempre.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Unos 8 minutos de lectura</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="../img/fotos/nebra-640.webp" srcset="../img/fotos/nebra-640.webp 640w, ../img/fotos/nebra-1280.webp 1280w" sizes="(min-width: 64rem) 26rem, calc(100vw - 2rem)" width="1280" height="1258" alt="El disco celeste de Nebra: un disco de bronce de hace unos 3600 años con el Sol o la Luna llena, una luna creciente y un grupo de estrellas de oro." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#misterio">El cielo: el primer misterio</a></li>
+            <li><a href="#constelaciones">Las constelaciones</a></li>
+            <li><a href="#arte">El cielo en el arte y la cultura</a></li>
+            <li><a href="#calendarios">Los calendarios y la agricultura</a></li>
+            <li><a href="#navegacion">Navegando con las estrellas</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+            <li><a href="#quiz">Desafío: gana tus estrellas</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="misterio" aria-labelledby="misterio-titulo">
+          <h2 id="misterio-titulo">El cielo: el primer misterio de la humanidad</h2>
+          <figure class="l-figura">
+            <img src="images/biia1_1-1280.webp" width="1280" height="858" loading="lazy" decoding="async" alt="Ilustración: personas de la antigüedad observan el Sol, la Luna y las estrellas desde un paisaje con monumentos de piedra.">
+          </figure>
+          <p>La <strong>astronomía</strong> (la ciencia que estudia los planetas, las estrellas y las galaxias) es una de las ciencias más antiguas del mundo. Se dedica a estudiar los objetos del espacio, cómo se mueven y qué sucede más allá de la Tierra.</p>
+          <p>Mucho antes de inventar los telescopios, nuestros antepasados ya observaban el cielo a simple vista. Comprender los ciclos del Sol, de la Luna y de los planetas fue el primer gran esfuerzo humano por encontrar un orden en la naturaleza.</p>
+          <p>Al principio, muchas culturas antiguas creían que los astros eran dioses o seres mágicos. Sin embargo, pronto descubrieron que mirar el cielo tenía una gran utilidad práctica: funcionaba como un enorme y exacto reloj que les servía para medir el tiempo y organizar la vida de sus comunidades.</p>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>¿Sabías que...?</h3>
+            <p>Las primeras personas no escribían sus descubrimientos en libros. Los científicos han encontrado registros astronómicos tallados en huesos de animales o pintados en las paredes de cuevas prehistóricas, con miles de años de antigüedad.</p>
+          </div>
+        </section>
+
+        <section class="l-sec" id="constelaciones" aria-labelledby="constelaciones-titulo">
+          <h2 id="constelaciones-titulo">Las constelaciones: dibujos con estrellas</h2>
+          <figure class="l-figura">
+            <img src="images/biia1_2-1280.webp" width="1280" height="632" loading="lazy" decoding="async" alt="Ilustración: personas con antorchas señalan estrellas unidas por líneas que forman figuras de distintas culturas.">
+          </figure>
+          <p>Al mirar el cielo en una noche despejada, nuestro cerebro tiende a buscar formas uniendo los puntos luminosos. A estos dibujos imaginarios de estrellas los llamamos <strong>constelaciones</strong>.</p>
+          <p>Es importante saber que las estrellas de una constelación no están realmente cerca unas de otras en el espacio; algunas están muchísimo más lejos que otras. Solo parecen formar un dibujo porque las vemos juntas desde nuestra posición en la Tierra.</p>
+          <p>A lo largo de la historia, distintas culturas imaginaron figuras diferentes en el mismo cielo:</p>
+          <div class="l-usos">
+            <div><h3>Antiguos griegos</h3><p>Unían las estrellas para dibujar a los héroes y monstruos de sus mitos, como el gran cazador <strong>Orión</strong> o el enorme <strong>Escorpión</strong>.</p></div>
+            <div><h3>Culturas nativas</h3><p>Pueblos como los mayas veían en el cielo a animales muy importantes para su entorno, como jaguares, serpientes y aves sagradas.</p></div>
+            <div><h3>Pueblos del sur</h3><p>En Sudamérica y Australia, muchos pueblos no unían estrellas brillantes, sino que miraban las manchas oscuras del cielo para formar animales como la llama cósmica.</p></div>
+          </div>
+          <p>En el año 1922, los astrónomos de todo el mundo se pusieron de acuerdo y dividieron el cielo en <strong>88 regiones oficiales</strong>. Así, las constelaciones dejaron de ser solo cuentos antiguos y pasaron a ser un mapa exacto para que los científicos ubiquen galaxias y planetas de forma rápida.</p>
+          <p>Para conocer más historias y ver Orión en tres dimensiones, abre la guía <a href="constelacionesV3.html">Constelaciones</a>.</p>
+        </section>
+
+        <section class="l-sec" id="arte" aria-labelledby="arte-titulo">
+          <h2 id="arte-titulo">El cielo en el arte y la cultura</h2>
+          <figure class="l-figura">
+            <img src="images/biia1_3-1280.webp" width="1280" height="632" loading="lazy" decoding="async" alt="Ilustración: el cielo estrellado inspira pinturas, monumentos e historias de distintas épocas.">
+          </figure>
+          <p>El cielo nocturno, inmenso y silencioso, siempre ha despertado asombro y curiosidad. Esta emoción inspiró a personas de todas las épocas, convirtiendo al espacio en un tema central para el arte humano.</p>
+          <ul>
+            <li><strong>En la pintura:</strong> desde objetos de bronce antiguos (como el disco de Nebra de la portada) hasta el famoso cuadro «La noche estrellada» del pintor Vincent van Gogh, el arte ha intentado atrapar la belleza de las estrellas.</li>
+            <li><strong>En las historias:</strong> una gran cantidad de libros, canciones y películas tratan sobre viajes espaciales y galaxias lejanas.</li>
+          </ul>
+          <p>El arte nos ayuda a conectar con el universo de una forma emocionante. Además, nos recuerda algo muy importante: no importa de qué país seamos, todos compartimos exactamente el mismo cielo.</p>
+        </section>
+
+        <section class="l-sec" id="calendarios" aria-labelledby="calendarios-titulo">
+          <h2 id="calendarios-titulo">Los calendarios y la agricultura</h2>
+          <figure class="l-figura">
+            <img src="images/biia1_4-1280.webp" width="1280" height="858" loading="lazy" decoding="async" alt="Ilustración: agricultores del antiguo Egipto siembran junto al río Nilo mientras una estrella brilla antes del amanecer.">
+          </figure>
+          <p>Cuando los seres humanos dejaron de ser nómadas y empezaron a plantar sus propios alimentos, observar el cielo se volvió vital. Para tener buenas cosechas, necesitaban predecir cuándo llegarían las lluvias o el frío. Por eso, guiándose por el movimiento del Sol, crearon los primeros calendarios.</p>
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>El aviso del río Nilo</h3>
+            <p>En el antiguo Egipto, los agricultores vigilaban muy de cerca a <strong>Sirio</strong>, la estrella más brillante de la noche. Sabían que justo cuando Sirio aparecía en el cielo un poco antes del amanecer, el gran río Nilo estaba a punto de inundarse. Esa inundación era necesaria porque dejaba la tierra mojada y perfecta para sembrar la comida de todo el año.</p>
+          </div>
+        </section>
+
+        <section class="l-sec" id="navegacion" aria-labelledby="navegacion-titulo">
+          <h2 id="navegacion-titulo">Navegando con ayuda de las estrellas</h2>
+          <figure class="l-figura">
+            <img src="images/biia1_5-1280.webp" width="1280" height="698" loading="lazy" decoding="async" alt="Ilustración: marineros en la cubierta de un velero observan las estrellas en mar abierto.">
+          </figure>
+          <p>Mucho antes de que se inventara el GPS o las brújulas modernas, viajar en barco por el océano era muy peligroso. Sin montañas ni costas a la vista, los marineros podían perderse fácilmente. Su única guía segura estaba arriba: el cielo.</p>
+          <p>A esta técnica se la conoce como <strong>navegación astronómica</strong>. Durante la noche, utilizaban estrellas específicas como si fueran faros:</p>
+          <div class="l-usos">
+            <div><h3>En el norte</h3><p>Los marineros buscaban la <em>Estrella Polar</em>, ya que siempre se mantiene quieta señalando exactamente hacia el norte.</p></div>
+            <div><h3>En el sur</h3><p>Como no tenían una estrella polar, se guiaban buscando la famosa constelación de la <em>Cruz del Sur</em>. En la <a href="../index.html#sur">portada</a> te mostramos cómo encontrar el sur con ella.</p></div>
+          </div>
+          <p>Esta forma de guiarse mirando los astros es tan confiable que, incluso hoy en día, se les enseña a los marineros profesionales por si las computadoras de sus grandes barcos llegan a fallar.</p>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <p>Si quieres seguir aprendiendo sobre el espacio de forma divertida, te recomendamos estos sitios educativos:</p>
+          <ul class="l-recursos">
+            <li><a href="https://spaceplace.nasa.gov/sp/" target="_blank" rel="noopener noreferrer">NASA Space Place (en español)<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Sitio de la NASA con artículos fáciles de entender y juegos.</span></li>
+            <li><a href="https://www.esa.int/kids/es/home" target="_blank" rel="noopener noreferrer">ESA Kids<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Página de la Agencia Espacial Europea con noticias y curiosidades sobre el universo.</span></li>
+            <li><a href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer">Portal Uruguay Educa<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Materiales educativos sobre el cielo que vemos todos los días.</span></li>
+          </ul>
+
+          <h3>Video recomendado</h3>
+          <p>Te invitamos a ver este video del canal «Juankstar». Te explica cómo la humanidad fue inventando los nombres de estos grupos de estrellas.</p>
+          <div class="l-video">
+            <iframe src="https://www.youtube.com/embed/JbOEfLcddl0" title="Video de YouTube: Historia de las constelaciones" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+
+          <h3>Explora el cielo desde tu computadora</h3>
+          <a class="l-enlace" href="https://stellarium-web.org/" target="_blank" rel="noopener noreferrer">
+            <svg class="ico" aria-hidden="true"><use href="#i-telescopio"/></svg>
+            <span>Stellarium Web: un planetario gratuito en línea. Busca tu ciudad y mira qué estrellas la iluminan esta misma noche.<span class="sr-only"> (se abre en una pestaña nueva)</span></span>
+            <svg class="ico" aria-hidden="true"><use href="#i-externo"/></svg>
+          </a>
+
+          <h3>Material de referencia</h3>
+          <p>Este contenido está basado en la propuesta del documento <a href="https://astro4edu.org/es/bigideas/" target="_blank" rel="noopener noreferrer">«Big ideas in Astronomy» de la Unión Astronómica Internacional<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.</p>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío: gana tus estrellas</h2>
+          <p>Es momento de poner a prueba lo que aprendiste en esta guía. Son 7 preguntas: cada respuesta correcta suma una estrella.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión astronómica completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Jugar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Foto de portada: Dbachmann (CC BY-SA 3.0). Las ilustraciones de la guía fueron creadas con asistencia de IA. <a href="../creditos.html">Créditos de las fotos</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ---------- */
+    window.TRIVIA = [
+      {
+        question: "1. ¿Qué es lo que estudia la astronomía?",
+        options: ["El clima y las nubes de la Tierra.", "Los planetas, las estrellas y otros objetos del espacio.", "La historia de los dioses antiguos."],
+        correct: 1,
+        feedbackCorrect: "¡Muy bien! La astronomía es una ciencia antigua dedicada a estudiar los astros del universo y cómo se mueven.",
+        feedbackIncorrect: "Casi. La respuesta correcta está marcada en verde: la astronomía estudia los astros del universo y cómo se mueven."
+      },
+      {
+        question: "2. ¿Para qué le servía mirar el cielo a las personas de la antigüedad?",
+        options: ["Para inventar nuevos colores de pintura.", "Para tener un reloj exacto y saber cuándo sembrar sus alimentos.", "Para descubrir cómo respirar bajo el agua."],
+        correct: 1,
+        feedbackCorrect: "¡Excelente! El cielo funcionaba como un gran reloj natural que les ayudaba a organizar su vida y saber cuándo cultivar.",
+        feedbackIncorrect: "Casi. La respuesta correcta está marcada en verde: el cielo funcionaba como un gran reloj natural para saber cuándo cultivar."
+      },
+      {
+        question: "3. ¿Qué son realmente las constelaciones?",
+        options: ["Planetas muy grandes que están pegados.", "Lugares en el cielo donde siempre llueve.", "Dibujos imaginarios que formamos al unir estrellas con líneas."],
+        correct: 2,
+        feedbackCorrect: "¡Correcto! Las constelaciones son figuras inventadas. Vemos las estrellas juntas, pero en realidad pueden estar muy lejos unas de otras.",
+        feedbackIncorrect: "Casi. La respuesta correcta está marcada en verde: son figuras inventadas; las estrellas solo parecen juntas desde la Tierra."
+      },
+      {
+        question: "4. ¿En cuántas regiones oficiales dividieron el cielo los astrónomos en el año 1922?",
+        options: ["30 regiones", "88 regiones", "200 regiones"],
+        correct: 1,
+        feedbackCorrect: "¡Buena memoria! Dividieron el cielo en 88 partes oficiales para que todos los científicos del mundo usaran el mismo mapa estelar.",
+        feedbackIncorrect: "Casi. La respuesta correcta está marcada en verde: son 88 regiones, el mismo mapa estelar para todo el mundo."
+      },
+      {
+        question: "5. ¿Qué nos enseña el arte cuando se inspira en el cielo y las estrellas?",
+        options: ["Que todos los humanos sentimos curiosidad y compartimos el mismo universo.", "Que solo se puede pintar bien si es de noche.", "Que las estrellas son hechas de pintura brillante."],
+        correct: 0,
+        feedbackCorrect: "¡Exacto! El cielo nocturno siempre ha emocionado a la humanidad, recordándonos que todos vivimos bajo el mismo cielo.",
+        feedbackIncorrect: "Casi. La respuesta correcta está marcada en verde: el arte nos recuerda que todos vivimos bajo el mismo cielo."
+      },
+      {
+        question: "6. ¿Qué anunciaba la estrella Sirio a los agricultores del antiguo Egipto?",
+        options: ["El final del verano.", "Un eclipse de Luna.", "Que el río Nilo estaba a punto de inundarse."],
+        correct: 2,
+        feedbackCorrect: "¡Acertado! Al ver aparecer a Sirio justo antes del amanecer, los egipcios sabían que llegaba el agua necesaria para sembrar su comida.",
+        feedbackIncorrect: "Casi. La respuesta correcta está marcada en verde: Sirio antes del amanecer anunciaba la inundación del Nilo."
+      },
+      {
+        question: "7. Antes de tener GPS, ¿cómo se guiaban los barcos de noche en el hemisferio norte?",
+        options: ["Mirando hacia el Sol.", "Buscando la Estrella Polar.", "Siguiendo el vuelo de las gaviotas."],
+        correct: 1,
+        feedbackCorrect: "¡Impecable! Los marineros buscaban la Estrella Polar porque se queda quieta apuntando siempre hacia el norte, como un faro seguro.",
+        feedbackIncorrect: "Casi. La respuesta correcta está marcada en verde: buscaban la Estrella Polar, que señala siempre el norte."
+      }
+    ];
+
+    // Mensaje final según las estrellas obtenidas (los mismos textos de la versión anterior)
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      if (aciertos === total) return { titulo: '¡Experto en observar el cielo!', html: '<p>¡Excelente trabajo! Entendiste a la perfección cómo los seres humanos empezamos a observar y entender el cielo.</p>' };
+      if (aciertos >= 4) return { titulo: '¡Buen trabajo!', html: `<p>Lograste ${aciertos} de ${total} estrellas. Es un resultado muy bueno. ¡Sigue aprendiendo!</p>` };
+      return { titulo: '¡Sigue intentándolo!', html: '<p>En la ciencia es normal equivocarse al principio. ¡Anímate a jugar otra vez!</p>' };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/lectura.js"></script>
+</body>
+</html>

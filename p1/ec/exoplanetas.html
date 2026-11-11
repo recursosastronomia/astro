@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Exoplanetas · Astronomía para todos</title>
+  <meta name="description" content="Exoplanetas: qué son, cómo se detectan por el método del tránsito y qué es la zona habitable. Con laboratorio interactivo de curvas de luz y trivia.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-curva" viewBox="0 0 24 24"><path d="M3 8h5c1.5 0 2 5 4 5s2.5-5 4-5h5"/><path d="M3 19h18"/></symbol>
+  </svg>
+
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">Exoplanetas</h1>
+          <p class="l-bajada">Mundos en estrellas lejanas</p>
+          <p class="l-lead">Monitorea y altera propiedades de estrellas distantes. Modifica los controles del sistema y observa cómo cambia la curva de luz.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-curva"/></svg>Laboratorio de tránsitos</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="../img/fotos/kepler-640.webp" srcset="../img/fotos/kepler-640.webp 640w, ../img/fotos/kepler-1280.webp 1280w" sizes="(min-width: 64rem) 26rem, calc(100vw - 2rem)" width="1280" height="856" alt="El telescopio espacial Kepler, que encontró miles de exoplanetas, antes de su lanzamiento." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#que-es">¿Qué es un exoplaneta?</a></li>
+            <li><a href="#conceptos">Conceptos clave</a></li>
+            <li><a href="#reflexionar">Preguntas para reflexionar</a></li>
+            <li><a href="#simulador">Laboratorio de tránsitos</a></li>
+            <li><a href="#quiz">Desafío de autoevaluación</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="que-es" aria-labelledby="que-es-titulo">
+          <h2 id="que-es-titulo">¿Qué es un exoplaneta?</h2>
+          <div class="l-definicion">
+            <p>Un exoplaneta es cualquier mundo que orbita una estrella diferente a nuestro Sol. Al estar a distancias descomunales, analizamos la bajada de luz que producen al cruzar frente a su astro rey.</p>
+          </div>
+          <ul class="l-cifras" aria-label="Exoplanetas en cifras">
+            <li><strong>1992</strong><span>Primer hallazgo</span></li>
+            <li><strong>+5000</strong><span>Confirmados</span></li>
+          </ul>
+          <figure class="l-figura">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Kepler186f-ComparisonGraphic-20140417.jpg/960px-Kepler186f-ComparisonGraphic-20140417.jpg" width="960" height="540" loading="lazy" alt="Ilustración que compara la Tierra con el exoplaneta Kepler-186f.">
+            <figcaption><b>Kepler-186f.</b> Planeta descubierto en la franja habitable exterior.</figcaption>
+          </figure>
+        </section>
+
+        <section class="l-sec" id="conceptos" aria-labelledby="conceptos-titulo">
+          <h2 id="conceptos-titulo">Conceptos clave para investigar</h2>
+          <ol class="l-pasos">
+            <li>
+              <h3>¿En qué consiste un exoplaneta?</h3>
+              <p>Es un planeta que se encuentra fuera de nuestro sistema solar, orbitando una estrella lejana. Dado que las estrellas brillan millones de veces más que sus planetas, los astrónomos usan telescopios espaciales sensibles para registrar el momento exacto en el que el brillo estelar disminuye debido al bloqueo mecánico que ejerce el planeta al cruzar por delante.</p>
+            </li>
+            <li>
+              <h3>La zona "Ricitos de Oro" (zona habitable)</h3>
+              <p>Se define como la región alrededor de una estrella donde el flujo de radiación térmica permite que un planeta rocoso mantenga una temperatura óptima en su superficie: ni tan caliente como para evaporar las atmósferas, ni tan helada como para congelar los océanos. El agua líquida es el pilar de la biología tal como la conocemos.</p>
+            </li>
+            <li>
+              <h3>Relación con la emisión energética</h3>
+              <p>La ubicación de esta zona templada depende de la masa y temperatura de la estrella central. Las estrellas masivas y calientes (como las <em>Gigantes Azules</em>) emiten tanta energía que su zona habitable se sitúa a distancias gigantescas. Por el contrario, las estrellas frías y compactas (como las <em>Enanas Rojas</em>) emiten tan poca energía que su zona "Ricitos de Oro" se localiza sumamente cerca de ellas.</p>
+            </li>
+          </ol>
+        </section>
+
+        <section class="l-sec" id="reflexionar" aria-labelledby="reflexionar-titulo">
+          <h2 id="reflexionar-titulo">Preguntas para reflexionar</h2>
+          <p>Piensa tu respuesta antes de abrir cada tarjeta. Después puedes comprobarla en el laboratorio.</p>
+          <div class="l-hipotesis">
+            <details>
+              <summary>¿Qué ocurre con la curva de luz si el planeta está muy cerca o muy lejos de la estrella?</summary>
+              <div class="l-respuesta"><p>Si el planeta está muy cerca, completa su traslación velozmente (su año dura pocos días), haciendo que las caídas de brillo en el gráfico fotométrico sean muy frecuentes. Si se encuentra lejos, las caídas de luz tardarán meses o años en registrarse de nuevo.</p></div>
+            </details>
+            <details>
+              <summary>¿Siempre es detectable un exoplaneta mediante la técnica del tránsito?</summary>
+              <div class="l-respuesta"><p>No, existe una severa limitación geométrica. Solo podemos registrar tránsitos si la órbita del planeta está perfectamente alineada de canto (a 0 grados de inclinación) con nuestra línea de visión desde la Tierra. Si la órbita está inclinada, el exoplaneta pasa por arriba o por abajo de la estrella sin eclipsarla, volviéndose invisible para esta técnica.</p></div>
+            </details>
+          </div>
+        </section>
+
+        <section class="l-sec" id="simulador" aria-labelledby="simulador-titulo">
+          <h2 id="simulador-titulo">Laboratorio de tránsitos y habitabilidad</h2>
+          <p>Visualiza de forma interactiva el comportamiento de un planeta en torno a una estrella. Ajusta inclinación, órbita y tamaños de estrella principal y del planeta en el menú de parámetros.</p>
+
+          <div class="l-lab" id="lab">
+            <div class="l-lab-barra">
+              <p class="l-lab-t">Monitor telescópico</p>
+              <div class="l-lab-botones">
+                <button type="button" id="btn-play" class="l-btn">Pausar</button>
+                <button type="button" id="btn-reset" class="l-btn sec">Reiniciar</button>
+              </div>
+            </div>
+            <div class="l-lab-lienzo l-lab-escena">
+              <canvas id="canvas-simulation" role="img" aria-label="Simulación de un planeta que transita frente a su estrella. La zona verde es la zona habitable."></canvas>
+            </div>
+            <p class="l-lab-t" style="margin-top:1rem">Registro fotométrico (curva de luz)</p>
+            <div class="l-lab-lienzo l-lab-curva">
+              <canvas id="canvas-chart" role="img" aria-label="Curva de luz: brillo de la estrella a lo largo del tiempo"></canvas>
+            </div>
+
+            <dl class="l-lecturas" aria-live="polite">
+              <div><dt>Caída de brillo:</dt><dd id="telemetry-dip">0.00%</dd></div>
+              <div><dt>Condición térmica:</dt><dd><span class="l-zona" id="telemetry-zone">Analizando...</span></dd></div>
+            </dl>
+
+            <div class="l-lab-controles">
+              <div class="l-control">
+                <label for="slider-orbit-incl">Inclinación de la órbita (i) <output id="val-orbit-incl" for="slider-orbit-incl">20°</output></label>
+                <input id="slider-orbit-incl" type="range" min="0" max="30" value="20" aria-describedby="ayuda-incl">
+                <p id="ayuda-incl">Ángulo respecto al observador. En valor 0° pasa exactamente por el frente de la estrella central.</p>
+              </div>
+              <div class="l-control">
+                <label for="slider-orbit-dist">Distancia de la estrella <output id="val-orbit-dist" for="slider-orbit-dist">Media</output></label>
+                <input id="slider-orbit-dist" type="range" min="40" max="170" value="100" aria-describedby="ayuda-dist">
+                <p id="ayuda-dist">Modifica el radio orbital. Determina qué tan expuesto está el planeta a la radiación térmica.</p>
+              </div>
+              <div class="l-control">
+                <label for="slider-planet-size">Diámetro del exoplaneta <output id="val-planet-size" for="slider-planet-size">Tipo Tierra</output></label>
+                <input id="slider-planet-size" type="range" min="6" max="22" value="13" aria-describedby="ayuda-size">
+                <p id="ayuda-size">Planetas de mayor masa bloquean una fracción de fotones más notable.</p>
+              </div>
+              <div class="l-control">
+                <label for="select-star-type">Clase lumínica de la estrella</label>
+                <select id="select-star-type" aria-describedby="ayuda-star">
+                  <option value="sun" selected>Enana Amarilla (Tipo Sol - Zonas Estándar)</option>
+                  <option value="red">Enana Roja (Pequeña/Fría - Zonas Contraídas)</option>
+                  <option value="blue">Gigante Azul (Masiva/Caliente - Zonas Expandidas)</option>
+                </select>
+                <p id="ayuda-star">Cambiar el tamaño y masa de la estrella recalcula automáticamente los límites templados (verde).</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Desafío de autoevaluación</h2>
+          <p>Pon a prueba tus conocimientos sobre fotometría astronómica, órbitas y habitabilidad estelar extrasolar.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>Evaluación completa</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <p id="score-extra" class="l-extra"></p>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Volver a intentar</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Foto de portada: NASA/Troy Cryder (dominio público). <a href="../creditos.html">Créditos de las fotos</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Laboratorio de tránsitos ---------- */
+    (() => {
+      const canvasSim = document.getElementById('canvas-simulation');
+      const ctxSim = canvasSim.getContext('2d');
+      const canvasChart = document.getElementById('canvas-chart');
+      const ctxChart = canvasChart.getContext('2d');
+
+      const sliderIncl = document.getElementById('slider-orbit-incl');
+      const sliderDist = document.getElementById('slider-orbit-dist');
+      const sliderSize = document.getElementById('slider-planet-size');
+      const selectStar = document.getElementById('select-star-type');
+      const btnPlay = document.getElementById('btn-play');
+      const btnReset = document.getElementById('btn-reset');
+
+      const lblIncl = document.getElementById('val-orbit-incl');
+      const lblDist = document.getElementById('val-orbit-dist');
+      const lblSize = document.getElementById('val-planet-size');
+      const telemetryDip = document.getElementById('telemetry-dip');
+      const telemetryZone = document.getElementById('telemetry-zone');
+
+      // La escena se dibuja en unidades de "mundo". Si el lienzo es más chico (celulares),
+      // se reduce todo en la misma proporción; la física y la curva de luz no cambian.
+      const WORLD_W = 480;
+      const WORLD_H = 240;
+      let simW = 0, simH = 0, simScale = 1;
+      let chartW = 0, chartH = 0;
+
+      function fitCanvas(canvas) {
+        const dpr = window.devicePixelRatio || 1;
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        return { w, h, dpr };
+      }
+
+      function resizeLayout() {
+        const sim = fitCanvas(canvasSim);
+        simW = sim.w; simH = sim.h;
+        simScale = Math.min(1, simW / WORLD_W, simH / WORLD_H);
+        const k = sim.dpr * simScale;
+        ctxSim.setTransform(k, 0, 0, k, 0, 0);
+        const chart = fitCanvas(canvasChart);
+        chartW = chart.w; chartH = chart.h;
+        ctxChart.setTransform(chart.dpr, 0, 0, chart.dpr, 0, 0);
+      }
+      if ('ResizeObserver' in window) {
+        const ro = new ResizeObserver(resizeLayout);
+        ro.observe(canvasSim);
+        ro.observe(canvasChart);
+      } else {
+        window.addEventListener('resize', resizeLayout);
+      }
+      resizeLayout();
+
+      const curveColor = '#ffb627';
+
+      // Con "reducir movimiento" activado, la órbita arranca en pausa (se reanuda con el botón)
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let isRunning = !prefersReducedMotion;
+      if (!isRunning) btnPlay.textContent = 'Reanudar';
+      let planetAngle = 0;
+      let lightHistory = [];
+      const maxHistoryPoints = 150;
+
+      let orbitIncl = parseInt(sliderIncl.value);
+      let orbitRadius = parseInt(sliderDist.value);
+      let planetRadius = parseInt(sliderSize.value);
+      let starType = selectStar.value;
+
+      sliderIncl.addEventListener('input', (e) => {
+        orbitIncl = parseInt(e.target.value);
+        lblIncl.textContent = `${orbitIncl}°`;
+      });
+      sliderDist.addEventListener('input', (e) => {
+        orbitRadius = parseInt(e.target.value);
+        if (orbitRadius < 75) lblDist.textContent = 'Cercana';
+        else if (orbitRadius < 130) lblDist.textContent = 'Media';
+        else lblDist.textContent = 'Lejana';
+      });
+      sliderSize.addEventListener('input', (e) => {
+        planetRadius = parseInt(e.target.value);
+        if (planetRadius < 11) lblSize.textContent = 'Tipo Mercurio';
+        else if (planetRadius < 17) lblSize.textContent = 'Tipo Tierra';
+        else lblSize.textContent = 'Tipo Júpiter';
+      });
+      selectStar.addEventListener('change', (e) => { starType = e.target.value; });
+      btnPlay.addEventListener('click', () => {
+        isRunning = !isRunning;
+        btnPlay.textContent = isRunning ? 'Pausar' : 'Reanudar';
+        resumeLoop();
+      });
+      btnReset.addEventListener('click', () => { planetAngle = 0; lightHistory = []; });
+
+      let zonaActual = '';
+      function drawSystemLoop() {
+        if (isRunning) {
+          const speedFactor = 0.12 * Math.pow(90 / orbitRadius, 1.5);
+          planetAngle += speedFactor;
+          if (planetAngle > Math.PI * 2) planetAngle -= Math.PI * 2;
+        }
+
+        const viewW = simW / simScale, viewH = simH / simScale;
+        const cx = viewW / 2;
+        const cy = viewH / 2;
+        ctxSim.clearRect(0, 0, viewW, viewH);
+
+        let starRadius = 40, starColor = '#ffb627';
+        let zoneCalienteMax = 70, zoneHabitableMax = 120, zoneFriaMax = 180;
+        if (starType === 'red') {
+          starRadius = 22; starColor = '#e5645a';
+          zoneCalienteMax = 40; zoneHabitableMax = 75; zoneFriaMax = 120;
+        } else if (starType === 'blue') {
+          starRadius = 58; starColor = '#8cc0ff';
+          zoneCalienteMax = 115; zoneHabitableMax = 160; zoneFriaMax = 220;
+        }
+
+        const inclRad = (orbitIncl * Math.PI) / 180;
+        const aspectY = Math.sin(inclRad);
+
+        if (aspectY > 0) {
+          ctxSim.beginPath();
+          ctxSim.ellipse(cx, cy, zoneCalienteMax, zoneCalienteMax * aspectY, 0, 0, Math.PI * 2);
+          ctxSim.fillStyle = 'rgba(229, 100, 90, 0.16)';
+          ctxSim.fill();
+
+          ctxSim.beginPath();
+          ctxSim.ellipse(cx, cy, zoneHabitableMax, zoneHabitableMax * aspectY, 0, 0, Math.PI * 2);
+          ctxSim.fillStyle = 'rgba(61, 187, 155, 0.22)';
+          ctxSim.fill();
+
+          ctxSim.globalCompositeOperation = 'destination-out';
+          ctxSim.beginPath();
+          ctxSim.ellipse(cx, cy, zoneCalienteMax, zoneCalienteMax * aspectY, 0, 0, Math.PI * 2);
+          ctxSim.fill();
+          ctxSim.globalCompositeOperation = 'source-over';
+
+          ctxSim.beginPath();
+          ctxSim.ellipse(cx, cy, zoneFriaMax, zoneFriaMax * aspectY, 0, 0, Math.PI * 2);
+          ctxSim.strokeStyle = 'rgba(140, 192, 255, 0.14)';
+          ctxSim.lineWidth = 12;
+          ctxSim.stroke();
+        } else {
+          ctxSim.lineWidth = 8;
+          ctxSim.strokeStyle = 'rgba(229, 100, 90, 0.3)';
+          ctxSim.beginPath(); ctxSim.moveTo(cx - zoneCalienteMax, cy); ctxSim.lineTo(cx + zoneCalienteMax, cy); ctxSim.stroke();
+          ctxSim.strokeStyle = 'rgba(61, 187, 155, 0.4)';
+          ctxSim.beginPath(); ctxSim.moveTo(cx - zoneHabitableMax, cy); ctxSim.lineTo(cx - zoneCalienteMax, cy); ctxSim.stroke();
+          ctxSim.beginPath(); ctxSim.moveTo(cx + zoneCalienteMax, cy); ctxSim.lineTo(cx + zoneHabitableMax, cy); ctxSim.stroke();
+        }
+
+        ctxSim.beginPath();
+        if (aspectY > 0) ctxSim.ellipse(cx, cy, orbitRadius, orbitRadius * aspectY, 0, 0, Math.PI * 2);
+        else { ctxSim.moveTo(cx - orbitRadius, cy); ctxSim.lineTo(cx + orbitRadius, cy); }
+        ctxSim.strokeStyle = 'rgba(238, 242, 250, 0.25)';
+        ctxSim.lineWidth = 1.5;
+        ctxSim.stroke();
+
+        const planetX = cx + Math.cos(planetAngle) * orbitRadius;
+        const planetY = cy + Math.sin(planetAngle) * orbitRadius * aspectY;
+        const isBehindStar = Math.sin(planetAngle) < 0;
+
+        if (isBehindStar) {
+          renderPlanet(ctxSim, planetX, planetY, planetRadius);
+          renderCentralStar(ctxSim, cx, cy, starRadius, starColor);
+        } else {
+          renderCentralStar(ctxSim, cx, cy, starRadius, starColor);
+          renderPlanet(ctxSim, planetX, planetY, planetRadius);
+        }
+
+        let brightnessValue = 1.0;
+        if (!isBehindStar) {
+          const distanceToCore = Math.hypot(planetX - cx, planetY - cy);
+          const contactRadius = starRadius + planetRadius;
+          if (distanceToCore < contactRadius) {
+            const overlapRatio = Math.max(0, Math.min(1, (contactRadius - distanceToCore) / (planetRadius * 2)));
+            const maxPossibleDip = (planetRadius * planetRadius) / (starRadius * starRadius);
+            brightnessValue = 1.0 - (maxPossibleDip * overlapRatio * 0.95);
+          }
+        }
+        if (brightnessValue < 0.15) brightnessValue = 0.15;
+
+        if (isRunning) {
+          lightHistory.push(brightnessValue);
+          if (lightHistory.length > maxHistoryPoints) lightHistory.shift();
+        }
+        renderLightCurveChart(ctxChart, chartW, chartH, lightHistory);
+
+        telemetryDip.textContent = `${((1.0 - brightnessValue) * 100).toFixed(2)}%`;
+
+        let zona, texto;
+        if (orbitRadius <= zoneCalienteMax) { zona = 'caliente'; texto = 'Zona caliente (inhabitable)'; }
+        else if (orbitRadius <= zoneHabitableMax) { zona = 'habitable'; texto = 'Zona Ricitos de Oro (habitable)'; }
+        else { zona = 'fria'; texto = 'Zona fría (inhabitable)'; }
+        if (zona !== zonaActual) { zonaActual = zona; telemetryZone.dataset.zona = zona; telemetryZone.textContent = texto; }
+
+        scheduleFrame();
+      }
+
+      // El bucle solo corre mientras el laboratorio está a la vista y la pestaña está activa
+      let simOnScreen = true;
+      let frameId = null;
+      function scheduleFrame() {
+        frameId = (simOnScreen && !document.hidden) ? requestAnimationFrame(drawSystemLoop) : null;
+      }
+      function resumeLoop() {
+        if (frameId === null && simOnScreen && !document.hidden) frameId = requestAnimationFrame(drawSystemLoop);
+      }
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver((entries) => {
+          simOnScreen = entries[entries.length - 1].isIntersecting;
+          resumeLoop();
+        }, { rootMargin: '100px' }).observe(document.getElementById('lab'));
+      }
+      document.addEventListener('visibilitychange', resumeLoop);
+
+      function renderCentralStar(ctx, x, y, radius, color) {
+        ctx.shadowBlur = 25 * simScale * (window.devicePixelRatio || 1);
+        ctx.shadowColor = color;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+
+      function renderPlanet(ctx, x, y, radius) {
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#243a68';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(238, 242, 250, 0.75)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+
+      function renderLightCurveChart(ctx, w, h, history) {
+        ctx.clearRect(0, 0, w, h);
+        ctx.beginPath();
+        ctx.moveTo(0, h * 0.2);
+        ctx.lineTo(w, h * 0.2);
+        ctx.strokeStyle = 'rgba(238, 242, 250, 0.2)';
+        ctx.setLineDash([4, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        if (history.length === 0) return;
+        ctx.beginPath();
+        const pxStep = w / maxHistoryPoints;
+        for (let i = 0; i < history.length; i++) {
+          const lx = i * pxStep;
+          const ly = h * 0.2 + (1.0 - history[i]) * (h * 2.2);
+          if (i === 0) ctx.moveTo(lx, ly); else ctx.lineTo(lx, ly);
+        }
+        ctx.strokeStyle = curveColor;
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      }
+
+      frameId = requestAnimationFrame(drawSystemLoop);
+    })();
+
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ---------- */
+    window.TRIVIA = [
+        {
+            "question": "1. ¿Qué representa rigurosamente una 'curva de luz' en la investigación de exoplanetas?",
+            "options": [
+                "Un gráfico astronómico que muestra cómo cambia el brillo percibido de una estrella a lo largo del tiempo.",
+                "El arco brillante de plasma que se desprende de una gigante gaseosa.",
+                "La estela refractada al analizar la atmósfera de un cometa helado."
+            ],
+            "correct": 0,
+            "feedbackCorrect": "¡Respuesta correcta! La curva de luz registra la fotometría de la estrella. Cuando un planeta cruza frente a ella, bloquea mecánicamente parte de sus fotones, generando una caída medible.",
+            "feedbackIncorrect": "Respuesta incorrecta. La curva de luz registra la fotometría de la estrella. Cuando un planeta cruza frente a ella, bloquea mecánicamente parte de sus fotones, generando una caída medible."
+        },
+        {
+            "question": "2. ¿Qué ocurre con las caídas en la curva de luz si el exoplaneta está sumamente cerca de su estrella?",
+            "options": [
+                "Son muy poco frecuentes debido a que el año del exoplaneta es larguísimo.",
+                "Son muy frecuentes y repetitivas, ya que completa su órbita en muy poco tiempo.",
+                "La curva de luz se mantiene plana porque la gravedad de la estrella absorbe el planeta."
+            ],
+            "correct": 1,
+            "feedbackCorrect": "¡Respuesta correcta! A menor distancia orbital, mayor es la velocidad según las leyes de Kepler. Su año dura pocos días y, por tanto, transita con una frecuencia muy alta.",
+            "feedbackIncorrect": "Respuesta incorrecta. A menor distancia orbital, mayor es la velocidad según las leyes de Kepler. Su año dura pocos días y, por tanto, transita con una frecuencia muy alta."
+        },
+        {
+            "question": "3. ¿Por qué hay exoplanetas reales que no pueden ser detectados por el método del tránsito?",
+            "options": [
+                "Porque las estrellas bloquean la señal electromagnética de radio.",
+                "Se debe a que el exoplaneta está compuesto únicamente de gases pesados transparentes.",
+                "Porque sus órbitas están inclinadas respecto a la visual terrestre y nunca bloquean la luz de su estrella desde nuestra perspectiva."
+            ],
+            "correct": 2,
+            "feedbackCorrect": "¡Respuesta correcta! Limitación geométrica: si la órbita está inclinada desde nuestra perspectiva en la Tierra, el planeta pasará por arriba o por debajo del disco estelar sin eclipsarlo.",
+            "feedbackIncorrect": "Respuesta incorrecta. Limitación geométrica: si la órbita está inclinada desde nuestra perspectiva en la Tierra, el planeta pasará por arriba o por debajo del disco estelar sin eclipsarlo."
+        },
+        {
+            "question": "4. ¿Cómo se desplaza la posición de la Zona Ricitos de Oro en una estrella Gigante Azul?",
+            "options": [
+                "Se expande hacia órbitas muy lejanas debido a la inmensa cantidad de energía térmica que irradia esa estrella.",
+                "Se contrae pegándose a la superficie de la estrella porque es muy fría.",
+                "Desaparece por completo del sistema solar debido a la radiación ultravioleta."
+            ],
+            "correct": 0,
+            "feedbackCorrect": "¡Respuesta correcta! Al ser astros hipercalientes y masivos que emiten flujos energéticos colosales, la distancia de seguridad térmica para albergar agua líquida se aleja radicalmente.",
+            "feedbackIncorrect": "Respuesta incorrecta. Al ser astros hipercalientes y masivos que emiten flujos energéticos colosales, la distancia de seguridad térmica para albergar agua líquida se aleja radicalmente."
+        },
+        {
+            "question": "5. ¿De qué manera influye directamente el radio (tamaño) del exoplaneta en el gráfico fotométrico?",
+            "options": [
+                "Un planeta con mayor radio genera una caída de brillo mucho más profunda en la curva de luz.",
+                "Los planetas de gran envergadura aumentan el brillo estelar por efecto espejo.",
+                "El tamaño del planeta solo altera el color de la estrella, no la intensidad lumínica."
+            ],
+            "correct": 0,
+            "feedbackCorrect": "¡Respuesta correcta! Cuanto más grande sea el planeta, mayor porción del disco estelar cubrirá durante el tránsito, restando un porcentaje de luz más amplio y visible.",
+            "feedbackIncorrect": "Respuesta incorrecta. Cuanto más grande sea el planeta, mayor porción del disco estelar cubrirá durante el tránsito, restando un porcentaje de luz más amplio y visible."
+        },
+        {
+            "question": "6. ¿A qué hace referencia científica la expresión popular de la zona \"Ricitos de Oro\"?",
+            "options": [
+                "A los yacimientos abundantes de metales pesados áureos en la corteza planetaria.",
+                "A planetas cuyas órbitas reflejan un destello dorado visible a través de filtros cromáticos.",
+                "A la franja orbital donde las condiciones climáticas no son ni muy calientes ni muy frías, sino ideales para el agua líquida."
+            ],
+            "correct": 2,
+            "feedbackCorrect": "¡Respuesta correcta! Proviene del famoso cuento infantil. Representa el equilibrio perfecto de irradiación térmica para impedir tanto la congelación como la evaporación de los océanos.",
+            "feedbackIncorrect": "Respuesta incorrecta. Proviene del famoso cuento infantil. Representa el equilibrio perfecto de irradiación térmica para impedir tanto la congelación como la evaporación de los océanos."
+        },
+        {
+            "question": "7. Si analizamos una estrella Enana Roja (pequeña y de baja emisión), ¿dónde se ubicará su zona habitable?",
+            "options": [
+                "En una órbita extremadamente cercana a la estrella, mucho más comprimida que en nuestro Sistema Solar.",
+                "A la misma distancia exacta que separa a la Tierra de nuestro Sol (1 UA).",
+                "En los bordes externos del sistema, más allá de los cinturones de asteroides congelados."
+            ],
+            "correct": 0,
+            "feedbackCorrect": "¡Respuesta correcta! Debido a que las enanas rojas irradian muy poca energía térmica, los exoplanetas deben orbitar sumamente cerca de ellas para calentarse lo suficiente.",
+            "feedbackIncorrect": "Respuesta incorrecta. Debido a que las enanas rojas irradian muy poca energía térmica, los exoplanetas deben orbitar sumamente cerca de ellas para calentarse lo suficiente."
+        }
+    ];
+
+    window.TRIVIA_RESULTADO = (triviaScore, total) => {
+      const collaborationLink = ` ¿Quieres colaborar en la búsqueda de exoplanetas en un proyecto real? Accede a <a href="https://www.zooniverse.org/projects/es/nora-dot-eisner/planet-hunters-tess" target="_blank" rel="noopener noreferrer">"TESS Exoplanetas" (se abre en una pestaña nueva)</a>.`;
+      if (triviaScore < 4) {
+        return { titulo: 'Misión incompleta', html: `Has obtenido ${triviaScore} de ${total} aciertos. Te recomendamos volver a revisar el contenido didáctico de la guía, experimentar con las variables físicas en el laboratorio interactivo e intentarlo nuevamente para mejorar tus marcas.` };
+      } else if (triviaScore === 4 || triviaScore === 5) {
+        return { titulo: '¡Buen trabajo!', html: `¡Felicidades! Lograste un total de ${triviaScore} de ${total} aciertos. Demuestras un gran entendimiento sobre la mecánica geométrica de los eclipses y el cálculo térmico estelar.` + collaborationLink };
+      }
+      return { titulo: '¡Magnífico! ¡Nivel astrofísico de élite!', html: `¡Impresionante desempeño! Has completado con éxito ${triviaScore} de ${total} aciertos perfectos. Recibe una felicitación vigorosa por dominar con absoluta precisión el comportamiento lumínico, el impacto de la inclinación órbita-observador y las zonas habitables del cosmos.` + collaborationLink };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/lectura.js"></script>
+
+  <!-- Código de analítica GoatCounter -->
+  <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

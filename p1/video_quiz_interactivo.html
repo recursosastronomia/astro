@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <title>Video quiz · Astronomía para todos</title>
+  <meta name="description" content="Video quiz interactivo: un video de YouTube que se detiene para hacer preguntas en clase. Descarga la plantilla de Excel, completa tus preguntas y juega.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></symbol>
+    <symbol id="i-descargar" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+    <symbol id="i-subir" viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 20h14"/></symbol>
+    <symbol id="i-salir" viewBox="0 0 24 24"><path d="M15 12H4M8 8l-4 4 4 4M13 4h6v16h-6"/></symbol>
+    <symbol id="i-volver" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></symbol>
+  </svg>
+
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido" class="q-app">
+    <!-- PANTALLA DE CONFIGURACIÓN -->
+    <div id="setup-screen">
+      <section class="l-portada l-portada-corta" aria-labelledby="titulo">
+        <div class="wrap">
+          <div class="l-portada-in">
+            <h1 id="titulo">Video quiz interactivo</h1>
+            <p class="l-lead">Genera tu plantilla, llénala de preguntas y cárgala para comenzar a jugar.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="wrap q-menu">
+        <section class="q-opcion destacada" aria-labelledby="demo-t">
+          <h2 id="demo-t">Pruébalo antes de armar el tuyo</h2>
+          <p>Una demostración lista para jugar: un video corto sobre internet que se detiene tres veces para hacer preguntas. Es el mismo ejemplo que trae la plantilla.</p>
+          <button type="button" id="btn-demo" onclick="loadDemo()" class="l-btn"><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg>Probar la demostración</button>
+        </section>
+
+        <p class="q-o">O arma tu propio video quiz en dos pasos:</p>
+
+        <ol class="q-pasos">
+          <li class="q-opcion">
+            <h2>Obtén la plantilla</h2>
+            <p>Descarga el archivo Excel estructurado para añadir tu video y preguntas.</p>
+            <button type="button" onclick="downloadTemplate()" class="l-btn sec"><svg class="ico" aria-hidden="true"><use href="#i-descargar"/></svg>Descargar plantilla .xlsx</button>
+          </li>
+          <li class="q-opcion">
+            <h2>Carga tu actividad</h2>
+            <p>Sube el archivo Excel que acabas de completar.</p>
+            <label class="v-subir">
+              <input type="file" id="excel-file" accept=".xlsx, .xls" class="sr-only" onchange="handleFile(event)">
+              <svg class="ico" aria-hidden="true"><use href="#i-subir"/></svg>
+              <span id="file-name-display">Haz clic para subir archivo</span>
+              <span class="v-subir-nota">Solo .xlsx</span>
+            </label>
+          </li>
+        </ol>
+
+        <div id="error-message" class="hidden-element q-error" role="alert"></div>
+
+        <div id="start-container" class="hidden-element v-iniciar">
+          <button type="button" onclick="startGame()" class="l-btn q-grande"><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg>Iniciar actividad</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANTALLA DE JUEGO -->
+    <div id="game-screen" class="hidden-element v-juego">
+      <header class="v-juego-cab">
+        <h2 id="activity-title" class="v-juego-titulo">Título</h2>
+        <div class="v-juego-puntos">
+          <p class="l-control-t">Puntuación</p>
+          <p id="score-display" class="v-puntos" aria-live="polite">0</p>
+        </div>
+        <button type="button" onclick="exitGame()" class="l-btn sec"><svg class="ico" aria-hidden="true"><use href="#i-salir"/></svg>Salir</button>
+      </header>
+      <div class="v-juego-video">
+        <div class="l-video v-video">
+          <div id="player-wrapper">
+            <div id="player"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PREGUNTA SOBRE EL VIDEO -->
+      <div id="question-overlay" class="hidden-element v-pregunta-velo" role="dialog" aria-modal="true" aria-labelledby="question-text">
+        <div class="v-pregunta">
+          <div id="timer-display" class="q-reloj v-reloj">30</div>
+          <p class="v-pregunta-pts">Por <span id="current-q-score"></span> puntos</p>
+          <h2 id="question-text" class="q-pregunta">¿Pregunta?</h2>
+          <div id="answer-container" class="hidden-element">
+            <p id="answer-text" class="q-respuesta-txt" tabindex="-1">Respuesta</p>
+          </div>
+          <div class="v-pregunta-botones">
+            <button type="button" id="btn-show-answer" onclick="revealAnswer()" class="l-btn q-grande">Ver respuesta</button>
+            <div id="verdict-buttons" class="hidden-element v-veredicto">
+              <button type="button" onclick="handleVerdict(true)" class="l-btn q-grande v-bien"><svg class="ico" aria-hidden="true"><use href="#i-bien"/></svg><span>¡Correcto! (+<span id="btn-score-val"></span>)</span></button>
+              <button type="button" onclick="handleVerdict(false)" class="l-btn sec q-grande"><svg class="ico" aria-hidden="true"><use href="#i-mal"/></svg>Incorrecto (0)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="index.html">Volver a la portada</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Librería para leer y crear archivos Excel -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <!-- INYECCIÓN DEL SCRIPT DE YOUTUBE -->
+    <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+
+    <script>
+        // --- ESTADO GLOBAL ---
+        let gameData = {
+            title: "",
+            videoId: "",
+            questions: [] // { time: int, question: str, answer: str, score: int, answered: bool }
+        };
+        let currentScore = 0;
+        let player;
+        let ytReady = false;
+        let timeCheckerInterval;
+        let activeQuestionIndex = -1;
+        let timerInterval;
+        let timeLeft = 30;
+
+        // API de YouTube se llama automáticamente cuando está lista
+        function onYouTubeIframeAPIReady() {
+            ytReady = true;
+            console.log("YouTube API Ready");
+        }
+
+        // Ejemplo de la plantilla; también es la demostración
+        const DEMO_ROWS = [
+                ["Configuración", "Valor", "", "Instrucciones:"],
+                ["Título de la Actividad", "¿Qué es internet?", "", "1. Rellena el Título y pega un enlace de YouTube válido."],
+                ["Enlace de YouTube", "https://www.youtube.com/watch?v=-JVdH8ne-2s", "", "2. Los tiempos pueden ser en segundos (ej: 45) o formato M:SS (ej: 1:30)."],
+                [],
+                ["Tiempo (M:SS o Seg)", "Pregunta", "Respuesta", "Puntaje"],
+                ["0:29", "¿De qué palabras en inglés proviene el nombre 'internet'?", "Interconnected Networks", 10],
+                ["1:01", "¿Cómo se llama el sistema de numeración de dos estados (ceros y unos)?", "Sistema binario", 15],
+                ["1:22", "¿En qué año se realizó la primera conexión entre computadoras (origen de internet)?", "1969", 20]
+        ];
+
+        function loadDemo() {
+            document.getElementById('error-message').classList.add('hidden-element');
+            parseGameData(DEMO_ROWS);
+            startGame();
+        }
+
+        // --- 1. GENERAR PLANTILLA EXCEL ---
+        function downloadTemplate() {
+            if (typeof XLSX === 'undefined') { showError("No se pudo cargar la herramienta de Excel. Revisa la conexión y vuelve a intentarlo. La demostración funciona igual."); return; }
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(DEMO_ROWS);
+            
+            // Ajustar anchos de columna para que el texto encaje mejor al abrir Excel
+            ws['!cols'] = [{wch: 20}, {wch: 75}, {wch: 35}, {wch: 10}];
+
+            XLSX.utils.book_append_sheet(wb, ws, "QuizData");
+            XLSX.writeFile(wb, "Plantilla_Video_Quiz.xlsx");
+        }
+
+        // --- 2. LEER Y PROCESAR EXCEL ---
+        function handleFile(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            document.getElementById('file-name-display').innerText = file.name;
+            document.getElementById('error-message').classList.add('hidden-element');
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, {type: 'array'});
+                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const json = XLSX.utils.sheet_to_json(firstSheet, {header: 1});
+
+                    parseGameData(json);
+                } catch (error) {
+                    showError("Error al leer el archivo. Asegúrate de usar la plantilla correcta.");
+                    console.error(error);
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function parseGameData(data) {
+            try {
+                // Título: Fila 2, Col 2 (índice 1, 1)
+                const title = data[1][1];
+                // Video URL: Fila 3, Col 2 (índice 2, 1)
+                const url = data[2][1];
+
+                if (!title || !url) throw new Error("Falta el título o el enlace en las filas 2 y 3.");
+
+                const videoId = extractVideoID(url);
+                if (!videoId) throw new Error("Enlace de YouTube no válido.");
+
+                let questions = [];
+                // Preguntas empiezan en la fila 6 (índice 5)
+                for (let i = 5; i < data.length; i++) {
+                    const row = data[i];
+                    if (row && row.length > 0 && row[0] !== undefined) {
+                        questions.push({
+                            time: parseTime(row[0]),
+                            question: row[1] ? String(row[1]) : "Sin pregunta",
+                            answer: row[2] ? String(row[2]) : "Sin respuesta",
+                            score: parseInt(row[3]) || 10,
+                            answered: false
+                        });
+                    }
+                }
+
+                if (questions.length === 0) throw new Error("No se encontraron preguntas.");
+
+                // Ordenar preguntas por tiempo
+                questions.sort((a, b) => a.time - b.time);
+
+                gameData = { title, videoId, questions };
+                
+                // Mostrar botón de iniciar
+                document.getElementById('start-container').classList.remove('hidden-element');
+                
+            } catch (err) {
+                showError(err.message);
+                document.getElementById('start-container').classList.add('hidden-element');
+            }
+        }
+
+        function extractVideoID(url) {
+            const str = String(url).trim();
+            // Nueva expresión regular mucho más robusta que acepta Shorts, YouTu.be y enlaces móviles
+            const regExp = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = str.match(regExp);
+            return match ? match[1] : null;
+        }
+
+        function parseTime(timeVal) {
+            if (typeof timeVal === 'number') return Math.floor(timeVal); // Si Excel lo lee como número (ej: 45)
+            const str = String(timeVal).trim();
+            if (str.includes(':')) {
+                const parts = str.split(':');
+                if (parts.length === 2) return parseInt(parts[0])*60 + parseInt(parts[1]);
+                if (parts.length === 3) return parseInt(parts[0])*3600 + parseInt(parts[1])*60 + parseInt(parts[2]);
+            }
+            return parseInt(str) || 0;
+        }
+
+        function showError(msg) {
+            const errDiv = document.getElementById('error-message');
+            errDiv.innerText = msg;
+            errDiv.classList.remove('hidden-element');
+        }
+
+        async function checkEmbedAllowed(videoId) {
+            try {
+                const url = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
+                const res = await fetch(url);
+                // Si responde 200-299, el video existe y permite embedding
+                return res.ok;
+            } catch (e) {
+                // Si hay error de red (CORS, etc.), asumimos que puede funcionar y dejamos que YouTube lo decida
+                console.warn("No se pudo verificar embedding:", e);
+                return true;
+            }
+        }
+
+        // --- 3. LÓGICA DEL JUEGO Y YOUTUBE ---
+        async function startGame() {
+            if (!ytReady) {
+                showError("YouTube todavía está cargando. Prueba de nuevo en unos segundos.");
+                return;
+            }
+
+            // Verificar si el video permite embedding antes de iniciar
+            const canEmbed = await checkEmbedAllowed(gameData.videoId);
+            if (!canEmbed) {
+                showError("Este video tiene bloqueada la reproducción externa. El dueño del video no permite incrustarlo fuera de YouTube. Por favor, elige otro video y actualiza la plantilla Excel.");
+                return;
+            }
+
+            document.getElementById('setup-screen').classList.add('hidden-element');
+            document.getElementById('game-screen').classList.remove('hidden-element');
+            
+            document.getElementById('activity-title').innerText = gameData.title;
+            currentScore = 0;
+            updateScoreDisplay();
+
+            // Destruir player anterior si existe y forzar recreación del DOM
+            if (player && typeof player.destroy === 'function') {
+                try { player.destroy(); } catch(e){}
+            }
+            document.getElementById('player-wrapper').innerHTML = '<div id="player"></div>';
+
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: gameData.videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'rel': 0,
+                    'modestbranding': 1,
+                    ...(window.location.origin !== 'null' && window.location.origin !== 'file://' 
+                        ? { 'origin': window.location.origin } 
+                        : {})
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        }
+
+        function showGameError(errorMsg) {
+            // Mostrar error como modal dentro de la pantalla de juego
+            let modal = document.getElementById('game-error-modal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'game-error-modal';
+                modal.className = 'q-velo';
+                modal.setAttribute('role', 'alertdialog');
+                modal.setAttribute('aria-labelledby', 'game-error-t');
+                modal.innerHTML = `
+                    <div class="q-dialogo">
+                        <h2 id="game-error-t">Error de reproducción</h2>
+                        <p id="game-error-text" style="white-space:pre-line"></p>
+                        <div class="q-dialogo-botones">
+                            <button type="button" class="l-btn" onclick="document.getElementById('game-error-modal').remove(); exitGame();">Volver al inicio</button>
+                        </div>
+                    </div>`;
+                document.body.appendChild(modal);
+            }
+            document.getElementById('game-error-text').innerText = errorMsg;
+        }
+
+        function onPlayerError(event) {
+            let errorMsg = "Error desconocido del reproductor.";
+            switch(event.data) {
+                case 2: errorMsg = "El enlace del video no es válido o está mal escrito. Verifica el enlace en la plantilla Excel."; break;
+                case 5: errorMsg = "Error en el reproductor web. Prueba recargar la página."; break;
+                case 100: errorMsg = "El video no existe o es privado. Solo funcionan videos públicos o no listados."; break;
+                case 101:
+                case 150: 
+                case 153:
+                    errorMsg = "El creador de este video tiene bloqueada la reproducción en páginas externas a YouTube.\n\nSolución: busca otro video en YouTube. Para saber si un video permite embedding antes de usarlo, puedes probar accediendo a:\nhttps://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=VIDEO_ID\nSi responde con datos JSON, el video sí permite embedding."; break;
+                default: errorMsg = "Error código " + event.data + ". Intenta con otro video de YouTube.";
+            }
+            showGameError(errorMsg);
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        // YT.PlayerState.PLAYING == 1
+        function onPlayerStateChange(event) {
+            if (event.data == 1) {
+                // Iniciar chequeo de tiempo cada 500ms
+                if(timeCheckerInterval) clearInterval(timeCheckerInterval);
+                timeCheckerInterval = setInterval(checkVideoTime, 500);
+            } else {
+                // Si está pausado o buffereando, detener chequeo
+                clearInterval(timeCheckerInterval);
+            }
+        }
+
+        function checkVideoTime() {
+            if (!player || typeof player.getCurrentTime !== 'function') return;
+            const currentTime = player.getCurrentTime();
+
+            // Buscar si hay alguna pregunta para este momento (+/- 0.5 seg)
+            for (let i = 0; i < gameData.questions.length; i++) {
+                const q = gameData.questions[i];
+                if (!q.answered && currentTime >= q.time && currentTime < q.time + 1.5) {
+                    triggerQuestion(i);
+                    break;
+                }
+            }
+        }
+
+        // --- 4. LÓGICA DE PREGUNTAS Y UI ---
+        // La pregunta es una pantalla modal: lo demás queda inerte y el foco entra en ella
+        function bloquearFondo(el, on) {
+            [...document.body.children].forEach(n => { if (!n.contains(el)) n.inert = on; });
+            [...el.parentElement.children].forEach(n => { if (n !== el) n.inert = on; });
+        }
+
+        function triggerQuestion(index) {
+            clearInterval(timeCheckerInterval); // Detener el chequeo
+            player.pauseVideo(); // Pausar Youtube
+            
+            activeQuestionIndex = index;
+            const q = gameData.questions[index];
+
+            // Configurar UI de la pregunta
+            document.getElementById('current-q-score').innerText = q.score;
+            document.getElementById('question-text').innerText = q.question;
+            document.getElementById('answer-text').innerText = q.answer;
+            document.getElementById('btn-score-val').innerText = q.score;
+
+            // Resetear vistas
+            document.getElementById('answer-container').classList.add('hidden-element');
+            document.getElementById('verdict-buttons').classList.add('hidden-element');
+            document.getElementById('btn-show-answer').classList.remove('hidden-element');
+            
+            const timerDisplay = document.getElementById('timer-display');
+            timerDisplay.classList.remove('time-critical');
+            timerDisplay.style.color = '';
+
+            // Mostrar Overlay (el foco va a «Ver respuesta»; se anuncia la pregunta)
+            const overlay = document.getElementById('question-overlay');
+            overlay.classList.remove('hidden-element');
+            bloquearFondo(overlay, true);
+            document.getElementById('btn-show-answer').focus();
+
+            // Iniciar Cronómetro
+            timeLeft = 30;
+            updateTimerDisplay();
+            if(timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(timerTick, 1000);
+        }
+
+        function timerTick() {
+            timeLeft--;
+            updateTimerDisplay();
+
+            const timerDisplay = document.getElementById('timer-display');
+            
+            if (timeLeft <= 5 && timeLeft > 0) {
+                timerDisplay.classList.add('time-critical');
+            }
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                timerDisplay.innerText = "0";
+                timerDisplay.classList.remove('time-critical');
+                timerDisplay.style.color = '#ef8f86';
+                // Al llegar al tiempo 0 no revelar la respuesta. El usuario tendrá que pulsar un botón.
+            }
+        }
+
+        function updateTimerDisplay() {
+            document.getElementById('timer-display').innerText = timeLeft;
+        }
+
+        function revealAnswer() {
+            // Detener cronómetro si aún corría
+            clearInterval(timerInterval);
+            
+            // Ocultar botón "Ver respuesta", mostrar botones Correcto/Incorrecto y la Respuesta
+            document.getElementById('btn-show-answer').classList.add('hidden-element');
+            document.getElementById('answer-container').classList.remove('hidden-element');
+            document.getElementById('verdict-buttons').classList.remove('hidden-element');
+            // El botón enfocado desapareció: el foco pasa a la respuesta
+            document.getElementById('answer-text').focus();
+        }
+
+        function handleVerdict(isCorrect) {
+            const q = gameData.questions[activeQuestionIndex];
+            
+            if (isCorrect) {
+                currentScore += q.score;
+                updateScoreDisplay();
+            }
+
+            // Marcar como respondida para que no vuelva a salir
+            q.answered = true;
+
+            // Ocultar overlay y devolver el foco al video
+            const overlay = document.getElementById('question-overlay');
+            overlay.classList.add('hidden-element');
+            bloquearFondo(overlay, false);
+            const video = document.querySelector('#player-wrapper iframe');
+            if (video) video.focus();
+
+            // Reanudar video y reanudar el chequeo de tiempo
+            player.playVideo();
+            timeCheckerInterval = setInterval(checkVideoTime, 500);
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('score-display').innerText = currentScore;
+            
+            // Pequeña animación
+            const display = document.getElementById('score-display');
+            display.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                display.style.transform = 'scale(1)';
+                display.style.transition = 'transform 0.2s';
+            }, 200);
+        }
+
+        function exitGame() {
+            if(confirm("¿Seguro que deseas salir? El progreso se perderá.")) {
+                if(player && typeof player.stopVideo === 'function') {
+                    player.stopVideo();
+                }
+                clearInterval(timeCheckerInterval);
+                clearInterval(timerInterval);
+                
+                document.getElementById('game-screen').classList.add('hidden-element');
+                document.getElementById('setup-screen').classList.remove('hidden-element');
+                
+                // Limpiar input file
+                document.getElementById('excel-file').value = "";
+                document.getElementById('file-name-display').innerText = "Haz clic para subir archivo";
+                document.getElementById('file-name-display').classList.remove('text-cyan-300');
+                document.getElementById('start-container').classList.add('hidden-element');
+            }
+        }
+    </script>
+  <script src="js/tema.js"></script>
+  <script src="js/lectura.js"></script>
+
+  <!-- Código de analítica GoatCounter -->
+  <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

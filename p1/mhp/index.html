@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="es-UY">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Misión Helios</title>
+  <meta name="description" content="Misión Helios: observar manchas solares en imágenes reales de la NASA y calcular el número de Wolf.">
+  <meta name="theme-color" content="#14264b">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Helios">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preload" href="fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/atkinson-hyperlegible-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/app.css">
+  <script>
+    // Modo noche compartido con el resto del portal (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <script type="module" src="js/app.js"></script>
+  <!-- Botón "Inicio" del portal (componente compartido, idéntico en todas las páginas) -->
+  <style>
+    .ue-home{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;border-radius:10px;color:inherit;background:#14264b;border:1px solid #2e4472;text-decoration:none;transition:background-color .2s,border-color .2s}
+    .ue-home:hover{background:#243a68;border-color:#ffb627}
+    .ue-home:focus-visible{outline:3px solid #ffb627;outline-offset:2px}
+    .ue-home svg{width:20px;height:20px;display:block}
+    @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
+  <noscript><p style="padding:1rem;font-family:sans-serif">Misión Helios necesita JavaScript. / Helios Mission needs JavaScript.</p></noscript>
+
+  <div id="offline-bar" class="banner" role="status" hidden><span data-i18n="offline_msg">Sin conexión. Las imágenes del Sol necesitan internet, pero se puede seguir trabajando con los datos guardados.</span></div>
+  <div id="update-bar" class="banner" role="status" hidden><span data-i18n="update_msg">Hay una versión nueva de la app.</span><button type="button" id="update-btn" class="btn btn-secondary" data-i18n="update_btn">Actualizar</button></div>
+
+  <header class="appbar">
+    <div class="wrap appbar-in">
+      <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+      </a>
+      <a class="brand" href="#/" aria-label="Misión Helios">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="14" fill="#ffb627"/>
+          <path d="M6 10.5Q16 6 26 10.5M4.6 16h22.8M6 21.5Q16 26 26 21.5M16 2v28" fill="none" stroke="#14264b" stroke-opacity=".35" stroke-width="1"/>
+          <ellipse cx="12" cy="13" rx="2.6" ry="2.1" fill="#3a1b08"/><circle cx="18.6" cy="19.2" r="1.5" fill="#3a1b08"/>
+        </svg>
+        <span>Misión Helios</span>
+      </a>
+      <nav class="tabbar" id="nav" data-i18n-attr="aria-label:nav_aria" aria-label="Navegación principal">
+        <ul>
+          <li><a href="#/" data-route="mision"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1"/></svg><span data-i18n="nav_mission">Misión</span></a></li>
+          <li><a href="#/observar" data-route="observar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v4.5M12 16v4.5M3.5 12H8M16 12h4.5"/></svg><span data-i18n="nav_observe">Observar</span></a></li>
+          <li><a href="#/datos" data-route="datos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 3.5v17h17"/><circle cx="8" cy="15" r="1.3"/><circle cx="12" cy="9.5" r="1.3"/><circle cx="15.5" cy="13" r="1.3"/><circle cx="19" cy="6.5" r="1.3"/></svg><span data-i18n="nav_data">Datos</span></a></li>
+          <li><a href="#/medallas" data-route="medallas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.3 10.6 5.6 2.8h4.2l2.2 5.4 2.2-5.4h4.2l-2.7 7.8"/><circle cx="12" cy="15.2" r="6"/><circle cx="12" cy="15.2" r="2.4"/></svg><span data-i18n="nav_medals">Medallas</span><span class="nav-dot" id="nav-medals-dot" hidden><span class="visually-hidden" data-i18n="med_new_dot">Hay medallas nuevas</span></span></a></li>
+          <li><a href="#/acerca" data-route="acerca"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.2"/></svg><span data-i18n="nav_about">Acerca de</span></a></li>
+        </ul>
+      </nav>
+      <div class="appbar-tools">
+        <button type="button" id="install-btn" class="btn btn-secondary btn-small" hidden data-i18n="install_btn">Instalar app</button>
+        <button type="button" id="theme-btn" class="btn lang-btn theme-btn" aria-pressed="false" data-i18n-attr="aria-label:theme_night;title:theme_night" aria-label="Modo noche" title="Modo noche">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+        </button>
+        <div class="langmenu">
+          <button type="button" id="lang-btn" class="btn lang-btn" aria-haspopup="true" aria-expanded="false" aria-controls="lang-list" data-i18n-attr="aria-label:lang_aria" aria-label="Cambiar idioma">
+            <span class="flag" id="lang-flag"></span><span id="lang-code">ES</span>
+            <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+          </button>
+          <ul id="lang-list" class="lang-list" hidden></ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- ===================== MISIÓN ===================== -->
+    <section class="view" data-view="mision" aria-labelledby="hero-h">
+      <div class="hero on-ink">
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <h1 id="hero-h"><span data-i18n="hero_l1">Descifrar el latido</span><span data-i18n="hero_l2">de nuestra estrella</span></h1>
+            <p class="lead" data-i18n="hero_desc">El Sol parece una esfera de luz tranquila, pero su superficie esconde violentas tormentas magnéticas. La misión: analizar datos satelitales reales para revelar un patrón oculto.</p>
+            <div class="hero-actions">
+              <button type="button" id="hero-start" class="btn btn-primary" data-i18n="hero_btn">Comenzar misión</button>
+              <a class="btn btn-secondary" href="#/observar" data-i18n="hero_btn2">Ir directo a observar</a>
+            </div>
+          </div>
+          <div class="hero-art" id="hero-sun"></div>
+        </div>
+      </div>
+
+      <section class="band" aria-labelledby="how-h">
+        <div class="wrap">
+          <h2 id="how-h" data-i18n="how_title">Cómo funciona la misión</h2>
+          <ol class="steps">
+            <li><h3 data-i18n="how_1_t">Observar</h3><p data-i18n="how_1_d">Elegir una fecha: la app trae una imagen real del Sol tomada por satélites de la NASA.</p></li>
+            <li><h3 data-i18n="how_2_t">Marcar</h3><p data-i18n="how_2_d">Tocar cada mancha y cada grupo. Una lupa muestra el detalle para que no se escape ninguna.</p></li>
+            <li><h3 data-i18n="how_3_t">Registrar</h3><p data-i18n="how_3_d">La app aplica la fórmula de Wolf y guarda la observación. Conviene repetir con fechas de años distintos.</p></li>
+            <li><h3 data-i18n="how_4_t">Comprobar</h3><p data-i18n="how_4_d">Los datos pasan solos al laboratorio de datos, donde se pueden comparar con los registros históricos.</p></li>
+          </ol>
+          <div class="cta-row"><a class="btn btn-primary" href="#/observar" data-i18n="how_cta">Ir a observar</a></div>
+        </div>
+      </section>
+
+      <section id="fundamentos" class="band rule-top" aria-labelledby="fund-h">
+        <div class="wrap">
+          <h2 id="fund-h" data-i18n="fund_title">¿Qué estamos buscando?</h2>
+          <p class="muted" data-i18n="fund_desc">Antes de analizar los datos, hay que saber identificar a nuestro sujeto de estudio: las manchas solares.</p>
+          <div class="split">
+            <div>
+              <h3 data-i18n="spot_title">Manchas solares</h3>
+              <p data-i18n-html="spot_desc1">Son regiones en la superficie del Sol (fotosfera) que se ven oscuras. ¿Por qué? No es que estén frías, ¡siguen a miles de grados! Pero son ligeramente más frías que su entorno debido a <strong>campos magnéticos extremadamente intensos</strong> que bloquean el calor que sube desde el interior.</p>
+              <p data-i18n-html="spot_desc2">Rara vez aparecen solas. Como los polos de un imán, suelen aparecer en <strong>grupos</strong>.</p>
+              <figure class="spot-fig">
+                <svg viewBox="0 0 360 220" role="img" data-i18n-attr="aria-label:spot_fig" aria-label="Una mancha vista de cerca: el centro oscuro es la umbra y el borde más claro, la penumbra. Los poros son manchas diminutas sin penumbra.">
+                  <defs>
+                    <linearGradient id="ph" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffdf94"/><stop offset="1" stop-color="#f3ae40"/></linearGradient>
+                    <pattern id="gran" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="3.4" fill="#fff4cf" fill-opacity=".38"/><circle cx="11.5" cy="11" r="3" fill="#fff4cf" fill-opacity=".3"/></pattern>
+                    <radialGradient id="pen" cx=".5" cy=".5" r=".5"><stop offset=".35" stop-color="#7d3f12"/><stop offset="1" stop-color="#b8692a"/></radialGradient>
+                  </defs>
+                  <rect width="360" height="220" fill="url(#ph)"/>
+                  <rect width="360" height="220" fill="url(#gran)"/>
+                  <g transform="rotate(-10 170 118)">
+                    <ellipse cx="170" cy="118" rx="82" ry="66" fill="url(#pen)"/>
+                    <g stroke="#4a230a" stroke-opacity=".5" stroke-width="1.6" stroke-linecap="round">
+          <line x1="200.9" y1="117.7" x2="243.7" y2="117.4"/>
+          <line x1="203.1" y1="119.9" x2="238.4" y2="122.0"/>
+          <line x1="202.6" y1="122.5" x2="231.8" y2="126.5"/>
+          <line x1="199.1" y1="125.0" x2="231.0" y2="132.6"/>
+          <line x1="202.4" y1="128.6" x2="229.5" y2="137.4"/>
+          <line x1="200.0" y1="130.3" x2="240.3" y2="146.9"/>
+          <line x1="196.8" y1="132.5" x2="236.0" y2="153.6"/>
+          <line x1="197.8" y1="135.2" x2="223.1" y2="151.0"/>
+          <line x1="192.2" y1="135.0" x2="218.8" y2="155.4"/>
+          <line x1="189.3" y1="137.5" x2="214.9" y2="163.5"/>
+          <line x1="187.7" y1="139.6" x2="209.4" y2="166.1"/>
+          <line x1="185.0" y1="139.1" x2="202.5" y2="163.7"/>
+          <line x1="182.1" y1="142.2" x2="195.2" y2="168.2"/>
+          <line x1="179.3" y1="143.1" x2="189.2" y2="169.7"/>
+          <line x1="176.1" y1="144.9" x2="181.8" y2="170.3"/>
+          <line x1="173.1" y1="144.4" x2="177.3" y2="179.9"/>
+          <line x1="169.6" y1="143.4" x2="168.9" y2="181.7"/>
+          <line x1="167.6" y1="143.9" x2="164.3" y2="178.3"/>
+          <line x1="164.3" y1="143.9" x2="159.1" y2="167.4"/>
+          <line x1="159.6" y1="144.4" x2="148.3" y2="173.2"/>
+          <line x1="157.1" y1="141.3" x2="139.9" y2="172.5"/>
+          <line x1="154.1" y1="141.5" x2="136.6" y2="167.4"/>
+          <line x1="149.6" y1="141.4" x2="129.6" y2="164.3"/>
+          <line x1="150.5" y1="136.6" x2="122.1" y2="163.8"/>
+          <line x1="144.3" y1="138.2" x2="115.2" y2="161.1"/>
+          <line x1="145.3" y1="134.7" x2="113.4" y2="156.2"/>
+          <line x1="143.3" y1="133.2" x2="117.0" y2="148.1"/>
+          <line x1="143.6" y1="129.9" x2="104.0" y2="147.8"/>
+          <line x1="141.2" y1="128.2" x2="106.8" y2="140.3"/>
+          <line x1="140.6" y1="124.6" x2="102.5" y2="133.1"/>
+          <line x1="135.4" y1="123.4" x2="94.7" y2="129.8"/>
+          <line x1="138.4" y1="119.9" x2="100.7" y2="122.2"/>
+          <line x1="134.7" y1="118.2" x2="90.8" y2="118.5"/>
+          <line x1="139.0" y1="116.1" x2="104.0" y2="113.9"/>
+          <line x1="137.6" y1="113.3" x2="98.6" y2="107.6"/>
+          <line x1="141.1" y1="111.4" x2="103.2" y2="102.6"/>
+          <line x1="139.0" y1="108.0" x2="96.6" y2="94.2"/>
+          <line x1="141.0" y1="105.3" x2="105.9" y2="89.8"/>
+          <line x1="145.0" y1="104.3" x2="105.4" y2="82.7"/>
+          <line x1="143.1" y1="99.7" x2="111.8" y2="78.5"/>
+          <line x1="146.9" y1="99.8" x2="124.6" y2="82.1"/>
+          <line x1="150.9" y1="99.1" x2="130.3" y2="78.7"/>
+          <line x1="152.3" y1="97.6" x2="131.2" y2="73.2"/>
+          <line x1="155.2" y1="97.1" x2="138.0" y2="73.0"/>
+          <line x1="157.0" y1="94.5" x2="144.7" y2="72.3"/>
+          <line x1="160.9" y1="92.0" x2="152.6" y2="68.2"/>
+          <line x1="163.3" y1="92.9" x2="155.6" y2="64.4"/>
+          <line x1="165.8" y1="90.1" x2="160.4" y2="54.6"/>
+          <line x1="169.9" y1="91.7" x2="169.9" y2="67.2"/>
+          <line x1="172.4" y1="92.4" x2="175.0" y2="64.7"/>
+          <line x1="176.6" y1="93.8" x2="183.4" y2="69.2"/>
+          <line x1="180.5" y1="92.8" x2="190.4" y2="68.9"/>
+          <line x1="181.6" y1="95.7" x2="197.5" y2="65.2"/>
+          <line x1="187.5" y1="93.6" x2="207.0" y2="66.2"/>
+          <line x1="187.5" y1="96.4" x2="205.3" y2="74.3"/>
+          <line x1="191.5" y1="97.7" x2="219.2" y2="71.6"/>
+          <line x1="191.9" y1="100.1" x2="223.6" y2="74.2"/>
+          <line x1="197.8" y1="100.8" x2="230.5" y2="80.6"/>
+          <line x1="199.0" y1="103.1" x2="225.6" y2="89.5"/>
+          <line x1="198.4" y1="105.9" x2="225.2" y2="94.5"/>
+          <line x1="198.9" y1="107.6" x2="230.8" y2="96.2"/>
+          <line x1="204.3" y1="110.0" x2="237.3" y2="102.4"/>
+          <line x1="205.4" y1="113.1" x2="248.0" y2="107.3"/>
+          <line x1="201.1" y1="115.3" x2="235.7" y2="112.4"/>
+                    </g>
+                    <ellipse cx="170" cy="118" rx="35" ry="28" fill="#1a0b04"/>
+                  </g>
+                  <circle cx="302" cy="74" r="8" fill="#2a1207"/><circle cx="314" cy="160" r="5.5" fill="#2a1207"/>
+                  <path class="svg-leader" d="M58 33L150 104M58 202L118 168M330 40L305 66"/>
+                  <text class="svg-label" x="14" y="30" data-i18n="fig_umbra">Umbra</text>
+                  <text class="svg-label" x="14" y="212" data-i18n="fig_penumbra">Penumbra</text>
+                  <text class="svg-label" x="346" y="34" text-anchor="end" data-i18n="fig_pore">Poro</text>
+                </svg>
+                <figcaption data-i18n="spot_fig">Una mancha vista de cerca: el centro oscuro es la umbra y el borde más claro, la penumbra. Los poros son manchas diminutas sin penumbra.</figcaption>
+              </figure>
+            </div>
+            <div>
+              <h3 data-i18n="wolf_title">Número de Wolf</h3>
+              <p data-i18n="wolf_desc">Para medir la actividad del Sol no basta con contar manchas sueltas. En 1848, el astrónomo Rudolf Wolf ideó esta fórmula matemática para darle peso a los grupos y cuantificar la actividad solar:</p>
+              <p class="formula" role="img" aria-label="R = k × (10 × g + s)">R = <span class="v-k">k</span>(10<span class="v-g">g</span> + <span class="v-s">s</span>)</p>
+              <ul class="vars">
+                <li data-i18n-html="wolf_k"><strong class='v-k'>k</strong> = Coeficiente de ajuste del observador.</li>
+                <li data-i18n-html="wolf_g"><strong class='v-g'>g</strong> = Número de <em>grupos</em> de manchas.</li>
+                <li data-i18n-html="wolf_s"><strong class='v-s'>s</strong> = Número total de manchas <em>individuales</em>.</li>
+              </ul>
+              <div class="callout"><p data-i18n="wolf_tip">Una mancha aislada cuenta como un grupo: g = 1 y s = 1, entonces R = 11 (con k = 1).</p></div>
+              <p data-i18n-html="wolf_history">¿Qué es esa <strong>k</strong>? Es la clave para viajar en el tiempo. Mirar el Sol en 1850 con un telescopio antiguo no es igual que usar el moderno satélite SOHO hoy. El factor 'k' compensa las diferencias entre telescopios, clima y observadores, permitiéndonos mantener un registro histórico coherente durante siglos.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band on-ink" aria-labelledby="mist-h">
+        <div class="wrap">
+          <h2 id="mist-h" data-i18n="mist_title">¡Hay un misterio por resolver!</h2>
+          <p data-i18n="mist_desc">Calcular un Número de Wolf de un solo día es interesante, pero la verdadera ciencia requiere ver el panorama completo. La misión de la clase es juntar piezas de un rompecabezas temporal.</p>
+          <div class="clues">
+            <div class="clue"><h3 data-i18n="q1_title">Pista 1: el paso del tiempo</h3><p data-i18n="q1_desc">Si se toman fotos del Sol hoy, dentro de un mes y dentro de 3 años... ¿El Número de Wolf será siempre similar? Investigar datos de diferentes años. ¿Se nota algún cambio extremo?</p></div>
+            <div class="clue"><h3 data-i18n="q2_title">El objetivo: construir la gráfica</h3><p data-i18n="q2_desc">Cada estudiante evaluará imágenes y recolectará datos de diferentes imágenes en el tiempo. Nuestro objetivo es unir todos los Números de Wolf de la clase en un gran gráfico histórico. Solo entonces revelaremos el comportamiento del Sol.</p></div>
+            <div class="clue"><h3 data-i18n="q3_title">Pista 2: la década</h3><p data-i18n="q3_desc">Se dice que nuestra estrella tiene 'estaciones' que no duran meses, sino años. Aproximadamente a los 11 años se pasa de la niñez a la adolescencia. Curiosamente, ese número es clave para el Sol. ¿Por qué será?</p></div>
+          </div>
+          <p class="quote" data-i18n="mist_quote">"Los datos guardan las respuestas, pero solo una mente curiosa puede hacer las preguntas correctas."</p>
+          <div class="cta-row"><a class="btn btn-primary" href="#/observar" data-i18n="how_cta">Ir a observar</a></div>
+        </div>
+      </section>
+
+      <section class="band" aria-labelledby="cred-h">
+        <div class="wrap">
+          <h2 id="cred-h" style="font-size:var(--step-2)" data-i18n="credits_title">Créditos, referencias, para saber más...</h2>
+          <ul class="credits">
+            <!-- Referencias en formato APA 7; títulos en su idioma original (no se traducen) -->
+            <li class="ref">Salvo, R. <span lang="es">[Prof., Observatorio del Liceo N.º 58 «Mario Benedetti»]</span>. (2012). <span lang="es">Observando el ciclo de manchas solares con la computadora</span>. <span data-i18n="ref_in">En</span> <i lang="es">Anuario digital de Astronomía 2012</i>. <span lang="es">Ministerio de Educación y Cultura</span>. <a href="https://www.gub.uy/ministerio-educacion-cultura/sites/ministerio-educacion-cultura/files/documentos/publicaciones/anuario_digital2012.pdf" target="_blank" rel="noopener">https://www.gub.uy/ministerio-educacion-cultura/sites/ministerio-educacion-cultura/files/documentos/publicaciones/anuario_digital2012.pdf</a></li>
+            <li class="ref">Salvo, R. <span lang="es">[Prof., Observatorio del Liceo N.º 58 «Mario Benedetti»; Observatorio Astronómico Los Molinos]</span>. (2013). <span lang="es">Observando el ciclo de manchas solares a través de la web: Período 2012</span>. <span data-i18n="ref_in">En</span> <i lang="es">Anuario de Astronomía 2013</i>. <a href="http://aulas.ces.edu.uy/pluginfile.php/216861/mod_folder/content/0/Anuario_Astronom%C3%ADa_2013.pdf?forcedownload=1" target="_blank" rel="noopener">http://aulas.ces.edu.uy/pluginfile.php/216861/mod_folder/content/0/Anuario_Astronom%C3%ADa_2013.pdf</a></li>
+            <li><a href="https://www.sidc.be/SILSO/" target="_blank" rel="noopener" data-i18n="credit_silso">SILSO, Real Observatorio de Bélgica: número internacional de manchas solares</a></li>
+            <li><a href="https://soho.nascom.nasa.gov/" target="_blank" rel="noopener" data-i18n="credit_soho">SOHO (NASA y ESA): observatorio solar y heliosférico</a></li>
+            <li><a href="https://sdo.gsfc.nasa.gov/" target="_blank" rel="noopener" data-i18n="credit_sdo">SDO (NASA): observatorio de dinámica solar, instrumento HMI</a></li>
+            <li><a href="#/acerca" data-i18n="credit_about">Acerca de este proyecto y del uso de IA</a></li>
+          </ul>
+        </div>
+      </section>
+    </section>
+
+    <!-- ===================== OBSERVATORIO ===================== -->
+    <section class="view" data-view="observar" hidden aria-labelledby="obs-h">
+      <div class="wrap">
+        <header class="view-head">
+          <h1 id="obs-h" data-i18n="obs_title">Observatorio</h1>
+          <p data-i18n="obs_intro">Elegir una fecha, marcar lo que se ve en el Sol y guardar la observación.</p>
+        </header>
+        <div class="obs-grid">
+          <div class="obs-stagecol">
+            <form class="datebar" id="datebar">
+              <label for="obs-date" data-i18n="date_label">Fecha de la imagen</label>
+              <div class="datebar-row">
+                <input class="field" type="date" id="obs-date" required>
+                <button type="submit" class="btn btn-primary" data-i18n="btn_load">Cargar</button>
+                <button type="button" class="btn btn-secondary" id="btn-random" data-i18n="btn_random">Al azar</button>
+              </div>
+            </form>
+
+            <div class="toolbar">
+              <div class="seg seg-full" role="group" data-i18n-attr="aria-label:tool_aria" aria-label="Qué se va a marcar">
+                <button type="button" data-tool="spot" aria-pressed="true"><span class="sw sw-spot"></span><span data-i18n="tool_spot">Mancha</span></button>
+                <button type="button" data-tool="group" aria-pressed="false"><span class="sw sw-group"></span><span data-i18n="tool_group">Grupo</span></button>
+              </div>
+              <div class="tool-row">
+                <span class="seg-label" data-i18n="zoom_label">Lupa</span>
+                <div class="seg" id="zoom-seg" role="group" data-i18n-attr="aria-label:zoom_aria" aria-label="Aumento de la lupa"></div>
+                <div class="tool-actions">
+                  <button type="button" class="btn btn-quiet" id="btn-undo" data-i18n="btn_undo" disabled>Deshacer</button>
+                  <button type="button" class="btn btn-quiet" id="btn-clear" data-i18n="btn_clear" disabled>Limpiar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="stage-wrap">
+              <div class="stage" id="stage" tabindex="0" role="application" data-state="empty" data-i18n-attr="aria-label:disc_aria" aria-label="Imagen del Sol. Con el teclado: moverse con las flechas y marcar con Enter.">
+                <img id="sun-img" alt="" draggable="false" hidden>
+                <div class="markers" id="markers"></div>
+                <div class="kbd-cursor" id="kbd-cursor" hidden></div>
+                <div class="lens" id="lens" data-side="left" hidden aria-hidden="true">
+                  <div class="lens-view" id="lens-view"></div>
+                  <div class="lens-marks" id="lens-marks"></div>
+                  <svg class="lens-cross" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 27V43M50 57V73M27 50H43M57 50H73" fill="none" stroke="rgba(5,12,28,.8)" stroke-width="4.2" stroke-linecap="round"/><path d="M50 27V43M50 57V73M27 50H43M57 50H73" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                  <span class="lens-zoom" id="lens-zoom"></span>
+                </div>
+                <p class="stage-msg" id="stage-msg" role="status"></p>
+              </div>
+              <p class="img-source" id="img-source"></p>
+              <p class="hint" id="hint"></p>
+            </div>
+          </div>
+
+          <div class="obs-calc">
+            <div class="sheet">
+              <h2 data-i18n="lbl_wolf">Número de Wolf (R)</h2>
+              <div class="tally">
+                <div><span class="lbl" data-i18n="lbl_groups">Grupos (g)</span><span class="val val-g" id="out-g">0</span></div>
+                <div><span class="lbl" data-i18n="lbl_spots">Manchas (s)</span><span class="val val-s" id="out-s">0</span></div>
+                <div class="kfield"><label class="lbl" for="k-input" data-i18n="lbl_k">Coeficiente k</label><input class="field" type="number" inputmode="decimal" id="k-input" value="1"></div>
+              </div>
+              <p class="field-help" data-i18n="k_help">Es el ajuste propio de cada persona que observa. Admite decimales y se aplica a todas las observaciones.</p>
+              <div class="result"><span class="lbl" data-i18n="lbl_wolf">Número de Wolf (R)</span><span class="r" id="out-r" aria-live="polite">0</span><span class="calc" id="out-calc"></span></div>
+              <p class="warn" id="warn" hidden></p>
+              <div class="save-row"><button type="button" class="btn btn-primary" id="btn-save" aria-disabled="true" data-i18n="btn_save">Guardar observación</button></div>
+              <p class="saved-line"><span id="saved-count"></span><a href="#/datos" data-i18n="see_data">Ver en Datos</a></p>
+              <div class="pending"><button type="button" class="btn btn-secondary btn-small" id="k-pending-obs" data-i18n="k_pending_btn" hidden>Ver sugerencia de k</button></div>
+              <p class="visually-hidden" id="marks-live" aria-live="polite"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== DATOS ===================== -->
+    <section class="view" data-view="datos" hidden aria-labelledby="data-h">
+      <div class="wrap">
+        <header class="view-head">
+          <h1 id="data-h" data-i18n="data_title">Laboratorio de datos</h1>
+          <p data-i18n="data_intro">Las observaciones llegan solas desde el observatorio. Aquí se puede ver cómo se distribuyen y compararlas con el registro histórico.</p>
+        </header>
+
+        <dl class="stats">
+          <div><dt class="lbl" data-i18n="stat_obs">Observaciones</dt><dd style="margin:0"><span class="val" id="stat-obs">0</span></dd></div>
+          <div><dt class="lbl" data-i18n="stat_avg">R promedio</dt><dd style="margin:0"><span class="val" id="stat-avg">–</span></dd></div>
+          <div><dt class="lbl"><label for="k-input-data" data-i18n="lbl_k">Coeficiente k</label></dt><dd style="margin:0"><input class="field" type="number" inputmode="decimal" id="k-input-data" value="1"></dd></div>
+        </dl>
+        <div class="pending kbar"><button type="button" class="btn btn-secondary btn-small" id="k-recalc" data-i18n="k_recalc_btn">Recalcular k ahora</button><button type="button" class="btn btn-secondary btn-small" id="k-pending-data" data-i18n="k_pending_btn" hidden>Ver sugerencia de k</button></div>
+
+        <div class="chart-panel" id="chart-panel">
+          <h2 style="font-size:var(--step-2)" data-i18n="chart_title">Observaciones en el tiempo</h2>
+          <div class="chart-controls" id="chart-controls">
+            <label>
+              <span data-i18n="var_label">Variable del eje vertical</span>
+              <select class="field" id="var-select"></select>
+            </label>
+            <div class="stack" style="gap:.25rem">
+              <span class="seg-label" data-i18n="range_label">Rango de fechas</span>
+              <div class="seg" role="group" data-i18n-attr="aria-label:range_label" aria-label="Rango de fechas">
+                <button type="button" data-range="mine" aria-pressed="true" data-i18n="range_mine">Mis fechas</button>
+                <button type="button" data-range="all" aria-pressed="false" data-i18n="range_all">Todo el período</button>
+              </div>
+            </div>
+            <label class="check"><input type="checkbox" id="toggle-ref"><span data-i18n="toggle_ref">Comparar con el registro histórico (SILSO)</span></label>
+          </div>
+          <div class="chart-frame">
+            <div id="chart"></div>
+            <div class="chart-empty" id="chart-empty" hidden>
+              <h3 data-i18n="chart_empty_t">Todavía no hay observaciones.</h3>
+              <p data-i18n="chart_empty_d">Al guardar la primera observación en el observatorio, aparecerá aquí.</p>
+              <a class="btn btn-primary" href="#/observar" data-i18n="go_observe">Ir al observatorio</a>
+            </div>
+          </div>
+          <ul class="legend" id="legend"></ul>
+          <p class="note" id="ref-note" data-i18n="ref_note" hidden>Registro histórico: número de manchas solares suavizado en 13 meses, de 2008 a febrero de 2026.</p>
+        </div>
+
+        <div class="table-wrap" id="obs-table" hidden>
+          <table>
+            <thead><tr><th scope="col" data-i18n="tip_date">Fecha</th><th scope="col" class="num" data-i18n-attr="title:lbl_groups" title="Grupos (g)">g</th><th scope="col" class="num" data-i18n-attr="title:lbl_spots" title="Manchas (s)">s</th><th scope="col" class="num" data-i18n-attr="title:lbl_wolf" title="Número de Wolf (R)">R</th><th scope="col"><span class="visually-hidden" data-i18n="btn_delete">Eliminar</span></th></tr></thead>
+            <tbody id="obs-body"></tbody>
+          </table>
+        </div>
+
+        <details class="teacher">
+          <summary data-i18n="teacher_title">Para docentes y trabajo en clase</summary>
+          <p class="muted" data-i18n="teacher_desc">Opciones secundarias: el CSV sirve como evidencia o para juntar los datos de todo el grupo.</p>
+          <div class="teacher-grid">
+            <div class="stack">
+              <label class="small" style="font-weight:700" for="profile-school" data-i18n="profile_school">Centro educativo (opcional)</label>
+              <input class="field" id="profile-school" autocomplete="off">
+              <label class="small" style="font-weight:700" for="profile-name" data-i18n="profile_name">Apellido (opcional)</label>
+              <input class="field" id="profile-name" autocomplete="off">
+              <button type="button" class="btn btn-secondary" id="btn-export" data-i18n="btn_export">Descargar CSV</button>
+            </div>
+            <div class="stack">
+              <label class="btn btn-secondary" for="file-import" style="cursor:pointer" data-i18n="btn_import">Sumar CSV de otras personas</label>
+              <input class="visually-hidden" type="file" id="file-import" accept=".csv,text/csv,text/plain" multiple>
+              <p class="note" style="margin:0" data-i18n="import_help">Se pueden elegir varios archivos. Se dibujan aparte y no cambian el k.</p>
+              <ul class="series-list" id="series-list"></ul>
+            </div>
+            <div class="stack">
+              <button type="button" class="btn btn-secondary" id="btn-sample" data-i18n="btn_sample">Cargar datos de ejemplo (simulados)</button>
+              <p class="note" style="margin:0" data-i18n="sample_note">Son datos inventados para probar la herramienta. No son observaciones reales.</p>
+              <button type="button" class="btn btn-secondary btn-danger" id="btn-clear-all" data-i18n="btn_clear_all">Borrar todos los datos</button>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ===================== MEDALLAS ===================== -->
+    <section class="view" data-view="medallas" hidden aria-labelledby="med-h">
+      <div class="wrap-narrow">
+        <header class="view-head"><h1 id="med-h" data-i18n="med_title">Medallas</h1><p data-i18n="med_lead">Cada observación guardada acerca una nueva insignia. Se puede volver otro día y seguir sumando: no hace falta que sean días seguidos.</p></header>
+        <h2 class="med-group-h" data-i18n="med_activity_t">Mi actividad</h2>
+        <div class="med-top">
+          <div class="med-summary" id="med-summary"></div>
+          <div class="med-next" id="med-next" aria-live="polite"></div>
+        </div>
+        <ol class="medals" id="medal-list"></ol>
+        <section class="bd-sec" aria-labelledby="bd-h">
+          <h2 id="bd-h"><span data-i18n="bd_section_t">Conmemorativas</span> <span class="bd-count" id="bd-count"></span></h2>
+          <p class="muted" data-i18n="bd_section_lead">Medallas especiales de personalidades de la astronomía y la ciencia espacial. Plata: observar en el selector un Sol de la fecha indicada, de cualquier año. Oro: guardar una observación justo ese día. Al obtenerla se habilita el enlace a Wikipedia.</p>
+          <ol class="medals" id="bd-list"></ol>
+        </section>
+        <section class="med-how">
+          <h2 data-i18n="med_how_t">¿Cómo se cuentan?</h2>
+          <ul>
+            <li data-i18n="med_how_days">Día de actividad: cada día del calendario en que se guarda al menos una observación. No hace falta que sean seguidos.</li>
+            <li data-i18n="med_how_dates">Fecha observada: cada día del Sol distinto que se registra. Si se vuelve a guardar la misma fecha, se actualiza y no suma otra.</li>
+            <li data-i18n="med_how_bd">Conmemorativas: plata al observar un Sol de la fecha indicada (de cualquier año); oro al guardar una observación ese mismo día del calendario. Una de plata puede mejorarse a oro.</li>
+            <li data-i18n="med_how_keep">Las medallas obtenidas quedan guardadas en este dispositivo, aunque después se borren observaciones.</li>
+          </ul>
+        </section>
+        <div class="cta-row"><a class="btn btn-primary" href="#/observar" data-i18n="how_cta">Ir a observar</a></div>
+      </div>
+    </section>
+
+    <!-- ===================== ACERCA DE ===================== -->
+    <section class="view" data-view="acerca" hidden aria-labelledby="about-h">
+      <div class="wrap-narrow">
+        <header class="view-head"><h1 id="about-h" data-i18n="about_title">Acerca de Misión Helios</h1></header>
+        <div class="about-grid">
+          <section class="about-sec"><h2 data-i18n="about_what_t">Qué es</h2><p data-i18n="about_what_d">Misión Helios es una aplicación web educativa para estudiar la actividad del Sol: se cuentan manchas solares en imágenes reales y se calcula el número de Wolf.</p></section>
+          <section class="about-sec"><h2 data-i18n="about_purpose_t">Para qué sirve</h2><p data-i18n="about_purpose_d">Está pensada para estudiantes de enseñanza media de Uruguay y para aficionados y aficionadas a la astronomía. Propone una indagación: leer, practicar el marcado de manchas y grupos, y comprobar los resultados con registros históricos, sin adelantar la respuesta.</p></section>
+          <section class="about-sec">
+            <dl class="kv">
+              <div><dt data-i18n="about_web_t">Página web</dt><dd id="about-web"></dd></div>
+              <div><dt data-i18n="about_inst_t">Institución</dt><dd id="about-inst"></dd></div>
+              <div><dt data-i18n="about_contact_t">Contacto</dt><dd id="about-contact"></dd></div>
+            </dl>
+          </section>
+
+          <section class="ai-note" aria-labelledby="ai-h">
+            <h2 id="ai-h" data-i18n="about_ai_t">Nota ética sobre el uso de inteligencia artificial</h2>
+            <p class="ai-lead" data-i18n="about_ai_lead">Este proyecto se hizo con la asistencia de herramientas de inteligencia artificial (IA), que participaron como coautoras y como soporte técnico. Queremos decirlo de forma clara.</p>
+            <div class="ai-cols">
+              <div><h3 data-i18n="about_ai_did_t">Qué hizo la IA</h3><ul><li data-i18n="about_ai_did_1">Ayudó a redactar textos y a traducirlos a seis idiomas.</li><li data-i18n="about_ai_did_2">Ayudó a escribir y probar el código de la aplicación.</li><li data-i18n="about_ai_did_3">Propuso opciones de diseño y de organización de la interfaz.</li></ul></div>
+              <div><h3 data-i18n="about_ai_human_t">Qué hicieron las personas</h3><ul><li data-i18n="about_ai_human_1">Definieron la idea, el objetivo y el enfoque didáctico.</li><li data-i18n="about_ai_human_2">Revisaron y aprobaron todos los textos y el comportamiento de la aplicación.</li><li data-i18n="about_ai_human_3">Deciden qué se publica y asumen la responsabilidad de lo publicado.</li></ul></div>
+            </div>
+            <p class="ai-close" data-i18n="about_ai_close">La IA no tomó decisiones por su cuenta. Ante cualquier error o algo que no se entienda, la responsabilidad es del equipo humano y agradecemos que se nos avise.</p>
+          </section>
+
+          <section class="about-sec"><h2 data-i18n="about_data_t">Datos y créditos</h2><p data-i18n="about_data_d">Las imágenes del Sol son reales (SOHO y SDO, NASA y ESA) y se piden directamente al archivo público. El registro histórico es el número internacional de manchas solares de SILSO (Real Observatorio de Bélgica, licencia CC BY-NC 4.0): serie suavizada de 13 meses, valores transcriptos sin cambios de 2008 a febrero de 2026, tomados de la tabla del Bureau of Meteorology de Australia, que los redistribuye a partir de SILSO. Los datos de ejemplo del laboratorio son simulados y están rotulados como tales.</p></section>
+          <section class="about-sec">
+            <h2 data-i18n="about_portraits_t">Retratos de las medallas</h2>
+            <p data-i18n="about_portraits_d">Los retratos de las medallas «Conmemorativas» provienen de Wikimedia Commons y son de dominio público.</p>
+            <ul class="portrait-credits" id="portrait-credits"></ul>
+          </section>
+          <section class="about-sec"><h2 data-i18n="about_privacy_t">Privacidad de los datos</h2><p data-i18n="about_privacy_d">Todo se guarda en este dispositivo. No hay cuentas ni servidor de la app: nadie recibe las observaciones, salvo que se descargue un CSV y se comparta.</p></section>
+          <section class="about-sec">
+            <h2 data-i18n="about_install_t">Instalar la app</h2>
+            <p data-i18n="about_install_d">Funciona sin conexión, excepto para pedir imágenes del Sol. En Android o en una computadora, usar el botón «Instalar app». En iPhone o iPad, abrir el menú Compartir y elegir «Agregar a inicio».</p>
+            <button type="button" id="install-btn-about" class="btn btn-secondary" hidden data-i18n="install_btn">Instalar app</button>
+          </section>
+        </div>
+        <p class="version" id="about-version"></p>
+      </div>
+    </section>
+  </main>
+
+  <p class="a11y-declaracion" lang="es">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA.</p>
+
+  <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+
+  <dialog id="dlg" aria-labelledby="dlg-title">
+    <div class="dlg-head">
+      <h2 class="dlg-title" id="dlg-title"></h2>
+      <button type="button" class="dlg-x"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    </div>
+    <div class="dlg-body"></div>
+    <div class="dlg-actions"></div>
+  </dialog>
+<!-- Código de analítica GoatCounter -->
+<script data-goatcounter="https://danielgastelu.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

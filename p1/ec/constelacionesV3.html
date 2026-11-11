@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Constelaciones · Astronomía para todos</title>
+  <meta name="description" content="Las constelaciones: qué son, cuántas hay, sus mitos, el zodiaco de 13 constelaciones y la Cruz del Sur. Con Orión en 3D, video y trivia.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-girar" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="4"/><path d="M12 3v18"/><path d="M18.5 6.5l2.5.5-.5 2.5"/></symbol>
+    <symbol id="i-brujula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-pasado" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.64-6.36L3 8.3"/><path d="M3 3.5v4.8h4.8"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-pres" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M12 16v4M8 20h8M7 12l3-3 2 2 4-4"/></symbol>
+    <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+  </svg>
+
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">Las constelaciones</h1>
+          <p class="l-bajada">Dibujos imaginarios en el cielo</p>
+          <p class="l-lead">Antes de que existieran los mapas, los satélites o los teléfonos celulares, las personas observaban el cielo para orientarse, medir el paso del tiempo y contar historias. Al mirar las estrellas, diferentes pueblos imaginaron figuras formadas por grupos de astros brillantes. A esas figuras las llamamos <strong>constelaciones</strong>.</p>
+          <ul class="l-datos" aria-label="Qué incluye esta guía">
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-girar"/></svg>Orión en tres dimensiones</li>
+            <li class="l-dato"><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Al final te espera una trivia para coleccionar estrellas</li>
+          </ul>
+        </div>
+        <div class="l-portada-foto"><img src="../img/fotos/orion-640.webp" srcset="../img/fotos/orion-640.webp 640w, ../img/fotos/orion-1280.webp 1280w" sizes="(min-width: 64rem) 26rem, calc(100vw - 2rem)" width="1280" height="1972" alt="La constelación de Orión fotografiada con larga exposición, con sus nubes de gas rojizo." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#idea">Idea clave</a></li>
+            <li><a href="#orion">Orión en tres dimensiones</a></li>
+            <li><a href="#cuantas">¿Cuántas constelaciones existen?</a></li>
+            <li><a href="#mitos">Historias en el firmamento</a></li>
+            <li><a href="#zodiaco">El camino del Sol</a></li>
+            <li><a href="#cruz">La Cruz del Sur</a></li>
+            <li><a href="#preguntas">Preguntas para pensar</a></li>
+            <li><a href="#video">Vídeo y material interactivo</a></li>
+            <li><a href="#quiz">Prueba tus conocimientos</a></li>
+            <li><a href="#mas">Para saber más</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="idea" aria-labelledby="idea-titulo">
+          <h2 id="idea-titulo">Idea clave</h2>
+          <div class="l-definicion">
+            <p>Las constelaciones <strong>no son objetos reales</strong>. Son mapas imaginarios creados por distintas culturas para reconocer regiones del cielo. Las estrellas que parecen estar juntas desde la Tierra pueden encontrarse a enormes distancias unas de otras en la profundidad del espacio sideral.</p>
+          </div>
+          <h3>Una analogía</h3>
+          <p>Podemos pensar en las constelaciones como si fueran los dibujos que aparecen al unir puntos en una hoja de papel. Los puntos son las estrellas y las líneas imaginarias forman las figuras.</p>
+        </section>
+
+        <section class="l-sec" id="orion" aria-labelledby="orion-titulo">
+          <h2 id="orion-titulo">Orión en tres dimensiones</h2>
+          <p>Usa el control de abajo para rotar la perspectiva de la constelación. Verás que la forma del "reloj de arena" o el cazador con su cinturón ("Las Tres Marías") solo existe desde la Tierra (Ángulo 0°). ¡Al rotarlo se desvela la inmensa profundidad espacial!</p>
+          <div class="l-lab" id="lab">
+            <div class="l-lab-lienzo l-lab-cuadro">
+              <canvas id="constellation-canvas" role="img" aria-label="Orión con sus siete estrellas principales y la distancia de cada una en años luz. Al rotar la vista, la figura se deshace porque las estrellas están a distancias muy distintas."></canvas>
+            </div>
+            <div class="l-lab-controles" style="grid-template-columns:1fr">
+              <div class="l-control">
+                <label for="depth-slider">Ángulo de observación <output id="angle-display" for="depth-slider">Desde la Tierra (0°)</output></label>
+                <input type="range" id="depth-slider" min="0" max="100" value="0" aria-describedby="ayuda-orion">
+                <p id="ayuda-orion"><b>Observa:</b> La estrella central del cinturón, <strong>Alnilam</strong>, se encuentra a 1340 años luz, mientras que las de sus costados están mucho más cerca de la Tierra. Al rotarla se evidencia el efecto de profundidad.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="l-sec" id="cuantas" aria-labelledby="cuantas-titulo">
+          <h2 id="cuantas-titulo">¿Cuántas constelaciones existen?</h2>
+          <p>En 1930, la Unión Astronómica Internacional (UAI) estableció de forma definitiva las 88 constelaciones oficiales que dividen geométricamente todo nuestro firmamento.</p>
+          <div class="l-usos">
+            <div><h3>Boreales (36)</h3><p>Son las constelaciones situadas en el hemisferio celeste norte. Eran las únicas visibles para los antiguos astrónomos europeos y griegos, como la Osa Mayor y la Osa Menor.</p></div>
+            <div><h3>Australes (52)</h3><p>Son visibles principalmente desde el hemisferio sur de la Tierra. Como Uruguay se encuentra ubicado en el sur, estas son las estrellas que decoran nuestras noches de campo.</p></div>
+            <div><h3>Ecuatoriales</h3><p>Varias de ellas se extienden a lo largo de la línea del ecuador celeste, sirviendo de puente observacional y pudiendo contemplarse desde ambos lados de nuestro planeta.</p></div>
+          </div>
+        </section>
+
+        <section class="l-sec" id="mitos" aria-labelledby="mitos-titulo">
+          <h2 id="mitos-titulo">Historias grabadas con luz en el firmamento</h2>
+          <p>Los antiguos griegos adoptaron el legado de la Mesopotamia y tejieron hermosas leyendas asociadas a los nombres estelares.</p>
+
+          <h3>Orión vs Escorpio</h3>
+          <p class="l-categoria">La eterna persecución</p>
+          <p>Según el mito griego, el gigante cazador <strong>Orión</strong> era tan orgulloso de su puntería y fuerza que desafió a los propios dioses del Olimpo. Como castigo, le enviaron un desmesurado escorpión para derrotarlo.</p>
+          <p>Por eso, en el cielo los encontramos en posiciones diametralmente opuestas: cuando <strong>Orión</strong> se oculta por el oeste, su enemigo <strong>Escorpio</strong> asoma por el este. ¡Nunca coinciden en el cielo al mismo tiempo!</p>
+          <figure class="l-figura l-figura-chica">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Orion_constellation_-_Prodromus_astronomiae_1690_%285590584%29.jpg/960px-Orion_constellation_-_Prodromus_astronomiae_1690_%285590584%29.jpg" width="960" height="757" loading="lazy" decoding="async" alt="Grabado histórico de la constelación de Orión representando al cazador mitológico" onerror="this.src='https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=800&amp;q=80'">
+            <figcaption>Hevelius, J. (1690). Prodromus astronomiae. Grabado de la constelación de Orión representando al cazador mitológico. Obra clásica de la cartografía celeste de Gdansk.</figcaption>
+          </figure>
+
+          <h3>Andrómeda y Perseo</h3>
+          <p class="l-categoria">Héroes y monstruos</p>
+          <p>La princesa Andrómeda fue encadenada a una roca marina para aplacar al terrible monstruo enviado por Poseidón, la Ballena (Cetus).</p>
+          <p>El heroico Perseo, volando sobre el caballo alado Pegaso tras vencer a la gorgona Medusa, logró rescatar a la bella princesa petrificando a la bestia marina al mostrarle la cabeza de la Gorgona.</p>
+          <figure class="l-figura l-figura-chica">
+            <img src="https://previews.magnoliabox.com/heritageimages/mb_hero/1632870/GLOBAL-FAP-6X8_scaled-bordered_850.jpg" width="850" height="650" loading="lazy" decoding="async" alt="Ilustración clásica de Perseo rescatando a Andrómeda de la bestia marina" onerror="this.src='https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&amp;q=80'">
+            <figcaption>Andromeda and Perseus - Heritage Images / Magnolia Box Collection. Ilustración clásica mitológica representando al héroe Perseo liberando a la princesa encadenada.</figcaption>
+          </figure>
+
+          <h3>La Cabellera de Berenice: un hecho histórico real</h3>
+          <p>Berenice II fue reina de Egipto durante el siglo III a.C. Cuando su esposo, el faraón Ptolomeo III Evergetes, partió a la guerra, ella prometió cortar su hermosa cabellera y donarla al templo de la diosa Afrodita si su esposo volvía con vida.</p>
+          <div class="l-nota">
+            <p><strong>La intervención del astrónomo:</strong> Tras el regreso triunfal del faraón, la cabellera desapareció misteriosamente del templo. Para evitar la furia del rey, el astrónomo de la corte, <strong>Conon de Samos</strong>, declaró ingeniosamente que los cabellos habían complacido tanto a la diosa que esta los había subido al cielo, señalando un modesto grupo de estrellas que hoy en día conocemos de forma oficial como <strong>Coma Berenices</strong>.</p>
+          </div>
+        </section>
+
+        <section class="l-sec" id="zodiaco" aria-labelledby="zodiaco-titulo">
+          <h2 id="zodiaco-titulo">El camino del Sol y las 13 constelaciones</h2>
+          <p>Para la ciencia de la astronomía, las constelaciones zodiacales son aquellas que el Sol atraviesa de forma aparente en su recorrido anual por la eclíptica.</p>
+          <h3>¿Por qué no vemos las estrellas zodiacales de día?</h3>
+          <p>A medida que la Tierra gira alrededor del Sol, este parece posicionarse delante de diferentes constelaciones a lo largo de los meses. Sin embargo, dado que es de día, la intensa luz dispersada por nuestra atmósfera nos impide observar las estrellas situadas detrás de él.</p>
+          <p>Por ello, a medianoche del mismo mes, podemos ver con perfecta claridad la constelación zodiacal situada en el extremo <strong>diametralmente opuesto</strong> en el espacio. El Sol alcanzará esa misma constelación exactamente medio año después.</p>
+          <h3>Las 13 constelaciones del zodiaco (Ofiuco)</h3>
+          <p>Para la ciencia, no existen 12 constelaciones zodiacales, ¡sino <strong>13</strong>! El Sol transita anualmente por la constelación de <strong>Ofiuco (el Serpentario o cazador de serpientes)</strong> a finales de noviembre y principios de diciembre de cada año.</p>
+          <ol class="l-temas l-zodiaco" aria-label="Las 13 constelaciones del zodiaco, en el orden en que el Sol las recorre">
+            <li>Piscis</li><li>Aries</li><li>Tauro</li><li>Géminis</li><li>Cáncer</li><li>Leo</li><li>Virgo</li><li>Libra</li><li>Escorpio</li><li class="destacado">Ofiuco</li><li>Sagitario</li><li>Capricornio</li><li>Acuario</li>
+          </ol>
+        </section>
+
+        <section class="l-sec" id="cruz" aria-labelledby="cruz-titulo">
+          <h2 id="cruz-titulo">La Cruz del Sur y la navegación</h2>
+          <p>Para los habitantes del hemisferio sur, la constelación más pequeña de las 88 reconocidas oficialmente es la más útil para orientarnos.</p>
+          <h3>Crux: la Cruz del Sur</h3>
+          <p>Marinos, exploradores y viajeros la utilizaron durante siglos para orientarse antes de la existencia de los sistemas modernos de posicionamiento por satélite (GPS).</p>
+          <figure class="l-figura l-carta">
+            <svg viewBox="0 0 360 330" role="img" aria-labelledby="cruz-carta-t cruz-carta-d">
+              <title id="cruz-carta-t">Cómo llegar al polo sur celeste desde la Cruz del Sur</title>
+              <desc id="cruz-carta-d">Las cinco estrellas de la Cruz del Sur y los punteros Alfa y Beta Centauri. Una línea punteada prolonga el palo largo de la cruz, de Gacrux hacia Acrux y más allá, unas cuatro veces y media su largo, hasta el polo sur celeste.</desc>
+              <g class="reticula">
+                <path d="M0 34H360M0 82H360M0 130H360"/>
+                <path d="M111 0V250M229 0V250M288.5 0V250"/>
+              </g>
+              <line class="linea" x1="33.2" y1="95.3" x2="103.6" y2="87.9"/>
+              <line class="linea" x1="286.2" y1="35.8" x2="295.1" y2="131.6"/>
+              <line class="linea" x1="253.5" y1="77" x2="317.7" y2="62"/>
+              <line class="polo" x1="297" y1="148" x2="309.5" y2="286"/>
+              <path class="polo" d="M303 278l6.5 9 5-10" style="stroke-dasharray:none"/>
+              <circle class="anillo" cx="295.1" cy="131.6" r="11"/>
+              <circle class="estrella" cx="33.2" cy="95.3" r="7"/>
+              <circle class="estrella" cx="103.6" cy="87.9" r="5.8"/>
+              <circle class="estrella" cx="295.1" cy="131.6" r="5.6"/>
+              <circle class="estrella" cx="253.5" cy="77" r="4.8"/>
+              <circle class="estrella calida" cx="286.2" cy="35.8" r="4.4"/>
+              <circle class="estrella" cx="317.7" cy="62" r="2.8"/>
+              <circle class="estrella" cx="305.5" cy="88.4" r="2"/>
+              <text class="nombre" x="297" y="33">Gacrux</text>
+              <text class="nombre" x="243" y="81" text-anchor="end">Mimosa</text>
+              <text class="nombre" x="325" y="60">Imai</text>
+              <text class="nombre-sec" x="313" y="98">Ginan</text>
+              <text class="nombre" x="280" y="136" text-anchor="end">Acrux</text>
+              <text class="nombre" x="10" y="120">α Centauri</text>
+              <text class="nombre" x="104" y="72" text-anchor="middle">β Centauri</text>
+              <text class="nombre-sec" x="10" y="138">los punteros</text>
+              <text class="nombre-polo" x="356" y="306" text-anchor="end">Polo sur celeste</text>
+              <text class="nombre-sec" x="356" y="324" text-anchor="end">a unas 4½ cruces de Acrux</text>
+            </svg>
+            <figcaption>Prolonga el palo largo de la Cruz unas cuatro veces y media desde Acrux: ese punto sin estrellas es el polo sur celeste.</figcaption>
+          </figure>
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-brujula"/></svg>Cómo encontrar el Sur</h3>
+            <p>Si prolongamos la línea imaginaria de su mástil o palo mayor unas 4 veces y media desde la estrella Acrux (su base), y luego bajamos una plomada vertical directa hacia el horizonte, hallaremos con absoluta precisión el punto cardinal <strong>SUR</strong> geográfico.</p>
+          </div>
+          <h3>Constelaciones de los pueblos originarios</h3>
+          <p>No todas las culturas imaginaron las mismas figuras. Mientras los antiguos griegos veían héroes y monstruos, muchos pueblos originarios de América veían animales y plantas de su entorno cotidiano.</p>
+          <p>Incluso identificaban <strong>"constelaciones oscuras"</strong>: figuras no formadas por estrellas brillantes, sino por las siluetas de las nubes densas de polvo interestelar oscuro que bloquean la luz de la Vía Láctea (representando llamas, aves o serpientes).</p>
+          <figure class="l-figura l-figura-chica">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Milky_way_at_Fountain_Paint_Pot_%28Lower_Geyser_Basin%29_%2836783132481%29.jpg/500px-Milky_way_at_Fountain_Paint_Pot_%28Lower_Geyser_Basin%29_%2836783132481%29.jpg" width="500" height="750" loading="lazy" decoding="async" alt="Vista de la Vía Láctea lejos de las luces de la ciudad" onerror="this.src='https://images.unsplash.com/photo-1518818419601-72c8673f5852?w=800&amp;q=80'">
+            <figcaption>Wikimedia Commons. Por Yellowstone National Park - Vía Láctea en Fountain Paint Pot (Lower Geyser Basin), dominio público.</figcaption>
+          </figure>
+        </section>
+
+        <section class="l-sec" id="preguntas" aria-labelledby="preguntas-titulo">
+          <h2 id="preguntas-titulo">Preguntas para pensar en clase</h2>
+          <div class="l-nota tinta">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-pasado"/></svg>Un dato sorprendente: observar el cielo es mirar el pasado</h3>
+            <p>La luz de algunas estrellas visibles a simple vista tarda cientos de años en llegar hasta nosotros debido a las distancias astronómicas del universo. Esto significa que cuando observamos ciertas constelaciones, estamos captando luz que salió de esas estrellas mucho antes de que nacieran nuestros bisabuelos. <strong>¡Estamos contemplando el pasado cósmico!</strong></p>
+          </div>
+          <p>Pon a prueba tu mente antes de iniciar el juego de trivia. Abre cada pregunta para descubrir su respuesta sugerida.</p>
+          <div class="l-hipotesis">
+            <details>
+              <summary>1. ¿Por qué las constelaciones no son objetos reales sino figuras imaginarias?</summary>
+              <div class="l-respuesta"><p>Porque las estrellas que las forman están situadas a distancias abismales de profundidad unas de otras en la galaxia y no se atraen físicamente entre sí. La constelación es una ilusión producida exclusivamente por la perspectiva visual de nuestro planeta Tierra.</p></div>
+            </details>
+            <details>
+              <summary>2. ¿Cuál es la diferencia entre una constelación austral y una boreal?</summary>
+              <div class="l-respuesta"><p>Las constelaciones boreales se encuentran situadas en el hemisferio celeste norte y se aprecian desde allí. Las australes están situadas en el hemisferio celeste sur y son visibles principalmente por los observadores de estas latitudes del sur.</p></div>
+            </details>
+            <details>
+              <summary>3. ¿Por qué podemos decir que al observar las estrellas estamos observando el pasado?</summary>
+              <div class="l-respuesta"><p>La luz viaja a una velocidad finita en el espacio (unos 300.000 km/s). Si la estrella se encuentra a 500 años luz de nosotros, la luz que captan nuestros ojos en este instante exacto salió de la estrella hace 500 años. Si esa estrella explotara hoy, tardaríamos 5 siglos enteros en enterarnos.</p></div>
+            </details>
+          </div>
+        </section>
+
+        <section class="l-sec" id="video" aria-labelledby="video-titulo">
+          <h2 id="video-titulo">Vídeo y material interactivo</h2>
+          <p>Reproduce este breve vídeo que te guiará visualmente por la historia de las estrellas y te enseñará a distinguir las constelaciones más importantes de la bóveda celeste. También puedes acceder a la presentación Prezi del tema.</p>
+          <div class="l-video">
+            <iframe src="https://www.youtube.com/embed/JbOEfLcddl0" title="Vídeo de YouTube: El Origen de las Constelaciones" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <a class="l-enlace" href="https://prezi.com/jclplahm2k-v/la-constelacion-de-orion/" target="_blank" rel="noopener noreferrer">
+            <svg class="ico" aria-hidden="true"><use href="#i-pres"/></svg>
+            <span>Presentación Prezi: La Constelación de Orión por Prof. Héctor Roldós<span class="sr-only"> (se abre en una pestaña nueva)</span></span>
+            <svg class="ico" aria-hidden="true"><use href="#i-externo"/></svg>
+          </a>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Prueba tus conocimientos</h2>
+          <p>Responde las 5 preguntas del cuestionario de Constelaciones. Junta estrellas de oro en tu constelación y genera tu diploma de evidencia para el profesor.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión de cartografía completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Reiniciar el cuestionario</button>
+          </div>
+        </section>
+
+        <section class="l-sec" id="mas" aria-labelledby="mas-titulo" style="margin-top:3rem">
+          <h2 id="mas-titulo">Para saber más</h2>
+          <ul class="l-recursos">
+            <li><a href="https://aulas.uruguayeduca.edu.uy/course/view.php?id=107&amp;section=2" target="_blank" rel="noopener noreferrer">Constelaciones - Módulos de aprendizaje Uruguay Educa. Prof. Héctor Roldós<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Este contenido está concebido con referencia a dicho módulo. Indaga en profundidad más historias y características de las constelaciones.</span></li>
+            <li><a href="https://spaceplace.nasa.gov/constellations/es/" target="_blank" rel="noopener noreferrer">NASA Space Place en español - ¿Qué son las constelaciones?<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Explicaciones animadas e interactivas sobre qué son las constelaciones.</span></li>
+            <li><a href="https://www.iau.org/public/themes/constellations/" target="_blank" rel="noopener noreferrer">Unión Astronómica Internacional (IAU) - Cartografía Oficial Estelar<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>El listado oficial de las 88 constelaciones históricas y científicas con sus mapas de fronteras exactas.</span></li>
+            <li><a href="https://stellarium-web.org/" target="_blank" rel="noopener noreferrer">Stellarium Web - Mapa del Cielo Interactivo en Tiempo Real<span class="sr-only"> (se abre en una pestaña nueva)</span></a><span>Herramienta en línea gratuita para simular la posición real de las constelaciones según tu ubicación geográfica actual.</span></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Foto de portada: Rogelio Bernal Andreo (CC BY-SA 3.0). <a href="../creditos.html">Créditos de las fotos</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Orión en tres dimensiones ---------- */
+    (() => {
+      const canvas = document.getElementById('constellation-canvas');
+      const ctx = canvas.getContext('2d');
+      const slider = document.getElementById('depth-slider');
+      const label = document.getElementById('angle-display');
+      let sliderValue = 0;
+
+      // Coordenadas 3D simuladas de Orión. Ángulo 0 = como se ve desde la Tierra.
+      // z es la distancia real aproximada en años luz.
+      const orionStars = [
+        { name: 'Betelgeuse', x: -90, y: -180, z: 640,  color: '#ffb4a8', size: 9 },
+        { name: 'Rigel',      x: 100, y: 200,  z: 860,  color: '#cfe4ff', size: 9 },
+        { name: 'Bellatrix',  x: 90,  y: -160, z: 240,  color: '#a9ccff', size: 6.5 },
+        { name: 'Saiph',      x: -80, y: 180,  z: 720,  color: '#cfe4ff', size: 6.5 },
+        { name: 'Alnitak',    x: -40, y: 10,   z: 800,  color: '#ffffff', size: 7, lado: 'izq' },
+        { name: 'Alnilam',    x: 0,   y: 0,    z: 1340, color: '#ffffff', size: 7, lado: 'abajo' },
+        { name: 'Mintaka',    x: 40,  y: -10,  z: 915,  color: '#ffffff', size: 7, lado: 'der' }
+      ];
+      const constellationLines = [[0, 2], [0, 4], [2, 6], [4, 5], [5, 6], [4, 3], [6, 1], [3, 1]];
+
+      // Se dibuja en unidades de "mundo" (las coordenadas de arriba) escaladas al tamaño del lienzo
+      const WORLD = 540;
+      let size = 0, scale = 1;
+      function resize() {
+        const dpr = window.devicePixelRatio || 1;
+        size = canvas.clientWidth;
+        canvas.width = Math.round(size * dpr);
+        canvas.height = Math.round(size * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        scale = size / WORLD;
+        draw();
+      }
+
+      function draw() {
+        const cx = size / 2 - 30 * scale;
+        const cy = size / 2;
+        ctx.clearRect(0, 0, size, size);
+
+        const angle = (sliderValue / 100) * 1.5;
+        const projected = orionStars.map(star => {
+          const depthFactor = (star.z - 700) * 0.25;
+          const rotX = star.x * Math.cos(angle) - depthFactor * Math.sin(angle);
+          return { x: cx + rotX * scale, y: cy + star.y * scale, name: star.name, color: star.color, size: star.size * Math.max(scale, 0.7), z: star.z, lado: star.lado || 'der' };
+        });
+
+        // Las líneas se apagan al rotar: la figura solo existe vista desde la Tierra
+        const lineOpacity = Math.max(0.15, 1 - (sliderValue / 45));
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = `rgba(255, 182, 39, ${lineOpacity})`;
+        ctx.beginPath();
+        constellationLines.forEach(([a, b]) => {
+          ctx.moveTo(projected[a].x, projected[a].y);
+          ctx.lineTo(projected[b].x, projected[b].y);
+        });
+        ctx.stroke();
+
+        const nombre = Math.max(12, Math.round(15 * scale));
+        const dist = Math.max(11, Math.round(13 * scale));
+        projected.forEach(p => {
+          ctx.shadowBlur = p.size * 2;
+          ctx.shadowColor = p.color;
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+          // Etiqueta a la derecha, a la izquierda o debajo de la estrella (el cinturón está muy junto)
+          let tx = p.x + p.size + 6, ty = p.y - 3;
+          ctx.textAlign = 'left';
+          if (p.lado === 'izq') { tx = p.x - p.size - 6; ctx.textAlign = 'right'; }
+          if (p.lado === 'abajo') { tx = p.x; ty = p.y + p.size + nombre + 2; ctx.textAlign = 'center'; }
+          ctx.fillStyle = '#eef2fa';
+          ctx.font = `700 ${nombre}px "Atkinson Hyperlegible", system-ui, sans-serif`;
+          ctx.fillText(p.name, tx, ty);
+          ctx.fillStyle = '#b4c0d9';
+          ctx.font = `400 ${dist}px "Atkinson Hyperlegible", system-ui, sans-serif`;
+          ctx.fillText(`${p.z} años luz`, tx, ty + dist + 3);
+        });
+
+        // Recuadro de referencia cuando la vista está alineada con la Tierra
+        if (sliderValue < 3) {
+          ctx.strokeStyle = 'rgba(140, 192, 255, 0.45)';
+          ctx.lineWidth = 1;
+          ctx.setLineDash([4, 4]);
+          ctx.strokeRect(12, 12, size - 24, size - 24);
+          ctx.setLineDash([]);
+        }
+      }
+
+      slider.addEventListener('input', () => {
+        sliderValue = parseFloat(slider.value);
+        label.textContent = sliderValue === 0 ? 'Desde la Tierra (0°)' : `Rotada ${Math.round(sliderValue * 0.9)}° de lado`;
+        draw();
+      });
+      if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas); else addEventListener('resize', resize);
+      resize();
+      if (document.fonts) document.fonts.ready.then(draw);
+    })();
+
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ---------- */
+    window.TRIVIA = [
+        {
+            "question": "1. ¿Por qué las estrellas de una constelación parecen estar agrupadas en el cielo?",
+            "options": [
+                "Porque giran juntas alrededor de un mismo agujero negro en el centro de la constelación.",
+                "Es solo un efecto de nuestra perspectiva visual desde la Tierra, ya que en realidad se hallan a distancias colosales unas de otras en el espacio.",
+                "Porque se encuentran físicamente conectadas por filamentos de materia cósmica."
+            ],
+            "correct": 1,
+            "feedbackCorrect": "¡Perfecto! Las constelaciones son de naturaleza aparente; la perspectiva terrestre crea la ilusión óptica de cercanía.",
+            "feedbackIncorrect": "Buen intento. La respuesta correcta está marcada en verde. Las constelaciones son de naturaleza aparente; la perspectiva terrestre crea la ilusión óptica de cercanía."
+        },
+        {
+            "question": "2. ¿Cuál es el origen histórico de la constelación de la Balanza (Libra)?",
+            "options": [
+                "Representaba las pinzas del enorme Escorpión mesopotámico y luego fue asociada al equilibrio del día y la noche en los equinoccios.",
+                "Fue trazada en el siglo XVII para representar las balanzas de comercio marítimo.",
+                "Surgió como un tributo de los egipcios a sus antiguos faraones guerreros."
+            ],
+            "correct": 0,
+            "feedbackCorrect": "¡Perfecto! Originalmente eran las pinzas del Escorpión y luego los griegos la convirtieron en Libra para denotar el equilibrio del equinoccio.",
+            "feedbackIncorrect": "Buen intento. La respuesta correcta está marcada en verde. Originalmente eran las pinzas del Escorpión y luego los griegos la convirtieron en Libra para denotar el equilibrio del equinoccio."
+        },
+        {
+            "question": "3. La Cabellera de Berenice es única porque conmemora un personaje histórico real. ¿Cuál fue el motivo de su creación?",
+            "options": [
+                "Una promesa de la reina Berenice de cortar su hermosa cabellera para el templo si su esposo regresaba con vida de la campaña militar.",
+                "Una expedición astronómica realizada por faraones en barcos del río Nilo.",
+                "Una hermosa cabellera dorada que un rey polaco obsequió a la Biblioteca de Alejandría."
+            ],
+            "correct": 0,
+            "feedbackCorrect": "¡Perfecto! Fiel a su palabra de sacrificio ante el regreso de su esposo, la reina donó su cabello, y el astrónomo Conon de Samos lo inmortalizó en el firmamento.",
+            "feedbackIncorrect": "Buen intento. La respuesta correcta está marcada en verde. Fiel a su palabra de sacrificio ante el regreso de su esposo, la reina donó su cabello, y el astrónomo Conon de Samos lo inmortalizó en el firmamento."
+        },
+        {
+            "question": "4. ¿Cuántas son las constelaciones zodiacales oficiales que atraviesa de forma aparente el Sol a lo largo del año?",
+            "options": [
+                "Exactamente 12, una para cada mes del calendario civil.",
+                "Son 13 constelaciones en total, incluyendo la constelación de Ofiuco en el mes de diciembre.",
+                "Son 88 constelaciones zodiacales repartidas de forma idéntica en los dos hemisferios."
+            ],
+            "correct": 1,
+            "feedbackCorrect": "¡Perfecto! Científicamente son 13 constelaciones, siendo Ofiuco (el Serpentario) cruzado por el Sol cada año.",
+            "feedbackIncorrect": "Buen intento. La respuesta correcta está marcada en verde. Científicamente son 13 constelaciones, siendo Ofiuco (el Serpentario) cruzado por el Sol cada año."
+        },
+        {
+            "question": "PREGUNTA EXTRA: ¿Qué institución internacional estandarizó de forma definitiva las 88 constelaciones oficiales vigentes hoy?",
+            "options": [
+                "La Biblioteca Clásica de Alejandría liderada por Claudio Ptolomeo.",
+                "La Unión Astronómica Internacional (UAI) en el año 1930.",
+                "La tripulación de navegantes que viajaba junto a Magallanes en el siglo XVI."
+            ],
+            "correct": 1,
+            "feedbackCorrect": "¡Perfecto! En 1930, la Unión Astronómica Internacional fijó los límites geométricos precisos sin dejar ningún hueco libre en la esfera celeste.",
+            "feedbackIncorrect": "Buen intento. La respuesta correcta está marcada en verde. En 1930, la Unión Astronómica Internacional fijó los límites geométricos precisos sin dejar ningún hueco libre en la esfera celeste."
+        }
+    ];
+
+    // Diploma final para mostrar al docente
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      const fecha = new Date().toLocaleDateString('es-UY', { year: 'numeric', month: 'long', day: 'numeric' });
+      return { html: `
+        <p>Has demostrado comprender los principios científicos de las constelaciones, su historia de división y la relatividad de la perspectiva estelar.</p>
+        <div class="l-certificado">
+          <p class="l-certificado-k">Evidencia para el docente</p>
+          <p class="l-certificado-t">Cartógrafo del firmamento celeste</p>
+          <p>Puntaje obtenido: <strong>${aciertos}/${total}</strong> estrellas de oro</p>
+          <p class="l-certificado-f">Fecha del certificado: ${fecha}</p>
+        </div>` };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/lectura.js"></script>
+
+  <!-- Código de analítica GoatCounter -->
+  <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

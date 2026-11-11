@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html class="astro lectura" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <title>Astrofotografía con celular · Astronomía para todos</title>
+  <meta name="description" content="Guía de iniciación a la astrofotografía con el celular: la física de la foto nocturna, los 4 pasos clave e instrucciones por marca de teléfono. Con tutorial en video y trivia.">
+  <meta name="theme-color" content="#0b1730">
+  <script>
+    // Modo noche recordado (antes de pintar, para que no parpadee)
+    try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../css/astro.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+    <symbol id="i-noche" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bien" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+    <symbol id="i-otra-vez" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-celular" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2"/><path d="M11 18.5h2"/></symbol>
+    <symbol id="i-camara" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 1 2-2h2.5L9 4h6l1.5 2H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+    <symbol id="i-archivo" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-tripode" viewBox="0 0 24 24"><rect x="8" y="3" width="8" height="5" rx="1"/><path d="M12 8v4M12 12l-6 9M12 12l6 9M12 12v9"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-ajustes" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+  </svg>
+
+  <header class="l-barra">
+    <div class="wrap l-barra-in">
+      <div class="ue-brand-row">
+        <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-casa"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text">
+            <span class="ue-brand-title">Astronomía para todos</span>
+            <span class="ue-brand-sub">DGES · EDyTIC</span>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="l-tema" id="tema" aria-pressed="false">
+        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+      </button>
+    </div>
+    <span class="l-progreso" id="progreso" aria-hidden="true"></span>
+  </header>
+
+  <main id="contenido">
+    <section class="l-portada" aria-labelledby="titulo">
+      <div class="wrap l-portada-grid">
+        <div class="l-portada-in">
+          <h1 id="titulo">¡Captura el universo con el teléfono que llevas en el bolsillo!</h1>
+          <p class="l-bajada">Astrofotografía con celular: guía de iniciación</p>
+          <p class="l-lead">¿Sabías que no necesitas telescopios costosos de miles de dólares para fotografiar el cielo nocturno? Con la tecnología que ya tienes en casa (un smartphone común y un trípode sencillo) puedes retratar constelaciones, estrellas y hasta galaxias lejanas. ¡Aprende los secretos de la física de la luz y empieza a hacer astrofotografía!</p>
+          <div class="l-portada-acciones">
+            <a class="l-btn" href="#pasos">Aprender los pasos <svg class="ico" aria-hidden="true"><use href="#i-flecha"/></svg></a>
+            <a class="l-btn sec" href="#configurador"><svg class="ico" aria-hidden="true"><use href="#i-celular"/></svg>Ajustar mi celular</a>
+          </div>
+        </div>
+        <div class="l-portada-foto"><img src="../img/fotos/paranal-noche-640.webp" srcset="../img/fotos/paranal-noche-640.webp 640w, ../img/fotos/paranal-noche-1280.webp 1280w" sizes="(min-width: 64rem) 26rem, calc(100vw - 2rem)" width="1280" height="632" alt="Cielo estrellado sobre el desierto de Atacama visto desde el Observatorio Paranal." fetchpriority="high"></div>
+      </div>
+    </section>
+
+    <div class="wrap l-cuerpo">
+      <nav class="l-indice" aria-label="Índice de la guía">
+        <details id="indice" open>
+          <summary>En esta guía</summary>
+          <ol>
+            <li><a href="#fundamentos">La física de la foto nocturna</a></li>
+            <li><a href="#imagenes">Imágenes para ponernos en acción</a></li>
+            <li><a href="#pasos">Los 4 pasos clave</a></li>
+            <li><a href="#configurador">Configura tu celular</a></li>
+            <li><a href="#video">Tutorial de bajo costo</a></li>
+            <li><a href="#quiz">Pon a prueba tu conocimiento</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <div class="l-texto">
+        <section class="l-sec" id="fundamentos" aria-labelledby="fundamentos-titulo">
+          <h2 id="fundamentos-titulo">La física de la foto nocturna</h2>
+          <div class="l-usos">
+            <div>
+              <h3><svg class="ico" aria-hidden="true"><use href="#i-camara"/></svg>Atrapando fotones</h3>
+              <p class="l-categoria">Sensor</p>
+              <p>El sensor de tu celular tiene millones de "pocitos" llamados píxeles. En la oscuridad del espacio, necesitamos dejar el sensor expuesto más tiempo para capturar la débil luz (fotones) de las estrellas lejanas.</p>
+              <p class="l-fuente">Referencia: "A Guide to Smartphone Astrophotography", NASA, pág. 16.</p>
+            </div>
+            <div>
+              <h3><svg class="ico" aria-hidden="true"><use href="#i-archivo"/></svg>RAW frente a JPG</h3>
+              <p class="l-categoria">Formato</p>
+              <p>El formato JPG borra el 90% de la información de luz para ahorrar espacio. Capturar en <strong>RAW (DNG)</strong> mantiene los datos de luz intactos, permitiéndote "rescatar" estrellas invisibles al editar.</p>
+              <p class="l-fuente">Referencia: "A Guide to Smartphone Astrophotography", NASA, pág. 41.</p>
+            </div>
+            <div>
+              <h3><svg class="ico" aria-hidden="true"><use href="#i-tripode"/></svg>Estabilidad absoluta</h3>
+              <p class="l-categoria">Estabilidad</p>
+              <p>Para que las estrellas no salgan como trazos o "fideos", la cámara debe estar inmóvil. Usar un trípode (¡o apoyarlo en una piedra!) y el temporizador evita la vibración del dedo al disparar.</p>
+              <p class="l-fuente">Referencia: "A Guide to Smartphone Astrophotography", NASA, pág. 52-62.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="l-sec" id="imagenes" aria-labelledby="imagenes-titulo">
+          <h2 id="imagenes-titulo">Imágenes para ponernos en acción</h2>
+          <p>Estas fotos las tomamos nosotros, los autores del contenido de Uruguay Educa, con un celular de gama media. Así se ve lo que es posible retratar con paciencia y buen tiempo.</p>
+          <ul class="l-galeria-fotos">
+            <li>
+              <figure>
+                <img src="images/celular/celu001-800.webp" width="800" height="1067" loading="lazy" decoding="async" alt="Pared de una casa iluminada y un cielo verdoso casi sin estrellas, aclarado por la luz de la ciudad.">
+                <figcaption><b>Cielo urbano.</b> En 30 segundos el sensor juntó tanta luz de las casas vecinas que el cielo salió casi blanco. Siempre que puedas, aléjate de las luces.</figcaption>
+              </figure>
+            </li>
+            <li>
+              <figure>
+                <img src="images/celular/celu002-800.webp" width="800" height="1067" loading="lazy" decoding="async" alt="Estrellas en un cielo nocturno entre nubes iluminadas, con un árbol en primer plano.">
+                <figcaption><b>Estrellas entre nubes.</b> Con el celular quieto sobre un apoyo aparecen estrellas débiles. Las nubes brillan porque reflejan la luz de la ciudad.</figcaption>
+              </figure>
+            </li>
+            <li>
+              <figure>
+                <img src="images/celular/celu003-800.webp" width="800" height="1067" loading="lazy" decoding="async" alt="Estelas circulares de estrellas sobre los techos de unas casas.">
+                <figcaption><b>Estelas sobre los techos.</b> Con una exposición de varios minutos, cada estrella dibuja un arco alrededor del polo sur celeste.</figcaption>
+              </figure>
+            </li>
+            <li>
+              <figure>
+                <img src="images/celular/celu004-800.webp" width="800" height="1067" loading="lazy" decoding="async" alt="Estelas de estrellas durante una hora alrededor del polo sur celeste, sobre un árbol.">
+                <figcaption><b>Una hora de estelas.</b> Las rayitas que cruzan en otra dirección no son estrellas: son satélites o meteoros, lo que solemos llamar «estrellas fugaces».</figcaption>
+              </figure>
+            </li>
+          </ul>
+        </section>
+
+        <section class="l-sec" id="pasos" aria-labelledby="pasos-titulo">
+          <h2 id="pasos-titulo">Los 4 pasos clave de la astrofotografía</h2>
+          <p>Sigue esta rutina para asegurar capturas exitosas.</p>
+          <ol class="l-pasos">
+            <li><h3>Trípode y estabilidad</h3><p>Consigue un trípode sencillo o crea un soporte casero con vasos de plástico o latas. Coloca el celular allí para que la toma de 30 segundos no registre ningún temblor.</p></li>
+            <li><h3>Enfoque al infinito</h3><p>El autoenfoque no sirve en la oscuridad total. Cambia a enfoque manual en la cámara y muévelo hasta el icono de la montañita (infinito). ¡Regrésalo un poco antes del límite para nitidez óptima!</p></li>
+            <li><h3>ISO alto y exposición</h3><p>En tu modo avanzado, ajusta el tiempo de exposición (Shutter Speed) a 32 segundos e incrementa el ISO a 1600 o 3200 para forzar la captación de luz en el sensor.</p></li>
+            <li><h3>Huye de la luz de la ciudad</h3><p>La contaminación lumínica vela la cámara con resplandores amarillos o naranjas. Aléjate un par de horas al campo o aprovecha campamentos escolares para ver estrellas limpiamente.</p></li>
+          </ol>
+        </section>
+
+        <section class="l-sec" id="configurador" aria-labelledby="configurador-titulo">
+          <h2 id="configurador-titulo">¿Cómo activo el modo manual o nocturno en mi celular?</h2>
+          <p>La interfaz de cámara varía según el fabricante. Selecciona la marca de tu dispositivo para ver las instrucciones específicas de los modelos recientes (2024 a 2026). Los nombres de los menús pueden variar levemente según el modelo y la versión del sistema.</p>
+          <div class="l-marcas" role="group" aria-label="Marca de tu celular">
+            <button type="button" data-marca="samsung" aria-pressed="true">Samsung</button>
+            <button type="button" data-marca="motorola" aria-pressed="false">Motorola</button>
+            <button type="button" data-marca="xiaomi" aria-pressed="false">Xiaomi</button>
+            <button type="button" data-marca="apple" aria-pressed="false">Apple (iPhone)</button>
+            <button type="button" data-marca="huawei" aria-pressed="false">Huawei</button>
+            <button type="button" data-marca="google" aria-pressed="false">Google Pixel</button>
+          </div>
+          <div class="l-nota l-marca-panel" id="brand-instructions-content" aria-live="polite"></div>
+        </section>
+
+        <section class="l-sec" id="video" aria-labelledby="video-titulo">
+          <h2 id="video-titulo">Tutorial de astrofotografía de bajo costo</h2>
+          <p>Sigue este genial video elaborado por el canal <strong>Astrofotografía y Café</strong>. En él se demuestra cómo con un simple Motorola viejito y un trípode improvisado se pueden obtener imágenes profesionales de la Vía Láctea y Andrómeda.</p>
+          <div class="l-video">
+            <iframe src="https://www.youtube.com/embed/dZf7_pATEOc" title="YouTube video player: Astrofotografía con Celular" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <div class="l-nota">
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-estrella"/></svg>Agradecimiento especial</h3>
+            <p>Queremos enviar un agradecimiento muy cálido al canal creador por compartir de manera libre este contenido formativo tan valioso para nuestros estudiantes.</p>
+            <p><a href="https://www.youtube.com/@astrofotografiaycafe" target="_blank" rel="noopener noreferrer">Ir a @astrofotografiaycafe<span class="sr-only"> (se abre en una pestaña nueva)</span></a></p>
+          </div>
+        </section>
+
+        <section id="quiz" class="l-trivia" aria-labelledby="quiz-titulo">
+          <h2 id="quiz-titulo">Pon a prueba tu conocimiento</h2>
+          <p>Responde las 5 preguntas del cuestionario de astrofotografía básica para desbloquear tus estrellas de oro.</p>
+          <div id="quiz-body"></div>
+          <div id="quiz-result" class="l-resultado" aria-live="polite" hidden>
+            <h3>¡Misión de iniciación completada!</h3>
+            <div class="l-estrellas" id="stars-container"></div>
+            <p id="score-text"></p>
+            <div id="score-extra" class="l-extra"></div>
+            <button class="l-btn" type="button" id="reintentar"><svg class="ico" aria-hidden="true"><use href="#i-otra-vez"/></svg>Volver a intentar</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../img/logo-uruguay-educa.webp" width="360" height="115" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
+        <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-a11y">Foto de portada: ESO/P. Horálek (CC BY 4.0). <a href="../creditos.html">Créditos de las fotos</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Instrucciones de cámara por marca (modelos 2024-2026, revisado en octubre de 2026) ---------- */
+    (() => {
+      const brandInstructions = {
+      "samsung": {
+        "title": "Samsung Galaxy (series S, A, FE, M y Z, con One UI 7 / 8)",
+        "night": "Abre la Cámara → desliza la barra de modos hasta 'Más' → toca 'Noche'. Con el celular quieto en el trípode, el teléfono alarga automáticamente la exposición y combina varias tomas. En algunos modelos aparece un contador de segundos que puedes ajustar.",
+        "pro": "Abre la Cámara → 'Más' → 'PRO'. Toca el control de enfoque (MF) y arrastra el deslizador hasta el icono de la montaña (infinito). Toca la velocidad de obturación (S) y elige 30 segundos (el máximo). Sube el ISO a 1600 o 3200. En los modelos compatibles (serie S, Z y algunos A) puedes instalar gratis la app <strong>Expert RAW</strong> desde Galaxy Store: incluye un modo <strong>Astrofoto</strong> con guía de constelaciones.",
+        "raw": "Dentro del modo PRO, toca el engranaje de Ajustes → 'Opciones de imagen avanzadas' → 'Formatos de imagen' → activa 'Copias RAW (PRO)'. Cada foto se guardará también en formato DNG."
+      },
+      "motorola": {
+        "title": "Motorola (moto g, edge y razr, con Hello UI / Android 15-16)",
+        "night": "Abre la Cámara → busca 'Visión nocturna' en la barra de modos (en muchos modelos está dentro de 'Más'). Con el celular quieto en el trípode, el teléfono combina varias tomas automáticamente.",
+        "pro": "Abre la Cámara → 'Más' → 'Pro'. Toca 'F' (enfoque) y lleva el control hasta el icono de la montaña (infinito). Toca 'S' (velocidad de obturación) y elige el máximo: 32 segundos en la mayoría de los modelos. Sube el ISO a 1600 o 3200.",
+        "raw": "Con el modo Pro abierto, toca el engranaje de Ajustes de la cámara y activa 'Guardar foto RAW' (en algunos modelos aparece directamente un botón 'RAW' en la parte superior del modo Pro). Solo funciona en modo Pro."
+      },
+      "xiaomi": {
+        "title": "Xiaomi / Redmi / POCO (HyperOS 2 / 3)",
+        "night": "Abre la Cámara → 'Más' → 'Noche'. Con el celular quieto, la toma dura unos segundos y combina varias fotos con ayuda de inteligencia artificial.",
+        "pro": "Abre la Cámara → 'Pro' (en algunos modelos está dentro de 'Más'). Toca 'MF' (enfoque) y arrastra el deslizador hasta el infinito (montaña). Toca 'S' y elige 30 segundos. Sube el ISO a 1600 o 3200. Extra: en 'Más' → 'Exposición larga', muchos modelos traen los efectos 'Cielo estrellado' y 'Estelas de estrellas' listos para usar.",
+        "raw": "En el modo Pro, toca el icono 'RAW' de la parte superior para activarlo (en algunos modelos está en el menú ☰ de la esquina superior derecha)."
+      },
+      "apple": {
+        "title": "Apple iPhone (iOS 18 / iOS 26)",
+        "night": "No hay un modo 'Noche' para elegir: en el modo Foto, cuando hay poca luz, aparece arriba el icono de una luna (se pone amarillo al activarse). Con el iPhone en el trípode, el teléfono detecta que no se mueve y permite exposiciones de hasta 30 segundos: toca el icono de la luna y desliza la rueda de tiempo hasta el máximo. Disponible desde el iPhone 11 (no en los modelos SE).",
+        "pro": "La cámara del iPhone no tiene modo manual. Para controlar enfoque, ISO y velocidad hay que usar aplicaciones de terceros, como la cámara integrada de <strong>Adobe Lightroom</strong> (gratuita, con modo Profesional) o <strong>NightCap</strong>, <strong>ProCamera</strong> o <strong>Halide</strong> (de pago; NightCap tiene un modo especial para estrellas).",
+        "raw": "Ve a Ajustes → Cámara → Formatos → activa 'Apple ProRAW y control de resolución'. Luego toca 'RAW' en la pantalla de la cámara. Solo en modelos Pro (desde el iPhone 12 Pro); en los demás, las apps de terceros mencionadas pueden guardar en RAW."
+      },
+      "huawei": {
+        "title": "Huawei (series Pura, Mate y nova, con EMUI / HarmonyOS)",
+        "night": "Abre la Cámara → 'Noche' (en la barra de modos o dentro de 'Más'). Con el trípode, el teléfono alarga la exposición y apila varias tomas; en muchos modelos también puedes tocar 'ISO' y 'S' dentro del modo Noche para ajustarlos.",
+        "pro": "Abre la Cámara → 'Pro'. Toca 'AF' y cámbialo a 'MF' (enfoque manual) y desliza hasta el infinito (montaña). Toca 'S' y elige 30 segundos. Sube el ISO a 1600 o 3200. Extra: en 'Más' → 'Pintura con luz' está la opción de estelas de estrellas, que registra el movimiento aparente del cielo.",
+        "raw": "En el modo Pro, toca el engranaje de Ajustes de la cámara → activa 'Formato RAW'."
+      },
+      "google": {
+        "title": "Google Pixel (Pixel 8, 9, 10 y serie a, con la app Pixel Camera)",
+        "night": "Abre la Cámara → 'Visión nocturna'. Con el Pixel totalmente quieto en el trípode, el icono del disparador cambia a estrellas: es el modo Astrofotografía, que combina varias tomas durante hasta 4 minutos. Si no aparece, toca el icono de ajustes del visor y pon Astrofotografía en 'Automático'.",
+        "pro": "En los modelos Pro (Pixel 8 Pro, 9 Pro, 9 Pro XL, 10 Pro y 10 Pro XL) toca el icono de ajustes del visor y usa los controles Pro de la barra inferior: enfoque (llévalo al infinito), velocidad de obturación e ISO. Los modelos que no son Pro y la serie a no tienen control manual de velocidad: en ellos conviene usar Visión nocturna con Astrofotografía.",
+        "raw": "Modelos Pro: icono de ajustes del visor → pestaña 'Pro' → 'RAW/JPEG' → elige 'RAW + JPEG'. Otros modelos: Configuración de la cámara → 'Avanzada' → activa 'Control de RAW/JPEG' y luego elige RAW en los ajustes del visor."
+      }
+    };
+      const botones = [...document.querySelectorAll('.l-marcas button')];
+      const panel = document.getElementById('brand-instructions-content');
+      const icono = id => `<svg class="ico" aria-hidden="true"><use href="#${id}"/></svg>`;
+      function mostrar(marca) {
+        botones.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.marca === marca)));
+        const d = brandInstructions[marca];
+        panel.innerHTML = `
+          <h3>${icono('i-celular')}Configurando en: ${d.title}</h3>
+          <dl class="l-pasos-marca">
+            <dt>${icono('i-luna')}Modo nocturno (automático)</dt><dd>${d.night}</dd>
+            <dt>${icono('i-ajustes')}Modo manual / PRO (astrofotografía pura)</dt><dd>${d.pro}</dd>
+            <dt>${icono('i-archivo')}¿Cómo activar el formato RAW?</dt><dd>${d.raw}</dd>
+          </dl>`;
+      }
+      botones.forEach(b => b.addEventListener('click', () => mostrar(b.dataset.marca)));
+      mostrar('samsung');
+    })();
+
+    /* ---------- Trivia (el funcionamiento está en js/lectura.js) ---------- */
+    window.TRIVIA = [
+        {
+            "question": "1. ¿Cuál es la ventaja de capturar tus astrofotografías en formato RAW (DNG) en lugar de JPG?",
+            "options": [
+                "Ocupa menos espacio en la tarjeta de memoria del celular.",
+                "Conserva toda la información de luz y píxeles del sensor, lo que permite recuperar estrellas de las sombras en la postproducción.",
+                "Añade automáticamente un fondo cósmico de colores artificiales a la toma."
+            ],
+            "correct": 1,
+            "explanations": [
+                "De hecho, es lo opuesto. El formato RAW ocupa mucho más espacio porque guarda datos sin compresión alguna.",
+                "El formato RAW guarda la información del sensor de forma pura y 'cruda', sin descartarla como hace JPG.",
+                "El celular no inventa el fondo, el RAW solo se encarga de guardar limpiamente la luz real que recibe el sensor."
+            ]
+        },
+        {
+            "question": "2. Al enfocar las estrellas con el modo avanzado o PRO, ¿cuál es la técnica de enfoque manual correcta?",
+            "options": [
+                "Poner enfoque automático y pulsar en cualquier parte vacía de la pantalla.",
+                "Ajustar el control manual de enfoque al infinito (icono de la montaña) y retrasarlo apenas un milímetro antes del final.",
+                "Colocar el enfoque macro para registrar partículas diminutas que flotan cerca del celular."
+            ],
+            "correct": 1,
+            "explanations": [
+                "En la oscuridad total, la cámara no tiene contraste suficiente para que el autoenfoque funcione, por lo que la imagen siempre saldrá borrosa.",
+                "El enfoque ideal para astros lejanos en lentes de celulares modernos suele ubicarse una pequeñísima pizca antes de llegar al límite infinito del dial manual.",
+                "El modo macro sirve exclusivamente para enfocar objetos muy cercanos (a pocos centímetros), ¡no para estrellas a años luz!"
+            ]
+        },
+        {
+            "question": "3. Si queremos evitar que nuestras astrofotos de larga exposición salgan corridas o movidas al apretar el disparador, debemos:",
+            "options": [
+                "Usar un trípode o base firme y configurar el temporizador de la cámara a 3 o 10 segundos.",
+                "Sostener el celular fuertemente con ambas manos aguantando la respiración.",
+                "Mover rápidamente el celular mientras dura el tiempo de exposición."
+            ],
+            "correct": 0,
+            "explanations": [
+                "El uso del trípode más el temporizador asegura que la cámara absorba luz sin recibir la más mínima vibración física proveniente de nuestro dedo.",
+                "Por más que lo intentes, el cuerpo humano siempre transmite micro-movimientos (respiración, latidos) que convertirán a las estrellas en garabatos.",
+                "Si mueves el celular durante una larga exposición estarías 'dibujando con luz' y todo saldría como rayos borrosos y movidos por la pantalla."
+            ]
+        },
+        {
+            "question": "4. ¿Por qué se recomienda alejarse lo máximo posible de la contaminación lumínica?",
+            "options": [
+                "Porque el aire de la ciudad bloquea físicamente el funcionamiento del giroscopio del celular.",
+                "Porque las luces de las ciudades iluminan las partículas de la atmósfera, creando un velo de brillo que oculta el fondo cósmico.",
+                "Porque las estrellas se apagan de forma selectiva para no brillar sobre zonas muy pobladas."
+            ],
+            "correct": 1,
+            "explanations": [
+                "El giroscopio es un sensor interno del dispositivo y funciona idénticamente en cualquier lugar del planeta.",
+                "El resplandor naranja de las ciudades disminuye drásticamente el contraste. ¡Un cielo oscuro permite al celular captar luz estelar más débil!",
+                "Las estrellas emiten luz constantemente en todo el planeta; somos los humanos quienes 'borramos' esa luz encendiendo el alumbrado público."
+            ]
+        },
+        {
+            "question": "PREGUNTA BONUS: ¿Cómo influye el 'apilamiento' (stacking) de varias fotos de pocos segundos de duración en el resultado final?",
+            "options": [
+                "Multiplica el tamaño de la foto haciéndola gigante.",
+                "No tiene ningún impacto práctico real sobre los sensores pequeños.",
+                "Reduce de forma drástica el ruido (granulado molesto), permitiendo presionar más la exposición durante la edición."
+            ],
+            "correct": 2,
+            "explanations": [
+                "El apilamiento no cambia la resolución ni el tamaño físico de la imagen, su objetivo es tratar la calidad de la información lumínica.",
+                "¡Tiene un impacto enorme! De hecho, es la técnica principal y más importante en la astrofotografía de todo el mundo.",
+                "Apilar varias tomas promedia la señal y elimina el ruido aleatorio, limpiando la escena como por arte de magia (igual que mostró el tutorial)."
+            ]
+        }
+    ];
+
+    // Certificado final para mostrar al docente
+    window.TRIVIA_RESULTADO = (aciertos, total) => {
+      const fecha = new Date().toLocaleDateString('es-UY', { year: 'numeric', month: 'long', day: 'numeric' });
+      return { html: `
+        <p>Has demostrado dominar los secretos básicos de cómo funciona la luz y cómo usar la cámara de tu celular para registrar las estrellas de forma directa.</p>
+        <div class="l-certificado">
+          <p class="l-certificado-k">Evidencia de aprendizaje</p>
+          <p class="l-certificado-t">Astrofotógrafo de secundaria 2026</p>
+          <p>Puntaje obtenido: <strong>${aciertos}/${total}</strong> estrellas</p>
+          <p class="l-certificado-f">Fecha de obtención: ${fecha}</p>
+        </div>` };
+    };
+  </script>
+  <script src="../js/tema.js"></script>
+  <script src="../js/lectura.js"></script>
+
+  <!-- Código de analítica GoatCounter -->
+  <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
