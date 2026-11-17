@@ -3,7 +3,7 @@
    Rutas: #/  #/eclipses  #/escuchar/<id>  #/eclipse  #/seguridad  #/acerca */
 (function () {
   'use strict';
-  var APP = { version: '1.0', year: 2026 };
+  var APP = { version: '1.2', year: 2026 };
   var $ = function (id) { return document.getElementById(id); };
   var qsa = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
 
@@ -57,7 +57,7 @@
     fillCountrySelect();
     renderPlaceHelpers();
     if (route.name === 'events') renderEvents();
-    if (route.name === 'listen' && current.ev) renderListenStatic();
+    if (route.name === 'listen' && current.ev) { renderListenStatic(); setMode(current.mode, true); }
   }
   function fillLangSelect() {
     var sel = $('lang-select');
@@ -215,19 +215,21 @@
     var h = Math.sin(dA / 2) * Math.sin(dA / 2) + Math.cos(a1 * r) * Math.cos(a2 * r) * Math.sin(dO / 2) * Math.sin(dO / 2);
     return 12742 * Math.asin(Math.sqrt(h));
   }
+  function getGps(ok, fail) {
+    if (!navigator.geolocation) { fail('gps_err'); return; }
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      var lat = pos.coords.latitude, lon = pos.coords.longitude, best = null, bd = 1e9;
+      CITIES.forEach(function (c) { var d = km(lat, lon, c[3], c[4]); if (d < bd) { bd = d; best = c; } });
+      ok({ gps: true, lat: +lat.toFixed(3), lon: +lon.toFixed(3), tz: deviceTz, cc: best ? best[2] : '', near: best ? best[0] : '', nearEn: best ? best[1] : '' });
+    }, function (err) {
+      fail(err && err.code === 1 ? 'gps_denied' : 'gps_err');
+    }, { enableHighAccuracy: false, timeout: 15000, maximumAge: 600000 });
+  }
   function initGps() {
     $('gps-btn').addEventListener('click', function () {
       var msg = $('gps-msg');
-      if (!navigator.geolocation) { msg.textContent = t('gps_err'); return; }
       msg.textContent = t('gps_wait');
-      navigator.geolocation.getCurrentPosition(function (pos) {
-        var lat = pos.coords.latitude, lon = pos.coords.longitude, best = null, bd = 1e9;
-        CITIES.forEach(function (c) { var d = km(lat, lon, c[3], c[4]); if (d < bd) { bd = d; best = c; } });
-        msg.textContent = t('gps_note');
-        choosePlace({ gps: true, lat: +lat.toFixed(3), lon: +lon.toFixed(3), tz: deviceTz, cc: best ? best[2] : '', near: best ? best[0] : '', nearEn: best ? best[1] : '' });
-      }, function (err) {
-        msg.textContent = t(err && err.code === 1 ? 'gps_denied' : 'gps_err');
-      }, { enableHighAccuracy: false, timeout: 15000, maximumAge: 600000 });
+      getGps(function (p) { msg.textContent = t('gps_note'); choosePlace(p); }, function (key) { msg.textContent = t(key); });
     });
   }
 
@@ -269,15 +271,20 @@
     if (ev.vis === 'part') return t('vis_part');
     return t('vis_' + ev.vis + '_' + ev.body);
   }
+  /* Un ícono por tipo de eclipse (los penumbrales de Luna no se listan). */
+  var SVG0 = '<svg class="ev-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">';
   var ICON = {
-    sun: '<svg class="ev-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" class="ico-sun"/><circle cx="15.5" cy="10" r="7.6" class="ico-moon-dark"/></svg>',
-    moon: '<svg class="ev-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" class="ico-moon-red"/><circle cx="12" cy="12" r="9" fill="none" class="ico-ring"/></svg>'
+    sun_total: SVG0 + '<circle cx="12" cy="12" r="11" class="ico-corona"/><circle cx="12" cy="12" r="8.6" class="ico-sun"/><circle cx="12" cy="12" r="8.8" class="ico-moon-dark"/></svg>',
+    sun_annular: SVG0 + '<circle cx="12" cy="12" r="9.5" class="ico-sun"/><circle cx="12" cy="12" r="7.2" class="ico-moon-dark"/></svg>',
+    sun_partial: SVG0 + '<circle cx="12" cy="12" r="9" class="ico-sun"/><circle cx="15.5" cy="10" r="7.6" class="ico-moon-dark"/></svg>',
+    moon_total: SVG0 + '<circle cx="12" cy="12" r="9" class="ico-moon-red"/><circle cx="12" cy="12" r="9" fill="none" class="ico-ring"/></svg>',
+    moon_partial: SVG0 + '<circle cx="12" cy="12" r="9" class="ico-moon-full"/><path d="M5.16 6.15A9 9 0 0 0 11.27 20.97A9.5 9.5 0 0 0 5.16 6.15Z" class="ico-moon-red"/><circle cx="12" cy="12" r="9" fill="none" class="ico-ring"/></svg>'
   };
   function evItem(ev, now, badge) {
     var li = document.createElement('li'), a = document.createElement('a');
     a.href = '#/escuchar/' + ev.id; a.className = 'ev' + (ev.peak < now - 3 * 3600000 ? ' ev-past' : '');
     var vis = visText(ev);
-    a.innerHTML = ICON[ev.body] +
+    a.innerHTML = (ICON[ev.body + '_' + ev.kind] || ICON[ev.body + '_partial']) +
       '<span class="ev-main"><span class="ev-title"></span><span class="ev-date"></span><span class="ev-meta"></span></span>' +
       (badge ? '<span class="badge"></span>' : '');
     a.querySelector('.ev-title').textContent = t(kindKey(ev));
@@ -315,7 +322,7 @@
   }
 
   /* ---------------- Escuchar ---------------- */
-  var current = { ev: null, t: 0, w0: 0, w1: 0, playing: false, live: false, last: 0, lastTen: -1, lastAlt: null, frame: null };
+  var current = { ev: null, t: 0, w0: 0, w1: 0, playing: false, mode: 'sim', liveState: '', last: 0, lastTen: -1, lastAlt: null, frame: null };
   var speed = store.get('speed', '60');
   var MARK_VIB = { start: [200], end: [200, 120, 200], max: [100, 80, 100, 80, 100], central_in: [300, 120, 300], central_out: [300] };
 
@@ -356,20 +363,20 @@
     updatePlayButton();
     drawAt(current.t, true);
   }
-  function openEvent(id) {
+  function openEvent(id, forceMode) {
     var ev = null;
     for (var i = 0; i < events.length; i++) if (events[i].id === id) ev = events[i];
     if (!ev) { go('#/eclipses'); return; }
     stopPlay(true);
     var span = ev.end - ev.start, pad = Math.max(3 * 60000, span * 0.06);
     current.ev = ev; current.w0 = ev.start - pad; current.w1 = ev.end + pad;
+    current.lastTen = -1; current.lastAlt = null; current.liveState = '';
     var now = Date.now();
-    current.live = now >= current.w0 && now <= current.w1;
-    current.t = current.live ? now : current.w0;
-    current.lastTen = -1; current.lastAlt = null;
-    $('live-badge').hidden = !current.live;
-    if (current.live) setSpeed('real');
+    // Si el eclipse está ocurriendo, se abre directamente en vivo
+    var mode = forceMode || (now >= current.w0 && now <= current.w1 ? 'live' : 'sim');
+    current.t = mode === 'live' ? now : current.w0;
     renderListenStatic();
+    setMode(mode, true);
   }
 
   function stateAt(ms) { return EclipseList.view(current.ev, place, ms); }
@@ -446,49 +453,216 @@
     });
   }
 
+  /* ---------- Modo: repaso acelerado o en vivo ---------- */
+  var liveTimer = null, wake = null;
+  var hasWake = 'wakeLock' in navigator;
+  function setMode(m, quiet) {
+    var changed = current.mode !== m;
+    if (changed && current.playing) stopPlay(true);
+    current.mode = m;
+    qsa('#mode input').forEach(function (r) { r.checked = r.value === m; });
+    var live = m === 'live';
+    document.querySelector('[data-view="listen"]').classList.toggle('is-live-mode', live);
+    $('live-panel').hidden = !live;
+    $('mode-hint').textContent = t(live ? 'mode_live_hint' : 'mode_sim_hint');
+    $('scrub').disabled = live;
+    clearInterval(liveTimer); liveTimer = null;
+    current.liveState = '';
+    if (live) {
+      current.t = Date.now(); current.lastTen = -1;
+      if (!current.playing) $('live-armed').textContent = '';
+      liveTick(true);
+      liveTimer = setInterval(function () { liveTick(false); }, 1000);
+    } else {
+      $('live-badge').hidden = true;
+      if (changed) current.t = current.w0;
+      drawAt(current.t, true);
+    }
+    updatePlayButton();
+    if (!quiet) announce(t(live ? 'mode_live' : 'mode_sim') + '. ' + t(live ? 'mode_live_hint' : 'mode_sim_hint'));
+  }
+  /* Duración legible: «3 días y 4 horas», «2 horas y 5 minutos», «4 minutos y 10 segundos» */
+  function dur(ms) {
+    var s = Math.max(0, Math.floor(ms / 1000));
+    var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+    var a, b;
+    if (d >= 1) { a = tn('cd_day', d); b = h ? tn('cd_hour', h) : ''; }
+    else if (h >= 1) { a = tn('cd_hour', h); b = m ? tn('cd_min', m) : ''; }
+    else if (m >= 1) { a = tn('cd_min', m); b = sec ? tn('cd_sec', sec) : ''; }
+    else a = tn('cd_sec', sec);
+    return b ? t('cd_and', { a: a, b: b }) : a;
+  }
+  function liveTick(first) {
+    var ev = current.ev; if (!ev || current.mode !== 'live') return;
+    var now = Date.now(), tz = place.tz;
+    var state = now < ev.start ? 'before' : (now <= ev.end ? 'during' : 'after');
+    $('live-state').textContent = t('live_' + state);
+    if (state === 'before') {
+      $('countdown').textContent = t('cd_starts', { t: dur(ev.start - now) });
+      $('live-start').textContent = t('live_start_at', { d: fLongDate(ev.start, tz), h: fHM(ev.start, tz) });
+    } else if (state === 'during') {
+      var nx = null;
+      moments(ev).forEach(function (m) { if (!nx && m.t > now && m.k !== 'end') nx = m; });
+      $('countdown').textContent = t('cd_ends', { t: dur(ev.end - now) });
+      $('live-start').textContent = nx ? t('cd_next', { m: t(nx.label), t: dur(nx.t - now) }) : '';
+    } else {
+      $('countdown').textContent = '';
+      $('live-start').textContent = t('live_after_d');
+    }
+    $('live-clock').textContent = fHMS(now, deviceTz);
+    $('live-place').textContent = placeLabel(place);
+    $('live-gps').hidden = !!place.gps;
+    var tzDiff = place.tz !== deviceTz;
+    $('live-tz').hidden = !tzDiff;
+    if (tzDiff) $('live-tz').textContent = t('live_tz_note', { place: placeLabel(place) });
+    $('live-tip-wake').hidden = !hasWake;
+    $('ics-btn').hidden = state === 'after';
+    $('live-badge').hidden = state !== 'during';
+    // Avisar los cambios de estado (no en la primera pintada, que ya se lee con el título)
+    if (!first && current.liveState && current.liveState !== state) announce(t('live_' + state));
+    current.liveState = state;
+    if (!current.playing) { current.t = now; drawAt(now, first); }
+  }
+
+  /* Avisos previos del modo en vivo */
+  function preMarks(ev) {
+    var m = [{ t: ev.start - 10 * 60000, key: 'pre_start_10' }, { t: ev.start - 60000, key: 'pre_start_1' }];
+    if (ev.c2) m.push({ t: ev.c2 - 60000, key: ev.body === 'sun' && ev.kind === 'annular' ? 'pre_c2_annular' : 'pre_c2_total' });
+    return m;
+  }
+
+  /* Pantalla siempre encendida mientras se acompaña en vivo */
+  function wakeOn() {
+    if (!hasWake || wake) return;
+    navigator.wakeLock.request('screen').then(function (w) {
+      wake = w; w.addEventListener('release', function () { wake = null; });
+    }).catch(function () { /* no permitido */ });
+  }
+  function wakeOff() { if (wake) { try { wake.release(); } catch (e) { /* ok */ } wake = null; } }
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible' && current.playing && current.mode === 'live') { wakeOn(); liveTick(false); }
+  });
+
+  /* Archivo de calendario (.ics) con recordatorios */
+  function icsDate(ms) { return new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); }
+  function icsText(s) { return String(s).replace(/\\/g, '\\\\').replace(/[,;]/g, '\\$&').replace(/\n/g, '\\n'); }
+  function downloadIcs() {
+    var ev = current.ev; if (!ev) return;
+    var url = location.href.split('#')[0] + '#/escuchar/' + ev.id;
+    var lines = [
+      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//DGES EDyTIC//Sombras sonoras//ES', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      'UID:' + ev.id + '-' + place.lat + '-' + place.lon + '@sombras-sonoras',
+      'DTSTAMP:' + icsDate(Date.now()),
+      'DTSTART:' + icsDate(ev.start), 'DTEND:' + icsDate(ev.end),
+      'SUMMARY:' + icsText(t(kindKey(ev))),
+      'LOCATION:' + icsText(placeLabel(place)),
+      'DESCRIPTION:' + icsText(t('ics_desc') + '\n' + url),
+      'URL:' + url,
+      'BEGIN:VALARM', 'ACTION:DISPLAY', 'TRIGGER:-PT15M', 'DESCRIPTION:' + icsText(t(kindKey(ev))), 'END:VALARM',
+      'BEGIN:VALARM', 'ACTION:DISPLAY', 'TRIGGER:-P1D', 'DESCRIPTION:' + icsText(t(kindKey(ev))), 'END:VALARM',
+      'END:VEVENT', 'END:VCALENDAR'
+    ];
+    var blob = new Blob([lines.join('\r\n') + '\r\n'], { type: 'text/calendar;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'eclipse-' + ev.id.slice(1) + '.ics';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+    announce(t('ics_done'));
+  }
+
+  /* Usar la ubicación de este dispositivo para el mismo eclipse */
+  function liveUseGps() {
+    var msg = $('live-gps-msg'), id = current.ev && current.ev.id;
+    msg.textContent = t('gps_wait');
+    getGps(function (p) {
+      place = p; store.set('place', p);
+      ensureEvents(function () {
+        var found = events.some(function (e) { return e.id === id; });
+        if (found) { msg.textContent = t('gps_note'); openEvent(id, 'live'); announce(t('place_set', { place: placeLabel(p) })); }
+        else { msg.textContent = ''; announce(t('live_gps_missing')); alertOnce('live_gps_missing'); go('#/eclipses'); }
+      });
+    }, function (key) { msg.textContent = t(key); });
+  }
+  function alertOnce(key) { var s = $('ev-status'); setTimeout(function () { s.textContent = t(key); }, 400); }
+
   /* Bucle de reproducción: avanza el tiempo, dibuja, suena y marca los momentos */
   function rate() { return speed === 'real' ? 1 : (current.w1 - current.w0) / (+speed * 1000); }
   function crossMarks(from, to, st) {
     if (to <= from) return;
-    moments(current.ev).forEach(function (m) {
-      if (m.t > from && m.t <= to) {
-        Sound.mark(m.k); buzz(MARK_VIB[m.k]);
-        speak(m.k === 'max' ? t('say_max', { p: pct(current.ev.cover) }) : t(m.label));
-      }
-    });
+    // En vivo, si la pantalla estuvo bloqueada un rato, no se disparan de golpe los avisos atrasados
+    var quiet = current.mode === 'live' && to - from > 5000;
+    if (!quiet) {
+      moments(current.ev).forEach(function (m) {
+        if (m.t > from && m.t <= to) {
+          Sound.mark(m.k); buzz(MARK_VIB[m.k]);
+          speak(m.k === 'max' ? t('say_max', { p: pct(current.ev.cover) }) : t(m.label));
+        }
+      });
+      if (current.mode === 'live') preMarks(current.ev).forEach(function (m) {
+        if (m.t > from && m.t <= to) { Sound.mark('pre'); buzz([80, 60, 80]); speak(t(m.key)); }
+      });
+    }
     var ten = Math.floor(st.cover * 10 + 1e-6);
-    if ($('opt-ticks').checked && current.lastTen >= 0 && ten !== current.lastTen && st.phase.indexOf('partial') === 0) Sound.mark('tick');
+    if (!quiet && $('opt-ticks').checked && current.lastTen >= 0 && ten !== current.lastTen && st.phase.indexOf('partial') === 0) Sound.mark('tick');
     current.lastTen = ten;
   }
   function loop() {
     if (!current.playing) return;
     var nowReal = performance.now(), dt = (nowReal - current.last) / 1000; current.last = nowReal;
     var prev = current.t;
-    current.t = current.live && speed === 'real' ? Date.now() : current.t + dt * 1000 * rate();
+    if (current.mode === 'live') {
+      current.t = Date.now();
+      var st = drawAt(current.t);
+      crossMarks(prev, current.t, st);
+      // La melodía suena solo durante el eclipse (con un margen antes y después)
+      var inside = current.t >= current.w0 && current.t <= current.w1;
+      if (inside && !Sound.isRunning()) Sound.start();
+      if (!inside && Sound.isRunning()) Sound.stop();
+      if (inside) Sound.update(1 - st.cover, st.phase, current.ev.body);
+      if (current.t > current.w1) { stopPlay(); $('live-armed').textContent = t('live_after'); return; }
+      current.frame = setTimeout(loop, 200);
+      return;
+    }
+    current.t = current.t + dt * 1000 * rate();
     if (current.t >= current.w1) { current.t = current.w1; }
-    var st = drawAt(current.t);
-    crossMarks(prev, current.t, st);
-    Sound.update(1 - st.cover, st.phase, current.ev.body);
+    var st2 = drawAt(current.t);
+    crossMarks(prev, current.t, st2);
+    Sound.update(1 - st2.cover, st2.phase, current.ev.body);
     if (current.t >= current.w1) { stopPlay(); return; }
     current.frame = setTimeout(loop, 100);
   }
   function startPlay() {
     if (!current.ev) return;
+    if (current.mode === 'live') {
+      var now = Date.now();
+      if (now > current.ev.end) { announce(t('live_after')); return; }
+      if (!Sound.unlock()) return;
+      current.playing = true; current.t = now; current.last = performance.now(); current.lastTen = -1;
+      wakeOn();
+      $('live-armed').textContent = t(now < current.w0 ? 'live_armed_wait' : 'live_armed_on');
+      announce($('live-armed').textContent);
+      updatePlayButton(); loop();
+      return;
+    }
     if (current.t >= current.w1) current.t = current.w0;
     if (!Sound.start()) return;
     current.playing = true; current.last = performance.now(); current.lastTen = -1;
     updatePlayButton(); loop();
   }
   function stopPlay(silent) {
+    var was = current.playing;
     current.playing = false; clearTimeout(current.frame);
-    Sound.stop();
+    Sound.stop(); wakeOff();
+    if (was && current.mode === 'live' && $('live-armed')) $('live-armed').textContent = t('live_armed_off');
     if ('speechSynthesis' in window && silent) { try { window.speechSynthesis.cancel(); } catch (e) { /* ok */ } }
     updatePlayButton();
   }
   function updatePlayButton() {
     var b = $('play'); b.setAttribute('aria-pressed', current.playing ? 'true' : 'false');
     b.classList.toggle('is-playing', current.playing);
-    $('play-txt').textContent = t(current.playing ? 'pause' : 'play');
+    var live = current.mode === 'live';
+    $('play-txt').textContent = t(live ? (current.playing ? 'live_off' : 'live_on') : (current.playing ? 'pause' : 'play'));
   }
   function setSpeed(v) {
     speed = v; qsa('#speed input').forEach(function (r) { r.checked = r.value === v; });
@@ -497,15 +671,20 @@
     $('play').addEventListener('click', function () { if (current.playing) stopPlay(true); else startPlay(); });
     $('restart').addEventListener('click', function () { current.t = current.w0; current.lastTen = -1; drawAt(current.t); });
     $('scrub').addEventListener('input', function () {
+      if (current.mode === 'live') return;
       current.t = current.w0 + (+this.value / 1000) * (current.w1 - current.w0);
-      current.live = false; $('live-badge').hidden = true;
       var st = drawAt(current.t); current.lastTen = Math.floor(st.cover * 10);
       if (current.playing) Sound.update(1 - st.cover, st.phase, current.ev.body);
     });
     qsa('#speed input').forEach(function (r) {
       r.checked = r.value === speed;
-      r.addEventListener('change', function () { speed = r.value; if (speed !== 'real') { store.set('speed', speed); } });
+      r.addEventListener('change', function () { speed = r.value; store.set('speed', speed); });
     });
+    qsa('#mode input').forEach(function (r) {
+      r.addEventListener('change', function () { if (r.checked) setMode(r.value); });
+    });
+    $('live-gps').addEventListener('click', liveUseGps);
+    $('ics-btn').addEventListener('click', downloadIcs);
     var instr = $('instr'); instr.value = store.get('instr', 'piano'); Sound.setInstrument(instr.value);
     instr.addEventListener('change', function () { Sound.setInstrument(instr.value); store.set('instr', instr.value); if (!current.playing) Sound.preview(); });
     ['voice', 'ticks', 'vibrate'].forEach(function (k) {
@@ -552,7 +731,7 @@
     var parts = location.hash.replace(/^#\/?/, '').split('/');
     var name = VIEWS[parts[0]] || 'place';
     if ((name === 'events' || name === 'listen') && !place) name = 'place';
-    if (route.name === 'listen' && name !== 'listen') stopPlay(true);
+    if (route.name === 'listen' && name !== 'listen') { stopPlay(true); clearInterval(liveTimer); liveTimer = null; }
     var changed = route.name !== name;
     route = { name: name, arg: parts[1] || '' };
     qsa('.view').forEach(function (v) { v.hidden = v.getAttribute('data-view') !== name; });

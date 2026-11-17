@@ -138,6 +138,42 @@
         <h1 id="ls-h" tabindex="-1"></h1>
         <p class="place-line" id="ls-sub"></p>
 
+        <fieldset class="seg seg-mode" id="mode">
+          <legend data-i18n="mode_label"></legend>
+          <label><input type="radio" name="mode" value="sim" checked><span data-i18n="mode_sim"></span></label>
+          <label><input type="radio" name="mode" value="live"><span class="mode-live" data-i18n="mode_live"></span></label>
+        </fieldset>
+        <p class="note mode-hint" id="mode-hint"></p>
+
+        <section class="live-panel" id="live-panel" hidden aria-labelledby="live-h">
+          <h2 id="live-h" class="small-h" data-i18n="live_h"></h2>
+          <p class="live-state" id="live-state"></p>
+          <p class="countdown" id="countdown" role="timer" aria-atomic="true"></p>
+          <p class="note" id="live-start"></p>
+          <dl class="live-src">
+            <div><dt data-i18n="live_clock"></dt><dd id="live-clock"></dd></div>
+            <div><dt data-i18n="live_place"></dt><dd><span id="live-place"></span> <button type="button" class="link-btn" id="live-gps" data-i18n="live_use_gps"></button></dd></div>
+          </dl>
+          <p class="note" id="live-gps-msg" role="status"></p>
+          <p class="note" id="live-tz" hidden></p>
+          <p class="note" id="live-armed" role="status"></p>
+          <details class="fold live-tips">
+            <summary data-i18n="live_tips_h"></summary>
+            <div class="fold-body">
+              <ul>
+                <li data-i18n="live_tip_1"></li>
+                <li data-i18n="live_tip_2"></li>
+                <li data-i18n="live_tip_3"></li>
+                <li id="live-tip-wake" data-i18n="live_tip_wake" hidden></li>
+              </ul>
+            </div>
+          </details>
+          <button type="button" class="btn btn-secondary" id="ics-btn">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+            <span data-i18n="ics_btn"></span>
+          </button>
+        </section>
+
         <div class="stage">
           <figure class="disc-fig">
             <svg id="disc" viewBox="-130 -130 260 260" aria-hidden="true" focusable="false">
@@ -179,7 +215,7 @@
           <button type="button" id="restart" class="btn btn-secondary" data-i18n="restart"></button>
         </div>
 
-        <div class="timeline">
+        <div class="timeline" id="timeline">
           <label for="scrub" class="ue-sr" data-i18n="timeline_label"></label>
           <input id="scrub" type="range" min="0" max="1000" step="1" value="0">
           <div class="ticks" id="marks" aria-hidden="true"></div>
@@ -320,7 +356,7 @@
           <p class="ai-close" data-i18n="about_ai_close"></p>
         </section>
 
-        <section class="about-sec"><h2 data-i18n="about_calc_t"></h2><p data-i18n="about_calc_d"></p></section>
+        <section class="about-sec"><h2 data-i18n="about_calc_t"></h2><p data-i18n="about_calc_d"></p><p data-i18n="about_pen_d"></p></section>
         <section class="about-sec">
           <h2 data-i18n="about_img_t"></h2>
           <ul class="credits">
@@ -330,6 +366,19 @@
             <li><span data-i18n="cred_proj"></span> <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener license">CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Partial_solar_eclipse_pinhole_projector.jpg" target="_blank" rel="noopener" data-i18n="cred_link"></a></li>
             <li><span data-i18n="cred_tel"></span> <a href="https://commons.wikimedia.org/wiki/File:2024_Total_Solar_Eclipse_(NHQ202404080207).jpg" target="_blank" rel="noopener" data-i18n="cred_link"></a></li>
           </ul>
+        </section>
+        <section class="about-sec" id="about-ls">
+          <h2 data-i18n="about_ls_t"></h2>
+          <p data-i18n="about_ls_d"></p>
+          <ul class="credits">
+            <li data-i18n="about_ls_f1"></li>
+            <li data-i18n="about_ls_f2"></li>
+            <li data-i18n="about_ls_f3"></li>
+            <li data-i18n="about_ls_f4"></li>
+            <li data-i18n="about_ls_f5"></li>
+          </ul>
+          <p data-i18n="about_ls_diff"></p>
+          <p><span data-i18n="about_ls_visit"></span> <a href="https://astrolab.fas.harvard.edu/LightSound.html" target="_blank" rel="noopener" lang="en">astrolab.fas.harvard.edu/LightSound.html</a></p>
         </section>
         <section class="about-sec"><h2 data-i18n="about_privacy_t"></h2><p data-i18n="about_privacy_d"></p></section>
         <section class="about-sec">

@@ -7,7 +7,7 @@
 
    Instrumentos: piano, arpa, xilófono y violín (síntesis aditiva y sustractiva).
    Marcas: sonidos propios para comienzo, máximo, fase central (totalidad o anillo),
-   final y, si se activa, cada 10 % de cobertura. Durante la totalidad de la Luna
+   final, avisos previos en el modo en vivo y, si se activa, cada 10 % de cobertura. Durante la totalidad de la Luna
    el timbre se vuelve más opaco («Luna roja»); en la del Sol suena un acorde grave. */
 var Sound = (function () {
   'use strict';
@@ -136,7 +136,8 @@ var Sound = (function () {
     max: function () { seq([1046.5, 1046.5, 1046.5], 0.16, 0.12); },            // tres toques
     central_in: function () { bell([392, 784, 1176, 1568], 0.18, 2.4); },        // campana grave
     central_out: function () { bell([523.25, 1046.5, 1569.8], 0.14, 1.8); },
-    tick: function () { seq([1760], 0.1, 0.05); }
+    tick: function () { seq([1760], 0.1, 0.05); },
+    pre: function () { seq([880, 1174.7], 0.22, 0.12); }                        // aviso previo (modo en vivo): dos notas suaves
   };
 
   return {
@@ -180,6 +181,8 @@ var Sound = (function () {
     },
     isRunning: function () { return running; },
     mark: function (name) { if (ensure() && MARK[name]) MARK[name](); },
+    /** Habilita el audio con un toque del usuario, sin empezar la melodía (modo en vivo, antes del eclipse). */
+    unlock: function () { return ensure(); },
     /** Muestra breve del instrumento elegido (al cambiarlo). */
     preview: function () {
       if (!ensure()) return;

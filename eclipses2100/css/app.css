@@ -144,6 +144,8 @@ main { flex: 1; padding: 1.5rem 0 2.5rem; }
 .ico-moon-dark { fill: var(--ue-ink); }
 :root[data-ue-theme="dark"] .ico-moon-dark { fill: #0b1730; stroke: var(--ue-control-line); stroke-width: .8; }
 .ico-moon-red { fill: #c4643c; }
+.ico-moon-full { fill: #d9d4c7; }
+.ico-corona { fill: var(--ue-amber); opacity: .35; }
 .ico-ring { stroke: var(--ue-control-line); stroke-width: 1; }
 .ev-main { display: flex; flex-direction: column; min-width: 0; flex: 1; }
 .ev-title { font-weight: 700; }
@@ -248,3 +250,27 @@ main { flex: 1; padding: 1.5rem 0 2.5rem; }
 
 /* Alto contraste: el nombre de la app no es un enlace de texto, no se subraya */
 :root[data-ue-theme="hc"]:not([data-ue-native]) body a.brand.ue-keep.brand.brand { text-decoration: none !important; }
+
+/* ---------- Modo en vivo ---------- */
+button.link-btn { background: none; border: 0; padding: 0; font: inherit; font-weight: 700; color: var(--ue-link, inherit); text-decoration: underline; cursor: pointer; }
+button.link-btn:focus-visible { outline: 3px solid var(--ue-focus); outline-offset: 2px; }
+.seg-mode { margin-bottom: .25rem; }
+.mode-live::before { content: ""; display: inline-block; width: .6em; height: .6em; border-radius: 50%; background: #b3261e; margin-right: .45em; vertical-align: .05em; }
+.mode-hint { margin: 0 0 1rem; }
+.live-panel { padding: 1rem; margin: 0 0 1rem; border: 2px solid var(--ue-line); border-left: 6px solid #b3261e; border-radius: 12px; background: var(--ue-surface); }
+.live-panel .small-h { margin-top: 0; }
+.live-state { font-weight: 700; font-size: 1.1rem; margin: 0 0 .2rem; }
+.countdown { font-family: var(--ue-font-display); font-size: clamp(1.5rem, 6vw, 2.1rem); font-weight: 600; line-height: 1.2; margin: 0 0 .4rem; font-variant-numeric: tabular-nums; }
+.countdown:empty { display: none; }
+.live-src { display: grid; gap: .3rem; margin: .6rem 0; }
+.live-src div { display: flex; flex-wrap: wrap; gap: .1rem .5rem; }
+.live-src dt { font-weight: 700; }
+.live-src dt::after { content: ":"; }
+.live-src dd { margin: 0; font-variant-numeric: tabular-nums; }
+.live-panel .note:empty { display: none; }
+.live-tips { margin: .6rem 0; }
+.live-tips ul { margin: 0; padding-left: 1.2rem; }
+.live-tips li { margin-bottom: .4rem; }
+#ics-btn svg { fill: none; }
+.is-live-mode #timeline, .is-live-mode #restart, .is-live-mode #speed { display: none; }
+@media (forced-colors: active) { .mode-live::before { forced-color-adjust: none; } .live-panel { border-left-color: CanvasText; } }
