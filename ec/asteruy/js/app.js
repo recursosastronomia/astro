@@ -517,18 +517,9 @@
     select.innerHTML = Object.entries(I18N).map(([code, d]) => `<option value="${code}" lang="${LOCALES[code]}">${esc(d.label)}</option>`).join('');
     select.addEventListener('change', e => setLang(e.target.value));
 
-    // Pausar animaciones: se recuerda en el dispositivo
-    const MOTION_KEY = 'asteruy-motion-off';
-    const motionBtn = $('#motion-btn');
-    function setMotionOff(off) {
-        document.documentElement.classList.toggle('motion-off', off);
-        motionBtn.setAttribute('aria-pressed', String(off));
-        try { localStorage.setItem(MOTION_KEY, off ? '1' : '0'); } catch { /* sin almacenamiento */ }
-    }
-    let motionSaved = false;
-    try { motionSaved = localStorage.getItem(MOTION_KEY) === '1'; } catch { /* sin almacenamiento */ }
-    setMotionOff(motionSaved);
-    motionBtn.addEventListener('click', () => setMotionOff(motionBtn.getAttribute('aria-pressed') !== 'true'));
+    // Se quitó el botón de pausar animaciones (confundía con un «play»).
+    // Las animaciones siguen respetando «reducir movimiento» del sistema.
+    try { localStorage.removeItem('asteruy-motion-off'); } catch { /* sin almacenamiento */ }
 
     $('#code-form').addEventListener('submit', handleSubmit);
     $('#code-input').addEventListener('input', e => {
