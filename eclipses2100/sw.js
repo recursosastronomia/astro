@@ -1,6 +1,6 @@
 /* Sombras sonoras — service worker: guarda la app para que funcione sin conexión.
    Al cambiar cualquier archivo, subir VERSION: así se instala la versión nueva y aparece el aviso «Actualizar». */
-const VERSION = 'sombras-1.3.0';
+const VERSION = 'sombras-1.4.2';
 const SHELL = [
   './', 'index.html', 'manifest.webmanifest', 'css/app.css',
   'js/strings.js', 'js/cities.js', 'js/astronomy.browser.min.js', 'js/eclipses.js', 'js/luna.js', 'js/audio.js', 'js/app.js', 'js/worker.js',
@@ -9,7 +9,7 @@ const SHELL = [
 ];
 // Archivos compartidos del portal y fotos que pueden faltar: se guardan si están, sin impedir la instalación
 const OPTIONAL = [
-  '../ue/ue.css', '../ue/ue.js',
+  '../ue/ue.css', '../ue/ue.js', '../ue/ue-licencia.js',
   '../ue/fonts/fraunces-latin-wght-normal.woff2',
   '../ue/fonts/atkinson-hyperlegible-latin-400-normal.woff2',
   '../ue/fonts/atkinson-hyperlegible-latin-700-normal.woff2',

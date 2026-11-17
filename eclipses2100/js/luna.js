@@ -5,7 +5,9 @@
    el cenit del observador, como se ve la Luna a simple vista, en cualquier latitud y hemisferio.
 
    MoonImage.load(cb)            carga el mapa una sola vez (cb recibe true si se pudo)
-   MoonImage.render(frame, n)    devuelve un canvas n×n con el disco lunar (fuera del disco repite el borde) */
+   MoonImage.render(frame, n, canvas, bright)  devuelve un canvas n×n con el disco lunar (fuera del disco repite
+                                 el borde); bright (0–1, por defecto 1) es el brillo: en los eclipses de Sol se usa
+                                 0.15 (85 % más oscura), porque la Luna está en fase nueva y muestra su cara no iluminada */
 var MoonImage = (function () {
   'use strict';
   var URL_MAP = 'img/luna/luna-lroc-cercana.jpg';
@@ -36,7 +38,8 @@ var MoonImage = (function () {
 
   function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
 
-  function render(f, n, canvas) {
+  function render(f, n, canvas, bright) {
+    var B = bright == null ? 1 : bright;
     var c = canvas || document.createElement('canvas'); c.width = c.height = n;
     var g = c.getContext('2d'), out = g.createImageData(n, n), o = out.data;
     var W = tex.w, H = tex.h, src = tex.px, kx = W / SPAN, ky = H / 180;
@@ -59,7 +62,7 @@ var MoonImage = (function () {
         var p00 = (y0 * W + x0) * 4, p01 = p00 + 4, p10 = p00 + W * 4, p11 = p10 + 4;
         var w00 = (1 - fx) * (1 - fy), w01 = fx * (1 - fy), w10 = (1 - fx) * fy, w11 = fx * fy;
         // Luna llena: casi sin oscurecimiento hacia el borde
-        var lum = 0.9 + 0.1 * Math.sqrt(z);
+        var lum = (0.9 + 0.1 * Math.sqrt(z)) * B;
         o[i] = (src[p00] * w00 + src[p01] * w01 + src[p10] * w10 + src[p11] * w11) * lum;
         o[i + 1] = (src[p00 + 1] * w00 + src[p01 + 1] * w01 + src[p10 + 1] * w10 + src[p11 + 1] * w11) * lum;
         o[i + 2] = (src[p00 + 2] * w00 + src[p01 + 2] * w01 + src[p10 + 2] * w10 + src[p11 + 2] * w11) * lum;

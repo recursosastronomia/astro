@@ -188,6 +188,17 @@
 
   window.UETheme = { get: state, setBase: setBase, toggleBase: toggleBase, toggleHc: toggleHc, mount: mount };
 
+  // Aviso de licencia CC BY-SA 4.0 (ue/ue-licencia.js, junto a este archivo)
+  (function () {
+    try {
+      var me = document.currentScript && document.currentScript.src;
+      if (!me) return;
+      var s = document.createElement('script');
+      s.src = me.replace(/ue\.js(\?.*)?$/, 'ue-licencia.js'); s.async = true;
+      document.head.appendChild(s);
+    } catch (e) { /* sin aviso de licencia */ }
+  })();
+
   applyRoot();   // antes de pintar
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

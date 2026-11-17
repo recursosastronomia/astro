@@ -31,6 +31,7 @@ const ASSETS = [
 const SHARED = [
     '../ue/ue.css',
     '../ue/ue.js',
+    '../ue/ue-licencia.js',
     '../ue/fonts/fraunces-latin-wght-normal.woff2',
     '../ue/fonts/atkinson-hyperlegible-latin-400-normal.woff2',
     '../ue/fonts/atkinson-hyperlegible-latin-700-normal.woff2'

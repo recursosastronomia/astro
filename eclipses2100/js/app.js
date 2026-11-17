@@ -3,7 +3,7 @@
    Rutas: #/  #/eclipses  #/escuchar/<id>  #/eclipse  #/seguridad  #/acerca */
 (function () {
   'use strict';
-  var APP = { version: '1.2', year: 2026 };
+  var APP = { version: '1.4', year: 2026 };
   var $ = function (id) { return document.getElementById(id); };
   var qsa = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
 
@@ -395,6 +395,8 @@
       mo.setAttribute('r', (100 * st.ratio).toFixed(2));
       mo.setAttribute('cx', (-Math.sin(ang) * dist * 100).toFixed(2));
       mo.setAttribute('cy', (-Math.cos(ang) * dist * 100).toFixed(2));
+      $('moon-new').setAttribute('transform', 'translate(' + mo.getAttribute('cx') + ' ' + mo.getAttribute('cy') + ') scale(' + st.ratio.toFixed(4) + ')');
+      updateMoonImage(ms, force);
       $('sun-img').setAttribute('transform', 'rotate(' + (st.q - sunImg.p).toFixed(1) + ')');
     } else {
       var d2 = Math.min(6, st.sep), cx = (-Math.sin(ang) * d2 * 100).toFixed(2), cy = (-Math.cos(ang) * d2 * 100).toFixed(2);
@@ -415,17 +417,19 @@
   }
 
   /* Imagen realista de la Luna (js/luna.js): se dibuja con la orientación de un instante y, mientras pasa el
-     tiempo, solo se gira para seguir el giro del campo visual. Se vuelve a dibujar cada 10 minutos simulados
+     tiempo, solo se gira para seguir el giro del campo visual. En los eclipses de Sol se usa la misma imagen
+     para el disco que pasa delante del Sol, oscurecida al 85 % (Luna nueva: muestra su cara no iluminada). Se vuelve a dibujar cada 10 minutos simulados
      (libración diaria) o al cambiar de eclipse o de lugar. */
   var moonPic = { U: null, t: 0, key: '', busy: false, url: null, failed: false };
   function moonPx() {
     var w = $('disc').getBoundingClientRect().width || 280;
     return Math.max(256, Math.min(1024, Math.round(w * 200 / 260 * (window.devicePixelRatio || 1) * 1.25)));
   }
+  function moonImgId() { return current.ev && current.ev.body === 'sun' ? 'moon-new-img' : 'moon-img'; }
   function rotateMoonImage(f) {
     if (!moonPic.U) return;
     var th = Math.atan2(EclipseList.dot(moonPic.U, f.R), EclipseList.dot(moonPic.U, f.U)) * 180 / Math.PI;
-    $('moon-img').setAttribute('transform', 'rotate(' + th.toFixed(2) + ')');
+    $(moonImgId()).setAttribute('transform', 'rotate(' + th.toFixed(2) + ')');
   }
   function updateMoonImage(ms, force) {
     if (moonPic.failed || !place) return;
@@ -435,19 +439,21 @@
     var stale = force || moonPic.key !== key || Math.abs(ms - moonPic.t) > 10 * 60000;
     if (!stale || moonPic.busy) return;
     moonPic.busy = true;
-    if (moonPic.key !== key) { $('moon-img').removeAttribute('href'); moonPic.U = null; }
+    if (moonPic.key !== key) { $('moon-img').removeAttribute('href'); $('moon-new-img').removeAttribute('href'); moonPic.U = null; }
     MoonImage.load(function (ok) {
       if (!ok) { moonPic.failed = true; moonPic.busy = false; return; }
       setTimeout(function () {
         var t = current.t, fr = EclipseList.moonFrame(place, t), k = current.ev.id + '|' + place.lat + ',' + place.lon;
-        MoonImage.render(fr, moonPx()).toBlob(function (blob) {
+        if (!current.ev) { moonPic.busy = false; return; }
+        var idNow = moonImgId(), bright = current.ev.body === 'sun' ? 0.15 : 1;
+        MoonImage.render(fr, moonPx(), null, bright).toBlob(function (blob) {
           moonPic.busy = false;
           if (!blob) return;
           if (moonPic.url) URL.revokeObjectURL(moonPic.url);
           moonPic.url = URL.createObjectURL(blob);
           moonPic.U = fr.U; moonPic.t = t; moonPic.key = k;
-          $('moon-img').setAttribute('href', moonPic.url);
-          if (current.ev && current.ev.body === 'moon') updateMoonImage(current.t, false);
+          $(idNow).setAttribute('href', moonPic.url);
+          if (current.ev) updateMoonImage(current.t, false);
         }, 'image/jpeg', 0.92);
       }, 0);
     });

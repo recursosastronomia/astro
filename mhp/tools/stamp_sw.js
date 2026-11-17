@@ -22,7 +22,7 @@ function walk(dir, out = []) {
 
 // Archivos compartidos del portal que esta app también usa (modo claro / noche / alto contraste).
 // Están fuera de la carpeta de la app, pero se guardan igual para que funcione sin conexión.
-const SHARED = ['../ue/ue.css', '../ue/ue.js'].filter(f => fs.existsSync(path.join(root, f)));
+const SHARED = ['../ue/ue.css', '../ue/ue.js', '../ue/ue-licencia.js'].filter(f => fs.existsSync(path.join(root, f)));
 
 const files = walk(root);
 const hash = crypto.createHash('sha256');

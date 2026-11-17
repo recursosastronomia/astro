@@ -41,6 +41,8 @@ reciben la versión nueva y ven el aviso «Actualizar».
   del mapa `lroc_color_poles_4k.tif` del CGI Moon Kit (NASA/GSFC/Arizona State University, LROC; dominio público,
   https://svs.gsfc.nasa.gov/4720). Se proyecta en el dispositivo con la libración, el eje lunar (modelo IAU) y el
   giro del campo visual: «arriba» es el cenit del observador, como se ve a simple vista en cualquier latitud.
+  En los eclipses de Sol la misma imagen, con la misma orientación, forma el disco que pasa delante del Sol,
+  oscurecida al 85 % (Luna nueva: cara no iluminada). En el tema de alto contraste se mantiene el disco negro liso.
 - `img/seguridad/lentes.jpg`: NASA Scientific Visualization Studio, eclipse del 14/10/2023. Dominio público.
 - `img/seguridad/proyeccion.jpg`: Tofeiku, Wikimedia Commons, CC BY-SA 4.0
   (https://commons.wikimedia.org/wiki/File:Partial_solar_eclipse_pinhole_projector.jpg).
@@ -54,6 +56,8 @@ Los créditos también aparecen dentro de la app, en «Acerca de».
 Pensada para WCAG 2.2 AA: contraste verificado en claro, oscuro y alto contraste; navegación completa con teclado;
 anuncios por lector de pantalla (fases, porcentaje); voz y vibración opcionales; respeta «reducir movimiento».
 
-## Pendiente
+## Portada y licencia
 
-No está enlazada desde la portada de GithubUE. Para publicarla, agregar el enlace en `../index.html`.
+Enlazada desde la portada del portal (`../index.html`) en segundo lugar, como «Sombras sonoras hasta 2100».
+Los contenidos se comparten bajo licencia CC BY-SA 4.0 (política de Uruguay Educa), salvo las imágenes de terceros,
+que conservan la licencia indicada en sus créditos. El aviso lo agrega `../ue/ue-licencia.js` al pie de la app.

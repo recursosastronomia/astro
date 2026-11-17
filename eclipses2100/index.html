@@ -186,6 +186,8 @@
                 <circle class="sun-base" r="100"/>
                 <g clip-path="url(#clip-sun)"><image id="sun-img" href="img/sol/sol-respaldo.jpg" x="-106" y="-106" width="212" height="212" preserveAspectRatio="none"/></g>
                 <circle id="moon-over" class="moon-over" r="100" cx="-500"/>
+                <!-- Luna nueva: imagen real de la Luna, orientada y oscurecida al 85 % (js/luna.js) -->
+                <g id="moon-new" transform="translate(-500 0)"><g clip-path="url(#clip-moon)"><image id="moon-new-img" x="-100" y="-100" width="200" height="200" preserveAspectRatio="none"/></g></g>
               </g>
               <g id="g-moon" hidden>
                 <circle r="100" fill="url(#moon-shade)"/>
@@ -337,7 +339,7 @@
     <section class="view" data-view="about" hidden aria-labelledby="about-h">
       <div class="wrap-narrow prose">
         <h1 id="about-h" tabindex="-1" data-i18n="about_h"></h1>
-        <section class="about-sec"><h2 data-i18n="about_what_t"></h2><p data-i18n="about_what_d"></p></section>
+        <section class="about-sec"><h2 data-i18n="about_what_t"></h2><p data-i18n="about_what_d"></p><p data-i18n="about_a11y_d"></p></section>
         <section class="about-sec">
           <dl class="kv">
             <div><dt data-i18n="about_web_t"></dt><dd><a href="https://edytic.ces.edu.uy/" target="_blank" rel="noopener">https://edytic.ces.edu.uy/</a></dd></div>
@@ -346,27 +348,6 @@
           </dl>
         </section>
 
-        <section class="ai-note" aria-labelledby="ai-h">
-          <h2 id="ai-h" data-i18n="about_ai_t"></h2>
-          <p class="ai-lead" data-i18n="about_ai_lead"></p>
-          <div class="ai-cols">
-            <div><h3 data-i18n="about_ai_did_t"></h3><ul><li data-i18n="about_ai_did_1"></li><li data-i18n="about_ai_did_2"></li><li data-i18n="about_ai_did_3"></li></ul></div>
-            <div><h3 data-i18n="about_ai_human_t"></h3><ul><li data-i18n="about_ai_human_1"></li><li data-i18n="about_ai_human_2"></li><li data-i18n="about_ai_human_3"></li></ul></div>
-          </div>
-          <p class="ai-close" data-i18n="about_ai_close"></p>
-        </section>
-
-        <section class="about-sec"><h2 data-i18n="about_calc_t"></h2><p data-i18n="about_calc_d"></p><p data-i18n="about_pen_d"></p></section>
-        <section class="about-sec">
-          <h2 data-i18n="about_img_t"></h2>
-          <ul class="credits">
-            <li><span data-i18n="cred_sun"></span> <a href="https://sdo.gsfc.nasa.gov/" target="_blank" rel="noopener">sdo.gsfc.nasa.gov</a></li>
-            <li><span data-i18n="cred_moon"></span> <a href="https://svs.gsfc.nasa.gov/4720" target="_blank" rel="noopener">svs.gsfc.nasa.gov/4720</a></li>
-            <li><span data-i18n="cred_glasses"></span> <a href="https://commons.wikimedia.org/wiki/File:Eclipse_Safety_Imagery_2023_(SVS14447_-_14447_013_IMG_8047).jpg" target="_blank" rel="noopener" data-i18n="cred_link"></a></li>
-            <li><span data-i18n="cred_proj"></span> <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener license">CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Partial_solar_eclipse_pinhole_projector.jpg" target="_blank" rel="noopener" data-i18n="cred_link"></a></li>
-            <li><span data-i18n="cred_tel"></span> <a href="https://commons.wikimedia.org/wiki/File:2024_Total_Solar_Eclipse_(NHQ202404080207).jpg" target="_blank" rel="noopener" data-i18n="cred_link"></a></li>
-          </ul>
-        </section>
         <section class="about-sec" id="about-ls">
           <h2 data-i18n="about_ls_t"></h2>
           <p data-i18n="about_ls_d"></p>
@@ -380,11 +361,31 @@
           <p data-i18n="about_ls_diff"></p>
           <p><span data-i18n="about_ls_visit"></span> <a href="https://astrolab.fas.harvard.edu/LightSound.html" target="_blank" rel="noopener" lang="en">astrolab.fas.harvard.edu/LightSound.html</a></p>
         </section>
+        <section class="about-sec"><h2 data-i18n="about_calc_t"></h2><p data-i18n="about_calc_d"></p><p data-i18n="about_pen_d"></p></section>
+        <section class="about-sec">
+          <h2 data-i18n="about_img_t"></h2>
+          <ul class="credits">
+            <li><span data-i18n="cred_sun"></span> <a href="https://sdo.gsfc.nasa.gov/" target="_blank" rel="noopener">sdo.gsfc.nasa.gov</a></li>
+            <li><span data-i18n="cred_moon"></span> <a href="https://svs.gsfc.nasa.gov/4720" target="_blank" rel="noopener">svs.gsfc.nasa.gov/4720</a></li>
+            <li><span data-i18n="cred_glasses"></span> <a href="https://commons.wikimedia.org/wiki/File:Eclipse_Safety_Imagery_2023_(SVS14447_-_14447_013_IMG_8047).jpg" target="_blank" rel="noopener" data-i18n="cred_link"></a></li>
+            <li><span data-i18n="cred_proj"></span> <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener license">CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Partial_solar_eclipse_pinhole_projector.jpg" target="_blank" rel="noopener" data-i18n="cred_link"></a></li>
+            <li><span data-i18n="cred_tel"></span> <a href="https://commons.wikimedia.org/wiki/File:2024_Total_Solar_Eclipse_(NHQ202404080207).jpg" target="_blank" rel="noopener" data-i18n="cred_link"></a></li>
+          </ul>
+        </section>
         <section class="about-sec"><h2 data-i18n="about_privacy_t"></h2><p data-i18n="about_privacy_d"></p></section>
         <section class="about-sec">
           <h2 data-i18n="about_install_t"></h2>
           <p data-i18n="about_install_d"></p>
           <button type="button" id="install-btn" class="btn btn-secondary" hidden data-i18n="install_btn"></button>
+        </section>
+        <section class="ai-note" aria-labelledby="ai-h">
+          <h2 id="ai-h" data-i18n="about_ai_t"></h2>
+          <p class="ai-lead" data-i18n="about_ai_lead"></p>
+          <div class="ai-cols">
+            <div><h3 data-i18n="about_ai_did_t"></h3><ul><li data-i18n="about_ai_did_1"></li><li data-i18n="about_ai_did_2"></li><li data-i18n="about_ai_did_3"></li></ul></div>
+            <div><h3 data-i18n="about_ai_human_t"></h3><ul><li data-i18n="about_ai_human_1"></li><li data-i18n="about_ai_human_2"></li><li data-i18n="about_ai_human_3"></li></ul></div>
+          </div>
+          <p class="ai-close" data-i18n="about_ai_close"></p>
         </section>
         <p class="version" id="about-version"></p>
       </div>
@@ -410,5 +411,8 @@
   <script src="js/luna.js"></script>
   <script src="js/audio.js"></script>
   <script src="js/app.js"></script>
+  <!-- Estadísticas de uso anónimas (GoatCounter: sin cookies ni datos personales), como en el resto del portal.
+       Se carga de forma asíncrona; sin conexión simplemente no cuenta. -->
+  <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>

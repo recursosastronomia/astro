@@ -1,7 +1,7 @@
 /* Service worker — Eclipse sonoro 2027
    Cambiar CACHE_VERSION cada vez que se publiquen cambios en los archivos.
    El número ?v= de estilos y scripts debe ser el mismo que en index.html. */
-const CACHE_VERSION = 'eclipse2027-v22';
+const CACHE_VERSION = 'eclipse2027-v23';
 /* Imprescindibles: si alguno falla, la instalación se reintenta en la próxima visita. */
 const SHELL = [
   './',
@@ -15,6 +15,7 @@ const SHELL = [
 /* Complementarios (fuentes e imágenes): si alguno falta o falla, la app se instala igual.
    Los íconos de la app no se guardan aquí: el navegador los obtiene del manifiesto al instalar. */
 const EXTRAS = [
+  '../ue/ue-licencia.js',
   './img/cc-by-nd.svg',
   './assets/poster.jpg',
   './img/sol/sdo-hmi-2026-11-16.jpg',

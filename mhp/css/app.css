@@ -177,6 +177,8 @@ h2 { font-size: var(--step-3); }
 h3 { font-size: var(--step-2); }
 h4 { font-size: var(--step-1); }
 p { margin: 0 0 1em; max-width: 62ch; text-wrap: pretty; }
+/* La franja de accesibilidad (y el aviso de licencia que va debajo) ocupan todo el ancho, como en el resto del portal */
+p.a11y-declaracion { max-width: none; }
 strong { font-weight: 700; }
 a { color: var(--link); text-underline-offset: 0.18em; }
 :focus { outline: none; }

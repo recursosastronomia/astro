@@ -2,8 +2,12 @@
    Todo se sintetiza en el navegador (Web Audio), sin archivos de audio.
 
    Melodía: notas al azar de una escala pentatónica mayor (siempre suena agradable),
-   que caminan alrededor de un tono central. El tono central sigue a la luz:
-   astro descubierto = agudo; astro cubierto = grave (dos octavas de diferencia).
+   que caminan muy cerca de un tono central. El tono central sigue a la luz:
+   astro descubierto = agudo; astro cubierto al 100 % = grave (tres octavas de diferencia).
+   El descenso es proporcional a la cobertura: un eclipse que cubre el 10 % o el 20 %
+   baja apenas unas notas, mientras que uno del 80 %, 90 % o 100 % baja casi o del todo
+   las tres octavas. La melodía se mueve solo un paso alrededor del centro para que
+   el cambio de altura se oiga con claridad.
 
    Instrumentos: piano, arpa, xilófono y violín (síntesis aditiva y sustractiva).
    Marcas: sonidos propios para comienzo, máximo, fase central (totalidad o anillo),
@@ -15,11 +19,12 @@ var Sound = (function () {
   var instrument = 'piano';
   var timer = null, running = false;
   var light = 1;            // 0 = astro cubierto, 1 = descubierto
-  var step = 5;             // posición actual en la escala (índice de la «escalera» pentatónica)
+  var step = 15;            // posición actual en la escala (índice de la «escalera» pentatónica)
   var drone = null;         // acorde sostenido de la totalidad de Sol
   var annularTimer = null;
   var PENTA = [0, 2, 4, 7, 9];
-  var BASE = 196;           // sol 3 (G3): tono más grave posible del centro
+  var BASE = 130.81;        // do 3 (C3): tono del centro con el astro cubierto al 100 %
+  var SPAN = 15;            // pasos de la escala entre luz plena y cobertura total: tres octavas
 
   function ensure() {
     if (!ctx) {
@@ -99,14 +104,16 @@ var Sound = (function () {
   var BEAT = { piano: 0.42, harp: 0.36, xylo: 0.3, violin: 0.8 };
 
   /* ---------- Melodía ---------- */
-  function center() { return Math.round(light * 10); }    // 0–10 pasos: dos octavas
+  function center() { return Math.round(light * SPAN); }  // 0–15 pasos: tres octavas, proporcional a la cobertura
   function nextStep() {
     var c = center();
-    var moves = [-2, -1, -1, 0, 1, 1, 2];
+    if (Math.abs(step - c) > 1) {         // si la luz cambió, la melodía va hacia el nuevo centro
+      step += step > c ? -1 : 1;
+      return step;
+    }
+    var moves = [-1, 0, 0, 1];            // camina solo un paso alrededor del centro
     var s = step + moves[Math.floor(Math.random() * moves.length)];
-    if (s > c + 3) s = step - 1;          // vuelve hacia el centro
-    if (s < c - 3) s = step + 1;
-    step = Math.max(-2, Math.min(14, s));
+    step = Math.max(c - 1, Math.min(c + 1, Math.max(-1, Math.min(SPAN + 1, s))));
     return step;
   }
   function tick() {
