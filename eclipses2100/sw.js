@@ -1,10 +1,10 @@
 /* Sombras sonoras — service worker: guarda la app para que funcione sin conexión.
    Al cambiar cualquier archivo, subir VERSION: así se instala la versión nueva y aparece el aviso «Actualizar». */
-const VERSION = 'sombras-1.0.1';
+const VERSION = 'sombras-1.1.0';
 const SHELL = [
   './', 'index.html', 'manifest.webmanifest', 'css/app.css',
-  'js/strings.js', 'js/cities.js', 'js/astronomy.browser.min.js', 'js/eclipses.js', 'js/audio.js', 'js/app.js', 'js/worker.js',
-  'img/sol/sol-respaldo.jpg', 'img/seguridad/lentes.jpg',
+  'js/strings.js', 'js/cities.js', 'js/astronomy.browser.min.js', 'js/eclipses.js', 'js/luna.js', 'js/audio.js', 'js/app.js', 'js/worker.js',
+  'img/sol/sol-respaldo.jpg', 'img/luna/luna-lroc-cercana.jpg', 'img/seguridad/lentes.jpg',
   'icons/icon-192.png', 'icons/favicon-48.png', 'icons/apple-touch-icon.png'
 ];
 // Archivos compartidos del portal y fotos que pueden faltar: se guardan si están, sin impedir la instalación

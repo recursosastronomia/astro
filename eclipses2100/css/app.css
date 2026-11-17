@@ -164,6 +164,8 @@ main { flex: 1; padding: 1.5rem 0 2.5rem; }
 .sun-base { fill: var(--ue-amber); }
 .moon-over { fill: #0b1730; stroke: rgba(255, 255, 255, .25); stroke-width: .8; }
 .umbra { fill: #4a1206; opacity: .82; transition: opacity .6s; }
+/* Sobre la imagen real, la sombra oscurece (multiplica) en vez de tapar: se siguen viendo los mares */
+#g-moon .umbra, #g-moon .penumbra { mix-blend-mode: multiply; }
 .penumbra { fill: #000; opacity: .22; }
 #g-moon.is-total .umbra { fill: #9b2f12; opacity: .74; }
 :root[data-ue-theme="hc"] #disc { background: #000; border: 2px solid #fff; }

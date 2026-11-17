@@ -395,6 +395,7 @@
       $('umbra').setAttribute('r', (st.ru * 100).toFixed(1));
       $('penumbra').setAttribute('r', (st.rp * 100).toFixed(1));
       $('g-moon').classList.toggle('is-total', st.phase === 'total_moon');
+      updateMoonImage(ms, force);
     }
     var p = pct(st.cover);
     $('pct').textContent = p + '%';
@@ -404,6 +405,45 @@
     sc.value = Math.round((ms - current.w0) / (current.w1 - current.w0) * 1000);
     sc.setAttribute('aria-valuetext', fHM(ms, place.tz) + ', ' + phaseText(st) + ', ' + p + ' %');
     return st;
+  }
+
+  /* Imagen realista de la Luna (js/luna.js): se dibuja con la orientación de un instante y, mientras pasa el
+     tiempo, solo se gira para seguir el giro del campo visual. Se vuelve a dibujar cada 10 minutos simulados
+     (libración diaria) o al cambiar de eclipse o de lugar. */
+  var moonPic = { U: null, t: 0, key: '', busy: false, url: null, failed: false };
+  function moonPx() {
+    var w = $('disc').getBoundingClientRect().width || 280;
+    return Math.max(256, Math.min(1024, Math.round(w * 200 / 260 * (window.devicePixelRatio || 1) * 1.25)));
+  }
+  function rotateMoonImage(f) {
+    if (!moonPic.U) return;
+    var th = Math.atan2(EclipseList.dot(moonPic.U, f.R), EclipseList.dot(moonPic.U, f.U)) * 180 / Math.PI;
+    $('moon-img').setAttribute('transform', 'rotate(' + th.toFixed(2) + ')');
+  }
+  function updateMoonImage(ms, force) {
+    if (moonPic.failed || !place) return;
+    var key = current.ev.id + '|' + place.lat + ',' + place.lon;
+    var f = EclipseList.moonFrame(place, ms);
+    rotateMoonImage(f);
+    var stale = force || moonPic.key !== key || Math.abs(ms - moonPic.t) > 10 * 60000;
+    if (!stale || moonPic.busy) return;
+    moonPic.busy = true;
+    if (moonPic.key !== key) { $('moon-img').removeAttribute('href'); moonPic.U = null; }
+    MoonImage.load(function (ok) {
+      if (!ok) { moonPic.failed = true; moonPic.busy = false; return; }
+      setTimeout(function () {
+        var t = current.t, fr = EclipseList.moonFrame(place, t), k = current.ev.id + '|' + place.lat + ',' + place.lon;
+        MoonImage.render(fr, moonPx()).toBlob(function (blob) {
+          moonPic.busy = false;
+          if (!blob) return;
+          if (moonPic.url) URL.revokeObjectURL(moonPic.url);
+          moonPic.url = URL.createObjectURL(blob);
+          moonPic.U = fr.U; moonPic.t = t; moonPic.key = k;
+          $('moon-img').setAttribute('href', moonPic.url);
+          if (current.ev && current.ev.body === 'moon') updateMoonImage(current.t, false);
+        }, 'image/jpeg', 0.92);
+      }, 0);
+    });
   }
 
   /* Bucle de reproducción: avanza el tiempo, dibuja, suena y marca los momentos */

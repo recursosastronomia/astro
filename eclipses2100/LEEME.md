@@ -14,6 +14,7 @@ DGES – EDyTIC – Contenidistas de Astronomía 2026 · recursosastronomia@gmai
 | `js/strings.js` | Textos en los seis idiomas (mismas claves en todos) |
 | `js/cities.js` | 233 ciudades de 100 países (incluye las 19 capitales departamentales de Uruguay y Punta del Este) |
 | `js/eclipses.js` | Cálculo de eclipses y de la vista en cada instante |
+| `js/luna.js` | Imagen realista de la Luna: proyecta el mapa del LRO sobre una esfera con la orientación del lugar |
 | `js/worker.js` | Calcula la lista en segundo plano |
 | `js/audio.js` | Sonido: instrumentos (piano, arpa, xilófono, violín), melodía y marcas |
 | `js/app.js` | Interfaz, idioma, rutas, ubicación, imagen del Sol |
@@ -36,6 +37,10 @@ reciben la versión nueva y ven el aviso «Actualizar».
 ## Imágenes
 
 - Sol: imagen del día de SDO/HMI (NASA/SDO). Sin conexión se usa `img/sol/sol-respaldo.jpg` (SDO, 16/11/2026).
+- Luna: `img/luna/luna-lroc-cercana.jpg`, recorte de la cara visible (longitudes −110° a +110°, 2504 × 2048 px)
+  del mapa `lroc_color_poles_4k.tif` del CGI Moon Kit (NASA/GSFC/Arizona State University, LROC; dominio público,
+  https://svs.gsfc.nasa.gov/4720). Se proyecta en el dispositivo con la libración, el eje lunar (modelo IAU) y el
+  giro del campo visual: «arriba» es el cenit del observador, como se ve a simple vista en cualquier latitud.
 - `img/seguridad/lentes.jpg`: NASA Scientific Visualization Studio, eclipse del 14/10/2023. Dominio público.
 - `img/seguridad/proyeccion.jpg`: Tofeiku, Wikimedia Commons, CC BY-SA 4.0
   (https://commons.wikimedia.org/wiki/File:Partial_solar_eclipse_pinhole_projector.jpg).

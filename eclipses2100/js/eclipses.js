@@ -187,6 +187,36 @@ var EclipseList = (function () {
   /* Distancia Tierra–Sol en UA (para escalar la imagen de SDO del día). */
   function sunDist(t) { return A.Equator(A.Body.Sun, A.MakeTime(new Date(t)), new A.Observer(0, 0, 0), true, false).dist; }
 
-  return { forPlace: forPlace, view: view, phaseOf: phaseOf, sunP: sunP, sunDist: sunDist, range: [FROM, TO] };
+  /* Orientación de la Luna tal como la ve a simple vista un observador del lugar (para la imagen realista).
+     Todo en vectores J2000: d = dirección observador→Luna; U = «arriba» en el cielo (hacia el cenit);
+     R = «derecha» del observador que mira la Luna; xb, yb, zb = ejes del cuerpo lunar (zb = polo norte,
+     xb = meridiano 0, el centro medio de la cara visible), según el modelo IAU de rotación de la Luna.
+     Así la libración, la inclinación del eje y el giro del campo visual (latitud, hemisferio, hora) salen solos. */
+  function moonFrame(place, t) {
+    var obs = new A.Observer(place.lat, place.lon, 0), time = A.MakeTime(new Date(t));
+    var eq = A.Equator(A.Body.Moon, time, obs, false, true);
+    var d = unit([eq.vec.x, eq.vec.y, eq.vec.z]);
+    var z = A.RotateVector(A.Rotation_HOR_EQJ(time, obs), new A.Vector(0, 0, 1, time));
+    var zen = [z.x, z.y, z.z];
+    var U = sub(zen, mul(d, dot(zen, d)));
+    if (len(U) < 1e-4) U = sub([0, 0, 1], mul(d, d[2]));     // Luna en el cenit: se toma el norte celeste
+    U = unit(U);
+    var R = cross(d, U);
+    var ax = A.RotationAxis(A.Body.Moon, time);
+    var zb = unit([ax.north.x, ax.north.y, ax.north.z]);
+    var node = unit([-zb[1], zb[0], 0]), w = ax.spin * RAD;
+    var xb = add(mul(node, Math.cos(w)), mul(cross(zb, node), Math.sin(w)));
+    var yb = cross(zb, xb);
+    return { d: d, U: U, R: R, xb: xb, yb: yb, zb: zb };
+  }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
+  function mul(a, k) { return [a[0] * k, a[1] * k, a[2] * k]; }
+  function add(a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }
+  function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
+  function len(a) { return Math.sqrt(dot(a, a)); }
+  function unit(a) { var l = len(a); return [a[0] / l, a[1] / l, a[2] / l]; }
+
+  return { forPlace: forPlace, view: view, phaseOf: phaseOf, moonFrame: moonFrame, dot: dot, sunP: sunP, sunDist: sunDist, range: [FROM, TO] };
 })();
 if (typeof module !== 'undefined') module.exports = EclipseList;
