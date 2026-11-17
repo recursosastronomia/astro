@@ -8,7 +8,7 @@
 
     <!-- PWA -->
     <link rel="manifest" href="manifest.webmanifest">
-    <meta name="theme-color" content="#0b1730">
+    <meta name="theme-color" content="#14264b">
     <meta name="color-scheme" content="light dark">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -18,8 +18,8 @@
     <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 
     <link rel="preload" href="fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="css/styles.css?v=3.1">
+    <link rel="preload" href="fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/styles.css?v=3.2">
     <!-- Si el idioma guardado no es español, se oculta la página por un
          instante hasta que el script cambia los textos: así no «salta» al traducirse.
          Límite de seguridad: se muestra igual a los 3 segundos. -->
@@ -28,7 +28,13 @@
         (function () {
             // Tema guardado (o preferencia del sistema): se aplica antes de pintar
             var th = null, hc = null;
-            try { th = localStorage.getItem('eclipse.theme'); hc = localStorage.getItem('eclipse.hc'); } catch (e) {}
+            // La elección vale para todo el portal «Astronomía para todos» (claves ue.theme y ue.hc);
+            // si todavía no existe, se toma la que esta app guardaba antes (eclipse.theme y eclipse.hc).
+            try {
+                th = localStorage.getItem('ue.theme') || localStorage.getItem('eclipse.theme');
+                hc = localStorage.getItem('ue.hc'); if (hc === null) hc = localStorage.getItem('eclipse.hc');
+            } catch (e) {}
+            if (th !== 'dark' && th !== 'light') th = null;
             var mm = window.matchMedia ? window.matchMedia.bind(window) : function () { return { matches: false }; };
             if (hc === null && mm('(prefers-contrast: more)').matches) hc = '1';
             if (!th) th = mm('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -527,9 +533,9 @@
         </section>
     </main>
 
-    <script src="js/i18n.js?v=3.1"></script>
-    <script src="js/eclipse.js?v=3.1"></script>
-    <script src="js/app.js?v=3.1"></script>
+    <script src="js/i18n.js?v=3.2"></script>
+    <script src="js/eclipse.js?v=3.2"></script>
+    <script src="js/app.js?v=3.2"></script>
     <!-- Estadísticas de uso anónimas (GoatCounter: sin cookies ni datos personales).
          Se carga de forma asíncrona, sin frenar la app; sin conexión simplemente no cuenta. -->
     <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>

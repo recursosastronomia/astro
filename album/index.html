@@ -15,7 +15,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Álbum Ciencia">
 
-    <link rel="preload" href="fonts/fredoka-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Capa compartida del portal: tipografías, botones de modo y modo claro / noche / alto contraste -->
+    <link rel="stylesheet" href="../ue/ue.css">
+    <script src="../ue/ue.js"></script>
     <link rel="stylesheet" href="css/styles.css">
 <style id="a11y-base">
 /* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
@@ -58,6 +60,7 @@
             </div>
 
             <div class="header__actions">
+                <div data-ue-tools class="ue-tools-compact"></div>
                 <button id="install-btn" class="chip-btn" type="button" hidden>
                     <svg class="icon"><use href="#i-install"/></svg> Instalar
                 </button>

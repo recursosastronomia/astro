@@ -5,22 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal de astronomía - Recursos educativos</title>
   
-  <!-- Tema claro u oscuro: una sola elección para todo el portal (localStorage "astro-tema": "dia" o "noche").
-       Esta portada es oscura salvo que se haya elegido el modo claro. -->
-  <script>
-    try { if (localStorage.getItem('astro-tema') === 'dia') document.documentElement.classList.add('tema-claro'); } catch (e) {}
-  </script>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Paleta y tipografías del portal para las clases de Tailwind (ver ue/ue-tailwind.js) -->
+  <script src="ue/ue-tailwind.js"></script>
+  <script>
+    /* Grises = tinta del portal (valores fijos: el modo claro lo resuelve la capa «html[data-ue-theme="light"]» de esta página);
+       todos los colores de acento = ámbar del portal */
+    tailwind.config = UE_TW.config({ fixed: true });
+  </script>
   
-  <!-- Google Fonts: Lexend -->
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  
-  <style>
+<style>
     body {
-      font-family: 'Lexend', sans-serif;
-      background-color: #030712;
+      font-family: var(--ue-font-ui);
+      background-color: #0b1730;
       background-image:
           radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
           radial-gradient(white, rgba(255,255,255,.1) 1.5px, transparent 3.5px);
@@ -28,7 +27,7 @@
       background-position: 0 0, 40px 60px;
     }
     .text-shadow-glow {
-      text-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+      text-shadow: 0 0 15px rgba(255, 200, 90, 0.5);
     }
     /* Cinta diagonal "Nuevo" (esquina superior derecha) */
     .ribbon-new {
@@ -58,80 +57,56 @@
       transform: scale(1.05);
     }
   </style>
-  <!-- Encabezado del portal: botón "Inicio" + marca "Astronomía para todos · DGES - EDyTIC" (componente compartido, idéntico en todas las actividades) -->
-  <style>
-    .ue-home{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:10px;color:inherit;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.32);text-decoration:none;transition:background-color .2s,border-color .2s}
-    .ue-home:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.65)}
-    .ue-home:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
-    .ue-home svg{width:20px;height:20px;display:block}
-    .ue-brand-row{display:flex;align-items:center;gap:12px;min-width:0}
-    .ue-brand{display:flex;align-items:center;gap:12px;padding:7px 14px;border-radius:12px;background:#0f172a;border:1px solid rgba(148,163,184,.28);box-shadow:0 2px 10px rgba(0,0,0,.25);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;text-align:left;-webkit-text-fill-color:initial}
-    .ue-brand-logo{display:block;height:26px;width:auto;max-width:none;margin:0;border:0;border-radius:0;box-shadow:none}
-    .ue-brand-sep{flex:none;width:1px;align-self:stretch;background:rgba(148,163,184,.35)}
-    .ue-brand-text{display:flex;flex-direction:column;line-height:1.15}
-    .ue-brand-title{display:block;margin:0;font-size:15px;font-weight:700;letter-spacing:.01em;text-transform:none;color:#f8fafc}
-    .ue-brand-sub{display:block;margin:2px 0 0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:none;color:#fdba74}
-    @media (max-width:639px){
-      .ue-brand{flex-direction:column;align-items:flex-start;gap:5px;padding:7px 11px}
-      .ue-brand-sep{display:none}
-      .ue-brand-logo{height:18px}
-    }
-    @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
-  </style>
 <style id="tema-claro">
 /* Modo claro: mismos colores de papel y tinta que «Astronomía para todos».
    Solo afecta al encabezado y al contenido; el cuadro de códigos para docentes sigue oscuro. */
-html.tema-claro { color-scheme: light; }
-html.tema-claro body { background: #f1f3f6; color: #14264b; }
-.tema-claro header.sticky { background-color: rgba(255,255,255,.9); border-color: #cbd2de; }
-.tema-claro header .text-slate-300, .tema-claro main .text-slate-300, .tema-claro main .text-slate-400 { color: #3b4a66; }
-.tema-claro main .text-white, .tema-claro main .text-slate-100, .tema-claro main .text-slate-200 { color: #14264b; }
-.tema-claro main .text-shadow-glow { text-shadow: none; }
+html[data-ue-theme="light"] { color-scheme: light; }
+html[data-ue-theme="light"] body { background: #f1f3f6; color: #14264b; }
+html[data-ue-theme="light"] header .text-slate-300, html[data-ue-theme="light"] main .text-slate-300, html[data-ue-theme="light"] main .text-slate-400 { color: #3b4a66; }
+html[data-ue-theme="light"] main .text-white, html[data-ue-theme="light"] main .text-slate-100, html[data-ue-theme="light"] main .text-slate-200 { color: #14264b; }
+html[data-ue-theme="light"] main .text-shadow-glow { text-shadow: none; }
 /* Tarjetas */
-.tema-claro main .resource-card { background-color: #ffffff; border-color: #cbd2de; }
-.tema-claro main .resource-card:hover { background-color: #ffffff; border-color: #1b4fa8; }
-.tema-claro main .group:hover .group-hover\:text-sky-400 { color: #1b4fa8; }
+html[data-ue-theme="light"] main .resource-card { background-color: #ffffff; border-color: #cbd2de; }
+html[data-ue-theme="light"] main .resource-card:hover { background-color: #ffffff; border-color: #c98a0f; }
+html[data-ue-theme="light"] main .group:hover .group-hover\:text-sky-400 { color: #7a4800; }
 /* Botón principal de cada tarjeta: azul tinta con texto claro */
-.tema-claro main a.bg-slate-800 { background-color: #14264b; color: #ffffff; }
-.tema-claro main a.bg-slate-800:hover { background-color: #0ea5e9; color: #020617; }
+html[data-ue-theme="light"] main a.bg-slate-800 { background-color: #14264b; color: #ffffff; }
+html[data-ue-theme="light"] main a.bg-slate-800:hover { background-color: #ffb627; color: #0b1730; }
 /* Botones secundarios, filtros sin elegir y enlace del encabezado */
-.tema-claro main .bg-transparent, .tema-claro .filter-btn.bg-slate-900, .tema-claro header .bg-slate-900\/80, .tema-claro #tema {
+html[data-ue-theme="light"] main .bg-transparent, html[data-ue-theme="light"] .filter-btn.bg-slate-900, html[data-ue-theme="light"] header .bg-slate-900\/80 {
   background-color: #ffffff; color: #14264b; border: 1px solid #66758f;
 }
-.tema-claro main .bg-transparent:hover, .tema-claro .filter-btn.bg-slate-900:hover, .tema-claro header .bg-slate-900\/80:hover, .tema-claro #tema:hover {
+html[data-ue-theme="light"] main .bg-transparent:hover, html[data-ue-theme="light"] .filter-btn.bg-slate-900:hover, html[data-ue-theme="light"] header .bg-slate-900\/80:hover {
   background-color: #e1e6ee; color: #14264b;
 }
 /* Etiquetas de color: tonos oscuros para que se lean sobre blanco (contraste ≥ 4,5:1) */
-.tema-claro main .text-sky-400 { color: #075985; }
-.tema-claro main .text-emerald-400 { color: #065f46; }
-.tema-claro main .text-violet-300 { color: #5b21b6; }
-.tema-claro main .text-amber-400 { color: #92400e; }
-.tema-claro main .text-indigo-400 { color: #3730a3; }
-.tema-claro main .text-rose-400 { color: #9f1239; }
-.tema-claro main .text-orange-300 { color: #9a3412; }
+html[data-ue-theme="light"] main .text-sky-400 { color: #7a4800; }
+html[data-ue-theme="light"] main .text-emerald-400 { color: #065f46; }
+html[data-ue-theme="light"] main .text-violet-300 { color: #7a4800; }
+html[data-ue-theme="light"] main .text-amber-400 { color: #7a4800; }
+html[data-ue-theme="light"] main .text-indigo-400 { color: #7a4800; }
+html[data-ue-theme="light"] main .text-rose-400 { color: #9f1239; }
+html[data-ue-theme="light"] main .text-orange-300 { color: #7a4800; }
 /* Enlace de respaldo del pie (solo aparece si el pie no carga) */
-.tema-claro #footer-container > div > a.text-slate-400 { color: #3b4a66; }
-.tema-claro #footer-container > div > a.text-slate-400:hover { color: #14264b; }
+html[data-ue-theme="light"] #footer-container > div > a.text-slate-400 { color: #3b4a66; }
+html[data-ue-theme="light"] #footer-container > div > a.text-slate-400:hover { color: #14264b; }
 /* Foco: aro oscuro sobre fondo claro */
-html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 0 0 0 5px rgba(255,255,255,.9) !important; }
-/* Botón de tema */
-#tema svg { width: 16px; height: 16px; flex: none; }
-/* El ícono, como el texto, muestra el modo al que se pasa: sol en modo noche, luna en modo claro */
-#tema .ico-luna { display: none; }
-.tema-claro #tema .ico-sol { display: none; }
-.tema-claro #tema .ico-luna { display: block; }
+html[data-ue-theme="light"] :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 0 0 0 5px rgba(255,255,255,.9) !important; }
 </style>
 <style id="a11y-base">
 /* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
-:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+:focus-visible{outline:3px solid #ffc85a !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(20,38,75,.85) !important}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
-.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cdd6e8;background:#0b1730;border-top:1px solid #1c3260}
 </style>
+<!-- Capa visual compartida del portal: tipografías, paleta, modo claro/noche y alto contraste (carpeta ue/) -->
+<link rel="stylesheet" href="ue/ue.css">
+<script src="ue/ue.js"></script>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-slate-950">
 
   <!-- CABECERA -->
-  <header class="border-b border-slate-800/80 bg-slate-950/60 backdrop-blur-md sticky top-0 z-40 py-4 px-4 sm:px-6">
+  <header class="ue-appbar sticky top-0 z-40 py-3 px-4 sm:px-6">
     <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
       
       <!-- Marca del portal (misma que en las actividades; sin botón "Inicio" porque esta es la portada) -->
@@ -145,18 +120,14 @@ html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 
       </div>
 
       <div class="flex items-center gap-2">
-      <!-- Selector de tema claro / oscuro (el texto dice a qué modo se pasa) -->
-      <button type="button" id="tema" class="flex items-center gap-2 bg-slate-900/80 hover:bg-slate-800 px-4 py-2 rounded-xl border border-slate-800 transition-colors text-xs text-slate-300 hover:text-white">
-        <svg class="ico-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.800 9.800z"/></svg>
-        <svg class="ico-sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.900 4.900l1.400 1.400M17.700 17.700l1.400 1.400M2 12h2M20 12h2M4.900 19.100l1.400-1.400M17.700 6.300l1.400-1.400"/></svg>
-        <span id="tema-txt">Modo claro</span>
-      </button>
+      <!-- Botones «Modo claro / Modo noche» y «Alto contraste» (los dibuja ue/ue.js; iguales en todo el portal) -->
+      <div data-ue-tools></div>
       <!-- Enlace ANEP / Uruguay Educa - EDyTIC -->
       <a 
         href="https://edytic.ces.edu.uy/index.php/inicio" 
         target="_blank" 
         rel="noopener noreferrer" 
-        class="hidden md:flex items-center gap-2 bg-slate-900/80 hover:bg-slate-800 px-4 py-2 rounded-xl border border-slate-800 transition-colors text-xs text-slate-300 hover:text-white"
+        class="ue-tool ue-wide-only"
       >
         <span>Portal Uruguay Educa - EDyTIC</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
@@ -184,16 +155,16 @@ html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 
 
     <!-- Filtros de Categorías -->
     <section class="flex flex-wrap justify-center gap-2 mb-10" aria-label="Filtros de recursos">
-      <button onclick="filterResources('all')" id="btn-all" class="filter-btn px-4 py-2 rounded-full text-xs font-bold bg-sky-500 text-slate-950 transition-all shadow-lg shadow-sky-500/10">
+      <button onclick="filterResources('all')" id="btn-all" aria-pressed="true" class="filter-btn px-4 py-2 rounded-full text-xs font-bold bg-sky-500 text-slate-950 transition-all shadow-lg shadow-sky-500/10">
         Todos los recursos
       </button>
-      <button onclick="filterResources('simuladores')" id="btn-simuladores" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
+      <button onclick="filterResources('simuladores')" id="btn-simuladores" aria-pressed="false" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         🌌 Simuladores 3D
       </button>
-      <button onclick="filterResources('modulos')" id="btn-modulos" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
+      <button onclick="filterResources('modulos')" id="btn-modulos" aria-pressed="false" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         📖 Módulos educativos
       </button>
-      <button onclick="filterResources('evaluaciones')" id="btn-evaluaciones" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
+      <button onclick="filterResources('evaluaciones')" id="btn-evaluaciones" aria-pressed="false" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         🎮 Trivias y evaluaciones
       </button>
     </section>
@@ -298,7 +269,7 @@ html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 
       <article data-category="modulos" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Módulo interactivo</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 rounded-md border border-amber-500/20">Módulo interactivo</span>
             <span class="text-3xl" aria-hidden="true">🚀</span>
           </div>
           <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Sondas Voyager</h3>
@@ -318,7 +289,7 @@ html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 
       <article data-category="modulos" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Módulo de contenido</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 rounded-md border border-amber-500/20">Módulo de contenido</span>
             <span class="text-3xl" aria-hidden="true">🔭</span>
           </div>
           <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Contaminación lumínica</h3>
@@ -338,7 +309,7 @@ html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 
       <article data-category="modulos" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Módulo interactivo</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 rounded-md border border-amber-500/20">Módulo interactivo</span>
             <span class="text-3xl" aria-hidden="true">🪐</span>
           </div>
           <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Explorador de exoplanetas</h3>
@@ -358,7 +329,7 @@ html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 
       <article data-category="modulos" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Módulo interactivo</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 rounded-md border border-amber-500/20">Módulo interactivo</span>
             <span class="text-3xl" aria-hidden="true">🌀</span>
           </div>
           <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Movimiento general diario</h3>
@@ -378,7 +349,7 @@ html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 
       <article data-category="modulos" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Módulo interactivo</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 rounded-md border border-amber-500/20">Módulo interactivo</span>
             <span class="text-3xl" aria-hidden="true">🌌</span>
           </div>
           <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Constelaciones</h3>
@@ -398,7 +369,7 @@ html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 
       <article data-category="modulos" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 rounded-md border border-emerald-500/20">Guía práctica</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 rounded-md border border-amber-500/20">Guía práctica</span>
             <span class="text-3xl" aria-hidden="true">📱</span>
           </div>
           <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Astrofotografía con celular</h3>
@@ -418,7 +389,7 @@ html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 
       <article data-category="evaluaciones" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-rose-500/15 text-rose-400 rounded-md border border-rose-500/20">Trivia grupal</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 rounded-md border border-amber-500/20">Trivia grupal</span>
             <span class="text-3xl" aria-hidden="true">🏆</span>
           </div>
           <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Quiz Show dinámico</h3>
@@ -438,7 +409,7 @@ html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 
       <article data-category="evaluaciones" class="resource-card group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
-            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-rose-500/15 text-rose-400 rounded-md border border-rose-500/20">Video cuestionario</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 rounded-md border border-amber-500/20">Video cuestionario</span>
             <span class="text-3xl" aria-hidden="true">🎬</span>
           </div>
           <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Video quiz interactivo</h3>
@@ -476,8 +447,8 @@ html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 
     </form>
   </dialog>
   <style>
-    .codes-dialog{width:min(26rem,calc(100% - 32px));padding:24px;border-radius:16px;background:#0f172a;color:#f1f5f9;border:1px solid #334155;box-shadow:0 20px 50px rgba(0,0,0,.6)}
-    .codes-dialog::backdrop{background:rgba(2,6,23,.75)}
+    .codes-dialog{width:min(26rem,calc(100% - 32px));padding:24px;border-radius:16px;background:#14264b;color:#eef2fa;border:1px solid #2e4472;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+    .codes-dialog::backdrop{background:rgba(11,23,48,.75)}
   </style>
   <script>
     (() => {
@@ -531,26 +502,6 @@ html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 
     })();
   </script>
 
-  <!-- Tema claro / oscuro: guarda la elección para todo el portal y la vuelve a aplicar al regresar con «Atrás» -->
-  <script>
-    (() => {
-      const root = document.documentElement, btn = document.getElementById('tema'), txt = document.getElementById('tema-txt');
-      const leer = () => { try { return localStorage.getItem('astro-tema'); } catch (e) { return null; } };
-      const pintar = (claro) => {
-        root.classList.toggle('tema-claro', claro);
-        txt.textContent = claro ? 'Modo noche' : 'Modo claro';
-      };
-      const aplicar = () => pintar(leer() === 'dia');
-      aplicar();
-      addEventListener('pageshow', aplicar);
-      addEventListener('storage', e => { if (e.key === 'astro-tema') aplicar(); });
-      btn.addEventListener('click', () => {
-        const claro = !root.classList.contains('tema-claro');
-        try { localStorage.setItem('astro-tema', claro ? 'dia' : 'noche'); } catch (e) {}
-        pintar(claro);
-      });
-    })();
-  </script>
 
   <!-- Cinta "Nuevo": visible hasta el final del día indicado en data-new-until (hora local) -->
   <script>
@@ -574,11 +525,13 @@ html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 
       // Actualizar estado activo de los botones de filtro
       buttons.forEach(btn => {
         btn.className = "filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white transition-all";
+        btn.setAttribute('aria-pressed', 'false');
       });
       
       const activeBtn = document.getElementById(`btn-${category}`);
       if(activeBtn) {
         activeBtn.className = "filter-btn px-4 py-2 rounded-full text-xs font-bold bg-sky-500 text-slate-950 transition-all shadow-lg shadow-sky-500/10";
+        activeBtn.setAttribute('aria-pressed', 'true');
       }
 
       // Filtrar tarjetas con una transición suave de opacidad
@@ -661,7 +614,7 @@ html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 
     el.setAttribute('tabindex','0'); el.setAttribute('role','application');
     var x=.5,y=.5, m=document.createElement('div');
     m.setAttribute('aria-hidden','true');
-    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #14264b;pointer-events:none;z-index:9999;display:none';
     document.body.appendChild(m);
     function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
     function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';

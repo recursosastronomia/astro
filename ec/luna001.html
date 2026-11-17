@@ -6,9 +6,10 @@
     <title>Simulador interactivo de fases lunares (hemisferio sur)</title>
     <!-- Tailwind CSS para el diseño responsivo -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts para tipografía clara y legible -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome para iconos -->
+    <!-- Paleta y tipografías del portal para las clases de Tailwind (ver ../ue/ue-tailwind.js) -->
+    <script src="../ue/ue-tailwind.js"></script>
+    <script>tailwind.config = UE_TW.config({ fixed: true });</script>
+<!-- FontAwesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Three.js para la simulación 3D -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -17,9 +18,9 @@
 
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #030712;
-            color: #f3f4f6;
+            font-family: var(--ue-font-ui);
+            background-color: #0b1730;
+            color: #eef2fa;
             overflow-x: hidden;
         }
         /* Personalización de barra de desplazamiento */
@@ -30,18 +31,18 @@
             background: #0b1329;
         }
         ::-webkit-scrollbar-thumb {
-            background: #1f2937;
+            background: #1c3260;
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #3b82f6;
+            background: #ffb627;
         }
         /* Efecto de brillo para elementos destacados */
         .glow-blue {
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 0 15px rgba(255, 182, 39, 0.4);
         }
         .glow-gold {
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+            box-shadow: 0 0 15px rgba(255, 182, 39, 0.4);
         }
         /* Deslizador de rango estilizado */
         input[type="range"]::-webkit-slider-thumb {
@@ -50,105 +51,75 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: #3b82f6;
+            background: #ffb627;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+            box-shadow: 0 0 10px rgba(255, 182, 39, 0.8);
             transition: transform 0.1s ease;
         }
         input[type="range"]::-webkit-slider-thumb:hover {
             transform: scale(1.2);
         }
     </style>
-  <!-- Encabezado del portal: botón "Inicio" + marca "Astronomía para todos · DGES - EDyTIC" (componente compartido, idéntico en todas las actividades) -->
-  <style>
-    .ue-home{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:10px;color:inherit;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.32);text-decoration:none;transition:background-color .2s,border-color .2s}
-    .ue-home:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.65)}
-    .ue-home:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
-    .ue-home svg{width:20px;height:20px;display:block}
-    .ue-brand-row{display:flex;align-items:center;gap:12px;min-width:0}
-    .ue-brand{display:flex;align-items:center;gap:12px;padding:7px 14px;border-radius:12px;background:#0f172a;border:1px solid rgba(148,163,184,.28);box-shadow:0 2px 10px rgba(0,0,0,.25);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;text-align:left;-webkit-text-fill-color:initial}
-    .ue-brand-logo{display:block;height:26px;width:auto;max-width:none;margin:0;border:0;border-radius:0;box-shadow:none}
-    .ue-brand-sep{flex:none;width:1px;align-self:stretch;background:rgba(148,163,184,.35)}
-    .ue-brand-text{display:flex;flex-direction:column;line-height:1.15}
-    .ue-brand-title{display:block;margin:0;font-size:15px;font-weight:700;letter-spacing:.01em;text-transform:none;color:#f8fafc}
-    .ue-brand-sub{display:block;margin:2px 0 0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:none;color:#fdba74}
-    @media (max-width:639px){
-      .ue-brand{flex-direction:column;align-items:flex-start;gap:5px;padding:7px 11px}
-      .ue-brand-sep{display:none}
-      .ue-brand-logo{height:18px}
-    }
-    @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
-  </style>
 <style id="a11y-base">
 #toast.opacity-0{pointer-events:none}
 /* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
-:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+:focus-visible{outline:3px solid #ffc85a !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(20,38,75,.85) !important}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
-.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
-</style>
-<!-- Selector de tema claro/oscuro (mismo diseño que la actividad Voyager) -->
-<style id="ue-theme-switch">
-.theme-switch-wrapper{display:flex;align-items:center;gap:10px;flex:none}
-.theme-switch{position:relative;display:inline-block;width:60px;height:34px;margin:0}
-.theme-switch input{position:absolute;opacity:0;width:0;height:0;margin:0}
-.theme-switch .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.4s;border-radius:34px}
-.theme-switch .slider:before{position:absolute;content:"\2600\FE0F";display:flex;justify-content:center;align-items:center;font-size:14px;line-height:1;height:26px;width:26px;left:4px;bottom:4px;background-color:#fff;transition:.4s;border-radius:50%}
-.theme-switch input:checked + .slider{background-color:#3b82f6}
-.theme-switch input:checked + .slider:before{transform:translateX(26px);content:"\1F319"}
-.theme-switch input:focus-visible + .slider{outline:3px solid #facc15;outline-offset:2px}
-@media (prefers-reduced-motion:reduce){.theme-switch .slider,.theme-switch .slider:before{transition:none}}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cdd6e8;background:#0b1730;border-top:1px solid #1c3260}
 </style>
 <!-- Modo claro (activado con el selector de tema del encabezado) -->
 <style id="ue-modo-claro">
-html[data-theme="light"] body{background-color:#e5e7eb !important;background-image:none !important;color:#0f172a}
-html[data-theme="light"] header{background-color:rgba(229,231,235,.92) !important;border-color:#cbd5e1 !important}
-html[data-theme="light"] ::-webkit-scrollbar-track{background:#e2e8f0}
-html[data-theme="light"] ::-webkit-scrollbar-thumb{background:#94a3b8}
-html[data-theme="light"] .bg-blue-900\/50{background-color:#dbeafe !important}
-html[data-theme="light"] .bg-blue-950\/20{background-color:#dbeafe !important}
-html[data-theme="light"] .bg-blue-950\/40{background-color:#dbeafe !important}
-html[data-theme="light"] .bg-gray-700{background-color:#f8fafc !important}
-html[data-theme="light"] .bg-slate-800{background-color:#cbd5e1 !important}
-html[data-theme="light"] .bg-slate-900{background-color:#f8fafc !important}
-html[data-theme="light"] .bg-slate-900\/90{background-color:#f8fafc !important}
-html[data-theme="light"] .bg-slate-950{background-color:#e2e8f0 !important}
-html[data-theme="light"] .bg-slate-950\/40{background-color:#e2e8f0 !important}
-html[data-theme="light"] .bg-slate-950\/50{background-color:#e2e8f0 !important}
-html[data-theme="light"] .bg-slate-950\/60{background-color:#e2e8f0 !important}
-html[data-theme="light"] .bg-slate-950\/80{background-color:#e2e8f0 !important}
-html[data-theme="light"] .border-blue-800{border-color:#93c5fd !important}
-html[data-theme="light"] .border-blue-800\/30{border-color:#93c5fd !important}
-html[data-theme="light"] .border-blue-900\/30{border-color:#93c5fd !important}
-html[data-theme="light"] .border-blue-900\/40{border-color:#93c5fd !important}
-html[data-theme="light"] .border-blue-900\/50{border-color:#93c5fd !important}
-html[data-theme="light"] .border-gray-600{border-color:#94a3b8 !important}
-html[data-theme="light"] .border-slate-800{border-color:#cbd5e1 !important}
-html[data-theme="light"] .border-slate-800\/80{border-color:#cbd5e1 !important}
-html[data-theme="light"] .border-slate-850{border-color:#cbd5e1 !important}
-html[data-theme="light"] .hover\:bg-slate-700:hover{background-color:#b6c2d2 !important}
-html[data-theme="light"] .hover\:bg-slate-800:hover{background-color:#cbd5e1 !important}
-html[data-theme="light"] .hover\:text-blue-300:hover{color:#1e3a8a !important}
+html[data-theme="light"] body{background-color:#f1f3f6 !important;background-image:none !important;color:#14264b}
+html[data-theme="light"] ::-webkit-scrollbar-track{background:#e6eaf1}
+html[data-theme="light"] ::-webkit-scrollbar-thumb{background:#66758f}
+html[data-theme="light"] .bg-blue-900\/50{background-color:#fff3d6 !important}
+html[data-theme="light"] .bg-blue-950\/20{background-color:#fff3d6 !important}
+html[data-theme="light"] .bg-blue-950\/40{background-color:#fff3d6 !important}
+html[data-theme="light"] .bg-gray-700{background-color:#ffffff !important}
+html[data-theme="light"] .bg-slate-800{background-color:#cbd2de !important}
+html[data-theme="light"] .bg-slate-900{background-color:#ffffff !important}
+html[data-theme="light"] .bg-slate-900\/90{background-color:#ffffff !important}
+html[data-theme="light"] .bg-slate-950{background-color:#e6eaf1 !important}
+html[data-theme="light"] .bg-slate-950\/40{background-color:#e6eaf1 !important}
+html[data-theme="light"] .bg-slate-950\/50{background-color:#e6eaf1 !important}
+html[data-theme="light"] .bg-slate-950\/60{background-color:#e6eaf1 !important}
+html[data-theme="light"] .bg-slate-950\/80{background-color:#e6eaf1 !important}
+html[data-theme="light"] .border-blue-800{border-color:#ffd88a !important}
+html[data-theme="light"] .border-blue-800\/30{border-color:#ffd88a !important}
+html[data-theme="light"] .border-blue-900\/30{border-color:#ffd88a !important}
+html[data-theme="light"] .border-blue-900\/40{border-color:#ffd88a !important}
+html[data-theme="light"] .border-blue-900\/50{border-color:#ffd88a !important}
+html[data-theme="light"] .border-gray-600{border-color:#66758f !important}
+html[data-theme="light"] .border-slate-800{border-color:#cbd2de !important}
+html[data-theme="light"] .border-slate-800\/80{border-color:#cbd2de !important}
+html[data-theme="light"] .border-slate-850{border-color:#cbd2de !important}
+html[data-theme="light"] .hover\:bg-slate-700:hover{background-color:#b9c2d2 !important}
+html[data-theme="light"] .hover\:bg-slate-800:hover{background-color:#cbd2de !important}
+html[data-theme="light"] .hover\:text-blue-300:hover{color:#7a4800 !important}
 html[data-theme="light"] .hover\:text-slate-100:hover{color:#000 !important}
-html[data-theme="light"] .text-amber-400{color:#92400e !important}
-html[data-theme="light"] .text-amber-500{color:#b45309 !important}
-html[data-theme="light"] .text-blue-300{color:#1e40af !important}
-html[data-theme="light"] .text-blue-400{color:#1d4ed8 !important}
-html[data-theme="light"] .text-blue-500{color:#1d4ed8 !important}
-html[data-theme="light"] .text-slate-100{color:#0f172a !important}
-html[data-theme="light"] .text-slate-200{color:#1e293b !important}
-html[data-theme="light"] .text-slate-300{color:#334155 !important}
-html[data-theme="light"] .text-slate-400{color:#475569 !important}
-html[data-theme="light"] .text-white:not([class*="bg-"]):not(button *):not(a[class*="bg-"] *){color:#0f172a !important}
-html[data-theme="light"] .bg-gradient-to-b.from-slate-900{background-image:none !important;background-color:#f8fafc !important}
-html[data-theme="light"] .bg-clip-text.from-slate-100{background-image:linear-gradient(to right,#0f172a,#1d4ed8) !important}
-html[data-theme="light"] .bg-amber-500\/10.text-amber-400{color:#fbbf24 !important;background-color:rgba(0,0,0,.6) !important}
-html[data-theme="light"] #age-slider{background-color:#cbd5e1 !important}
+html[data-theme="light"] .text-amber-400{color:#7a4800 !important}
+html[data-theme="light"] .text-amber-500{color:#7a4800 !important}
+html[data-theme="light"] .text-blue-300{color:#7a4800 !important}
+html[data-theme="light"] .text-blue-400{color:#7a4800 !important}
+html[data-theme="light"] .text-blue-500{color:#7a4800 !important}
+html[data-theme="light"] .text-slate-100{color:#14264b !important}
+html[data-theme="light"] .text-slate-200{color:#14264b !important}
+html[data-theme="light"] .text-slate-300{color:#3b4a66 !important}
+html[data-theme="light"] .text-slate-400{color:#3b4a66 !important}
+html[data-theme="light"] .text-white:not([class*="bg-"]):not(button *):not(a[class*="bg-"] *){color:#14264b !important}
+html[data-theme="light"] .bg-gradient-to-b.from-slate-900{background-image:none !important;background-color:#ffffff !important}
+html[data-theme="light"] .bg-clip-text.from-slate-100{background-image:linear-gradient(to right,#14264b,#7a4800) !important}
+html[data-theme="light"] .bg-amber-500\/10.text-amber-400{color:#ffc85a !important;background-color:rgba(0,0,0,.6) !important}
+html[data-theme="light"] #age-slider{background-color:#cbd2de !important}
 </style>
+<!-- Capa visual compartida del portal: tipografías, paleta, modo claro/noche y alto contraste (carpeta ue/) -->
+<link rel="stylesheet" href="../ue/ue.css">
+<script src="../ue/ue.js"></script>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
     <!-- Encabezado Principal -->
-    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50 px-4 py-3">
+    <header class="ue-appbar sticky top-0 z-50 px-4 py-3">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
             <div class="ue-brand-row">
               <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
@@ -168,12 +139,8 @@ html[data-theme="light"] #age-slider{background-color:#cbd5e1 !important}
                     <i class="fa-solid fa-circle-question"></i>
                     <span>¿Cómo funciona?</span>
                 </button>
-                <div class="theme-switch-wrapper">
-                  <label class="theme-switch" for="theme-checkbox" aria-label="Cambiar modo claro/oscuro">
-                    <input type="checkbox" id="theme-checkbox" checked />
-                    <div class="slider"></div>
-                  </label>
-                </div>
+                <!-- Botones «Modo claro / Modo noche» y «Alto contraste» (los dibuja ../ue/ue.js; iguales en todo el portal) -->
+                <div data-ue-tools class="ue-tools-compact"></div>
             </div>
         </div>
     </header>
@@ -439,7 +406,7 @@ html[data-theme="light"] #age-slider{background-color:#cbd5e1 !important}
           href="https://uruguayeduca.anep.edu.uy/" 
           target="_blank" 
           rel="noopener noreferrer" 
-          class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-4xl w-full px-6 py-4 bg-[#090d16] rounded-2xl border border-blue-900/30 backdrop-blur-sm group hover:border-yellow-500/30 transition-all"
+          class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-4xl w-full px-6 py-4 bg-[#0b1730] rounded-2xl border border-blue-900/30 backdrop-blur-sm group hover:border-yellow-500/30 transition-all"
         >
           <img 
             src="https://danielgastelu.github.io/web/logos/logoueblanco-removebg.png" 
@@ -447,7 +414,7 @@ html[data-theme="light"] #age-slider{background-color:#cbd5e1 !important}
             class="h-10 md:h-12 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
             onerror="this.onerror=null; this.style.display='none';"
           />
-          <span class="text-xs md:text-sm text-[#cbd5e1] group-hover:text-yellow-300 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
+          <span class="text-xs md:text-sm text-[#cdd6e8] group-hover:text-yellow-300 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
             Portal Uruguay Educa (ANEP-DGES-EDyTIC) - Contenidistas de Astronomía 2026. - Herramienta de uso libre. - Desarrollado con asistencia de IA.
           </span>
         </a>
@@ -1130,7 +1097,7 @@ html[data-theme="light"] #age-slider{background-color:#cbd5e1 !important}
     el.setAttribute('tabindex','0'); el.setAttribute('role','application');
     var x=.5,y=.5, m=document.createElement('div');
     m.setAttribute('aria-hidden','true');
-    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #14264b;pointer-events:none;z-index:9999;display:none';
     document.body.appendChild(m);
     function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
     function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';
@@ -1170,13 +1137,5 @@ html[data-theme="light"] #age-slider{background-color:#cbd5e1 !important}
 })();
 </script>
 <p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
-<script>
-/* Selector de tema claro/oscuro (mismo comportamiento que la actividad Voyager) */
-(function(){
-  var cb=document.getElementById('theme-checkbox'), root=document.documentElement;
-  if(!cb) return;
-  cb.addEventListener('change',function(){ root.setAttribute('data-theme', cb.checked ? 'dark' : 'light'); });
-})();
-</script>
 </body>
 </html>

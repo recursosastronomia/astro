@@ -1,0 +1,427 @@
+/* =========================================================================
+   Astronomía para todos — capa visual compartida del portal
+   -------------------------------------------------------------------------
+   Una sola fuente de verdad para tipografías, paleta, barra superior y los
+   botones «Modo claro / Modo noche» y «Alto contraste» de todas las secciones.
+   Referencia visual: Misión Helios (mhp). Referencia de alto contraste:
+   Eclipse sonoro 2027 (eclipse).
+
+   El modo se guarda una sola vez para todo el sitio (ver ue.js) y se publica
+   en <html>:
+     data-ue-theme = "light" | "dark" | "hc"   (modo que se ve)
+     data-ue-base  = "light" | "dark"          (modo al que se vuelve al quitar
+                                                el alto contraste)
+   ========================================================================= */
+
+@font-face { font-family: "Fraunces"; src: url("fonts/fraunces-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Fraunces"; src: url("fonts/fraunces-latin-wght-italic.woff2") format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("fonts/atkinson-hyperlegible-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("fonts/atkinson-hyperlegible-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("fonts/atkinson-hyperlegible-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+
+/* ---------- Tokens ---------- */
+:root {
+  /* Paleta base (la de Misión Helios) */
+  --ue-ink: #14264b;
+  --ue-ink-deep: #0b1730;
+  --ue-ink-soft: #243a68;
+  --ue-ink-line: #2e4472;
+  --ue-on-ink: #eef2fa;
+  --ue-on-ink-muted: #b4c0d9;
+  --ue-amber: #ffb627;
+  --ue-amber-press: #f0a00a;
+
+  /* Modo claro. Contrastes WCAG 2.2 AA: texto y enlaces ≥ 4,5:1; bordes de controles ≥ 3:1 */
+  --ue-bg: #f1f3f6;
+  --ue-surface: #ffffff;
+  --ue-surface-2: #e6eaf1;
+  --ue-fg: #14264b;
+  --ue-muted: #3b4a66;
+  --ue-line: #cbd2de;
+  --ue-control-line: #66758f;
+  --ue-link: #1b4fa8;
+  --ue-accent-text: #8a5300;   /* ámbar legible como texto sobre papel */
+  --ue-flare: #c2410c;
+  --ue-ok: #0c7561;
+  --ue-ok-bg: #e3f4ee;
+  --ue-err: #b3261e;
+  --ue-err-bg: #fbe6e4;
+  --ue-wash: #fff3d6;
+  --ue-focus: #1b4fa8;
+
+  --ue-primary-bg: var(--ue-amber);
+  --ue-primary-fg: var(--ue-ink-deep);
+  --ue-selected-bg: var(--ue-ink);
+  --ue-selected-fg: var(--ue-on-ink);
+
+  /* Barra superior: azul tinta en modo claro y en modo noche */
+  --ue-bar-bg: var(--ue-ink);
+  --ue-bar-fg: var(--ue-on-ink);
+  --ue-bar-fg-muted: var(--ue-on-ink-muted);
+  --ue-bar-line: #3a5285;
+
+  --ue-font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --ue-font-ui: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --ue-radius: 10px;
+}
+
+:root[data-ue-theme="dark"] {
+  --ue-bg: #0b1730;
+  --ue-surface: #14264b;
+  --ue-surface-2: #1c3260;
+  --ue-fg: #eef2fa;
+  --ue-muted: #b4c0d9;
+  --ue-line: #2e4472;
+  --ue-control-line: #8f9bb3;
+  --ue-link: #8cc0ff;
+  --ue-accent-text: #ffb627;
+  --ue-flare: #ffb627;
+  --ue-ok: #6dd5b9;
+  --ue-ok-bg: rgba(61, 187, 155, 0.16);
+  --ue-err: #ef8f86;
+  --ue-err-bg: rgba(229, 100, 90, 0.16);
+  --ue-wash: rgba(255, 182, 39, 0.14);
+  --ue-focus: #ffffff;
+  --ue-selected-bg: var(--ue-amber);
+  --ue-selected-fg: var(--ue-ink-deep);
+}
+
+:root[data-ue-theme="hc"] {
+  /* Alto contraste (baja visión, exterior con sol intenso): mismo esquema que Eclipse sonoro 2027 */
+  --ue-bg: #000000;
+  --ue-surface: #000000;
+  --ue-surface-2: #000000;
+  --ue-fg: #ffff00;
+  --ue-muted: #ffff00;
+  --ue-line: #ffffff;
+  --ue-control-line: #ffffff;
+  --ue-link: #00ffff;
+  --ue-accent-text: #ffff00;
+  --ue-flare: #ffff00;
+  --ue-ok: #00ff00;
+  --ue-ok-bg: #000000;
+  --ue-err: #ff8080;
+  --ue-err-bg: #000000;
+  --ue-wash: #000000;
+  --ue-focus: #ffffff;
+  --ue-primary-bg: #00ffff;
+  --ue-primary-fg: #000000;
+  --ue-selected-bg: #00ffff;
+  --ue-selected-fg: #000000;
+  --ue-bar-bg: #000000;
+  --ue-bar-fg: #ffff00;
+  --ue-bar-fg-muted: #ffff00;
+  --ue-bar-line: #ffffff;
+}
+
+:root[data-ue-theme="light"] { color-scheme: light; }
+:root[data-ue-theme="dark"], :root[data-ue-theme="hc"] { color-scheme: dark; }
+
+/* ---------- Tipografía común ---------- */
+h1, h2, h3, h4, .ue-display { font-family: var(--ue-font-display); letter-spacing: -0.005em; }
+.ue-ui, .ue-appbar, .ue-appbar *, .ue-tool { font-family: var(--ue-font-ui); }
+
+/* ---------- Barra superior común ---------- */
+:root .ue-appbar, .ue-appbar {
+  background: var(--ue-bar-bg) !important;
+  color: var(--ue-bar-fg) !important;
+  border-bottom: 1px solid var(--ue-bar-line) !important;
+  -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+/* Barra que agrega ue.js en las páginas que no tenían encabezado del portal */
+.ue-appbar.ue-appbar-auto { position: sticky; top: 0; z-index: 60; padding: .6rem 1rem; }
+.ue-appbar-in { display: flex; align-items: center; justify-content: space-between; gap: .75rem; max-width: 72rem; margin: 0 auto; }
+
+.ue-brand-row { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.ue-home, .ue-appbar .ue-home {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 40px; height: 40px; border-radius: 10px;
+  color: var(--ue-bar-fg); background: rgba(255, 255, 255, .06); border: 1px solid var(--ue-bar-line);
+  text-decoration: none; transition: background-color .2s, border-color .2s;
+}
+.ue-home:hover, .ue-appbar .ue-home:hover { background: var(--ue-ink-soft); border-color: var(--ue-amber); }
+.ue-home svg { width: 20px; height: 20px; display: block; }
+.ue-brand, .ue-appbar .ue-brand {
+  display: flex; align-items: center; gap: 12px; padding: 6px 12px; border-radius: 10px;
+  background: rgba(255, 255, 255, .06); border: 1px solid var(--ue-bar-line); box-shadow: none;
+  font-family: var(--ue-font-ui); text-align: left; -webkit-text-fill-color: initial;
+}
+.ue-brand-logo { display: block; height: 26px; width: auto; max-width: none; margin: 0; border: 0; border-radius: 0; box-shadow: none; }
+.ue-brand-sep { flex: none; width: 1px; align-self: stretch; background: var(--ue-bar-line); }
+.ue-brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+.ue-brand .ue-brand-title { display: block; margin: 0; font-family: var(--ue-font-display); font-size: 16px; font-weight: 650; letter-spacing: .005em; text-transform: none; color: var(--ue-bar-fg); }
+.ue-brand .ue-brand-sub { display: block; margin: 2px 0 0; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: none; color: var(--ue-amber); }
+@media (max-width: 639px) {
+  .ue-brand, .ue-appbar .ue-brand { flex-direction: column; align-items: flex-start; gap: 4px; padding: 6px 10px; }
+  .ue-brand-sep { display: none; }
+  .ue-brand-logo { height: 18px; }
+  .ue-brand .ue-brand-title { font-size: 14px; }
+}
+
+/* ---------- Botones de modo (los mismos en todas las secciones) ---------- */
+.ue-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .4rem; flex: none; }
+.ue-tool {
+  display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
+  min-height: 40px; min-width: 40px; padding: .35rem .7rem; margin: 0;
+  border-radius: 10px; border: 1px solid var(--ue-bar-line);
+  background: rgba(255, 255, 255, .06); color: var(--ue-bar-fg);
+  font-family: var(--ue-font-ui); font-size: .875rem; font-weight: 700; line-height: 1.1; letter-spacing: 0; text-transform: none;
+  white-space: nowrap; cursor: pointer; touch-action: manipulation;
+  transition: background-color .2s, border-color .2s;
+}
+.ue-tool:hover { background: var(--ue-ink-soft); border-color: var(--ue-amber); }
+.ue-tool svg { width: 18px; height: 18px; flex: none; display: block; }
+.ue-tool[aria-pressed="true"] { background: var(--ue-amber); color: var(--ue-ink-deep); border-color: var(--ue-amber); }
+.ue-home:focus-visible, .ue-tool:focus-visible { outline: 3px solid var(--ue-amber) !important; outline-offset: 2px !important; box-shadow: none !important; }
+@media (max-width: 639px) {
+  /* En pantallas chicas quedan solo los íconos; el nombre sigue disponible para lectores de pantalla */
+  .ue-tool { padding: .35rem; }
+  .ue-tool .ue-tool-txt { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+@media (prefers-reduced-motion: reduce) { .ue-home, .ue-tool { transition: none; } }
+
+.ue-sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+:root[data-ue-theme="hc"] .ue-home,
+:root[data-ue-theme="hc"] .ue-brand,
+:root[data-ue-theme="hc"] .ue-tool { background: #000 !important; color: #ffff00 !important; border: 2px solid #fff !important; }
+:root[data-ue-theme="hc"] .ue-brand .ue-brand-title, :root[data-ue-theme="hc"] .ue-brand .ue-brand-sub { color: #ffff00 !important; }
+:root[data-ue-theme="hc"] .ue-tool[aria-pressed="true"] { background: #00ffff !important; color: #000 !important; border-color: #fff !important; }
+:root[data-ue-theme="hc"] .ue-home:focus-visible, :root[data-ue-theme="hc"] .ue-tool:focus-visible { outline-color: #fff !important; }
+
+/* =========================================================================
+   ALTO CONTRASTE GENERAL
+   Para las páginas que no traen su propio tema de alto contraste (todas menos
+   las que declaran <html data-ue-native>): fondo negro, texto amarillo, bordes
+   blancos, enlaces y elementos activos en cian. Las fotos, videos, lienzos y
+   dibujos no se tocan.
+   ========================================================================= */
+:root[data-ue-theme="hc"]:not([data-ue-native]) body,
+:root[data-ue-theme="hc"]:not([data-ue-native]) body *:where(:not(img, video, canvas, iframe, svg, svg *, .ue-keep, .ue-keep *)) {
+  background-color: #000 !important;
+  background-image: none !important;
+  color: #ffff00 !important;
+  -webkit-text-fill-color: currentColor !important;
+  border-color: #fff !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  text-decoration-color: currentColor !important;
+  caret-color: #ffff00 !important;
+}
+:root[data-ue-theme="hc"]:not([data-ue-native]) body *::before,
+:root[data-ue-theme="hc"]:not([data-ue-native]) body *::after {
+  background-image: none !important; text-shadow: none !important; box-shadow: none !important;
+}
+:root[data-ue-theme="hc"]:not([data-ue-native]) body *:where(:not(.ue-keep, .ue-keep *, canvas, img, video)) { opacity: 1 !important; }
+:root[data-ue-theme="hc"]:not([data-ue-native]) [hidden] { display: none !important; }
+/* capas decorativas (estrellas, nebulosas, brillos) */
+:root[data-ue-theme="hc"]:not([data-ue-native]) .ue-deco { display: none !important; }
+
+/* Enlaces */
+:root[data-ue-theme="hc"]:not([data-ue-native]) body a:not(.ue-home):not(.ue-keep),
+:root[data-ue-theme="hc"]:not([data-ue-native]) body a:not(.ue-home):not(.ue-keep) * { color: #00ffff !important; }
+:root[data-ue-theme="hc"]:not([data-ue-native]) body a:not(.ue-home):not([class*="bg-"]):not([class*="btn"]) { text-decoration: underline !important; }
+
+/* Controles: borde blanco bien visible */
+:root[data-ue-theme="hc"]:not([data-ue-native]) body button,
+:root[data-ue-theme="hc"]:not([data-ue-native]) body [role="button"],
+:root[data-ue-theme="hc"]:not([data-ue-native]) body a[class*="btn"],
+:root[data-ue-theme="hc"]:not([data-ue-native]) body a[class*="bg-"],
+:root[data-ue-theme="hc"]:not([data-ue-native]) body input,
+:root[data-ue-theme="hc"]:not([data-ue-native]) body select,
+:root[data-ue-theme="hc"]:not([data-ue-native]) body textarea,
+:root[data-ue-theme="hc"]:not([data-ue-native]) body summary {
+  border: 2px solid #fff !important;
+}
+:root[data-ue-theme="hc"]:not([data-ue-native]) body input[type="range"] { border: 0 !important; accent-color: #00ffff; }
+:root[data-ue-theme="hc"]:not([data-ue-native]) body input[type="checkbox"],
+:root[data-ue-theme="hc"]:not([data-ue-native]) body input[type="radio"] { accent-color: #00ffff; }
+:root[data-ue-theme="hc"]:not([data-ue-native]) body ::placeholder { color: #ffff00 !important; opacity: .85 !important; }
+:root[data-ue-theme="hc"]:not([data-ue-native]) body :disabled { border-style: dashed !important; }
+
+/* Elemento elegido / activo: cian con texto negro */
+:root[data-ue-theme="hc"]:not([data-ue-native]) body [aria-pressed="true"],
+:root[data-ue-theme="hc"]:not([data-ue-native]) body [aria-selected="true"],
+:root[data-ue-theme="hc"]:not([data-ue-native]) body [aria-current]:not([aria-current="false"]),
+:root[data-ue-theme="hc"]:not([data-ue-native]) body [aria-checked="true"],
+:root[data-ue-theme="hc"]:not([data-ue-native]) body .ue-on,
+:root[data-ue-theme="hc"]:not([data-ue-native]) body [aria-pressed="true"] *,
+:root[data-ue-theme="hc"]:not([data-ue-native]) body [aria-selected="true"] *,
+:root[data-ue-theme="hc"]:not([data-ue-native]) body [aria-current]:not([aria-current="false"]) *,
+:root[data-ue-theme="hc"]:not([data-ue-native]) body .ue-on * {
+  background-color: #00ffff !important; color: #000 !important;
+}
+/* Relleno de barras de progreso y medidores */
+:root[data-ue-theme="hc"]:not([data-ue-native]) body .ue-fill { background-color: #ffff00 !important; }
+:root[data-ue-theme="hc"]:not([data-ue-native]) body .ue-track { border: 1px solid #fff !important; }
+
+/* Aciertos y errores: no dependen solo del color de fondo */
+:root[data-ue-theme="hc"]:not([data-ue-native]) body .ue-ok { border: 3px solid #00ff00 !important; color: #00ff00 !important; }
+:root[data-ue-theme="hc"]:not([data-ue-native]) body .ue-ok * { color: #00ff00 !important; }
+:root[data-ue-theme="hc"]:not([data-ue-native]) body .ue-err { border: 3px dashed #ff8080 !important; color: #ff8080 !important; }
+:root[data-ue-theme="hc"]:not([data-ue-native]) body .ue-err * { color: #ff8080 !important; }
+
+/* Foco */
+:root[data-ue-theme="hc"] :focus-visible { outline: 3px solid #fff !important; outline-offset: 3px !important; box-shadow: none !important; }
+
+/* Dibujos vectoriales que usan el color del texto */
+:root[data-ue-theme="hc"]:not([data-ue-native]) body svg:not(.ue-keep) { color: #ffff00; }
+:root[data-ue-theme="hc"]:not([data-ue-native]) body a svg:not(.ue-keep) { color: #00ffff; }
+:root[data-ue-theme="hc"]:not([data-ue-native]) body [aria-pressed="true"] svg { color: #000; }
+
+/* Barras de desplazamiento */
+:root[data-ue-theme="hc"]:not([data-ue-native]) ::-webkit-scrollbar-track { background: #000 !important; }
+:root[data-ue-theme="hc"]:not([data-ue-native]) ::-webkit-scrollbar-thumb { background: #fff !important; }
+
+@media (forced-colors: active) {
+  .ue-home, .ue-tool, .ue-brand { border: 1px solid CanvasText; }
+}
+
+/* Enlaces de la barra que solo entran en pantallas anchas */
+@media (max-width: 767px) { .ue-wide-only { display: none !important; } }
+
+/* =========================================================================
+   PUENTE PARA PÁGINAS CON TAILWIND (ver ue-tailwind.js)
+   Las clases de grises (slate, gray…) y los textos de color toman estos valores,
+   que cambian con el modo. En modo claro la escala de grises se invierte: lo
+   que era fondo oscuro pasa a papel y lo que era texto claro pasa a tinta.
+   Generado: no editar a mano los valores de color de esta sección.
+   ========================================================================= */
+:root {
+  --ue-n-50: 248 250 253; --ue-n-100: 238 242 250; --ue-n-200: 226 232 244; --ue-n-300: 205 214 232; --ue-n-400: 180 192 217; --ue-n-500: 143 155 179; --ue-n-600: 75 95 138; --ue-n-700: 46 68 114; --ue-n-800: 28 50 96; --ue-n-850: 24 43 86; --ue-n-900: 20 38 75; --ue-n-950: 11 23 48;
+  --ue-t-white: 255 255 255; --ue-t-black: 0 0 0;
+  --ue-t-red-200: 254 202 202; --ue-t-red-300: 252 165 165; --ue-t-red-400: 248 113 113;
+  --ue-t-orange-200: 254 215 170; --ue-t-orange-300: 253 186 116; --ue-t-orange-400: 251 146 60;
+  --ue-t-amber-200: 253 230 138; --ue-t-amber-300: 252 211 77; --ue-t-amber-400: 251 191 36;
+  --ue-t-yellow-200: 254 240 138; --ue-t-yellow-300: 253 224 71; --ue-t-yellow-400: 250 204 21;
+  --ue-t-lime-200: 217 249 157; --ue-t-lime-300: 190 242 100; --ue-t-lime-400: 163 230 53;
+  --ue-t-green-200: 187 247 208; --ue-t-green-300: 134 239 172; --ue-t-green-400: 74 222 128;
+  --ue-t-emerald-200: 167 243 208; --ue-t-emerald-300: 110 231 183; --ue-t-emerald-400: 52 211 153;
+  --ue-t-teal-200: 153 246 228; --ue-t-teal-300: 94 234 212; --ue-t-teal-400: 45 212 191;
+  --ue-t-cyan-200: 165 243 252; --ue-t-cyan-300: 103 232 249; --ue-t-cyan-400: 34 211 238;
+  --ue-t-sky-200: 186 230 253; --ue-t-sky-300: 125 211 252; --ue-t-sky-400: 56 189 248;
+  --ue-t-blue-200: 191 219 254; --ue-t-blue-300: 147 197 253; --ue-t-blue-400: 96 165 250;
+  --ue-t-indigo-200: 199 210 254; --ue-t-indigo-300: 165 180 252; --ue-t-indigo-400: 129 140 248;
+  --ue-t-violet-200: 221 214 254; --ue-t-violet-300: 196 181 253; --ue-t-violet-400: 167 139 250;
+  --ue-t-purple-200: 233 213 255; --ue-t-purple-300: 216 180 254; --ue-t-purple-400: 192 132 252;
+  --ue-t-fuchsia-200: 245 208 254; --ue-t-fuchsia-300: 240 171 252; --ue-t-fuchsia-400: 232 121 249;
+  --ue-t-pink-200: 251 207 232; --ue-t-pink-300: 249 168 212; --ue-t-pink-400: 244 114 182;
+  --ue-t-rose-200: 254 205 211; --ue-t-rose-300: 253 164 175; --ue-t-rose-400: 251 113 133;
+}
+:root[data-ue-theme="light"] {
+  --ue-n-50: 11 23 48; --ue-n-100: 20 38 75; --ue-n-200: 36 58 104; --ue-n-300: 59 74 102; --ue-n-400: 75 91 120; --ue-n-500: 102 117 143; --ue-n-600: 143 155 179; --ue-n-700: 203 210 222; --ue-n-800: 230 234 241; --ue-n-850: 236 239 245; --ue-n-900: 255 255 255; --ue-n-950: 241 243 246;
+  --ue-t-white: 20 38 75; --ue-t-black: 238 242 250;
+  --ue-t-red-200: 127 29 29; --ue-t-red-300: 153 27 27; --ue-t-red-400: 185 28 28;
+  --ue-t-orange-200: 124 45 18; --ue-t-orange-300: 154 52 18; --ue-t-orange-400: 194 65 12;
+  --ue-t-amber-200: 120 53 15; --ue-t-amber-300: 146 64 14; --ue-t-amber-400: 180 83 9;
+  --ue-t-yellow-200: 113 63 18; --ue-t-yellow-300: 133 77 14; --ue-t-yellow-400: 161 98 7;
+  --ue-t-lime-200: 54 83 20; --ue-t-lime-300: 63 98 18; --ue-t-lime-400: 77 124 15;
+  --ue-t-green-200: 20 83 45; --ue-t-green-300: 22 101 52; --ue-t-green-400: 21 128 61;
+  --ue-t-emerald-200: 6 78 59; --ue-t-emerald-300: 6 95 70; --ue-t-emerald-400: 4 120 87;
+  --ue-t-teal-200: 19 78 74; --ue-t-teal-300: 17 94 89; --ue-t-teal-400: 15 118 110;
+  --ue-t-cyan-200: 22 78 99; --ue-t-cyan-300: 21 94 117; --ue-t-cyan-400: 14 116 144;
+  --ue-t-sky-200: 12 74 110; --ue-t-sky-300: 7 89 133; --ue-t-sky-400: 3 105 161;
+  --ue-t-blue-200: 30 58 138; --ue-t-blue-300: 30 64 175; --ue-t-blue-400: 29 78 216;
+  --ue-t-indigo-200: 49 46 129; --ue-t-indigo-300: 55 48 163; --ue-t-indigo-400: 67 56 202;
+  --ue-t-violet-200: 76 29 149; --ue-t-violet-300: 91 33 182; --ue-t-violet-400: 109 40 217;
+  --ue-t-purple-200: 88 28 135; --ue-t-purple-300: 107 33 168; --ue-t-purple-400: 126 34 206;
+  --ue-t-fuchsia-200: 112 26 117; --ue-t-fuchsia-300: 134 25 143; --ue-t-fuchsia-400: 162 28 175;
+  --ue-t-pink-200: 131 24 67; --ue-t-pink-300: 157 23 77; --ue-t-pink-400: 190 24 93;
+  --ue-t-rose-200: 136 19 55; --ue-t-rose-300: 159 18 57; --ue-t-rose-400: 190 18 60;
+}
+/* Sobre fondos de color pleno (botones, avisos) el texto conserva los valores originales */
+:root[data-ue-theme="light"] :is(.ue-ondark, [class~="bg-red-400"], [class~="bg-red-500"], [class~="bg-red-600"], [class~="bg-red-700"], [class~="bg-red-800"], [class~="bg-red-900"], [class~="bg-red-950"], [class~="bg-orange-400"], [class~="bg-orange-500"], [class~="bg-orange-600"], [class~="bg-orange-700"], [class~="bg-orange-800"], [class~="bg-orange-900"], [class~="bg-orange-950"], [class~="bg-amber-400"], [class~="bg-amber-500"], [class~="bg-amber-600"], [class~="bg-amber-700"], [class~="bg-amber-800"], [class~="bg-amber-900"], [class~="bg-amber-950"], [class~="bg-yellow-400"], [class~="bg-yellow-500"], [class~="bg-yellow-600"], [class~="bg-yellow-700"], [class~="bg-yellow-800"], [class~="bg-yellow-900"], [class~="bg-yellow-950"], [class~="bg-lime-400"], [class~="bg-lime-500"], [class~="bg-lime-600"], [class~="bg-lime-700"], [class~="bg-lime-800"], [class~="bg-lime-900"], [class~="bg-lime-950"], [class~="bg-green-400"], [class~="bg-green-500"], [class~="bg-green-600"], [class~="bg-green-700"], [class~="bg-green-800"], [class~="bg-green-900"], [class~="bg-green-950"], [class~="bg-emerald-400"], [class~="bg-emerald-500"], [class~="bg-emerald-600"], [class~="bg-emerald-700"], [class~="bg-emerald-800"], [class~="bg-emerald-900"], [class~="bg-emerald-950"], [class~="bg-teal-400"], [class~="bg-teal-500"], [class~="bg-teal-600"], [class~="bg-teal-700"], [class~="bg-teal-800"], [class~="bg-teal-900"], [class~="bg-teal-950"], [class~="bg-cyan-400"], [class~="bg-cyan-500"], [class~="bg-cyan-600"], [class~="bg-cyan-700"], [class~="bg-cyan-800"], [class~="bg-cyan-900"], [class~="bg-cyan-950"], [class~="bg-sky-400"], [class~="bg-sky-500"], [class~="bg-sky-600"], [class~="bg-sky-700"], [class~="bg-sky-800"], [class~="bg-sky-900"], [class~="bg-sky-950"], [class~="bg-blue-400"], [class~="bg-blue-500"], [class~="bg-blue-600"], [class~="bg-blue-700"], [class~="bg-blue-800"], [class~="bg-blue-900"], [class~="bg-blue-950"], [class~="bg-indigo-400"], [class~="bg-indigo-500"], [class~="bg-indigo-600"], [class~="bg-indigo-700"], [class~="bg-indigo-800"], [class~="bg-indigo-900"], [class~="bg-indigo-950"], [class~="bg-violet-400"], [class~="bg-violet-500"], [class~="bg-violet-600"], [class~="bg-violet-700"], [class~="bg-violet-800"], [class~="bg-violet-900"], [class~="bg-violet-950"], [class~="bg-purple-400"], [class~="bg-purple-500"], [class~="bg-purple-600"], [class~="bg-purple-700"], [class~="bg-purple-800"], [class~="bg-purple-900"], [class~="bg-purple-950"], [class~="bg-fuchsia-400"], [class~="bg-fuchsia-500"], [class~="bg-fuchsia-600"], [class~="bg-fuchsia-700"], [class~="bg-fuchsia-800"], [class~="bg-fuchsia-900"], [class~="bg-fuchsia-950"], [class~="bg-pink-400"], [class~="bg-pink-500"], [class~="bg-pink-600"], [class~="bg-pink-700"], [class~="bg-pink-800"], [class~="bg-pink-900"], [class~="bg-pink-950"], [class~="bg-rose-400"], [class~="bg-rose-500"], [class~="bg-rose-600"], [class~="bg-rose-700"], [class~="bg-rose-800"], [class~="bg-rose-900"], [class~="bg-rose-950"], [class~="from-red-500"], [class~="from-red-600"], [class~="from-red-700"], [class~="from-red-800"], [class~="from-red-900"], [class~="from-orange-500"], [class~="from-orange-600"], [class~="from-orange-700"], [class~="from-orange-800"], [class~="from-orange-900"], [class~="from-amber-500"], [class~="from-amber-600"], [class~="from-amber-700"], [class~="from-amber-800"], [class~="from-amber-900"], [class~="from-yellow-500"], [class~="from-yellow-600"], [class~="from-yellow-700"], [class~="from-yellow-800"], [class~="from-yellow-900"], [class~="from-lime-500"], [class~="from-lime-600"], [class~="from-lime-700"], [class~="from-lime-800"], [class~="from-lime-900"], [class~="from-green-500"], [class~="from-green-600"], [class~="from-green-700"], [class~="from-green-800"], [class~="from-green-900"], [class~="from-emerald-500"], [class~="from-emerald-600"], [class~="from-emerald-700"], [class~="from-emerald-800"], [class~="from-emerald-900"], [class~="from-teal-500"], [class~="from-teal-600"], [class~="from-teal-700"], [class~="from-teal-800"], [class~="from-teal-900"], [class~="from-cyan-500"], [class~="from-cyan-600"], [class~="from-cyan-700"], [class~="from-cyan-800"], [class~="from-cyan-900"], [class~="from-sky-500"], [class~="from-sky-600"], [class~="from-sky-700"], [class~="from-sky-800"], [class~="from-sky-900"], [class~="from-blue-500"], [class~="from-blue-600"], [class~="from-blue-700"], [class~="from-blue-800"], [class~="from-blue-900"], [class~="from-indigo-500"], [class~="from-indigo-600"], [class~="from-indigo-700"], [class~="from-indigo-800"], [class~="from-indigo-900"], [class~="from-violet-500"], [class~="from-violet-600"], [class~="from-violet-700"], [class~="from-violet-800"], [class~="from-violet-900"], [class~="from-purple-500"], [class~="from-purple-600"], [class~="from-purple-700"], [class~="from-purple-800"], [class~="from-purple-900"], [class~="from-fuchsia-500"], [class~="from-fuchsia-600"], [class~="from-fuchsia-700"], [class~="from-fuchsia-800"], [class~="from-fuchsia-900"], [class~="from-pink-500"], [class~="from-pink-600"], [class~="from-pink-700"], [class~="from-pink-800"], [class~="from-pink-900"], [class~="from-rose-500"], [class~="from-rose-600"], [class~="from-rose-700"], [class~="from-rose-800"], [class~="from-rose-900"]) {
+  --ue-n-50: 248 250 253; --ue-n-100: 238 242 250; --ue-n-200: 226 232 244; --ue-n-300: 205 214 232; --ue-n-400: 180 192 217; --ue-n-500: 143 155 179; --ue-n-600: 75 95 138; --ue-n-700: 46 68 114; --ue-n-800: 28 50 96; --ue-n-850: 24 43 86; --ue-n-900: 20 38 75; --ue-n-950: 11 23 48;
+  --ue-t-white: 255 255 255; --ue-t-black: 0 0 0;
+  --ue-t-red-200: 254 202 202; --ue-t-red-300: 252 165 165; --ue-t-red-400: 248 113 113;
+  --ue-t-orange-200: 254 215 170; --ue-t-orange-300: 253 186 116; --ue-t-orange-400: 251 146 60;
+  --ue-t-amber-200: 253 230 138; --ue-t-amber-300: 252 211 77; --ue-t-amber-400: 251 191 36;
+  --ue-t-yellow-200: 254 240 138; --ue-t-yellow-300: 253 224 71; --ue-t-yellow-400: 250 204 21;
+  --ue-t-lime-200: 217 249 157; --ue-t-lime-300: 190 242 100; --ue-t-lime-400: 163 230 53;
+  --ue-t-green-200: 187 247 208; --ue-t-green-300: 134 239 172; --ue-t-green-400: 74 222 128;
+  --ue-t-emerald-200: 167 243 208; --ue-t-emerald-300: 110 231 183; --ue-t-emerald-400: 52 211 153;
+  --ue-t-teal-200: 153 246 228; --ue-t-teal-300: 94 234 212; --ue-t-teal-400: 45 212 191;
+  --ue-t-cyan-200: 165 243 252; --ue-t-cyan-300: 103 232 249; --ue-t-cyan-400: 34 211 238;
+  --ue-t-sky-200: 186 230 253; --ue-t-sky-300: 125 211 252; --ue-t-sky-400: 56 189 248;
+  --ue-t-blue-200: 191 219 254; --ue-t-blue-300: 147 197 253; --ue-t-blue-400: 96 165 250;
+  --ue-t-indigo-200: 199 210 254; --ue-t-indigo-300: 165 180 252; --ue-t-indigo-400: 129 140 248;
+  --ue-t-violet-200: 221 214 254; --ue-t-violet-300: 196 181 253; --ue-t-violet-400: 167 139 250;
+  --ue-t-purple-200: 233 213 255; --ue-t-purple-300: 216 180 254; --ue-t-purple-400: 192 132 252;
+  --ue-t-fuchsia-200: 245 208 254; --ue-t-fuchsia-300: 240 171 252; --ue-t-fuchsia-400: 232 121 249;
+  --ue-t-pink-200: 251 207 232; --ue-t-pink-300: 249 168 212; --ue-t-pink-400: 244 114 182;
+  --ue-t-rose-200: 254 205 211; --ue-t-rose-300: 253 164 175; --ue-t-rose-400: 251 113 133;
+}
+
+/* Fondo estrellado discreto (portada y juegos): solo en modo noche */
+:root { --ue-star: rgba(255, 255, 255, .55); }
+:root[data-ue-theme="light"], :root[data-ue-theme="hc"] { --ue-star: transparent; }
+
+/* …y, si no declaran color de texto, usan blanco como en el diseño original (más peso que el estilo base de los botones) */
+html :where(:root[data-ue-theme="light"] :is(.ue-ondark, [class~="bg-red-600"], [class~="bg-red-700"], [class~="bg-red-800"], [class~="bg-red-900"], [class~="bg-red-950"], [class~="bg-orange-600"], [class~="bg-orange-700"], [class~="bg-orange-800"], [class~="bg-orange-900"], [class~="bg-orange-950"], [class~="bg-amber-600"], [class~="bg-amber-700"], [class~="bg-amber-800"], [class~="bg-amber-900"], [class~="bg-amber-950"], [class~="bg-yellow-600"], [class~="bg-yellow-700"], [class~="bg-yellow-800"], [class~="bg-yellow-900"], [class~="bg-yellow-950"], [class~="bg-lime-600"], [class~="bg-lime-700"], [class~="bg-lime-800"], [class~="bg-lime-900"], [class~="bg-lime-950"], [class~="bg-green-600"], [class~="bg-green-700"], [class~="bg-green-800"], [class~="bg-green-900"], [class~="bg-green-950"], [class~="bg-emerald-600"], [class~="bg-emerald-700"], [class~="bg-emerald-800"], [class~="bg-emerald-900"], [class~="bg-emerald-950"], [class~="bg-teal-600"], [class~="bg-teal-700"], [class~="bg-teal-800"], [class~="bg-teal-900"], [class~="bg-teal-950"], [class~="bg-cyan-600"], [class~="bg-cyan-700"], [class~="bg-cyan-800"], [class~="bg-cyan-900"], [class~="bg-cyan-950"], [class~="bg-sky-600"], [class~="bg-sky-700"], [class~="bg-sky-800"], [class~="bg-sky-900"], [class~="bg-sky-950"], [class~="bg-blue-600"], [class~="bg-blue-700"], [class~="bg-blue-800"], [class~="bg-blue-900"], [class~="bg-blue-950"], [class~="bg-indigo-600"], [class~="bg-indigo-700"], [class~="bg-indigo-800"], [class~="bg-indigo-900"], [class~="bg-indigo-950"], [class~="bg-violet-600"], [class~="bg-violet-700"], [class~="bg-violet-800"], [class~="bg-violet-900"], [class~="bg-violet-950"], [class~="bg-purple-600"], [class~="bg-purple-700"], [class~="bg-purple-800"], [class~="bg-purple-900"], [class~="bg-purple-950"], [class~="bg-fuchsia-600"], [class~="bg-fuchsia-700"], [class~="bg-fuchsia-800"], [class~="bg-fuchsia-900"], [class~="bg-fuchsia-950"], [class~="bg-pink-600"], [class~="bg-pink-700"], [class~="bg-pink-800"], [class~="bg-pink-900"], [class~="bg-pink-950"], [class~="bg-rose-600"], [class~="bg-rose-700"], [class~="bg-rose-800"], [class~="bg-rose-900"], [class~="bg-rose-950"], [class~="from-red-600"], [class~="from-red-700"], [class~="from-red-800"], [class~="from-red-900"], [class~="from-orange-600"], [class~="from-orange-700"], [class~="from-orange-800"], [class~="from-orange-900"], [class~="from-amber-600"], [class~="from-amber-700"], [class~="from-amber-800"], [class~="from-amber-900"], [class~="from-yellow-600"], [class~="from-yellow-700"], [class~="from-yellow-800"], [class~="from-yellow-900"], [class~="from-lime-600"], [class~="from-lime-700"], [class~="from-lime-800"], [class~="from-lime-900"], [class~="from-green-600"], [class~="from-green-700"], [class~="from-green-800"], [class~="from-green-900"], [class~="from-emerald-600"], [class~="from-emerald-700"], [class~="from-emerald-800"], [class~="from-emerald-900"], [class~="from-teal-600"], [class~="from-teal-700"], [class~="from-teal-800"], [class~="from-teal-900"], [class~="from-cyan-600"], [class~="from-cyan-700"], [class~="from-cyan-800"], [class~="from-cyan-900"], [class~="from-sky-600"], [class~="from-sky-700"], [class~="from-sky-800"], [class~="from-sky-900"], [class~="from-blue-600"], [class~="from-blue-700"], [class~="from-blue-800"], [class~="from-blue-900"], [class~="from-indigo-600"], [class~="from-indigo-700"], [class~="from-indigo-800"], [class~="from-indigo-900"], [class~="from-violet-600"], [class~="from-violet-700"], [class~="from-violet-800"], [class~="from-violet-900"], [class~="from-purple-600"], [class~="from-purple-700"], [class~="from-purple-800"], [class~="from-purple-900"], [class~="from-fuchsia-600"], [class~="from-fuchsia-700"], [class~="from-fuchsia-800"], [class~="from-fuchsia-900"], [class~="from-pink-600"], [class~="from-pink-700"], [class~="from-pink-800"], [class~="from-pink-900"], [class~="from-rose-600"], [class~="from-rose-700"], [class~="from-rose-800"], [class~="from-rose-900"])):is(button, a, div, span, p, label, li, td, th, h2, h3, h4, strong, b, small) { color: #fff; }
+
+/* Títulos con degradado: en modo claro pasan a tinta para que se lean sobre papel */
+:root[data-ue-theme="light"] .bg-clip-text.text-transparent:where(:not(.ue-ondark, .ue-ondark *)) { background-image: none !important; color: var(--ue-fg) !important; -webkit-text-fill-color: currentColor !important; }
+
+/* Barras con poco lugar: los botones de modo van solo con ícono */
+.ue-tools-compact { flex-wrap: nowrap; }
+.ue-tools-compact .ue-tool { padding: .35rem; }
+.ue-tools-compact .ue-tool .ue-tool-txt { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* La barra superior es azul tinta en todos los modos: en modo claro, los enlaces y textos
+   que cada página pinta para fondo de papel vuelven a ser claros dentro de la barra */
+:root[data-ue-theme="light"] .ue-appbar { color: var(--ue-bar-fg) !important; }
+:root[data-ue-theme="light"] .ue-appbar :is(a, span, p, h1, h2, h3, li, label, small, strong):where(:not(.ue-home, .ue-tool, .ue-tool *, .btn, .btn *, [class*="bg-"], [class*="bg-"] *, .ue-brand-sub)) { color: var(--ue-bar-fg) !important; -webkit-text-fill-color: currentColor; }
+:root[data-ue-theme="light"] .ue-appbar :is(a, button):where(:not(.ue-home, .ue-tool, .btn, [class*="bg-"])):hover { color: var(--ue-amber) !important; }
+
+/* Textos de la barra en una sola línea */
+.ue-brand .ue-brand-title, .ue-brand .ue-brand-sub { white-space: nowrap; }
+.ue-appbar nav a, .ue-appbar .btn { white-space: nowrap; }
+
+/* Encabezado dentro del contenido (no a todo el ancho): barra con esquinas redondeadas */
+.ue-appbar.ue-appbar-card { padding: .6rem .9rem !important; border-radius: 14px; border: 1px solid var(--ue-bar-line) !important; }
+
+/* Ámbar como color de texto (paleta «solar»): legible en papel y en noche */
+:root { --ue-t-solar: 255 200 90; }
+:root[data-ue-theme="light"] { --ue-t-solar: 122 72 0; }
+/* Sobre botones y avisos ámbar el texto sigue siendo tinta oscura */
+:root[data-ue-theme="light"] :is([class~="bg-solar-500"], [class~="bg-solar-400"], [class~="from-solar-400"], [class~="from-solar-500"]) {
+  --ue-n-900: 20 38 75; --ue-n-950: 11 23 48; --ue-t-solar: 11 23 48;
+}
+:root[data-ue-theme="light"] .ue-ondark { --ue-t-solar: 255 200 90; }
+
+/* Botones Inicio y de modo fuera de una barra azul (paneles flotantes, tarjetas): fondo tinta sólido */
+.ue-tools:not(.ue-appbar .ue-tools) .ue-tool, a.ue-home:not(.ue-appbar .ue-home) { background: var(--ue-ink); border-color: var(--ue-ink-soft); color: var(--ue-on-ink); }
+.ue-tools:not(.ue-appbar .ue-tools) .ue-tool:hover, a.ue-home:not(.ue-appbar .ue-home):hover { background: var(--ue-ink-soft); }
+.ue-tools:not(.ue-appbar .ue-tools) .ue-tool[aria-pressed="true"] { background: var(--ue-amber); color: var(--ue-ink-deep); }
+
+/* Velos negros semitransparentes (recuadros de fórmulas, epígrafes sobre fotos): en modo claro pasan a tinta sólida */
+:root[data-ue-theme="light"] :is([class~="bg-black/40"], [class~="bg-black/50"], [class~="bg-black/60"]) {
+  background-color: #14264b !important;
+  --ue-n-50: 248 250 253; --ue-n-100: 238 242 250; --ue-n-200: 226 232 244; --ue-n-300: 205 214 232; --ue-n-400: 180 192 217; --ue-n-500: 143 155 179;
+  --ue-t-white: 255 255 255; --ue-t-solar: 255 200 90;
+  --ue-t-green-400: 74 222 128; --ue-t-blue-400: 96 165 250; --ue-t-red-400: 248 113 113;
+  color: #eef2fa;
+}
+
+/* =========================================================================
+   ACENTO ÚNICO: ÁMBAR (ver ue-tailwind.js)
+   Los botones y avisos que antes eran violeta, índigo, cian, celeste o azul con
+   letra blanca ahora son ámbar: su texto pasa a tinta oscura para mantener el
+   contraste. No rige en alto contraste, que tiene sus propios colores.
+   Generado: no editar a mano las listas de clases de esta sección.
+   ========================================================================= */
+html:not([data-ue-theme="hc"]) :is([class~="bg-purple-300"], [class~="bg-purple-400"], [class~="bg-purple-500"], [class~="bg-purple-600"], [class~="bg-purple-700"], [class~="bg-violet-300"], [class~="bg-violet-400"], [class~="bg-violet-500"], [class~="bg-violet-600"], [class~="bg-violet-700"], [class~="bg-indigo-300"], [class~="bg-indigo-400"], [class~="bg-indigo-500"], [class~="bg-indigo-600"], [class~="bg-indigo-700"], [class~="bg-fuchsia-300"], [class~="bg-fuchsia-400"], [class~="bg-fuchsia-500"], [class~="bg-fuchsia-600"], [class~="bg-fuchsia-700"], [class~="bg-pink-300"], [class~="bg-pink-400"], [class~="bg-pink-500"], [class~="bg-pink-600"], [class~="bg-pink-700"], [class~="bg-cyan-300"], [class~="bg-cyan-400"], [class~="bg-cyan-500"], [class~="bg-cyan-600"], [class~="bg-cyan-700"], [class~="bg-sky-300"], [class~="bg-sky-400"], [class~="bg-sky-500"], [class~="bg-sky-600"], [class~="bg-sky-700"], [class~="bg-teal-300"], [class~="bg-teal-400"], [class~="bg-teal-500"], [class~="bg-teal-600"], [class~="bg-teal-700"], [class~="bg-yellow-300"], [class~="bg-yellow-400"], [class~="bg-yellow-500"], [class~="bg-yellow-600"], [class~="bg-yellow-700"], [class~="bg-orange-300"], [class~="bg-orange-400"], [class~="bg-orange-500"], [class~="bg-orange-600"], [class~="bg-orange-700"], [class~="bg-amber-300"], [class~="bg-amber-400"], [class~="bg-amber-500"], [class~="bg-amber-600"], [class~="bg-amber-700"], [class~="bg-blue-400"], [class~="bg-blue-500"], [class~="bg-blue-600"], [class~="from-purple-400"], [class~="from-purple-500"], [class~="from-purple-600"], [class~="from-purple-700"], [class~="from-violet-400"], [class~="from-violet-500"], [class~="from-violet-600"], [class~="from-violet-700"], [class~="from-indigo-400"], [class~="from-indigo-500"], [class~="from-indigo-600"], [class~="from-indigo-700"], [class~="from-fuchsia-400"], [class~="from-fuchsia-500"], [class~="from-fuchsia-600"], [class~="from-fuchsia-700"], [class~="from-pink-400"], [class~="from-pink-500"], [class~="from-pink-600"], [class~="from-pink-700"], [class~="from-cyan-400"], [class~="from-cyan-500"], [class~="from-cyan-600"], [class~="from-cyan-700"], [class~="from-sky-400"], [class~="from-sky-500"], [class~="from-sky-600"], [class~="from-sky-700"], [class~="from-teal-400"], [class~="from-teal-500"], [class~="from-teal-600"], [class~="from-teal-700"], [class~="from-yellow-400"], [class~="from-yellow-500"], [class~="from-yellow-600"], [class~="from-yellow-700"], [class~="from-orange-400"], [class~="from-orange-500"], [class~="from-orange-600"], [class~="from-orange-700"], [class~="from-amber-400"], [class~="from-amber-500"], [class~="from-amber-600"], [class~="from-amber-700"], [class~="from-blue-400"], [class~="from-blue-500"], [class~="from-blue-600"]) { --ue-t-white: 11 23 48; }
+html:not([data-ue-theme="hc"]) :is([class~="bg-purple-300"], [class~="bg-purple-400"], [class~="bg-purple-500"], [class~="bg-purple-600"], [class~="bg-purple-700"], [class~="bg-violet-300"], [class~="bg-violet-400"], [class~="bg-violet-500"], [class~="bg-violet-600"], [class~="bg-violet-700"], [class~="bg-indigo-300"], [class~="bg-indigo-400"], [class~="bg-indigo-500"], [class~="bg-indigo-600"], [class~="bg-indigo-700"], [class~="bg-fuchsia-300"], [class~="bg-fuchsia-400"], [class~="bg-fuchsia-500"], [class~="bg-fuchsia-600"], [class~="bg-fuchsia-700"], [class~="bg-pink-300"], [class~="bg-pink-400"], [class~="bg-pink-500"], [class~="bg-pink-600"], [class~="bg-pink-700"], [class~="bg-cyan-300"], [class~="bg-cyan-400"], [class~="bg-cyan-500"], [class~="bg-cyan-600"], [class~="bg-cyan-700"], [class~="bg-sky-300"], [class~="bg-sky-400"], [class~="bg-sky-500"], [class~="bg-sky-600"], [class~="bg-sky-700"], [class~="bg-teal-300"], [class~="bg-teal-400"], [class~="bg-teal-500"], [class~="bg-teal-600"], [class~="bg-teal-700"], [class~="bg-yellow-300"], [class~="bg-yellow-400"], [class~="bg-yellow-500"], [class~="bg-yellow-600"], [class~="bg-yellow-700"], [class~="bg-orange-300"], [class~="bg-orange-400"], [class~="bg-orange-500"], [class~="bg-orange-600"], [class~="bg-orange-700"], [class~="bg-amber-300"], [class~="bg-amber-400"], [class~="bg-amber-500"], [class~="bg-amber-600"], [class~="bg-amber-700"], [class~="bg-blue-400"], [class~="bg-blue-500"], [class~="bg-blue-600"], [class~="from-purple-400"], [class~="from-purple-500"], [class~="from-purple-600"], [class~="from-purple-700"], [class~="from-violet-400"], [class~="from-violet-500"], [class~="from-violet-600"], [class~="from-violet-700"], [class~="from-indigo-400"], [class~="from-indigo-500"], [class~="from-indigo-600"], [class~="from-indigo-700"], [class~="from-fuchsia-400"], [class~="from-fuchsia-500"], [class~="from-fuchsia-600"], [class~="from-fuchsia-700"], [class~="from-pink-400"], [class~="from-pink-500"], [class~="from-pink-600"], [class~="from-pink-700"], [class~="from-cyan-400"], [class~="from-cyan-500"], [class~="from-cyan-600"], [class~="from-cyan-700"], [class~="from-sky-400"], [class~="from-sky-500"], [class~="from-sky-600"], [class~="from-sky-700"], [class~="from-teal-400"], [class~="from-teal-500"], [class~="from-teal-600"], [class~="from-teal-700"], [class~="from-yellow-400"], [class~="from-yellow-500"], [class~="from-yellow-600"], [class~="from-yellow-700"], [class~="from-orange-400"], [class~="from-orange-500"], [class~="from-orange-600"], [class~="from-orange-700"], [class~="from-amber-400"], [class~="from-amber-500"], [class~="from-amber-600"], [class~="from-amber-700"], [class~="from-blue-400"], [class~="from-blue-500"], [class~="from-blue-600"]):is(button, a, div, span, p, label, li, td, th, h2, h3, h4, strong, b, small) { color: #0b1730; }
+html:not([data-ue-theme="hc"]) :is([class~="bg-purple-300"], [class~="bg-purple-400"], [class~="bg-purple-500"], [class~="bg-purple-600"], [class~="bg-purple-700"], [class~="bg-violet-300"], [class~="bg-violet-400"], [class~="bg-violet-500"], [class~="bg-violet-600"], [class~="bg-violet-700"], [class~="bg-indigo-300"], [class~="bg-indigo-400"], [class~="bg-indigo-500"], [class~="bg-indigo-600"], [class~="bg-indigo-700"], [class~="bg-fuchsia-300"], [class~="bg-fuchsia-400"], [class~="bg-fuchsia-500"], [class~="bg-fuchsia-600"], [class~="bg-fuchsia-700"], [class~="bg-pink-300"], [class~="bg-pink-400"], [class~="bg-pink-500"], [class~="bg-pink-600"], [class~="bg-pink-700"], [class~="bg-cyan-300"], [class~="bg-cyan-400"], [class~="bg-cyan-500"], [class~="bg-cyan-600"], [class~="bg-cyan-700"], [class~="bg-sky-300"], [class~="bg-sky-400"], [class~="bg-sky-500"], [class~="bg-sky-600"], [class~="bg-sky-700"], [class~="bg-teal-300"], [class~="bg-teal-400"], [class~="bg-teal-500"], [class~="bg-teal-600"], [class~="bg-teal-700"], [class~="bg-yellow-300"], [class~="bg-yellow-400"], [class~="bg-yellow-500"], [class~="bg-yellow-600"], [class~="bg-yellow-700"], [class~="bg-orange-300"], [class~="bg-orange-400"], [class~="bg-orange-500"], [class~="bg-orange-600"], [class~="bg-orange-700"], [class~="bg-amber-300"], [class~="bg-amber-400"], [class~="bg-amber-500"], [class~="bg-amber-600"], [class~="bg-amber-700"], [class~="bg-blue-400"], [class~="bg-blue-500"], [class~="bg-blue-600"], [class~="from-purple-400"], [class~="from-purple-500"], [class~="from-purple-600"], [class~="from-purple-700"], [class~="from-violet-400"], [class~="from-violet-500"], [class~="from-violet-600"], [class~="from-violet-700"], [class~="from-indigo-400"], [class~="from-indigo-500"], [class~="from-indigo-600"], [class~="from-indigo-700"], [class~="from-fuchsia-400"], [class~="from-fuchsia-500"], [class~="from-fuchsia-600"], [class~="from-fuchsia-700"], [class~="from-pink-400"], [class~="from-pink-500"], [class~="from-pink-600"], [class~="from-pink-700"], [class~="from-cyan-400"], [class~="from-cyan-500"], [class~="from-cyan-600"], [class~="from-cyan-700"], [class~="from-sky-400"], [class~="from-sky-500"], [class~="from-sky-600"], [class~="from-sky-700"], [class~="from-teal-400"], [class~="from-teal-500"], [class~="from-teal-600"], [class~="from-teal-700"], [class~="from-yellow-400"], [class~="from-yellow-500"], [class~="from-yellow-600"], [class~="from-yellow-700"], [class~="from-orange-400"], [class~="from-orange-500"], [class~="from-orange-600"], [class~="from-orange-700"], [class~="from-amber-400"], [class~="from-amber-500"], [class~="from-amber-600"], [class~="from-amber-700"], [class~="from-blue-400"], [class~="from-blue-500"], [class~="from-blue-600"]):is(.text-white, [class*="text-slate-1"], [class*="text-slate-2"], [class*="text-gray-1"], [class*="text-gray-2"]),
+html:not([data-ue-theme="hc"]) :is([class~="bg-purple-300"], [class~="bg-purple-400"], [class~="bg-purple-500"], [class~="bg-purple-600"], [class~="bg-purple-700"], [class~="bg-violet-300"], [class~="bg-violet-400"], [class~="bg-violet-500"], [class~="bg-violet-600"], [class~="bg-violet-700"], [class~="bg-indigo-300"], [class~="bg-indigo-400"], [class~="bg-indigo-500"], [class~="bg-indigo-600"], [class~="bg-indigo-700"], [class~="bg-fuchsia-300"], [class~="bg-fuchsia-400"], [class~="bg-fuchsia-500"], [class~="bg-fuchsia-600"], [class~="bg-fuchsia-700"], [class~="bg-pink-300"], [class~="bg-pink-400"], [class~="bg-pink-500"], [class~="bg-pink-600"], [class~="bg-pink-700"], [class~="bg-cyan-300"], [class~="bg-cyan-400"], [class~="bg-cyan-500"], [class~="bg-cyan-600"], [class~="bg-cyan-700"], [class~="bg-sky-300"], [class~="bg-sky-400"], [class~="bg-sky-500"], [class~="bg-sky-600"], [class~="bg-sky-700"], [class~="bg-teal-300"], [class~="bg-teal-400"], [class~="bg-teal-500"], [class~="bg-teal-600"], [class~="bg-teal-700"], [class~="bg-yellow-300"], [class~="bg-yellow-400"], [class~="bg-yellow-500"], [class~="bg-yellow-600"], [class~="bg-yellow-700"], [class~="bg-orange-300"], [class~="bg-orange-400"], [class~="bg-orange-500"], [class~="bg-orange-600"], [class~="bg-orange-700"], [class~="bg-amber-300"], [class~="bg-amber-400"], [class~="bg-amber-500"], [class~="bg-amber-600"], [class~="bg-amber-700"], [class~="bg-blue-400"], [class~="bg-blue-500"], [class~="bg-blue-600"], [class~="from-purple-400"], [class~="from-purple-500"], [class~="from-purple-600"], [class~="from-purple-700"], [class~="from-violet-400"], [class~="from-violet-500"], [class~="from-violet-600"], [class~="from-violet-700"], [class~="from-indigo-400"], [class~="from-indigo-500"], [class~="from-indigo-600"], [class~="from-indigo-700"], [class~="from-fuchsia-400"], [class~="from-fuchsia-500"], [class~="from-fuchsia-600"], [class~="from-fuchsia-700"], [class~="from-pink-400"], [class~="from-pink-500"], [class~="from-pink-600"], [class~="from-pink-700"], [class~="from-cyan-400"], [class~="from-cyan-500"], [class~="from-cyan-600"], [class~="from-cyan-700"], [class~="from-sky-400"], [class~="from-sky-500"], [class~="from-sky-600"], [class~="from-sky-700"], [class~="from-teal-400"], [class~="from-teal-500"], [class~="from-teal-600"], [class~="from-teal-700"], [class~="from-yellow-400"], [class~="from-yellow-500"], [class~="from-yellow-600"], [class~="from-yellow-700"], [class~="from-orange-400"], [class~="from-orange-500"], [class~="from-orange-600"], [class~="from-orange-700"], [class~="from-amber-400"], [class~="from-amber-500"], [class~="from-amber-600"], [class~="from-amber-700"], [class~="from-blue-400"], [class~="from-blue-500"], [class~="from-blue-600"]) :is(.text-white, [class*="text-slate-1"], [class*="text-slate-2"]) { color: #0b1730 !important; -webkit-text-fill-color: currentColor; }
+html:not([data-ue-theme="hc"]):not([data-ue-blue-neutral]) :is([class~="bg-blue-700"], [class~="from-blue-700"]) { --ue-t-white: 11 23 48; color: #0b1730; }
+html:not([data-ue-theme="hc"]):not([data-ue-blue-neutral]) :is([class~="bg-blue-700"], [class~="from-blue-700"]) .text-white,
+html:not([data-ue-theme="hc"]):not([data-ue-blue-neutral]) :is([class~="bg-blue-700"], [class~="from-blue-700"]).text-white { color: #0b1730 !important; }
+/* al pasar el mouse sobre un botón que se vuelve ámbar */
+html:not([data-ue-theme="hc"]) :is([class~="hover:bg-purple-300"], [class~="hover:bg-purple-400"], [class~="hover:bg-purple-500"], [class~="hover:bg-purple-600"], [class~="hover:bg-purple-700"], [class~="hover:bg-violet-300"], [class~="hover:bg-violet-400"], [class~="hover:bg-violet-500"], [class~="hover:bg-violet-600"], [class~="hover:bg-violet-700"], [class~="hover:bg-indigo-300"], [class~="hover:bg-indigo-400"], [class~="hover:bg-indigo-500"], [class~="hover:bg-indigo-600"], [class~="hover:bg-indigo-700"], [class~="hover:bg-fuchsia-300"], [class~="hover:bg-fuchsia-400"], [class~="hover:bg-fuchsia-500"], [class~="hover:bg-fuchsia-600"], [class~="hover:bg-fuchsia-700"], [class~="hover:bg-pink-300"], [class~="hover:bg-pink-400"], [class~="hover:bg-pink-500"], [class~="hover:bg-pink-600"], [class~="hover:bg-pink-700"], [class~="hover:bg-cyan-300"], [class~="hover:bg-cyan-400"], [class~="hover:bg-cyan-500"], [class~="hover:bg-cyan-600"], [class~="hover:bg-cyan-700"], [class~="hover:bg-sky-300"], [class~="hover:bg-sky-400"], [class~="hover:bg-sky-500"], [class~="hover:bg-sky-600"], [class~="hover:bg-sky-700"], [class~="hover:bg-teal-300"], [class~="hover:bg-teal-400"], [class~="hover:bg-teal-500"], [class~="hover:bg-teal-600"], [class~="hover:bg-teal-700"], [class~="hover:bg-yellow-300"], [class~="hover:bg-yellow-400"], [class~="hover:bg-yellow-500"], [class~="hover:bg-yellow-600"], [class~="hover:bg-yellow-700"], [class~="hover:bg-orange-300"], [class~="hover:bg-orange-400"], [class~="hover:bg-orange-500"], [class~="hover:bg-orange-600"], [class~="hover:bg-orange-700"], [class~="hover:bg-amber-300"], [class~="hover:bg-amber-400"], [class~="hover:bg-amber-500"], [class~="hover:bg-amber-600"], [class~="hover:bg-amber-700"], [class~="hover:bg-blue-400"], [class~="hover:bg-blue-500"], [class~="hover:bg-blue-600"]):hover,
+html:not([data-ue-theme="hc"]) :is([class~="hover:bg-purple-300"], [class~="hover:bg-purple-400"], [class~="hover:bg-purple-500"], [class~="hover:bg-purple-600"], [class~="hover:bg-purple-700"], [class~="hover:bg-violet-300"], [class~="hover:bg-violet-400"], [class~="hover:bg-violet-500"], [class~="hover:bg-violet-600"], [class~="hover:bg-violet-700"], [class~="hover:bg-indigo-300"], [class~="hover:bg-indigo-400"], [class~="hover:bg-indigo-500"], [class~="hover:bg-indigo-600"], [class~="hover:bg-indigo-700"], [class~="hover:bg-fuchsia-300"], [class~="hover:bg-fuchsia-400"], [class~="hover:bg-fuchsia-500"], [class~="hover:bg-fuchsia-600"], [class~="hover:bg-fuchsia-700"], [class~="hover:bg-pink-300"], [class~="hover:bg-pink-400"], [class~="hover:bg-pink-500"], [class~="hover:bg-pink-600"], [class~="hover:bg-pink-700"], [class~="hover:bg-cyan-300"], [class~="hover:bg-cyan-400"], [class~="hover:bg-cyan-500"], [class~="hover:bg-cyan-600"], [class~="hover:bg-cyan-700"], [class~="hover:bg-sky-300"], [class~="hover:bg-sky-400"], [class~="hover:bg-sky-500"], [class~="hover:bg-sky-600"], [class~="hover:bg-sky-700"], [class~="hover:bg-teal-300"], [class~="hover:bg-teal-400"], [class~="hover:bg-teal-500"], [class~="hover:bg-teal-600"], [class~="hover:bg-teal-700"], [class~="hover:bg-yellow-300"], [class~="hover:bg-yellow-400"], [class~="hover:bg-yellow-500"], [class~="hover:bg-yellow-600"], [class~="hover:bg-yellow-700"], [class~="hover:bg-orange-300"], [class~="hover:bg-orange-400"], [class~="hover:bg-orange-500"], [class~="hover:bg-orange-600"], [class~="hover:bg-orange-700"], [class~="hover:bg-amber-300"], [class~="hover:bg-amber-400"], [class~="hover:bg-amber-500"], [class~="hover:bg-amber-600"], [class~="hover:bg-amber-700"], [class~="hover:bg-blue-400"], [class~="hover:bg-blue-500"], [class~="hover:bg-blue-600"]):hover * { color: #0b1730 !important; -webkit-text-fill-color: currentColor; }
+
+/* Sobre fondos oscuros de color (tableros, avisos) el texto ámbar conserva su tono claro */
+:root[data-ue-theme="light"] :is(.ue-ondark, [class~="bg-red-400"], [class~="bg-red-500"], [class~="bg-red-600"], [class~="bg-red-700"], [class~="bg-red-800"], [class~="bg-red-900"], [class~="bg-red-950"], [class~="bg-orange-800"], [class~="bg-orange-900"], [class~="bg-orange-950"], [class~="bg-amber-800"], [class~="bg-amber-900"], [class~="bg-amber-950"], [class~="bg-yellow-800"], [class~="bg-yellow-900"], [class~="bg-yellow-950"], [class~="bg-lime-400"], [class~="bg-lime-500"], [class~="bg-lime-600"], [class~="bg-lime-700"], [class~="bg-lime-800"], [class~="bg-lime-900"], [class~="bg-lime-950"], [class~="bg-green-400"], [class~="bg-green-500"], [class~="bg-green-600"], [class~="bg-green-700"], [class~="bg-green-800"], [class~="bg-green-900"], [class~="bg-green-950"], [class~="bg-emerald-400"], [class~="bg-emerald-500"], [class~="bg-emerald-600"], [class~="bg-emerald-700"], [class~="bg-emerald-800"], [class~="bg-emerald-900"], [class~="bg-emerald-950"], [class~="bg-teal-800"], [class~="bg-teal-900"], [class~="bg-teal-950"], [class~="bg-cyan-800"], [class~="bg-cyan-900"], [class~="bg-cyan-950"], [class~="bg-sky-800"], [class~="bg-sky-900"], [class~="bg-sky-950"], [class~="bg-blue-800"], [class~="bg-blue-900"], [class~="bg-blue-950"], [class~="bg-indigo-800"], [class~="bg-indigo-900"], [class~="bg-indigo-950"], [class~="bg-violet-800"], [class~="bg-violet-900"], [class~="bg-violet-950"], [class~="bg-purple-800"], [class~="bg-purple-900"], [class~="bg-purple-950"], [class~="bg-fuchsia-800"], [class~="bg-fuchsia-900"], [class~="bg-fuchsia-950"], [class~="bg-pink-800"], [class~="bg-pink-900"], [class~="bg-pink-950"], [class~="bg-rose-400"], [class~="bg-rose-500"], [class~="bg-rose-600"], [class~="bg-rose-700"], [class~="bg-rose-800"], [class~="bg-rose-900"], [class~="bg-rose-950"], [class~="from-red-500"], [class~="from-red-600"], [class~="from-red-700"], [class~="from-red-800"], [class~="from-red-900"], [class~="from-orange-800"], [class~="from-orange-900"], [class~="from-amber-800"], [class~="from-amber-900"], [class~="from-yellow-800"], [class~="from-yellow-900"], [class~="from-lime-500"], [class~="from-lime-600"], [class~="from-lime-700"], [class~="from-lime-800"], [class~="from-lime-900"], [class~="from-green-500"], [class~="from-green-600"], [class~="from-green-700"], [class~="from-green-800"], [class~="from-green-900"], [class~="from-emerald-500"], [class~="from-emerald-600"], [class~="from-emerald-700"], [class~="from-emerald-800"], [class~="from-emerald-900"], [class~="from-teal-800"], [class~="from-teal-900"], [class~="from-cyan-800"], [class~="from-cyan-900"], [class~="from-sky-800"], [class~="from-sky-900"], [class~="from-blue-800"], [class~="from-blue-900"], [class~="from-indigo-800"], [class~="from-indigo-900"], [class~="from-violet-800"], [class~="from-violet-900"], [class~="from-purple-800"], [class~="from-purple-900"], [class~="from-fuchsia-800"], [class~="from-fuchsia-900"], [class~="from-pink-800"], [class~="from-pink-900"], [class~="from-rose-500"], [class~="from-rose-600"], [class~="from-rose-700"], [class~="from-rose-800"], [class~="from-rose-900"]) { --ue-t-solar: 255 200 90; }

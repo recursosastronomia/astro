@@ -1,16 +1,16 @@
 /* Service worker — Eclipse sonoro 2027
    Cambiar CACHE_VERSION cada vez que se publiquen cambios en los archivos.
    El número ?v= de estilos y scripts debe ser el mismo que en index.html. */
-const CACHE_VERSION = 'eclipse2027-v21';
+const CACHE_VERSION = 'eclipse2027-v22';
 /* Imprescindibles: si alguno falla, la instalación se reintenta en la próxima visita. */
 const SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './css/styles.css?v=3.1',
-  './js/i18n.js?v=3.1',
-  './js/eclipse.js?v=3.1',
-  './js/app.js?v=3.1'
+  './css/styles.css?v=3.2',
+  './js/i18n.js?v=3.2',
+  './js/eclipse.js?v=3.2',
+  './js/app.js?v=3.2'
 ];
 /* Complementarios (fuentes e imágenes): si alguno falta o falla, la app se instala igual.
    Los íconos de la app no se guardan aquí: el navegador los obtiene del manifiesto al instalar. */
@@ -27,7 +27,7 @@ const EXTRAS = [
   './fonts/atkinson-hyperlegible-latin-400-normal.woff2',
   './fonts/atkinson-hyperlegible-latin-400-italic.woff2',
   './fonts/atkinson-hyperlegible-latin-700-normal.woff2',
-  './fonts/bricolage-grotesque-latin-wght-normal.woff2'
+  './fonts/fraunces-latin-wght-normal.woff2'
 ];
 /* Los videos (MP4 o WebM, ≈4 MB) no se precargan aquí: la página pide el formato
    que el navegador puede reproducir y el service worker lo guarda al primer uso. */

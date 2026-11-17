@@ -3,8 +3,9 @@
  * Cada vez que cambies CUALQUIER archivo de la app (cromos, imágenes, estilos...)
  * sube APP_VERSION y agrega una nota: así los visitantes ven el aviso "Nueva versión".
  */
-self.APP_VERSION = '1.0.1';
+self.APP_VERSION = '1.1.0';
 self.APP_NOTES = [
+    'Nuevo aspecto, igual al del portal de astronomía, con modo claro, modo noche y alto contraste para baja visión.',
     '¡16 cromos de grandes personalidades de la ciencia!',
     'Retratos incluidos: funciona sin conexión.',
     'El botón "Instalar" ya no aparece cuando el álbum está instalado.'

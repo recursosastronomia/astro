@@ -20,7 +20,6 @@ const ASSETS = [
     'js/space.js',
     'js/confetti.js',
     'js/app.js',
-    'fonts/fredoka-latin.woff2',
     'icons/icon-192.png',
     'icons/icon-512.png',
     'icons/maskable-192.png',
@@ -31,11 +30,23 @@ const ASSETS = [
     ...CROMOS.map(f => `img/p${f.id}.webp`)
 ];
 
+// Archivos compartidos del portal (carpeta ue/): modo claro / noche / alto contraste y tipografías.
+// Se guardan aparte y sin exigirlos: si el álbum se publica solo, sin esa carpeta, se instala igual.
+const SHARED = [
+    '../../ue/ue.css',
+    '../../ue/ue.js',
+    '../../ue/fonts/fraunces-latin-wght-normal.woff2',
+    '../../ue/fonts/atkinson-hyperlegible-latin-400-normal.woff2',
+    '../../ue/fonts/atkinson-hyperlegible-latin-700-normal.woff2'
+];
+
 self.addEventListener('install', event => {
     // 'reload' evita que se guarden copias viejas del caché HTTP del navegador
     event.waitUntil(
         caches.open(CACHE).then(cache =>
-            cache.addAll(ASSETS.map(url => new Request(url, { cache: 'reload' }))))
+            cache.addAll(ASSETS.map(url => new Request(url, { cache: 'reload' })))
+                .then(() => Promise.all(SHARED.map(url =>
+                    cache.add(new Request(url, { cache: 'reload' })).catch(() => { /* carpeta ue/ ausente: se sigue */ })))))
     );
     // No hacemos skipWaiting aquí: esperamos a que la persona toque "Actualizar".
 });

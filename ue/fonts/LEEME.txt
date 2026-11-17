@@ -1,0 +1,4 @@
+Tipografías del portal «Astronomía para todos» (las mismas de Misión Helios):
+- Fraunces (títulos) — SIL Open Font License 1.1 — https://github.com/undercasetype/Fraunces
+- Atkinson Hyperlegible (texto) — SIL Open Font License 1.1 — Braille Institute (ver OFL-AtkinsonHyperlegible.txt)
+Se incluyen en el sitio para no depender de servicios externos y para que funcione sin conexión.

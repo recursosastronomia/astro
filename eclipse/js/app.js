@@ -224,7 +224,7 @@
     const root = document.documentElement;
     const btnTheme = $('btn-theme');
     const btnContrast = $('btn-contrast');
-    const THEME_COLOR = { light: '#0b1730', dark: '#0b1730', hc: '#000000' };
+    const THEME_COLOR = { light: '#14264b', dark: '#14264b', hc: '#000000' };
     let themeBase = root.getAttribute('data-theme-base') === 'dark' ? 'dark' : 'light';
     let highContrast = root.getAttribute('data-theme') === 'hc';
 
@@ -242,16 +242,32 @@
         setI18n(btnTheme, toLight ? 'theme.toLight' : 'theme.toDark');
         setI18n(btnContrast, highContrast ? 'contrast.toStd' : 'contrast.toHigh');
     }
+    /* La elección se guarda para todo el portal (ue.theme, ue.hc): al volver a la portada o
+       abrir otra sección se mantiene el mismo modo. Se conservan también las claves propias
+       de la app (eclipse.theme, eclipse.hc) por compatibilidad con versiones anteriores. */
+    function saveTheme() {
+        store.set('ue.theme', themeBase); store.set('ue.hc', highContrast ? '1' : '0');
+        store.set('eclipse.theme', themeBase); store.set('eclipse.hc', highContrast ? '1' : '0');
+    }
+    /* Si el modo cambió en otra pestaña del portal, o se vuelve con «Atrás», esta página lo acompaña */
+    function syncTheme() {
+        const th = store.get('ue.theme'), hc = store.get('ue.hc');
+        if (th === 'light' || th === 'dark') themeBase = th;
+        if (hc === '1' || hc === '0') highContrast = hc === '1';
+        applyTheme();
+    }
+    window.addEventListener('storage', e => { if (e.key === 'ue.theme' || e.key === 'ue.hc') syncTheme(); });
+    window.addEventListener('pageshow', e => { if (e.persisted) syncTheme(); });
     btnTheme.addEventListener('click', () => {
-        if (highContrast) { highContrast = false; themeBase = 'dark'; store.set('eclipse.hc', '0'); }
+        if (highContrast) { highContrast = false; themeBase = 'dark'; }
         else themeBase = themeBase === 'dark' ? 'light' : 'dark';
-        store.set('eclipse.theme', themeBase);
+        saveTheme();
         applyTheme();
         announce(t(themeBase === 'dark' ? 'theme.nowDark' : 'theme.nowLight'));
     });
     btnContrast.addEventListener('click', () => {
         highContrast = !highContrast;
-        store.set('eclipse.hc', highContrast ? '1' : '0');
+        saveTheme();
         applyTheme();
         announce(t(highContrast ? 'theme.nowHc' : (themeBase === 'dark' ? 'theme.nowDark' : 'theme.nowLight')));
     });

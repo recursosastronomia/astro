@@ -10,27 +10,27 @@
         /* Variables de Color y Tema */
         :root {
             /* TEMA OSCURO (Por defecto) */
-            --bg-color: #0a0f1d;
-            --text-color: #f8fafc;
-            --accent-color: #fb923c;
-            --card-bg: #1e293b;
-            --card-border: #334155;
-            --btn-bg: #3b82f6;
-            --btn-hover: #2563eb;
-            --btn-text: #ffffff;
+            --bg-color: #0b1730;
+            --text-color: #eef2fa;
+            --accent-color: #ffb627;
+            --card-bg: #14264b;
+            --card-border: #2e4472;
+            --btn-bg: #ffb627;
+            --btn-hover: #f0a00a;
+            --btn-text: #0b1730;
             --success-color: #22c55e;
             --error-color: #ef4444;
         }
 
         [data-theme="light"] {
-            /* TEMA CLARO (Fondo gris 30% blanco, letras negras) */
-            --bg-color: #b3b3b3; /* Gris al 30% de blanco aprox */
-            --text-color: #000000;
-            --accent-color: #6b230d;
-            --card-bg: #e5e5e5;
-            --card-border: #999999;
-            --btn-bg: #1d4ed8;
-            --btn-hover: #1e3a8a;
+            /* TEMA CLARO: papel y tinta del portal */
+            --bg-color: #f1f3f6;
+            --text-color: #14264b;
+            --accent-color: #8a5300;
+            --card-bg: #ffffff;
+            --card-border: #cbd2de;
+            --btn-bg: #14264b;
+            --btn-hover: #243a68;
             --btn-text: #ffffff;
         }
 
@@ -39,7 +39,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: var(--ue-font-ui);
         }
 
         body {
@@ -91,59 +91,6 @@
             padding-bottom: 2rem;
             border-bottom: 2px solid var(--card-border);
             margin-bottom: 2rem;
-        }
-
-        .theme-switch-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .theme-switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-
-        .theme-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "☀️";
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 14px;
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: #3b82f6;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(26px);
-            content: "🌙";
         }
 
         /* Tipografía */
@@ -286,7 +233,7 @@
         /* Clases para destacar elecciones y correcciones visuales */
         .option-label.selected {
             border-color: var(--accent-color);
-            background-color: rgba(251, 146, 60, 0.1);
+            background-color: rgba(255, 200, 90, 0.1);
         }
 
         .option-label.correct-highlight {
@@ -323,7 +270,7 @@
         }
 
         .btn:disabled {
-            background-color: #64748b;
+            background-color: #8f9bb3;
             cursor: not-allowed;
             opacity: 0.6;
         }
@@ -359,7 +306,7 @@
             font-weight: bold;
         }
         [data-theme="dark"] a {
-            color: #60a5fa;
+            color: #ffc85a;
         }
 
         /* Animaciones */
@@ -377,32 +324,15 @@
             font-size: 1.2rem;
         }
     </style>
-  <!-- Encabezado del portal: botón "Inicio" + marca "Astronomía para todos · DGES - EDyTIC" (componente compartido, idéntico en todas las actividades) -->
-  <style>
-    .ue-home{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:10px;color:inherit;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.32);text-decoration:none;transition:background-color .2s,border-color .2s}
-    .ue-home:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.65)}
-    .ue-home:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
-    .ue-home svg{width:20px;height:20px;display:block}
-    .ue-brand-row{display:flex;align-items:center;gap:12px;min-width:0}
-    .ue-brand{display:flex;align-items:center;gap:12px;padding:7px 14px;border-radius:12px;background:#0f172a;border:1px solid rgba(148,163,184,.28);box-shadow:0 2px 10px rgba(0,0,0,.25);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;text-align:left;-webkit-text-fill-color:initial}
-    .ue-brand-logo{display:block;height:26px;width:auto;max-width:none;margin:0;border:0;border-radius:0;box-shadow:none}
-    .ue-brand-sep{flex:none;width:1px;align-self:stretch;background:rgba(148,163,184,.35)}
-    .ue-brand-text{display:flex;flex-direction:column;line-height:1.15}
-    .ue-brand-title{display:block;margin:0;font-size:15px;font-weight:700;letter-spacing:.01em;text-transform:none;color:#f8fafc}
-    .ue-brand-sub{display:block;margin:2px 0 0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:none;color:#fdba74}
-    @media (max-width:639px){
-      .ue-brand{flex-direction:column;align-items:flex-start;gap:5px;padding:7px 11px}
-      .ue-brand-sep{display:none}
-      .ue-brand-logo{height:18px}
-    }
-    @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
-  </style>
 <style id="a11y-base">
 /* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
-:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+:focus-visible{outline:3px solid #ffc85a !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(20,38,75,.85) !important}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
-.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cdd6e8;background:#0b1730;border-top:1px solid #1c3260}
 </style>
+<!-- Capa visual compartida del portal: tipografías, paleta, modo claro/noche y alto contraste (carpeta ue/) -->
+<link rel="stylesheet" href="../ue/ue.css">
+<script src="../ue/ue.js"></script>
 </head>
 <body>
     <!-- Fondo Animado Interactivo -->
@@ -410,7 +340,7 @@
 
     <div class="container">
         <!-- Navegación Superior -->
-        <header>
+        <header class="ue-appbar ue-appbar-card">
             <div class="title-area">
                 <div class="ue-brand-row">
                   <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
@@ -427,12 +357,8 @@
                 </div>
             </div>
             
-            <div class="theme-switch-wrapper">
-                <label class="theme-switch" for="checkbox" aria-label="Cambiar modo claro/oscuro">
-                    <input type="checkbox" id="checkbox" checked />
-                    <div class="slider"></div>
-                </label>
-            </div>
+            <!-- Botones «Modo claro / Modo noche» y «Alto contraste» (los dibuja ../ue/ue.js; iguales en todo el portal) -->
+            <div data-ue-tools class="ue-tools-compact"></div>
         </header>
 
         <main>
@@ -773,17 +699,7 @@
         /* =========================================
            1. MODO CLARO / OSCURO
            ========================================= */
-        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
-        const htmlElement = document.documentElement;
-
-        function switchTheme(e) {
-            if (e.target.checked) {
-                htmlElement.setAttribute('data-theme', 'dark');
-            } else {
-                htmlElement.setAttribute('data-theme', 'light');
-            }
-        }
-        toggleSwitch.addEventListener('change', switchTheme);
+        /* El modo claro / noche / alto contraste lo aplica ../ue/ue.js para todo el portal */
 
 
         /* =========================================
@@ -1110,7 +1026,7 @@
     el.setAttribute('tabindex','0'); el.setAttribute('role','application');
     var x=.5,y=.5, m=document.createElement('div');
     m.setAttribute('aria-hidden','true');
-    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #14264b;pointer-events:none;z-index:9999;display:none';
     document.body.appendChild(m);
     function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
     function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';

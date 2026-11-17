@@ -7,29 +7,17 @@
   
   <!-- Tailwind CSS para diseño moderno -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../ue/ue-tailwind.js"></script>
   
   <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            // Gris al 30% de negro (70% blanco) para el modo claro amigable
-            lightbg: '#e5e7eb',
-            // Azul cósmico profundo para el modo oscuro de astronomía
-            darkbg: '#030712',
-          }
-        }
-      }
-    }
+    /* Paleta y tipografías del portal (ver ../ue/ue-tailwind.js); fondos de papel y de noche del portal */
+    tailwind.config = UE_TW.config({ fixed: true, extend: { colors: { lightbg: '#f1f3f6', darkbg: '#0b1730' } } });
   </script>
 
   <!-- Tipografía Lexend para facilitar la lectura a estudiantes con TDAH y pautas DUA -->
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght=300;400;500;600;700;800&display=swap');
-    
     body {
-      font-family: 'Lexend', sans-serif;
+      font-family: var(--ue-font-ui);
       transition: background-color 0.4s ease, color 0.4s ease;
     }
 
@@ -42,91 +30,66 @@
       height: 100%;
       z-index: -1;
       pointer-events: none;
-      background: radial-gradient(circle at center, #0b1528 0%, #030712 100%);
+      background: radial-gradient(circle at center, #0b1528 0%, #0b1730 100%);
       transition: opacity 0.5s ease;
     }
 
     /* Animación para estrellas de autoevaluación ganadas */
     @keyframes star-pulse {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(250, 204, 21, 0.7)); }
-      50% { transform: scale(1.25); filter: drop-shadow(0 0 12px rgba(250, 204, 21, 1)); }
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(255, 200, 90, 0.7)); }
+      50% { transform: scale(1.25); filter: drop-shadow(0 0 12px rgba(255, 200, 90, 1)); }
     }
     .star-earned {
       animation: star-pulse 1.5s infinite ease-in-out;
-      color: #eab308 !important;
+      color: #ffb627 !important;
     }
-  </style>
-  <!-- Encabezado del portal: botón "Inicio" + marca "Astronomía para todos · DGES - EDyTIC" (componente compartido, idéntico en todas las actividades) -->
-  <style>
-    .ue-home{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:10px;color:inherit;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.32);text-decoration:none;transition:background-color .2s,border-color .2s}
-    .ue-home:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.65)}
-    .ue-home:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
-    .ue-home svg{width:20px;height:20px;display:block}
-    .ue-brand-row{display:flex;align-items:center;gap:12px;min-width:0}
-    .ue-brand{display:flex;align-items:center;gap:12px;padding:7px 14px;border-radius:12px;background:#0f172a;border:1px solid rgba(148,163,184,.28);box-shadow:0 2px 10px rgba(0,0,0,.25);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;text-align:left;-webkit-text-fill-color:initial}
-    .ue-brand-logo{display:block;height:26px;width:auto;max-width:none;margin:0;border:0;border-radius:0;box-shadow:none}
-    .ue-brand-sep{flex:none;width:1px;align-self:stretch;background:rgba(148,163,184,.35)}
-    .ue-brand-text{display:flex;flex-direction:column;line-height:1.15}
-    .ue-brand-title{display:block;margin:0;font-size:15px;font-weight:700;letter-spacing:.01em;text-transform:none;color:#f8fafc}
-    .ue-brand-sub{display:block;margin:2px 0 0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:none;color:#fdba74}
-    @media (max-width:639px){
-      .ue-brand{flex-direction:column;align-items:flex-start;gap:5px;padding:7px 11px}
-      .ue-brand-sep{display:none}
-      .ue-brand-logo{height:18px}
-    }
-    @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
   </style>
 <style id="a11y-base">
 /* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
-:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+:focus-visible{outline:3px solid #ffc85a !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(20,38,75,.85) !important}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
 </style>
 <style id="a11y-modo-claro">
 /* Accesibilidad: colores legibles en modo claro (WCAG 1.4.3) */
-body:not(.dark) .bg-slate-800{background-color:#e2e8f0 !important;color:#0f172a}
-body:not(.dark) .bg-slate-900{background-color:#e2e8f0 !important;color:#0f172a}
-body:not(.dark) .bg-slate-900\/80{background-color:#e2e8f0 !important;color:#0f172a}
-body:not(.dark) .bg-slate-950{background-color:#e2e8f0 !important;color:#0f172a}
-body:not(.dark) .bg-slate-950\/40{background-color:#e2e8f0 !important;color:#0f172a}
-body:not(.dark) .bg-slate-950\/70{background-color:#e2e8f0 !important;color:#0f172a}
-body:not(.dark) .bg-slate-950\/80{background-color:#e2e8f0 !important;color:#0f172a}
-body:not(.dark) .text-blue-300\/60{color:#1e40af !important}
-body:not(.dark) .text-blue-400{color:#1e40af !important}
-body:not(.dark) .text-cyan-400{color:#155e75 !important}
+body:not(.dark) .bg-slate-800{background-color:#e6eaf1 !important;color:#14264b}
+body:not(.dark) .bg-slate-900{background-color:#e6eaf1 !important;color:#14264b}
+body:not(.dark) .bg-slate-900\/80{background-color:#e6eaf1 !important;color:#14264b}
+body:not(.dark) .bg-slate-950{background-color:#e6eaf1 !important;color:#14264b}
+body:not(.dark) .bg-slate-950\/40{background-color:#e6eaf1 !important;color:#14264b}
+body:not(.dark) .bg-slate-950\/70{background-color:#e6eaf1 !important;color:#14264b}
+body:not(.dark) .bg-slate-950\/80{background-color:#e6eaf1 !important;color:#14264b}
+body:not(.dark) .text-blue-300\/60{color:#7a4800 !important}
+body:not(.dark) .text-blue-400{color:#7a4800 !important}
+body:not(.dark) .text-cyan-400{color:#7a4800 !important}
 body:not(.dark) .text-emerald-400{color:#065f46 !important}
-body:not(.dark) .text-orange-400{color:#9a3412 !important}
-body:not(.dark) .text-purple-400{color:#6b21a8 !important}
-body:not(.dark) .text-purple-500{color:#6b21a8 !important}
+body:not(.dark) .text-orange-400{color:#7a4800 !important}
+body:not(.dark) .text-purple-400{color:#7a4800 !important}
+body:not(.dark) .text-purple-500{color:#7a4800 !important}
 body:not(.dark) .text-red-400{color:#991b1b !important}
-body:not(.dark) .text-slate-100{color:#334155 !important}
-body:not(.dark) .text-slate-200{color:#334155 !important}
-body:not(.dark) .text-slate-300{color:#334155 !important}
-body:not(.dark) .text-slate-400{color:#334155 !important}
+body:not(.dark) .text-slate-100{color:#3b4a66 !important}
+body:not(.dark) .text-slate-200{color:#3b4a66 !important}
+body:not(.dark) .text-slate-300{color:#3b4a66 !important}
+body:not(.dark) .text-slate-400{color:#3b4a66 !important}
 body:not(.dark) canvas{background-color:transparent}
-.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
-body:not(.dark) .bg-slate-800 .text-white:not([class*="bg-"]){color:#0f172a !important}
-body:not(.dark) .bg-slate-900 .text-white:not([class*="bg-"]){color:#0f172a !important}
-body:not(.dark) .bg-slate-900\/80 .text-white:not([class*="bg-"]){color:#0f172a !important}
-body:not(.dark) .bg-slate-950 .text-white:not([class*="bg-"]){color:#0f172a !important}
-body:not(.dark) .bg-slate-950\/40 .text-white:not([class*="bg-"]){color:#0f172a !important}
-body:not(.dark) .bg-slate-950\/70 .text-white:not([class*="bg-"]){color:#0f172a !important}
-body:not(.dark) .bg-slate-950\/80 .text-white:not([class*="bg-"]){color:#0f172a !important}
-body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f172a}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cdd6e8;background:#0b1730;border-top:1px solid #1c3260}
+body:not(.dark) .bg-slate-800 .text-white:not([class*="bg-"]){color:#14264b !important}
+body:not(.dark) .bg-slate-900 .text-white:not([class*="bg-"]){color:#14264b !important}
+body:not(.dark) .bg-slate-900\/80 .text-white:not([class*="bg-"]){color:#14264b !important}
+body:not(.dark) .bg-slate-950 .text-white:not([class*="bg-"]){color:#14264b !important}
+body:not(.dark) .bg-slate-950\/40 .text-white:not([class*="bg-"]){color:#14264b !important}
+body:not(.dark) .bg-slate-950\/70 .text-white:not([class*="bg-"]){color:#14264b !important}
+body:not(.dark) .bg-slate-950\/80 .text-white:not([class*="bg-"]){color:#14264b !important}
+body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#14264b}
 </style>
-<!-- Selector de tema claro/oscuro (mismo diseño que la actividad Voyager) -->
-<style id="ue-theme-switch">
-.theme-switch-wrapper{display:flex;align-items:center;gap:10px;flex:none}
-.theme-switch{position:relative;display:inline-block;width:60px;height:34px;margin:0}
-.theme-switch input{position:absolute;opacity:0;width:0;height:0;margin:0}
-.theme-switch .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.4s;border-radius:34px}
-.theme-switch .slider:before{position:absolute;content:"\2600\FE0F";display:flex;justify-content:center;align-items:center;font-size:14px;line-height:1;height:26px;width:26px;left:4px;bottom:4px;background-color:#fff;transition:.4s;border-radius:50%}
-.theme-switch input:checked + .slider{background-color:#3b82f6}
-.theme-switch input:checked + .slider:before{transform:translateX(26px);content:"\1F319"}
-.theme-switch input:focus-visible + .slider{outline:3px solid #facc15;outline-offset:2px}
-@media (prefers-reduced-motion:reduce){.theme-switch .slider,.theme-switch .slider:before{transition:none}}
-</style>
+<!-- Capa visual compartida del portal: tipografías, paleta, modo claro/noche y alto contraste (carpeta ue/) -->
+<link rel="stylesheet" href="../ue/ue.css">
+<script src="../ue/ue.js"></script>
 </head>
 <body class="dark bg-darkbg text-slate-100 min-h-screen flex flex-col selection:bg-purple-500 selection:text-white" id="app-body">
+  <script>
+    /* Modo del portal (lo elige la persona y vale para todo el sitio; ver ../ue/ue.js): se aplica antes de pintar */
+    (function (b) { if (!document.documentElement.classList.contains('dark')) { b.classList.remove('dark', 'bg-darkbg', 'text-slate-100'); b.classList.add('bg-lightbg', 'text-slate-900'); } })(document.body);
+  </script>
 
   <!-- ACCESIBILIDAD: Saltar al contenido principal -->
   <a href="#contenido-principal" class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-purple-500 focus:text-white focus:z-50 rounded-lg">
@@ -151,7 +114,7 @@ body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f
   </div>
 
   <!-- CABECERA PRINCIPAL -->
-  <header class="sticky top-0 z-40 backdrop-blur-md bg-opacity-95 transition-colors border-b border-slate-800 dark:bg-darkbg/90 bg-lightbg/90 dark:border-slate-800 border-slate-300 py-4 px-4 sm:px-6">
+  <header class="ue-appbar sticky top-0 z-40 py-4 px-4 sm:px-6">
     <div class="max-w-6xl mx-auto flex items-center justify-between">
       
       <!-- Marca del portal -->
@@ -170,12 +133,8 @@ body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f
       </div>
 
       <!-- Selector de tema claro/oscuro -->
-      <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="theme-checkbox" aria-label="Cambiar modo claro/oscuro">
-          <input type="checkbox" id="theme-checkbox" checked onchange="toggleTheme()" />
-          <div class="slider"></div>
-        </label>
-      </div>
+      <!-- Botones «Modo claro / Modo noche» y «Alto contraste» (los dibuja ../ue/ue.js; iguales en todo el portal) -->
+      <div data-ue-tools class="ue-tools-compact"></div>
 
     </div>
   </header>
@@ -810,7 +769,7 @@ body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f
         href="https://uruguayeduca.anep.edu.uy/" 
         target="_blank" 
         rel="noopener noreferrer" 
-        class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-4xl w-full px-6 py-4 bg-[#090d16] rounded-2xl border border-blue-900/30 backdrop-blur-sm group hover:border-yellow-500/30 transition-all"
+        class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-4xl w-full px-6 py-4 bg-[#0b1730] rounded-2xl border border-blue-900/30 backdrop-blur-sm group hover:border-yellow-500/30 transition-all"
       >
         <img 
           src="https://danielgastelu.github.io/web/logos/logoueblanco-removebg.png" 
@@ -818,7 +777,7 @@ body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f
           class="h-10 md:h-12 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
           onerror="this.onerror=null; this.style.display='none';"
         />
-        <span class="text-xs md:text-sm text-[#cbd5e1] group-hover:text-yellow-300 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
+        <span class="text-xs md:text-sm text-[#cdd6e8] group-hover:text-yellow-300 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
           Portal Uruguay Educa (ANEP-DGES-EDyTIC) - Contenidistas de Astronomía 2026 - Herramienta de uso libre - Desarrollado con asistencia de IA.
         </span>
       </a>
@@ -884,7 +843,7 @@ body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f
       const isDark = document.getElementById('app-body').classList.contains('dark');
 
       ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = isDark ? '#050b14' : '#e5e7eb';
+      ctx.fillStyle = isDark ? '#0b1730' : '#e2e8f4';
       ctx.fillRect(0, 0, w, h);
 
       // El ángulo de rotación se calcula según el slider (0 a 100 equivale a 0 a 1.5 radianes)
@@ -937,11 +896,11 @@ body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f
         ctx.shadowBlur = 0;
 
         // Dibujar nombres de las estrellas y sus distancias reales
-        ctx.fillStyle = isDark ? '#94a3b8' : '#334155';
+        ctx.fillStyle = isDark ? '#b4c0d9' : '#2e4472';
         ctx.font = 'bold 16px sans-serif';
         ctx.fillText(p.name, p.x + 12, p.y - 5);
         
-        ctx.fillStyle = isDark ? '#64748b' : '#64748b';
+        ctx.fillStyle = isDark ? '#8f9bb3' : '#8f9bb3';
         ctx.font = '12px sans-serif';
         ctx.fillText(`${p.originalZ} años luz`, p.x + 12, p.y + 10);
       });
@@ -1165,9 +1124,10 @@ body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f
     }
 
     // --- CONTROL DE TEMA (CLARO/OSCURO) ---
-    function toggleTheme() {
+    /* Modo claro / noche / alto contraste: lo decide el portal (../ue/ue.js) y esta página lo acompaña */
+    function applyTheme(dark) {
       const appBody = document.getElementById('app-body');
-      const isDarkMode = appBody.classList.contains('dark');
+      const isDarkMode = !dark;
       const spaceBg = document.getElementById('space-starfield');
 
       if (isDarkMode) {
@@ -1185,8 +1145,9 @@ body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f
       }
 
       // Volver a dibujar el simulador para que adquiera el fondo correcto al conmutar modo de vista
-      drawConstellation();
+      try { drawConstellation(); } catch (e) { /* el lienzo todavía no está listo */ }
     }
+    document.addEventListener('ue:theme', function (e) { applyTheme(e.detail.dark); });
 
     // --- INICIALIZACIÓN ---
     window.onload = function() {
@@ -1242,7 +1203,7 @@ body:not(.dark) .text-white:not([class*="bg-"]):is(label,span,p,h3,h4){color:#0f
     el.setAttribute('tabindex','0'); el.setAttribute('role','application');
     var x=.5,y=.5, m=document.createElement('div');
     m.setAttribute('aria-hidden','true');
-    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #14264b;pointer-events:none;z-index:9999;display:none';
     document.body.appendChild(m);
     function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
     function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';

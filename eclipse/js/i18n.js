@@ -643,7 +643,7 @@ const I18N = {
    de la simulación, institución y notas «Acerca de esta app».
    ========================================================================= */
 const GALLERY_URL = 'https://spaceweathergallery.com/index.php';
-const APP_VERSION = '3.1';
+const APP_VERSION = '3.2';
 const I18N_EXTRA = {
   es: {
     'a11y.skip': 'Saltar al contenido principal',

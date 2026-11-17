@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es-UY">
+<html lang="es-UY" data-ue-native>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -16,16 +16,11 @@
   <link rel="preload" href="fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/atkinson-hyperlegible-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Capa compartida del portal: botón Inicio, botones de modo y modo claro / noche / alto contraste para todo el sitio -->
+  <link rel="stylesheet" href="../ue/ue.css">
+  <script src="../ue/ue.js"></script>
   <link rel="stylesheet" href="css/app.css">
   <script type="module" src="js/app.js"></script>
-  <!-- Botón "Inicio" del portal (componente compartido, idéntico en todas las páginas) -->
-  <style>
-    .ue-home{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:10px;color:inherit;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.32);text-decoration:none;transition:background-color .2s,border-color .2s}
-    .ue-home:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.65)}
-    .ue-home:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
-    .ue-home svg{width:20px;height:20px;display:block}
-    @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
-  </style>
 </head>
 <body>
   <a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
@@ -58,6 +53,7 @@
       </nav>
       <div class="appbar-tools">
         <button type="button" id="install-btn" class="btn btn-secondary btn-small" hidden data-i18n="install_btn"></button>
+        <div data-ue-tools></div>
         <div class="langmenu">
           <button type="button" id="lang-btn" class="btn lang-btn" aria-haspopup="true" aria-expanded="false" aria-controls="lang-list" data-i18n-attr="aria-label:lang_aria">
             <span class="flag" id="lang-flag"></span><span id="lang-code">ES</span>

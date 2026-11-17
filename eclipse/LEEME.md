@@ -78,7 +78,7 @@ Fallas, correcciones o sugerencias: recursosastronomia@uruguayeduca.edu.uy, con 
 - `assets/`: animación global de Espenak & Zeiler en MP4 y WebM (mismo contenido que el GIF original, sin alteraciones; ~4 MB cada uno, el navegador descarga solo uno) y la imagen de portada.
 - `img/logos/`: logotipo ANEP · Educación Secundaria · Espacio de Educación y TIC (archivo oficial del sitio de EDyTIC, versión en blanco para fondo oscuro) y logotipo de EDyTIC con contraste ajustado (oscuro para fondo claro y claro para alto contraste).
 - `img/fotos/` y `assets/timelapse-anular-2019.*`: fotografías y time-lapse de Wikimedia Commons (créditos y licencias en la sección Créditos de la app). El time-lapse (CC BY-SA 4.0) está recortado alrededor del Sol y recodificado, y se distribuye con la misma licencia.
-- `fonts/`: tipografías Bricolage Grotesque (títulos) y Atkinson Hyperlegible (texto), las mismas del portal «Astronomía para todos»; ambas con licencia SIL OFL (`fonts/OFL-*.txt`). Los archivos `source-sans-3-*` y `OFL.txt` son de la versión anterior y ya no se usan: se pueden borrar.
+- `fonts/`: tipografías Fraunces (títulos) y Atkinson Hyperlegible (texto), las mismas del portal «Astronomía para todos»; ambas con licencia SIL OFL (`fonts/OFL-*.txt`). Los archivos `source-sans-3-*` y `OFL.txt` son de la versión anterior y ya no se usan: se pueden borrar.
 - `legacy/v1.6/`: copia de la versión 1.6 completa (HTML, CSS y scripts) tal como estaba antes del rediseño.
 - `eclipse2027.html`: redirige a `index.html` (el archivo anterior quedó en `legacy/`).
 
@@ -107,6 +107,15 @@ Fallas, correcciones o sugerencias: recursosastronomia@uruguayeduca.edu.uy, con 
   sección actual, teléfono apoyado) no dependen solo del color. Falta la prueba manual con lector de pantalla
   (TalkBack, VoiceOver, NVDA), que ninguna herramienta automática reemplaza.
 - Las cifras de Lighthouse de más abajo son de la versión 1.6 y no se volvieron a medir.
+
+## Versión 3.2 (noviembre de 2026): un solo modo visual para todo el portal
+- **Modo heredado entre secciones:** el modo claro, el modo noche y el alto contraste se guardan ahora con las
+  claves comunes del portal (`ue.theme` y `ue.hc`, ver `../ue/ue.js`). Si se elige un modo en la portada o en otra
+  sección, la app abre con ese mismo modo, y al revés. Se siguen escribiendo `eclipse.theme` y `eclipse.hc` para
+  no perder lo elegido con versiones anteriores. La app **no depende** de la carpeta `ue/`: sigue funcionando sola.
+- **Tipografía de títulos:** Fraunces (la de Misión Helios y el resto del portal) en lugar de Bricolage Grotesque.
+  El archivo `fonts/bricolage-grotesque-latin-wght-normal.woff2` ya no se usa y puede borrarse.
+- **Barra superior** en azul tinta `#14264b`, igual que en las demás secciones.
 
 ## Versión 3.1 (noviembre de 2026)
 - Botón «Inicio» en el encabezado, que vuelve a la portada (`../index.html`). Se ve en la versión web y se oculta
@@ -180,7 +189,7 @@ Fallas, correcciones o sugerencias: recursosastronomia@uruguayeduca.edu.uy, con 
 - **Íconos de la barra inferior:** más grandes (26 px), con sus trazos definidos en el propio ícono (no dependen
   de la hoja de estilos) y un escudo con tilde para «Seguridad» en lugar de los anteojos, que no se distinguían.
 - **Actualizaciones sin desajustes:** `index.html` pide los estilos y scripts con un número de versión
-  (`styles.css?v=3.1`, etc.). Antes, en la primera visita después de publicar, podía mostrarse la página nueva
+  (`styles.css?v=3.2`, etc.). Antes, en la primera visita después de publicar, podía mostrarse la página nueva
   con estilos o scripts viejos guardados en el teléfono. **Al publicar cambios:** subir ese número en
   `index.html` y en la lista `SHELL` de `sw.js` (deben coincidir), además de `CACHE_VERSION`.
 

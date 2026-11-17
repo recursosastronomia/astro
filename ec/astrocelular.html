@@ -7,17 +7,17 @@
   
   <!-- Tailwind CSS para el diseño responsivo -->
   <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Paleta y tipografías del portal para las clases de Tailwind (ver ../ue/ue-tailwind.js) -->
+    <script src="../ue/ue-tailwind.js"></script>
+    <script>tailwind.config = UE_TW.config({ fixed: true });</script>
   
-  <!-- Google Fonts: Lexend (óptima para lectura, recomendada para TDAH) -->
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- FontAwesome para iconos -->
+<!-- FontAwesome para iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     body {
-      font-family: 'Lexend', sans-serif;
-      background-color: #020617;
+      font-family: var(--ue-font-ui);
+      background-color: #0b1730;
       background-image:
           radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
           radial-gradient(white, rgba(255,255,255,.08) 1.5px, transparent 3.5px);
@@ -26,11 +26,11 @@
     }
     
     .neon-glow-cyan {
-      box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
+      box-shadow: 0 0 20px rgba(255, 182, 39, 0.25);
     }
     
     .neon-glow-yellow {
-      box-shadow: 0 0 20px rgba(234, 179, 8, 0.2);
+      box-shadow: 0 0 20px rgba(255, 182, 39, 0.2);
     }
 
     /* Animación de estrellas parpadeantes */
@@ -45,96 +45,66 @@
 
     /* Estilo del cuestionario - Estrellas de oro ganadas */
     @keyframes golden-glow {
-      0%, 100% { color: #f59e0b; filter: drop-shadow(0 0 2px rgba(245, 158, 11, 0.5)); }
-      50% { color: #fbbf24; filter: drop-shadow(0 0 10px rgba(245, 158, 11, 1)); }
+      0%, 100% { color: #ffb627; filter: drop-shadow(0 0 2px rgba(255, 182, 39, 0.5)); }
+      50% { color: #ffc85a; filter: drop-shadow(0 0 10px rgba(255, 182, 39, 1)); }
     }
     
     .star-earned {
       animation: golden-glow 1s infinite ease-in-out;
-      color: #fbbf24;
+      color: #ffc85a;
     }
-  </style>
-  <!-- Encabezado del portal: botón "Inicio" + marca "Astronomía para todos · DGES - EDyTIC" (componente compartido, idéntico en todas las actividades) -->
-  <style>
-    .ue-home{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:10px;color:inherit;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.32);text-decoration:none;transition:background-color .2s,border-color .2s}
-    .ue-home:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.65)}
-    .ue-home:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
-    .ue-home svg{width:20px;height:20px;display:block}
-    .ue-brand-row{display:flex;align-items:center;gap:12px;min-width:0}
-    .ue-brand{display:flex;align-items:center;gap:12px;padding:7px 14px;border-radius:12px;background:#0f172a;border:1px solid rgba(148,163,184,.28);box-shadow:0 2px 10px rgba(0,0,0,.25);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;text-align:left;-webkit-text-fill-color:initial}
-    .ue-brand-logo{display:block;height:26px;width:auto;max-width:none;margin:0;border:0;border-radius:0;box-shadow:none}
-    .ue-brand-sep{flex:none;width:1px;align-self:stretch;background:rgba(148,163,184,.35)}
-    .ue-brand-text{display:flex;flex-direction:column;line-height:1.15}
-    .ue-brand-title{display:block;margin:0;font-size:15px;font-weight:700;letter-spacing:.01em;text-transform:none;color:#f8fafc}
-    .ue-brand-sub{display:block;margin:2px 0 0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:none;color:#fdba74}
-    @media (max-width:639px){
-      .ue-brand{flex-direction:column;align-items:flex-start;gap:5px;padding:7px 11px}
-      .ue-brand-sep{display:none}
-      .ue-brand-logo{height:18px}
-    }
-    @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
   </style>
 <style id="a11y-base">
 /* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
-:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+:focus-visible{outline:3px solid #ffc85a !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(20,38,75,.85) !important}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
-.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
-</style>
-<!-- Selector de tema claro/oscuro (mismo diseño que la actividad Voyager) -->
-<style id="ue-theme-switch">
-.theme-switch-wrapper{display:flex;align-items:center;gap:10px;flex:none}
-.theme-switch{position:relative;display:inline-block;width:60px;height:34px;margin:0}
-.theme-switch input{position:absolute;opacity:0;width:0;height:0;margin:0}
-.theme-switch .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.4s;border-radius:34px}
-.theme-switch .slider:before{position:absolute;content:"\2600\FE0F";display:flex;justify-content:center;align-items:center;font-size:14px;line-height:1;height:26px;width:26px;left:4px;bottom:4px;background-color:#fff;transition:.4s;border-radius:50%}
-.theme-switch input:checked + .slider{background-color:#3b82f6}
-.theme-switch input:checked + .slider:before{transform:translateX(26px);content:"\1F319"}
-.theme-switch input:focus-visible + .slider{outline:3px solid #facc15;outline-offset:2px}
-@media (prefers-reduced-motion:reduce){.theme-switch .slider,.theme-switch .slider:before{transition:none}}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cdd6e8;background:#0b1730;border-top:1px solid #1c3260}
 </style>
 <!-- Modo claro (activado con el selector de tema del encabezado) -->
 <style id="ue-modo-claro">
-html[data-theme="light"] body{background-color:#e5e7eb !important;background-image:none !important;color:#0f172a}
-html[data-theme="light"] header{background-color:rgba(229,231,235,.92) !important;border-color:#cbd5e1 !important}
-html[data-theme="light"] ::-webkit-scrollbar-track{background:#e2e8f0}
-html[data-theme="light"] ::-webkit-scrollbar-thumb{background:#94a3b8}
-html[data-theme="light"] .bg-slate-800{background-color:#cbd5e1 !important}
-html[data-theme="light"] .bg-slate-900{background-color:#f8fafc !important}
-html[data-theme="light"] .bg-slate-900\/40{background-color:#f8fafc !important}
-html[data-theme="light"] .bg-slate-900\/60{background-color:#f8fafc !important}
-html[data-theme="light"] .bg-slate-900\/70{background-color:#f8fafc !important}
-html[data-theme="light"] .bg-slate-950{background-color:#e2e8f0 !important}
-html[data-theme="light"] .bg-slate-950\/40{background-color:#e2e8f0 !important}
-html[data-theme="light"] .bg-slate-950\/80{background-color:#e2e8f0 !important}
-html[data-theme="light"] .bg-slate-950\/90{background-color:#e2e8f0 !important}
-html[data-theme="light"] .border-slate-700{border-color:#cbd5e1 !important}
-html[data-theme="light"] .border-slate-800{border-color:#cbd5e1 !important}
-html[data-theme="light"] .border-slate-800\/80{border-color:#cbd5e1 !important}
-html[data-theme="light"] .border-slate-850{border-color:#cbd5e1 !important}
-html[data-theme="light"] .hover\:bg-slate-700:hover{background-color:#b6c2d2 !important}
-html[data-theme="light"] .hover\:bg-slate-800:hover{background-color:#cbd5e1 !important}
+html[data-theme="light"] body{background-color:#f1f3f6 !important;background-image:none !important;color:#14264b}
+html[data-theme="light"] ::-webkit-scrollbar-track{background:#e6eaf1}
+html[data-theme="light"] ::-webkit-scrollbar-thumb{background:#66758f}
+html[data-theme="light"] .bg-slate-800{background-color:#cbd2de !important}
+html[data-theme="light"] .bg-slate-900{background-color:#ffffff !important}
+html[data-theme="light"] .bg-slate-900\/40{background-color:#ffffff !important}
+html[data-theme="light"] .bg-slate-900\/60{background-color:#ffffff !important}
+html[data-theme="light"] .bg-slate-900\/70{background-color:#ffffff !important}
+html[data-theme="light"] .bg-slate-950{background-color:#e6eaf1 !important}
+html[data-theme="light"] .bg-slate-950\/40{background-color:#e6eaf1 !important}
+html[data-theme="light"] .bg-slate-950\/80{background-color:#e6eaf1 !important}
+html[data-theme="light"] .bg-slate-950\/90{background-color:#e6eaf1 !important}
+html[data-theme="light"] .border-slate-700{border-color:#cbd2de !important}
+html[data-theme="light"] .border-slate-800{border-color:#cbd2de !important}
+html[data-theme="light"] .border-slate-800\/80{border-color:#cbd2de !important}
+html[data-theme="light"] .border-slate-850{border-color:#cbd2de !important}
+html[data-theme="light"] .hover\:bg-slate-700:hover{background-color:#b9c2d2 !important}
+html[data-theme="light"] .hover\:bg-slate-800:hover{background-color:#cbd2de !important}
 html[data-theme="light"] .hover\:text-slate-100:hover{color:#000 !important}
-html[data-theme="light"] .text-cyan-300{color:#155e75 !important}
-html[data-theme="light"] .text-cyan-400{color:#0e7490 !important}
+html[data-theme="light"] .text-cyan-300{color:#7a4800 !important}
+html[data-theme="light"] .text-cyan-400{color:#7a4800 !important}
 html[data-theme="light"] .text-emerald-400{color:#047857 !important}
-html[data-theme="light"] .text-slate-100{color:#0f172a !important}
-html[data-theme="light"] .text-slate-200{color:#1e293b !important}
-html[data-theme="light"] .text-slate-300{color:#334155 !important}
-html[data-theme="light"] .text-slate-400{color:#475569 !important}
-html[data-theme="light"] .text-slate-700{color:#334155 !important}
-html[data-theme="light"] .text-yellow-400{color:#854d0e !important}
-html[data-theme="light"] .text-yellow-500{color:#854d0e !important}
-html[data-theme="light"] .text-white:not([class*="bg-"]):not(button *):not(a[class*="bg-"] *){color:#0f172a !important}
-html[data-theme="light"] .from-slate-950,html[data-theme="light"] .from-slate-900{--tw-gradient-from:#f8fafc var(--tw-gradient-from-position) !important;--tw-gradient-to:rgb(248 250 252/0) var(--tw-gradient-to-position) !important;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to) !important}
-html[data-theme="light"] .via-slate-900{--tw-gradient-to:rgb(248 250 252/0) var(--tw-gradient-to-position) !important;--tw-gradient-stops:var(--tw-gradient-from),#f1f5f9 var(--tw-gradient-via-position),var(--tw-gradient-to) !important}
-html[data-theme="light"] .to-slate-950{--tw-gradient-to:#e2e8f0 var(--tw-gradient-to-position) !important}
-html[data-theme="light"] .from-indigo-950\/20{--tw-gradient-from:#e0e7ff var(--tw-gradient-from-position) !important;--tw-gradient-to:rgb(224 231 255/0) var(--tw-gradient-to-position) !important;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to) !important}
+html[data-theme="light"] .text-slate-100{color:#14264b !important}
+html[data-theme="light"] .text-slate-200{color:#14264b !important}
+html[data-theme="light"] .text-slate-300{color:#3b4a66 !important}
+html[data-theme="light"] .text-slate-400{color:#3b4a66 !important}
+html[data-theme="light"] .text-slate-700{color:#3b4a66 !important}
+html[data-theme="light"] .text-yellow-400{color:#7a4800 !important}
+html[data-theme="light"] .text-yellow-500{color:#7a4800 !important}
+html[data-theme="light"] .text-white:not([class*="bg-"]):not(button *):not(a[class*="bg-"] *){color:#14264b !important}
+html[data-theme="light"] .from-slate-950,html[data-theme="light"] .from-slate-900{--tw-gradient-from:#ffffff var(--tw-gradient-from-position) !important;--tw-gradient-to:rgb(248 250 252/0) var(--tw-gradient-to-position) !important;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to) !important}
+html[data-theme="light"] .via-slate-900{--tw-gradient-to:rgb(248 250 252/0) var(--tw-gradient-to-position) !important;--tw-gradient-stops:var(--tw-gradient-from),#f1f3f6 var(--tw-gradient-via-position),var(--tw-gradient-to) !important}
+html[data-theme="light"] .to-slate-950{--tw-gradient-to:#e6eaf1 var(--tw-gradient-to-position) !important}
+html[data-theme="light"] .from-indigo-950\/20{--tw-gradient-from:#fff3d6 var(--tw-gradient-from-position) !important;--tw-gradient-to:rgb(224 231 255/0) var(--tw-gradient-to-position) !important;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to) !important}
 </style>
+<!-- Capa visual compartida del portal: tipografías, paleta, modo claro/noche y alto contraste (carpeta ue/) -->
+<link rel="stylesheet" href="../ue/ue.css">
+<script src="../ue/ue.js"></script>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-slate-950">
 
   <!-- CABECERA -->
-  <header class="border-b border-slate-800 bg-slate-950/90 backdrop-blur-md sticky top-0 z-40 py-4 px-4 sm:px-6">
+  <header class="ue-appbar sticky top-0 z-40 py-4 px-4 sm:px-6">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="ue-brand-row">
         <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
@@ -149,12 +119,8 @@ html[data-theme="light"] .from-indigo-950\/20{--tw-gradient-from:#e0e7ff var(--t
           </span>
         </div>
       </div>
-      <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="theme-checkbox" aria-label="Cambiar modo claro/oscuro">
-          <input type="checkbox" id="theme-checkbox" checked />
-          <div class="slider"></div>
-        </label>
-      </div>
+      <!-- Botones «Modo claro / Modo noche» y «Alto contraste» (los dibuja ../ue/ue.js; iguales en todo el portal) -->
+      <div data-ue-tools class="ue-tools-compact"></div>
     </div>
   </header>
 
@@ -226,7 +192,7 @@ html[data-theme="light"] .from-indigo-950\/20{--tw-gradient-from:#e0e7ff var(--t
       <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md">Estabilidad</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md">Estabilidad</span>
             <span class="text-2xl">🔭</span>
           </div>
           <h3 class="text-base font-bold text-white mb-2">Estabilidad absoluta</h3>
@@ -925,7 +891,7 @@ html[data-theme="light"] .from-indigo-950\/20{--tw-gradient-from:#e0e7ff var(--t
     el.setAttribute('tabindex','0'); el.setAttribute('role','application');
     var x=.5,y=.5, m=document.createElement('div');
     m.setAttribute('aria-hidden','true');
-    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #14264b;pointer-events:none;z-index:9999;display:none';
     document.body.appendChild(m);
     function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
     function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';
@@ -965,13 +931,5 @@ html[data-theme="light"] .from-indigo-950\/20{--tw-gradient-from:#e0e7ff var(--t
 })();
 </script>
 <p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
-<script>
-/* Selector de tema claro/oscuro (mismo comportamiento que la actividad Voyager) */
-(function(){
-  var cb=document.getElementById('theme-checkbox'), root=document.documentElement;
-  if(!cb) return;
-  cb.addEventListener('change',function(){ root.setAttribute('data-theme', cb.checked ? 'dark' : 'light'); });
-})();
-</script>
 </body>
 </html>

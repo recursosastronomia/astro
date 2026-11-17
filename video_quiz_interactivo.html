@@ -1,30 +1,29 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-ue-blue-neutral>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video quiz interactivo</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Paleta y tipografías del portal para las clases de Tailwind (ver ue/ue-tailwind.js) -->
+    <script src="ue/ue-tailwind.js"></script>
+    <script>tailwind.config = UE_TW.config({ neutral: ['slate', 'gray', 'blue'] });</script>
     <!-- SheetJS (Excel) -->
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
     <!-- YouTube IFrame API (Cargada dinámicamente en JS) -->
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
-        
         body {
-            font-family: 'Outfit', sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
+            font-family: var(--ue-font-ui);
+            background-color: var(--ue-bg);
+            color: var(--ue-fg);
             overflow-x: hidden;
         }
 
         .glass-panel {
-            background: rgba(30, 58, 138, 0.2);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--ue-surface);
+            border: 1px solid var(--ue-line);
         }
 
         /* Ocultar elementos */
@@ -64,38 +63,26 @@
             z-index: 100;
         }
     </style>
-  <!-- Encabezado del portal: botón "Inicio" + marca "Astronomía para todos · DGES - EDyTIC" (componente compartido, idéntico en todas las actividades) -->
-  <style>
-    .ue-home{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:10px;color:inherit;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.32);text-decoration:none;transition:background-color .2s,border-color .2s}
-    .ue-home:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.65)}
-    .ue-home:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
-    .ue-home svg{width:20px;height:20px;display:block}
-    .ue-brand-row{display:flex;align-items:center;gap:12px;min-width:0}
-    .ue-brand{display:flex;align-items:center;gap:12px;padding:7px 14px;border-radius:12px;background:#0f172a;border:1px solid rgba(148,163,184,.28);box-shadow:0 2px 10px rgba(0,0,0,.25);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;text-align:left;-webkit-text-fill-color:initial}
-    .ue-brand-logo{display:block;height:26px;width:auto;max-width:none;margin:0;border:0;border-radius:0;box-shadow:none}
-    .ue-brand-sep{flex:none;width:1px;align-self:stretch;background:rgba(148,163,184,.35)}
-    .ue-brand-text{display:flex;flex-direction:column;line-height:1.15}
-    .ue-brand-title{display:block;margin:0;font-size:15px;font-weight:700;letter-spacing:.01em;text-transform:none;color:#f8fafc}
-    .ue-brand-sub{display:block;margin:2px 0 0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:none;color:#fdba74}
-    @media (max-width:639px){
-      .ue-brand{flex-direction:column;align-items:flex-start;gap:5px;padding:7px 11px}
-      .ue-brand-sep{display:none}
-      .ue-brand-logo{height:18px}
-    }
-    @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
-  </style>
 <style id="a11y-base">
 /* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
-:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+:focus-visible{outline:3px solid #ffc85a !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(20,38,75,.85) !important}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
-.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cdd6e8;background:#0b1730;border-top:1px solid #1c3260}
 </style>
+ <style>
+    /* Escenario oscuro del video: paneles translúcidos como en el diseño original */
+    .ue-ondark .glass-panel { background: rgba(20, 38, 75, .72); border: 1px solid rgba(238, 242, 250, .16); }
+  </style>
+<!-- Capa visual compartida del portal: tipografías, paleta, modo claro/noche y alto contraste (carpeta ue/) -->
+<link rel="stylesheet" href="ue/ue.css">
+<script src="ue/ue.js"></script>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 flex flex-col selection:bg-blue-500 selection:text-white">
+<body class="min-h-screen flex flex-col selection:bg-blue-500 selection:text-white">
 
     <!-- PANTALLA DE CONFIGURACIÓN (SETUP) -->
     <main id="setup-screen" class="min-h-screen flex flex-col justify-between p-4">
-        <nav aria-label="Portal" class="text-slate-100">
+        <nav aria-label="Portal" class="ue-appbar -mx-4 -mt-4 px-4 py-3">
+         <div class="ue-appbar-in">
           <div class="ue-brand-row">
             <a href="index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
@@ -109,6 +96,9 @@
               </span>
             </div>
           </div>
+          <!-- Botones «Modo claro / Modo noche» y «Alto contraste» (los dibuja ue/ue.js) -->
+          <div data-ue-tools></div>
+         </div>
         </nav>
         
         <!-- Contenido principal de configuración -->
@@ -143,7 +133,7 @@
                         
                         <div class="relative">
                             <input type="file" id="excel-file" accept=".xlsx, .xls" class="hidden" onchange="handleFile(event)">
-                            <label for="excel-file" class="w-full flex flex-col items-center justify-center px-4 py-8 bg-black/20 border-2 border-dashed border-blue-400/50 rounded-xl cursor-pointer hover:bg-black/40 hover:border-cyan-400 transition group">
+                            <label for="excel-file" class="w-full flex flex-col items-center justify-center px-4 py-8 bg-slate-950/40 border-2 border-dashed border-blue-400/50 rounded-xl cursor-pointer hover:bg-slate-950/70 hover:border-cyan-400 transition group">
                                 <svg class="w-10 h-10 text-blue-400 group-hover:text-cyan-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                                 <span class="text-blue-300 font-medium text-lg text-center" id="file-name-display">Haz clic para subir archivo</span>
                                 <span class="text-xs text-slate-400 mt-1">Solo .xlsx</span>
@@ -157,7 +147,7 @@
 
                     <!-- Botón Jugar (Se muestra al cargar válido) -->
                     <div id="start-container" class="hidden-element text-center pt-4">
-                        <button onclick="startGame()" class="w-full px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-400 hover:from-green-400 hover:to-emerald-300 text-black font-extrabold text-xl rounded-2xl transition shadow-xl shadow-green-500/20 transform hover:scale-105 flex items-center justify-center gap-3">
+                        <button onclick="startGame()" class="w-full px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-extrabold text-xl rounded-2xl transition shadow-xl shadow-amber-500/20 transform hover:scale-105 flex items-center justify-center gap-3">
                             <svg class="w-7 h-7" fill="solid" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill="currentColor" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             INICIAR ACTIVIDAD
                         </button>
@@ -180,7 +170,7 @@
                 class="h-10 md:h-12 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
                 onerror="this.style.display='none';"
               />
-              <span class="text-xs md:text-sm text-blue-300/60 group-hover:text-yellow-400 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
+              <span class="text-xs md:text-sm text-slate-400 group-hover:text-yellow-400 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
                 Portal Uruguay Educa (ANEP-DGES) - Contenidistas de Astronomía 2026 - Herramienta de uso libre - Desarrollado con asistencia de IA - Preguntas y respuestas responsabilidad de docente aplicador
               </span>
             </a>
@@ -188,7 +178,7 @@
     </main>
 
     <!-- PANTALLA DE JUEGO -->
-    <main id="game-screen" class="hidden-element flex-1 flex flex-col min-h-screen w-screen absolute inset-0 bg-black z-10 overflow-y-auto justify-between">
+    <main id="game-screen" class="ue-ondark hidden-element flex-1 flex flex-col min-h-screen w-screen absolute inset-0 bg-black z-10 overflow-y-auto justify-between">
         
         <div class="w-full flex flex-col">
             <!-- Header -->
@@ -229,14 +219,14 @@
                 class="h-10 md:h-12 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
                 onerror="this.style.display='none';"
               />
-              <span class="text-xs md:text-sm text-blue-300/60 group-hover:text-yellow-400 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
+              <span class="text-xs md:text-sm text-slate-400 group-hover:text-yellow-400 text-center sm:text-left transition-colors tracking-wide leading-relaxed">
                 Portal Uruguay Educa (ANEP) - Contenidistas de Astronomía 2026 - Herramienta de uso libre
               </span>
             </a>
         </footer>
 
         <!-- OVERLAY DE PREGUNTA -->
-        <div id="question-overlay" class="hidden-element fixed inset-0 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center">
+        <div id="question-overlay" class="ue-ondark hidden-element fixed inset-0 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center">
             
             <div class="max-w-5xl w-full flex flex-col items-center gap-8">
                 
@@ -502,12 +492,12 @@
                 modal.id = 'game-error-modal';
                 modal.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;padding:2rem;';
                 modal.innerHTML = `
-                    <div style="background:#1e293b;border:1px solid #ef4444;border-radius:1.5rem;padding:2.5rem;max-width:520px;width:100%;text-align:center;box-shadow:0 0 60px rgba(239,68,68,0.2);">
+                    <div style="background:#1c3260;border:1px solid #ef4444;border-radius:1.5rem;padding:2.5rem;max-width:520px;width:100%;text-align:center;box-shadow:0 0 60px rgba(239,68,68,0.2);">
                         <div style="font-size:3rem;margin-bottom:1rem;">⚠️</div>
                         <h3 style="color:#ef4444;font-size:1.4rem;font-weight:800;margin-bottom:1rem;">Error de reproducción</h3>
-                        <p id="game-error-text" style="color:#cbd5e1;font-size:1rem;line-height:1.6;margin-bottom:2rem;"></p>
+                        <p id="game-error-text" style="color:#cdd6e8;font-size:1rem;line-height:1.6;margin-bottom:2rem;"></p>
                         <button onclick="document.getElementById('game-error-modal').remove(); exitGame();" 
-                            style="background:#3b82f6;color:white;font-weight:700;padding:0.75rem 2rem;border-radius:0.75rem;border:none;cursor:pointer;font-size:1rem;">
+                            style="background:#ffb627;color:white;font-weight:700;padding:0.75rem 2rem;border-radius:0.75rem;border:none;cursor:pointer;font-size:1rem;">
                             Volver al inicio
                         </button>
                     </div>`;
@@ -582,7 +572,7 @@
             
             const timerDisplay = document.getElementById('timer-display');
             timerDisplay.classList.remove('time-critical');
-            timerDisplay.style.color = '#38bdf8'; // cyan-400
+            timerDisplay.style.color = '#ffc85a'; // ámbar del portal
 
             // Mostrar Overlay
             document.getElementById('question-overlay').classList.remove('hidden-element');
@@ -718,7 +708,7 @@
     el.setAttribute('tabindex','0'); el.setAttribute('role','application');
     var x=.5,y=.5, m=document.createElement('div');
     m.setAttribute('aria-hidden','true');
-    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #14264b;pointer-events:none;z-index:9999;display:none';
     document.body.appendChild(m);
     function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
     function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';

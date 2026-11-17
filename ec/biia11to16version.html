@@ -5,41 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Los orígenes de la observación del cielo - Astronomía</title>
     <!-- Fuentes para alta legibilidad -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    
-    <style>
+<style>
         :root {
             /* Modo Oscuro (Por defecto) */
-            --bg-color: #07111f;
-            --surface-color: #112240;
-            --surface-hover: #1e3a68;
-            --text-primary: #f8fafc;
-            --text-secondary: #cbd5e1;
-            --accent-color: #38bdf8;
-            --accent-hover: #7dd3fc;
-            --on-accent: #0f172a;
+            --bg-color: #0b1730;
+            --surface-color: #14264b;
+            --surface-hover: #1c3260;
+            --text-primary: #eef2fa;
+            --text-secondary: #b4c0d9;
+            --accent-color: #ffb627;
+            --accent-hover: #f0a00a;
+            --on-accent: #0b1730;
             --correct-color: #22c55e;
             --incorrect-color: #ef4444;
-            --star-color: #fbbf24;
-            --border-color: #334155;
+            --star-color: #ffc85a;
+            --border-color: #2e4472;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
         }
 
         .light-mode {
-            /* Modo Claro (Gris claro ~70% blanco) */
-            --bg-color: #e5e7eb;
+            /* Modo claro: papel y tinta del portal */
+            --bg-color: #f1f3f6;
             --surface-color: #ffffff;
-            --surface-hover: #f1f5f9;
-            --text-primary: #0f172a;
-            --text-secondary: #334155;
-            --accent-color: #0369a1;
-            --accent-hover: #075985;
+            --surface-hover: #e6eaf1;
+            --text-primary: #14264b;
+            --text-secondary: #3b4a66;
+            --accent-color: #7a4800;
+            --accent-hover: #5a3500;
             --on-accent: #ffffff;
             --correct-color: #16a34a;
             --incorrect-color: #dc2626;
-            --border-color: #cbd5e1;
+            --border-color: #cbd2de;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
@@ -50,7 +46,7 @@
         }
 
         body {
-            font-family: 'Atkinson Hyperlegible', 'Inter', sans-serif;
+            font-family: var(--ue-font-ui);
             background-color: var(--bg-color);
             color: var(--text-primary);
             line-height: 1.6;
@@ -159,7 +155,7 @@
 
         /* Tipografía y Encabezados */
         h1, h2, h3 {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--ue-font-ui);
             margin-bottom: 1rem;
             color: var(--accent-color);
             outline: none; /* Para cuando recibe focus por JS */
@@ -446,10 +442,10 @@
         /* Footer Permanente Oscuro */
         .dark-footer-wrapper {
             background-color: #07111f !important;
-            color: #cbd5e1 !important;
+            color: #cdd6e8 !important;
             padding: 3rem 20px;
             width: 100%;
-            border-top: 2px solid #334155;
+            border-top: 2px solid #2e4472;
             margin-top: auto; /* Empuja el footer siempre abajo */
         }
         .dark-footer-wrapper .main-footer {
@@ -462,10 +458,10 @@
             flex-direction: column;
             align-items: center;
             text-decoration: none;
-            color: #94a3b8 !important;
+            color: #b4c0d9 !important;
             transition: color 0.2s;
         }
-        .dark-footer-wrapper .footer-card:hover { color: #f8fafc !important; }
+        .dark-footer-wrapper .footer-card:hover { color: #f8fafd !important; }
         .dark-footer-wrapper .footer-logo {
             max-width: 250px; margin-bottom: 1rem; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5)) !important;
         }
@@ -486,22 +482,13 @@
     </style>
 <style id="a11y-base">
 /* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
-:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+:focus-visible{outline:3px solid #ffc85a !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(20,38,75,.85) !important}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
-.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cdd6e8;background:#0b1730;border-top:1px solid #1c3260}
 </style>
-<!-- Selector de tema claro/oscuro (mismo diseño que la actividad Voyager) -->
-<style id="ue-theme-switch">
-.theme-switch-wrapper{display:flex;align-items:center;gap:10px;flex:none}
-.theme-switch{position:relative;display:inline-block;width:60px;height:34px;margin:0}
-.theme-switch input{position:absolute;opacity:0;width:0;height:0;margin:0}
-.theme-switch .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.4s;border-radius:34px}
-.theme-switch .slider:before{position:absolute;content:"\2600\FE0F";display:flex;justify-content:center;align-items:center;font-size:14px;line-height:1;height:26px;width:26px;left:4px;bottom:4px;background-color:#fff;transition:.4s;border-radius:50%}
-.theme-switch input:checked + .slider{background-color:#3b82f6}
-.theme-switch input:checked + .slider:before{transform:translateX(26px);content:"\1F319"}
-.theme-switch input:focus-visible + .slider{outline:3px solid #facc15;outline-offset:2px}
-@media (prefers-reduced-motion:reduce){.theme-switch .slider,.theme-switch .slider:before{transition:none}}
-</style>
+<!-- Capa visual compartida del portal: tipografías, paleta, modo claro/noche y alto contraste (carpeta ue/) -->
+<link rel="stylesheet" href="../ue/ue.css">
+<script src="../ue/ue.js"></script>
 </head>
 <body>
 
@@ -513,12 +500,8 @@
 
     <!-- Panel de Accesibilidad (Fijo) -->
     <div class="accessibility-panel">
-        <div class="theme-switch-wrapper">
-          <label class="theme-switch" for="theme-checkbox" aria-label="Cambiar modo claro/oscuro">
-            <input type="checkbox" id="theme-checkbox" checked />
-            <div class="slider"></div>
-          </label>
-        </div>
+        <!-- Botones «Modo claro / Modo noche» y «Alto contraste» (los dibuja ../ue/ue.js; iguales en todo el portal) -->
+        <div data-ue-tools class="ue-tools-compact"></div>
         <div style="width: 1px; height: 30px; background: var(--border-color); margin: 0 5px;"></div>
         <div style="display: flex; flex-direction: column; align-items: center;">
             <div id="audio-controls">
@@ -781,16 +764,13 @@
         createStars();
 
         // === CAMBIO DE TEMA ===
-        const themeCheckbox = document.getElementById('theme-checkbox');
         const body = document.body;
 
-        function setTheme(isLight) {
-            body.classList.toggle('light-mode', isLight);
-            themeCheckbox.checked = !isLight;
-            try { localStorage.setItem('astroTheme', isLight ? 'light' : 'dark'); } catch (e) {}
-        }
-        try { if(localStorage.getItem('astroTheme') === 'light') setTheme(true); } catch (e) {}
-        themeCheckbox.addEventListener('change', () => setTheme(!themeCheckbox.checked));
+        // El modo (claro / noche / alto contraste) lo elige la persona con los botones del panel
+        // y vale para todo el portal (../ue/ue.js); esta guía lo acompaña.
+        function setTheme(isLight) { body.classList.toggle('light-mode', isLight); }
+        document.addEventListener('ue:theme', e => setTheme(!e.detail.dark));
+        if (window.UETheme) setTheme(!window.UETheme.get().dark);
 
         // === SISTEMA DE PANTALLAS (SLIDER/PAGES) ===
         const screens = document.querySelectorAll('.screen');
@@ -1112,7 +1092,7 @@
     el.setAttribute('tabindex','0'); el.setAttribute('role','application');
     var x=.5,y=.5, m=document.createElement('div');
     m.setAttribute('aria-hidden','true');
-    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #14264b;pointer-events:none;z-index:9999;display:none';
     document.body.appendChild(m);
     function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
     function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';

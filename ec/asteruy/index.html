@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Uruguayos en el espacio</title>
     <meta name="description" content="Álbum de cromos de los asteroides con nombres vinculados al Uruguay. Encuentra los códigos misterio y completa tu colección.">
-    <meta name="theme-color" content="#0A1033">
+    <meta name="theme-color" content="#14264b">
 
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48.png">
@@ -15,7 +15,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Asteroides UY">
 
-    <link rel="preload" href="fonts/fredoka-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Capa compartida del portal: tipografías, botón Inicio, botones de modo y modo claro / noche / alto contraste -->
+    <link rel="stylesheet" href="../../ue/ue.css">
+    <script src="../../ue/ue.js"></script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -67,6 +69,7 @@
                     <svg class="icon icon--pause" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 5v14M15 5v14"/></svg>
                     <svg class="icon icon--play" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg>
                 </button>
+                <div data-ue-tools class="ue-tools-compact"></div>
                 <label class="lang">
                     <svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg>
                     <span class="sr-only" data-i18n="language">Idioma</span>

@@ -4,26 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exoplanetas: nuevos mundos más allá de nuestro Sol</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
+<style>
         /* Paleta de Colores Globales en CSS Nativo */
         :root {
-            --space-950: #030712;
-            --space-900: #0b0f19;
-            --space-800: #111827;
-            --space-700: #1f2937;
+            --space-950: #0b1730;
+            --space-900: #0b1730;
+            --space-800: #14264b;
+            --space-700: #1c3260;
             --space-deep: #05050d;
-            --slate-100: #f1f5f9;
-            --slate-200: #e2e8f0;
-            --slate-300: #cbd5e1;
-            --slate-400: #94a3b8;
-            --slate-700: #334155;
-            --slate-800: #1e293b;
-            --slate-900: #0f172a;
-            --neon-cyan: #06b6d4;
-            --neon-blue: #3b82f6;
-            --neon-purple: #a855f7;
-            --neon-gold: #f59e0b;
+            --slate-100: #eef2fa;
+            --slate-200: #e2e8f4;
+            --slate-300: #cdd6e8;
+            --slate-400: #b4c0d9;
+            --slate-700: #2e4472;
+            --slate-800: #1c3260;
+            --slate-900: #14264b;
+            --neon-cyan: #ffb627;
+            --neon-blue: #ffb627;
+            --neon-purple: #ffb627;
+            --neon-gold: #ffb627;
         }
 
         /* Estilos Base Globales */
@@ -36,7 +35,7 @@
             scroll-behavior: smooth;
         }
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--ue-font-ui);
             background-color: var(--space-950);
             color: var(--slate-100);
             overflow-x: hidden;
@@ -74,7 +73,7 @@
         .nebula-1 {
             top: 0; left: 0; width: 100%; height: 1000px;
             filter: blur(140px);
-            background: radial-gradient(circle, rgba(6,182,212,0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255,182,39,0.15) 0%, transparent 70%);
         }
 
         /* Estructuras de Maquetación */
@@ -109,7 +108,7 @@
 
         /* Paneles Estilo Glassmorphism */
         .glass-panel {
-            background: rgba(15, 23, 42, 0.55);
+            background: rgba(20,38,75, 0.55);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -123,9 +122,9 @@
             position: sticky;
             top: 0;
             z-index: 50;
-            background: rgba(3, 7, 18, 0.8);
+            background: rgba(11,23,48, 0.8);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(30, 41, 59, 0.6);
+            border-bottom: 1px solid rgba(28,50,96, 0.6);
             padding: 1rem 0;
         }
         .header-wrap {
@@ -180,7 +179,7 @@
         .btn-primary {
             background: linear-gradient(to right, var(--neon-blue), var(--neon-cyan));
             color: var(--space-950);
-            box-shadow: 0 4px 14px rgba(6, 182, 212, 0.2);
+            box-shadow: 0 4px 14px rgba(255, 182, 39, 0.2);
         }
         .btn-primary:hover { transform: scale(1.03); }
         .btn-large { padding: 1rem 2rem; border-radius: 0.75rem; font-size: 0.95rem; }
@@ -200,8 +199,8 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.35rem 0.85rem;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(51, 65, 85, 0.5);
+            background: rgba(20,38,75, 0.8);
+            border: 1px solid rgba(46,68,114, 0.5);
             border-radius: 9999px;
             font-size: 0.75rem;
             font-weight: 600;
@@ -241,7 +240,7 @@
         .didactic-text { font-size: 0.95rem; color: var(--slate-300); margin-bottom: 1rem; }
         .reflection-container { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
         .reflection-card {
-            background: rgba(30, 41, 59, 0.3);
+            background: rgba(28,50,96, 0.3);
             border-left: 4px solid var(--neon-cyan);
             border-radius: 0 1rem 1rem 0;
             padding: 1.25rem;
@@ -314,8 +313,8 @@
 
         /* Telemetría */
         .telemetry-box {
-            background: linear-gradient(to bottom right, rgba(30, 27, 75, 0.4), var(--space-950));
-            border: 1px solid rgba(99, 102, 241, 0.2);
+            background: linear-gradient(to bottom right, rgba(42, 31, 8, 0.4), var(--space-950));
+            border: 1px solid rgba(255, 182, 39, 0.2);
         }
         .telemetry-list { margin-top: 0.5rem; font-size: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem; }
 
@@ -331,7 +330,7 @@
         .quiz-title { font-size: 1.3rem; font-weight: 700; color: var(--slate-100); }
         .options-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
         .option-btn {
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(20,38,75, 0.6);
             border: 1px solid var(--slate-700);
             border-radius: 0.75rem;
             padding: 0.95rem 1.25rem;
@@ -341,7 +340,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        .option-btn:hover:not(:disabled) { border-color: var(--neon-cyan); background: rgba(6, 182, 212, 0.05); }
+        .option-btn:hover:not(:disabled) { border-color: var(--neon-cyan); background: rgba(255, 182, 39, 0.05); }
         .option-btn:disabled { cursor: not-allowed; }
         .quiz-emoji { font-size: 3rem; }
         .hidden { display: none !important; }
@@ -364,8 +363,8 @@
             max-width: 900px;
             width: 100%;
             padding: 1.25rem 2rem;
-            background: rgba(15, 23, 42, 0.4);
-            border: 1px solid rgba(59, 130, 246, 0.15);
+            background: rgba(20,38,75, 0.4);
+            border: 1px solid rgba(255, 182, 39, 0.15);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
             border-radius: 1.25rem;
@@ -373,9 +372,9 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .footer-card:hover {
-            border-color: rgba(245, 158, 11, 0.35);
-            background: rgba(15, 23, 42, 0.55);
-            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.04);
+            border-color: rgba(255, 182, 39, 0.35);
+            background: rgba(20,38,75, 0.55);
+            box-shadow: 0 4px 20px rgba(255, 182, 39, 0.04);
         }
         .footer-logo {
             height: 44px;
@@ -387,7 +386,7 @@
         .footer-card:hover .footer-logo { opacity: 1; }
         .footer-text {
             font-size: 0.75rem;
-            color: rgba(148, 163, 184, 0.7);
+            color: #b4c0d9;
             text-align: center;
             line-height: 1.6;
             letter-spacing: 0.01em;
@@ -414,7 +413,7 @@
             border: 1px solid rgba(148, 163, 184, 0.32);
             cursor: pointer;
         }
-        .nav-toggle:hover { background: rgba(6, 182, 212, 0.18); border-color: rgba(6, 182, 212, 0.65); }
+        .nav-toggle:hover { background: rgba(255, 182, 39, 0.18); border-color: rgba(255, 182, 39, 0.65); }
         .nav-toggle:focus-visible, nav a:focus-visible { outline: 2px solid var(--neon-cyan); outline-offset: 2px; }
         .nav-toggle svg { width: 22px; height: 22px; }
         .nav-toggle .icon-close { display: none; }
@@ -441,16 +440,16 @@
                 box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
             }
             nav.is-open a { display: block; padding: 0.85rem 1rem; border-radius: 0.6rem; font-size: 1rem; }
-            nav.is-open a:hover { background: rgba(6, 182, 212, 0.12); }
+            nav.is-open a:hover { background: rgba(255, 182, 39, 0.12); }
         }
 
         /* Rendimiento en celulares: sin desenfoques de fondo ni animación del cielo, que obligan a redibujar toda la pantalla */
         @media (max-width: 767px) {
             .stars { animation: none; }
             .nebula-1 { filter: blur(60px); }
-            header { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(3, 7, 18, 0.96); }
-            .glass-panel { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(15, 23, 42, 0.9); }
-            .footer-card { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(15, 23, 42, 0.85); }
+            header { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(11,23,48, 0.96); }
+            .glass-panel { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(20,38,75, 0.9); }
+            .footer-card { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(20,38,75, 0.85); }
         }
 
         /* Preferencia del sistema "reducir movimiento" */
@@ -460,80 +459,51 @@
             .btn-primary:hover { transform: none; }
         }
     </style>
-  <!-- Encabezado del portal: botón "Inicio" + marca "Astronomía para todos · DGES - EDyTIC" (componente compartido, idéntico en todas las actividades) -->
-  <style>
-    .ue-home{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:10px;color:inherit;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.32);text-decoration:none;transition:background-color .2s,border-color .2s}
-    .ue-home:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.65)}
-    .ue-home:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
-    .ue-home svg{width:20px;height:20px;display:block}
-    .ue-brand-row{display:flex;align-items:center;gap:12px;min-width:0}
-    .ue-brand{display:flex;align-items:center;gap:12px;padding:7px 14px;border-radius:12px;background:#0f172a;border:1px solid rgba(148,163,184,.28);box-shadow:0 2px 10px rgba(0,0,0,.25);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;text-align:left;-webkit-text-fill-color:initial}
-    .ue-brand-logo{display:block;height:26px;width:auto;max-width:none;margin:0;border:0;border-radius:0;box-shadow:none}
-    .ue-brand-sep{flex:none;width:1px;align-self:stretch;background:rgba(148,163,184,.35)}
-    .ue-brand-text{display:flex;flex-direction:column;line-height:1.15}
-    .ue-brand-title{display:block;margin:0;font-size:15px;font-weight:700;letter-spacing:.01em;text-transform:none;color:#f8fafc}
-    .ue-brand-sub{display:block;margin:2px 0 0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:none;color:#fdba74}
-    @media (max-width:639px){
-      .ue-brand{flex-direction:column;align-items:flex-start;gap:5px;padding:7px 11px}
-      .ue-brand-sep{display:none}
-      .ue-brand-logo{height:18px}
-    }
-    @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
-  </style>
 <style id="a11y-base">
 /* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
-:focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
+:focus-visible{outline:3px solid #ffc85a !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(20,38,75,.85) !important}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
-.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cbd5e1;background:#090d16;border-top:1px solid #1e293b}
-</style>
-<!-- Selector de tema claro/oscuro (mismo diseño que la actividad Voyager) -->
-<style id="ue-theme-switch">
-.theme-switch-wrapper{display:flex;align-items:center;gap:10px;flex:none}
-.theme-switch{position:relative;display:inline-block;width:60px;height:34px;margin:0}
-.theme-switch input{position:absolute;opacity:0;width:0;height:0;margin:0}
-.theme-switch .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.4s;border-radius:34px}
-.theme-switch .slider:before{position:absolute;content:"\2600\FE0F";display:flex;justify-content:center;align-items:center;font-size:14px;line-height:1;height:26px;width:26px;left:4px;bottom:4px;background-color:#fff;transition:.4s;border-radius:50%}
-.theme-switch input:checked + .slider{background-color:#3b82f6}
-.theme-switch input:checked + .slider:before{transform:translateX(26px);content:"\1F319"}
-.theme-switch input:focus-visible + .slider{outline:3px solid #facc15;outline-offset:2px}
-@media (prefers-reduced-motion:reduce){.theme-switch .slider,.theme-switch .slider:before{transition:none}}
+.a11y-declaracion{display:block;width:100%;margin:0;padding:12px 16px;text-align:center;font:400 14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#cdd6e8;background:#0b1730;border-top:1px solid #1c3260}
 </style>
 <!-- Modo claro (activado con el selector de tema del encabezado) -->
 <style id="ue-modo-claro">
-html[data-theme="light"]{--space-950:#e5e7eb;--space-900:#f1f5f9;--space-800:#e2e8f0;--space-700:#cbd5e1;
-  --slate-100:#0f172a;--slate-200:#1e293b;--slate-300:#334155;--slate-400:#475569;--slate-700:#94a3b8;--slate-800:#cbd5e1;--slate-900:#f8fafc;
-  --neon-cyan:#0e7490;--neon-blue:#1d4ed8;--neon-purple:#7e22ce;--neon-gold:#b45309}
-html[data-theme="light"] body{color:#0f172a}
+html[data-theme="light"]{--space-950:#f1f3f6;--space-900:#f1f3f6;--space-800:#e6eaf1;--space-700:#cbd2de;
+  --slate-100:#14264b;--slate-200:#14264b;--slate-300:#3b4a66;--slate-400:#3b4a66;--slate-700:#66758f;--slate-800:#cbd2de;--slate-900:#ffffff;
+  --neon-cyan:#7a4800;--neon-blue:#7a4800;--neon-purple:#7a4800;--neon-gold:#7a4800}
+html[data-theme="light"] body{color:#14264b}
 html[data-theme="light"] .stars{background-image:none}
 html[data-theme="light"] .nebula-1{opacity:.35}
-html[data-theme="light"] header{background:rgba(229,231,235,.92)}
-html[data-theme="light"] .glass-panel{background:rgba(255,255,255,.8);border-color:rgba(15,23,42,.12);box-shadow:0 8px 24px rgba(15,23,42,.08)}
+html[data-theme="light"] header{background:rgba(241,243,246,.92)}
+html[data-theme="light"] .glass-panel{background:rgba(255,255,255,.8);border-color:rgba(20,38,75,.12);box-shadow:0 8px 24px rgba(20,38,75,.08)}
 html[data-theme="light"] .bg-strip{background-color:rgba(255,255,255,.45)}
-html[data-theme="light"] .pill-badge{background:#f8fafc;border-color:#cbd5e1}
-html[data-theme="light"] .reflection-card{background:#f8fafc;border-color:rgba(15,23,42,.08);border-left-color:var(--neon-cyan)}
-html[data-theme="light"] .option-btn{background:#f8fafc}
-html[data-theme="light"] .option-btn:hover:not(:disabled){background:rgba(14,116,144,.08)}
+html[data-theme="light"] .pill-badge{background:#ffffff;border-color:#cbd2de}
+html[data-theme="light"] .reflection-card{background:#ffffff;border-color:rgba(20,38,75,.08);border-left-color:var(--neon-cyan)}
+html[data-theme="light"] .option-btn{background:#ffffff}
+html[data-theme="light"] .option-btn:hover:not(:disabled){background:rgba(122,72,0,.08)}
 html[data-theme="light"] .btn-primary{color:#fff}
-html[data-theme="light"] .btn-dark{color:#0f172a}
-html[data-theme="light"] .telemetry-box{background:linear-gradient(to bottom right,#e0e7ff,#f8fafc);border-color:rgba(79,70,229,.25)}
-html[data-theme="light"] .nav-toggle{background:rgba(15,23,42,.06);border-color:rgba(15,23,42,.2)}
-html[data-theme="light"] .logo{background:linear-gradient(to right,#0f172a,#475569);-webkit-background-clip:text}
-html[data-theme="light"] .footer-card{background:#0f172a}
-html[data-theme="light"] .footer-card:hover{background:#0f172a}
-html[data-theme="light"] .footer-card:hover .footer-text{color:#e2e8f0}
-html[data-theme="light"] #telemetry-zone{color:#0f172a !important}
+html[data-theme="light"] .btn-dark{color:#14264b}
+html[data-theme="light"] .telemetry-box{background:linear-gradient(to bottom right,#fff3d6,#ffffff);border-color:rgba(122,72,0,.25)}
+html[data-theme="light"] .nav-toggle{background:rgba(20,38,75,.06);border-color:rgba(20,38,75,.2)}
+html[data-theme="light"] .logo{background:linear-gradient(to right,#14264b,#3b4a66);-webkit-background-clip:text}
+html[data-theme="light"] .footer-card{background:#14264b}
+html[data-theme="light"] .footer-card:hover{background:#14264b}
+html[data-theme="light"] .footer-card:hover .footer-text{color:#e6eaf1}
+html[data-theme="light"] #telemetry-zone{color:#14264b !important}
 @media (max-width:767px){
-  html[data-theme="light"] header{background:rgba(229,231,235,.97)}
+  html[data-theme="light"] header{background:rgba(241,243,246,.97)}
   html[data-theme="light"] .glass-panel{background:rgba(255,255,255,.92)}
-  html[data-theme="light"] nav.is-open{background:#f8fafc;box-shadow:0 16px 40px rgba(15,23,42,.18)}
+  html[data-theme="light"] nav.is-open{background:#ffffff;box-shadow:0 16px 40px rgba(20,38,75,.18)}
 }
 </style>
+<!-- Capa visual compartida del portal: tipografías, paleta, modo claro/noche y alto contraste (carpeta ue/) -->
+<link rel="stylesheet" href="../ue/ue.css">
+<script src="../ue/ue.js"></script>
 </head>
 <body class="stars">
 
     <div class="nebula-layer nebula-1"></div>
 
-    <header>
+    <header class="ue-appbar">
         <div class="container header-wrap">
             <div class="ue-brand-row">
               <a href="../index.html" class="ue-home" aria-label="Volver al inicio del portal" title="Volver al inicio">
@@ -555,12 +525,8 @@ html[data-theme="light"] #telemetry-zone{color:#0f172a !important}
                 <a href="#trivia-section">Trivia</a>
             </nav>
             <a href="#simulador" class="btn btn-primary header-cta">Probar simulador</a>
-            <div class="theme-switch-wrapper">
-              <label class="theme-switch" for="theme-checkbox" aria-label="Cambiar modo claro/oscuro">
-                <input type="checkbox" id="theme-checkbox" checked />
-                <div class="slider"></div>
-              </label>
-            </div>
+            <!-- Botones «Modo claro / Modo noche» y «Alto contraste» (los dibuja ../ue/ue.js; iguales en todo el portal) -->
+            <div data-ue-tools class="ue-tools-compact"></div>
             <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir el menú de secciones">
                 <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
                 <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -1355,7 +1321,7 @@ html[data-theme="light"] #telemetry-zone{color:#0f172a !important}
     el.setAttribute('tabindex','0'); el.setAttribute('role','application');
     var x=.5,y=.5, m=document.createElement('div');
     m.setAttribute('aria-hidden','true');
-    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #0f172a;pointer-events:none;z-index:9999;display:none';
+    m.style.cssText='position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #facc15;border-radius:50%;box-shadow:0 0 0 2px #14264b;pointer-events:none;z-index:9999;display:none';
     document.body.appendChild(m);
     function pos(){var r=el.getBoundingClientRect();return {cx:r.left+x*r.width, cy:r.top+y*r.height};}
     function show(){var p=pos();m.style.left=p.cx+'px';m.style.top=p.cy+'px';m.style.display='block';
@@ -1395,13 +1361,5 @@ html[data-theme="light"] #telemetry-zone{color:#0f172a !important}
 })();
 </script>
 <p class="a11y-declaracion" lang="es">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Octubre de 2026.</p>
-<script>
-/* Selector de tema claro/oscuro (mismo comportamiento que la actividad Voyager) */
-(function(){
-  var cb=document.getElementById('theme-checkbox'), root=document.documentElement;
-  if(!cb) return;
-  cb.addEventListener('change',function(){ root.setAttribute('data-theme', cb.checked ? 'dark' : 'light'); });
-})();
-</script>
 </body>
 </html>

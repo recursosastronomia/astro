@@ -20,11 +20,15 @@ function walk(dir, out = []) {
   return out;
 }
 
+// Archivos compartidos del portal que esta app también usa (modo claro / noche / alto contraste).
+// Están fuera de la carpeta de la app, pero se guardan igual para que funcione sin conexión.
+const SHARED = ['../ue/ue.css', '../ue/ue.js'].filter(f => fs.existsSync(path.join(root, f)));
+
 const files = walk(root);
 const hash = crypto.createHash('sha256');
-for (const f of files) { hash.update(f); hash.update(fs.readFileSync(path.join(root, f))); }
+for (const f of [...files, ...SHARED]) { hash.update(f); hash.update(fs.readFileSync(path.join(root, f))); }
 const version = 'helios-' + hash.digest('hex').slice(0, 10);
-const shell = ['./', ...files];
+const shell = ['./', ...files, ...SHARED];
 
 let sw = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
 sw = sw.replace(/\/\*VERSION\*\/.*?\/\*END_VERSION\*\//s, `/*VERSION*/'${version}'/*END_VERSION*/`);
