@@ -1,6 +1,71 @@
 # Eclipse sonoro 2027 (PWA)
 
-Aplicación web instalable (PWA) sobre el eclipse solar anular del 6 de febrero de 2027.
+Aplicación web instalable (PWA) que convierte en sonido el eclipse solar anular del 6 de febrero de 2027, para
+que cualquier persona pueda seguirlo, y en especial las personas ciegas y con baja visión.
+
+Forma parte del portal de recursos de astronomía de ANEP - DGES, Inspección de Astronomía, Espacio de Educación
+y TIC (EDyTIC). En la página de entrada del portal (`../index.html`) tiene su tarjeta: «Eclipse sonoro 2027».
+
+## Qué es
+El eclipse se «escucha»: un tono agudo representa el Sol descubierto y baja a medida que la Luna lo cubre; vuelve
+a subir cuando la Luna lo va liberando. Durante el anillo de fuego suenan además campanitas. Un relato por voz
+anuncia los cambios de fase y el botón «¿Cómo va el eclipse?» dice en cualquier momento qué está pasando y
+cuánto falta. A esa técnica de convertir datos en sonido se la llama sonificación.
+
+## Para quién
+- Público general que quiera vivir el eclipse de otra manera o prepararse antes del día.
+- Personas ciegas y con baja visión: la app se puede usar completa con lector de pantalla y con teclado, tiene
+  modo de alto contraste y no depende de ver la pantalla.
+- Docentes y estudiantes: sirve para trabajar el eclipse en clase antes del 6 de febrero.
+
+## Qué permite hacer
+| Sección | Para qué sirve |
+| --- | --- |
+| En vivo | El día del eclipse: iniciar, pausar y reanudar el sonido, con hora, cobertura del Sol y fase actual. |
+| Escuchar | Ensayo: todo el eclipse en un minuto, con una línea de tiempo para detenerse en cualquier momento. |
+| Simulación | Mapa animado del recorrido de la sombra de la Luna sobre la Tierra, con sus momentos clave. |
+| Ayuda | Qué es un eclipse anular, qué es la sonificación y cómo se interpreta el sonido. |
+| Seguridad | Cómo observar el Sol sin dañar la vista. |
+| Créditos | Fuentes, licencias, privacidad y contacto. |
+
+## Lugares y horarios
+- La app arranca con los datos de Punta del Este (Uruguay).
+- En el panel «Lugar» se puede elegir una de las 73 ciudades de la lista (Uruguay, Argentina, Chile, Brasil,
+  otros países de América del Sur y África occidental) o tocar «Usar mi ubicación» para tomar la posición del
+  dispositivo (GPS).
+- Para cada lugar calcula el comienzo, el máximo y el final del eclipse, y el comienzo y el final del anillo si
+  desde allí se ve. Indica si el eclipse es anular, parcial o si no se ve desde ese lugar.
+- El cálculo se hace en el propio dispositivo con los elementos besselianos del eclipse publicados por NASA y por
+  EclipseWise, con el método de Bessel en la formulación de Jean Meeus (detalle en Créditos y en `js/eclipse.js`).
+
+## Accesibilidad
+- Verificada con axe-core contra WCAG 2.2, niveles A y AA, sin infracciones en las seis secciones y los tres
+  modos de apariencia (claro, noche y alto contraste). Falta la prueba con personas usuarias de lector de pantalla.
+- Navegación completa con teclado, foco visible, avisos hablados para el lector de pantalla y textos en lugar de
+  imágenes para toda la información (la vista del Sol es solo un apoyo visual).
+- Tipografía Atkinson Hyperlegible, diseñada para baja visión; texto base de 18 px; se adapta al zoom de 400 %.
+
+## Idiomas
+Español (idioma inicial), portugués, inglés, francés, italiano y alemán. Se cambia con la lista del encabezado.
+
+## Permisos y datos
+- No tiene cuentas, registro ni formularios, y funciona sin dar ningún permiso.
+- El único permiso que puede pedir es el de ubicación, y solo si la persona toca «Usar mi ubicación». Quien no
+  quiera darlo puede elegir una ciudad de la lista.
+- La ubicación no se envía a ningún servidor: se usa en el dispositivo para calcular los horarios.
+- En el navegador del propio dispositivo quedan guardadas las preferencias: idioma, apariencia, tipo de sonido y
+  lugar elegido (la ubicación, redondeada a un kilómetro). No se guardan datos personales fuera del dispositivo.
+- Dos conexiones a sitios externos: el conteo anónimo de visitas con GoatCounter (sin cookies ni datos
+  personales) y, solo el día del eclipse, la descarga de la imagen más reciente del Sol desde SDO (NASA).
+
+## Uso sin conexión e instalación
+- Una vez abierta con conexión, funciona sin internet: útil al aire libre el día del eclipse.
+- Se puede instalar como app desde el navegador (Android, iPhone y computadora).
+- Compatible con Chrome 60 o posterior y Safari 11 o posterior; probada en Chrome y Firefox actuales. No se probó
+  en teléfonos antiguos reales.
+
+## Contacto
+Fallas, correcciones o sugerencias: recursosastronomia@uruguayeduca.edu.uy, con el asunto «Eclipse 2027».
 
 ## Estructura
 - `index.html`: la aplicación (secciones: En vivo, Escuchar, Simulación, Ayuda, Seguridad, Créditos).
@@ -42,6 +107,10 @@ Aplicación web instalable (PWA) sobre el eclipse solar anular del 6 de febrero 
   sección actual, teléfono apoyado) no dependen solo del color. Falta la prueba manual con lector de pantalla
   (TalkBack, VoiceOver, NVDA), que ninguna herramienta automática reemplaza.
 - Las cifras de Lighthouse de más abajo son de la versión 1.6 y no se volvieron a medir.
+
+## Versión 3.1 (noviembre de 2026)
+- Botón «Inicio» en el encabezado, que vuelve a la portada (`../index.html`). Se ve en la versión web y se oculta
+  cuando la app está instalada (consulta `display-mode` y, en iPhone, `navigator.standalone`).
 
 ## Versión 3.0 (noviembre de 2026): revisión general, carga y teléfonos antiguos
 **Fallas corregidas**
@@ -111,7 +180,7 @@ Aplicación web instalable (PWA) sobre el eclipse solar anular del 6 de febrero 
 - **Íconos de la barra inferior:** más grandes (26 px), con sus trazos definidos en el propio ícono (no dependen
   de la hoja de estilos) y un escudo con tilde para «Seguridad» en lugar de los anteojos, que no se distinguían.
 - **Actualizaciones sin desajustes:** `index.html` pide los estilos y scripts con un número de versión
-  (`styles.css?v=3.0`, etc.). Antes, en la primera visita después de publicar, podía mostrarse la página nueva
+  (`styles.css?v=3.1`, etc.). Antes, en la primera visita después de publicar, podía mostrarse la página nueva
   con estilos o scripts viejos guardados en el teléfono. **Al publicar cambios:** subir ese número en
   `index.html` y en la lista `SHELL` de `sw.js` (deben coincidir), además de `CACHE_VERSION`.
 
@@ -185,7 +254,7 @@ Aplicación web instalable (PWA) sobre el eclipse solar anular del 6 de febrero 
 
 ## Publicación
 - Debe servirse por **HTTPS** (por ejemplo, GitHub Pages). Abriendo el archivo con doble clic (`file://`) no se instala ni funciona sin conexión.
-- Cada vez que se modifique algún archivo, cambiar `CACHE_VERSION` en `sw.js` (hoy es `eclipse2027-v20`) para que los celulares reciban la actualización.
+- Cada vez que se modifique algún archivo, cambiar `CACHE_VERSION` en `sw.js` (hoy es `eclipse2027-v21`) para que los celulares reciban la actualización.
 - El GIF original (`2027_02_06_ASE_800px.gif`, 86 MB) ya no es necesario para la app y conviene no subirlo al repositorio.
 
 ## Simulación

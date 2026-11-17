@@ -19,7 +19,7 @@
 
     <link rel="preload" href="fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="css/styles.css?v=3.0">
+    <link rel="stylesheet" href="css/styles.css?v=3.1">
     <!-- Si el idioma guardado no es español, se oculta la página por un
          instante hasta que el script cambia los textos: así no «salta» al traducirse.
          Límite de seguridad: se muestra igual a los 3 segundos. -->
@@ -34,6 +34,11 @@
             if (!th) th = mm('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
             document.documentElement.setAttribute('data-theme', hc === '1' ? 'hc' : th);
             document.documentElement.setAttribute('data-theme-base', th);
+            // App instalada (pantalla de inicio): se oculta el botón «Inicio» del portal.
+            // iPhone no admite la consulta display-mode en versiones viejas: se usa navigator.standalone.
+            if (navigator.standalone === true || mm('(display-mode: standalone)').matches || mm('(display-mode: fullscreen)').matches) {
+                document.documentElement.classList.add('is-installed');
+            }
         })();
         (function () {
             // Idioma: español, salvo que la persona haya elegido otro en la lista
@@ -52,7 +57,13 @@
 
     <header>
         <div class="header-row">
-            <h1 data-i18n="app.title">Eclipse sonoro 2027</h1>
+            <div class="header-brand">
+                <!-- Botón «Inicio» del portal: visible en la web; oculto cuando la app está instalada (ver styles.css) -->
+                <a href="../index.html" class="ue-home" id="home-link" aria-label="Volver al inicio del portal" title="Volver al inicio del portal" data-i18n-aria="home.aria" data-i18n-title="home.aria">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+                </a>
+                <h1 data-i18n="app.title">Eclipse sonoro 2027</h1>
+            </div>
             <div class="header-tools">
                 <!-- El selector de idioma lo crea el script -->
                 <div id="lang-bar" class="lang-bar"></div>
@@ -516,9 +527,9 @@
         </section>
     </main>
 
-    <script src="js/i18n.js?v=3.0"></script>
-    <script src="js/eclipse.js?v=3.0"></script>
-    <script src="js/app.js?v=3.0"></script>
+    <script src="js/i18n.js?v=3.1"></script>
+    <script src="js/eclipse.js?v=3.1"></script>
+    <script src="js/app.js?v=3.1"></script>
     <!-- Estadísticas de uso anónimas (GoatCounter: sin cookies ni datos personales).
          Se carga de forma asíncrona, sin frenar la app; sin conexión simplemente no cuenta. -->
     <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>

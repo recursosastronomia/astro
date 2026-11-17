@@ -643,7 +643,7 @@ const I18N = {
    de la simulación, institución y notas «Acerca de esta app».
    ========================================================================= */
 const GALLERY_URL = 'https://spaceweathergallery.com/index.php';
-const APP_VERSION = '3.0';
+const APP_VERSION = '3.1';
 const I18N_EXTRA = {
   es: {
     'a11y.skip': 'Saltar al contenido principal',
@@ -1734,3 +1734,14 @@ const I18N_V29 = {
   }
 };
 for (const l in I18N_V29) Object.assign(I18N[l], I18N_V29[l]);
+
+/* Versión 3.1: botón «Inicio» del portal (solo en la web, no en la app instalada). */
+const I18N_V31 = {
+  es: { 'home.aria': 'Volver al inicio del portal' },
+  pt: { 'home.aria': 'Voltar ao início do portal' },
+  en: { 'home.aria': 'Back to the portal home page' },
+  fr: { 'home.aria': 'Retour à l’accueil du portail' },
+  it: { 'home.aria': 'Torna alla pagina iniziale del portale' },
+  de: { 'home.aria': 'Zurück zur Startseite des Portals' }
+};
+for (const l in I18N_V31) Object.assign(I18N[l], I18N_V31[l]);

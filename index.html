@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal de astronomía - Recursos educativos</title>
   
+  <!-- Tema claro u oscuro: una sola elección para todo el portal (localStorage "astro-tema": "dia" o "noche").
+       Esta portada es oscura salvo que se haya elegido el modo claro. -->
+  <script>
+    try { if (localStorage.getItem('astro-tema') === 'dia') document.documentElement.classList.add('tema-claro'); } catch (e) {}
+  </script>
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
@@ -72,6 +78,49 @@
     }
     @media (prefers-reduced-motion:reduce){.ue-home{transition:none}}
   </style>
+<style id="tema-claro">
+/* Modo claro: mismos colores de papel y tinta que «Astronomía para todos».
+   Solo afecta al encabezado y al contenido; el cuadro de códigos para docentes sigue oscuro. */
+html.tema-claro { color-scheme: light; }
+html.tema-claro body { background: #f1f3f6; color: #14264b; }
+.tema-claro header.sticky { background-color: rgba(255,255,255,.9); border-color: #cbd2de; }
+.tema-claro header .text-slate-300, .tema-claro main .text-slate-300, .tema-claro main .text-slate-400 { color: #3b4a66; }
+.tema-claro main .text-white, .tema-claro main .text-slate-100, .tema-claro main .text-slate-200 { color: #14264b; }
+.tema-claro main .text-shadow-glow { text-shadow: none; }
+/* Tarjetas */
+.tema-claro main .resource-card { background-color: #ffffff; border-color: #cbd2de; }
+.tema-claro main .resource-card:hover { background-color: #ffffff; border-color: #1b4fa8; }
+.tema-claro main .group:hover .group-hover\:text-sky-400 { color: #1b4fa8; }
+/* Botón principal de cada tarjeta: azul tinta con texto claro */
+.tema-claro main a.bg-slate-800 { background-color: #14264b; color: #ffffff; }
+.tema-claro main a.bg-slate-800:hover { background-color: #0ea5e9; color: #020617; }
+/* Botones secundarios, filtros sin elegir y enlace del encabezado */
+.tema-claro main .bg-transparent, .tema-claro .filter-btn.bg-slate-900, .tema-claro header .bg-slate-900\/80, .tema-claro #tema {
+  background-color: #ffffff; color: #14264b; border: 1px solid #66758f;
+}
+.tema-claro main .bg-transparent:hover, .tema-claro .filter-btn.bg-slate-900:hover, .tema-claro header .bg-slate-900\/80:hover, .tema-claro #tema:hover {
+  background-color: #e1e6ee; color: #14264b;
+}
+/* Etiquetas de color: tonos oscuros para que se lean sobre blanco (contraste ≥ 4,5:1) */
+.tema-claro main .text-sky-400 { color: #075985; }
+.tema-claro main .text-emerald-400 { color: #065f46; }
+.tema-claro main .text-violet-300 { color: #5b21b6; }
+.tema-claro main .text-amber-400 { color: #92400e; }
+.tema-claro main .text-indigo-400 { color: #3730a3; }
+.tema-claro main .text-rose-400 { color: #9f1239; }
+.tema-claro main .text-orange-300 { color: #9a3412; }
+/* Enlace de respaldo del pie (solo aparece si el pie no carga) */
+.tema-claro #footer-container > div > a.text-slate-400 { color: #3b4a66; }
+.tema-claro #footer-container > div > a.text-slate-400:hover { color: #14264b; }
+/* Foco: aro oscuro sobre fondo claro */
+html.tema-claro :focus-visible { outline-color: #1b4fa8 !important; box-shadow: 0 0 0 5px rgba(255,255,255,.9) !important; }
+/* Botón de tema */
+#tema svg { width: 16px; height: 16px; flex: none; }
+/* El ícono, como el texto, muestra el modo al que se pasa: sol en modo noche, luna en modo claro */
+#tema .ico-luna { display: none; }
+.tema-claro #tema .ico-sol { display: none; }
+.tema-claro #tema .ico-luna { display: block; }
+</style>
 <style id="a11y-base">
 /* Accesibilidad (WCAG 2.2 AA): foco visible siempre y respeto por «reducir movimiento» */
 :focus-visible{outline:3px solid #facc15 !important;outline-offset:2px !important;box-shadow:0 0 0 5px rgba(15,23,42,.85) !important}
@@ -95,6 +144,13 @@
         </span>
       </div>
 
+      <div class="flex items-center gap-2">
+      <!-- Selector de tema claro / oscuro (el texto dice a qué modo se pasa) -->
+      <button type="button" id="tema" class="flex items-center gap-2 bg-slate-900/80 hover:bg-slate-800 px-4 py-2 rounded-xl border border-slate-800 transition-colors text-xs text-slate-300 hover:text-white">
+        <svg class="ico-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.800 9.800z"/></svg>
+        <svg class="ico-sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.900 4.900l1.400 1.400M17.700 17.700l1.400 1.400M2 12h2M20 12h2M4.900 19.100l1.400-1.400M17.700 6.300l1.400-1.400"/></svg>
+        <span id="tema-txt">Modo claro</span>
+      </button>
       <!-- Enlace ANEP / Uruguay Educa - EDyTIC -->
       <a 
         href="https://edytic.ces.edu.uy/index.php/inicio" 
@@ -105,6 +161,7 @@
         <span>Portal Uruguay Educa - EDyTIC</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
       </a>
+      </div>
       
     </div>
   </header>
@@ -144,6 +201,28 @@
     <!-- Rejilla de Recursos -->
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="resources-grid">
       
+      <!-- Eclipse sonoro 2027 - Sonificación accesible del eclipse anular (app en eclipse/) -->
+      <article data-category="simuladores" data-new-until="2027-02-06" class="resource-card relative group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
+        <!-- Cinta "Nuevo": oculta por defecto; el script la muestra hasta la fecha de data-new-until (inclusive) -->
+        <span class="ribbon-new" hidden>Nuevo</span>
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-orange-500/15 text-orange-300 rounded-md border border-orange-500/20">Experiencia accesible</span>
+            <svg class="card-emoji" width="36" height="36" viewBox="0 0 36 36" aria-hidden="true" focusable="false"><circle cx="18" cy="18" r="17" fill="#f97316"/><circle cx="18" cy="18" r="12.5" fill="#000"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">Eclipse sonoro 2027 - Escucha el eclipse anular</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            El 6 de febrero de 2027 habrá un eclipse anular de Sol visible desde Uruguay. Esta aplicación lo convierte en sonido: el tono cambia a medida que la Luna cubre el Sol, con relato por voz y una simulación del disco solar. Pensada para personas ciegas y con baja visión, calcula los horarios para tu ciudad o tu ubicación. Funciona sin conexión y en seis idiomas.
+          </p>
+        </div>
+        <div class="px-6 pb-6 pt-2">
+          <a href="eclipse/index.html" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-sky-500 hover:text-slate-950 text-white text-xs font-bold rounded-xl transition-all shadow-md group-hover:shadow-sky-500/5">
+            <span>Escuchar el eclipse</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          </a>
+        </div>
+      </article>
+
       <!-- Uruguayos en el espacio - Álbum de cromos de asteroides (app en ec/asteruy/) -->
       <article data-category="evaluaciones" data-new-until="2026-12-31" class="resource-card relative group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30 flex flex-col justify-between">
         <!-- Cinta "Nuevo": oculta por defecto; el script la muestra hasta la fecha de data-new-until (inclusive) -->
@@ -448,6 +527,27 @@
         } catch {
           say('No se pudo obtener el archivo. Revise la conexión e intente de nuevo.', true);
         } finally { ok.disabled = false; }
+      });
+    })();
+  </script>
+
+  <!-- Tema claro / oscuro: guarda la elección para todo el portal y la vuelve a aplicar al regresar con «Atrás» -->
+  <script>
+    (() => {
+      const root = document.documentElement, btn = document.getElementById('tema'), txt = document.getElementById('tema-txt');
+      const leer = () => { try { return localStorage.getItem('astro-tema'); } catch (e) { return null; } };
+      const pintar = (claro) => {
+        root.classList.toggle('tema-claro', claro);
+        txt.textContent = claro ? 'Modo noche' : 'Modo claro';
+      };
+      const aplicar = () => pintar(leer() === 'dia');
+      aplicar();
+      addEventListener('pageshow', aplicar);
+      addEventListener('storage', e => { if (e.key === 'astro-tema') aplicar(); });
+      btn.addEventListener('click', () => {
+        const claro = !root.classList.contains('tema-claro');
+        try { localStorage.setItem('astro-tema', claro ? 'dia' : 'noche'); } catch (e) {}
+        pintar(claro);
       });
     })();
   </script>

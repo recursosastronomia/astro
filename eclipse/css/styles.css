@@ -179,6 +179,22 @@ header {
     max-width: 1040px; margin: 0 auto;
 }
 header h1 { font-size: 1.15rem; font-weight: 700; margin: 0; color: var(--bar-fg); }
+.header-brand { display: flex; align-items: center; min-width: 0; }
+/* Botón «Inicio» del portal (mismo componente que las demás actividades) */
+.ue-home {
+    display: inline-flex; align-items: center; justify-content: center; flex: none;
+    width: 44px; height: 44px; margin-right: .6rem;
+    border-radius: 10px; color: inherit; background: var(--ink); border: 1px solid var(--ink-line);
+    text-decoration: none;
+}
+.ue-home:hover { background: #243a68; border-color: var(--amber); }
+.ue-home svg { width: 20px; height: 20px; display: block; }
+:root[data-theme="hc"] .ue-home { background: #000; border: 2px solid #fff; }
+/* En la app instalada no hay portal al que volver: el botón no se muestra */
+.is-installed .ue-home { display: none; }
+@media (display-mode: standalone), (display-mode: fullscreen), (display-mode: minimal-ui) {
+    .ue-home { display: none; }
+}
 .header-tools { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
 .lang-bar { min-height: 40px; display: flex; align-items: center; }
 
