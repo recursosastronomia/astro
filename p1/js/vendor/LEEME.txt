@@ -1,0 +1,23 @@
+Librerías JavaScript guardadas en el sitio (p1/js/vendor/)
+=========================================================
+Copias locales para que las páginas no dependan de servidores externos (CDN)
+y funcionen sin conexión. Se obtuvieron del registro npm el 18/11/2026.
+Los estilos de terceros (Font Awesome) están en p1/css/vendor/.
+
+- tailwindcss/tailwindcss-play-3.4.5.js
+    Tailwind CSS «Play CDN» v3.4.5, la misma que servía https://cdn.tailwindcss.com.
+    Licencia MIT (ver tailwindcss/LICENSE) — https://github.com/tailwindlabs/tailwindcss
+    Origen: paquete npm tailwindcss-cdn@3.4.10 (copia literal de cdn.tailwindcss.com).
+    Hoy ninguna página de p1 la usa (p1 se arma con css/astro.css); queda disponible.
+- xlsx/xlsx.full.min.js
+    SheetJS Community Edition 0.18.5. Licencia Apache 2.0 (ver xlsx/LICENSE).
+    Origen: paquete npm xlsx@0.18.5 (antes: cdn.jsdelivr.net). La usan quizV5.html y video_quiz_interactivo.html.
+- three/three.min.js y three/OrbitControls.js
+    three.js r128. Licencia MIT (ver three/LICENSE).
+    Origen: paquete npm three@0.128.0 (antes: cdnjs y jsdelivr). La usa ec/luna001.html.
+- publicalbum/embed-ui.min.js
+    Public Album embed 1.3.4. Licencia ISC, de Pavel Machacek (https://www.publicalbum.org).
+    Origen: paquete npm publicalbum@1.3.4. La usa ec/sondas_voyager.html.
+    Nota: las fotos del álbum se siguen cargando desde Google Fotos.
+
+Para actualizar una librería, reemplazar el archivo y mantener el mismo nombre.

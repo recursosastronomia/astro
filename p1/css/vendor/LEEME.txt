@@ -1,0 +1,10 @@
+Estilos de terceros guardados en el sitio (p1/css/vendor/)
+==========================================================
+Copias locales para no depender de servidores externos (CDN) y funcionar sin conexión.
+Se obtuvieron del registro npm el 18/11/2026. Las librerías JavaScript están en p1/js/vendor/.
+
+- fontawesome/ — Font Awesome Free 6.4.0 (css/all.min.css + webfonts/).
+    Origen: paquete npm @fortawesome/fontawesome-free@6.4.0 (antes: cdnjs.cloudflare.com).
+    Licencias (ver fontawesome/LICENSE.txt): íconos CC BY 4.0, fuentes SIL OFL 1.1, código MIT.
+    Uso: <link rel="stylesheet" href="css/vendor/fontawesome/css/all.min.css"> (ajustar ../ según la carpeta).
+    Hoy ninguna página de p1 la usa (p1 dibuja sus íconos en SVG); queda disponible.

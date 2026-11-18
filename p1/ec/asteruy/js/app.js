@@ -78,6 +78,7 @@
         document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
         document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
         document.querySelectorAll('[data-i18n-alt]').forEach(el => { el.alt = t(el.dataset.i18nAlt); });
+        document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = t(el.dataset.i18nTitle); });
         $('#version-label').textContent = t('version', self.APP_VERSION);
         $('#lang-select').value = lang;
     }
@@ -517,18 +518,42 @@
     select.innerHTML = Object.entries(I18N).map(([code, d]) => `<option value="${code}" lang="${LOCALES[code]}">${esc(d.label)}</option>`).join('');
     select.addEventListener('change', e => setLang(e.target.value));
 
-    // Pausar animaciones: se recuerda en el dispositivo
-    const MOTION_KEY = 'asteruy-motion-off';
-    const motionBtn = $('#motion-btn');
-    function setMotionOff(off) {
-        document.documentElement.classList.toggle('motion-off', off);
-        motionBtn.setAttribute('aria-pressed', String(off));
-        try { localStorage.setItem(MOTION_KEY, off ? '1' : '0'); } catch { /* sin almacenamiento */ }
+    // Se quitó el botón de pausar animaciones (confundía con un «play»).
+    // Las animaciones siguen respetando «reducir movimiento» del sistema.
+    try { localStorage.removeItem('asteruy-motion-off'); } catch { /* sin almacenamiento */ }
+
+    // Modo noche y alto contraste: la misma elección para todo el portal (astro-tema, astro-contraste)
+    const temaBtn = $('#tema-btn'), hcBtn = $('#hc-btn');
+    const leerTema = k => { try { return localStorage.getItem(k); } catch { return null; } };
+    const guardarTema = (k, v) => { try { localStorage.setItem(k, v); } catch { /* sin almacenamiento */ } };
+    function pintarBotonesTema() {
+        const root = document.documentElement;
+        const hc = root.getAttribute('data-contrast') === 'alto';
+        temaBtn.setAttribute('aria-pressed', String(root.getAttribute('data-theme') === 'dark' && !hc));
+        hcBtn.setAttribute('aria-pressed', String(hc));
     }
-    let motionSaved = false;
-    try { motionSaved = localStorage.getItem(MOTION_KEY) === '1'; } catch { /* sin almacenamiento */ }
-    setMotionOff(motionSaved);
-    motionBtn.addEventListener('click', () => setMotionOff(motionBtn.getAttribute('aria-pressed') !== 'true'));
+    function aplicarTema(tema, hc) {
+        const root = document.documentElement;
+        if (hc || tema === 'noche') root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+        if (hc) root.setAttribute('data-contrast', 'alto'); else root.removeAttribute('data-contrast');
+        pintarBotonesTema();
+    }
+    temaBtn.addEventListener('click', () => {
+        const root = document.documentElement;
+        // Desde alto contraste, «Modo noche» vuelve al modo noche normal
+        const noche = root.getAttribute('data-contrast') === 'alto' ? true : root.getAttribute('data-theme') !== 'dark';
+        guardarTema('astro-tema', noche ? 'noche' : 'dia'); guardarTema('astro-contraste', '0');
+        aplicarTema(noche ? 'noche' : 'dia', false);
+    });
+    hcBtn.addEventListener('click', () => {
+        const on = document.documentElement.getAttribute('data-contrast') !== 'alto';
+        guardarTema('astro-contraste', on ? '1' : '0');
+        const t = leerTema('astro-tema');
+        aplicarTema(on ? 'noche' : (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches) ? 'noche' : 'dia'), on);
+    });
+    pintarBotonesTema();
+    addEventListener('storage', e => { if (e.key === 'astro-tema' || e.key === 'astro-contraste') setTimeout(pintarBotonesTema, 0); });
+    addEventListener('pageshow', () => setTimeout(pintarBotonesTema, 0));
 
     $('#code-form').addEventListener('submit', handleSubmit);
     $('#code-input').addEventListener('input', e => {

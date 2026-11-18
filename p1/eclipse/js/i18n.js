@@ -643,7 +643,7 @@ const I18N = {
    de la simulación, institución y notas «Acerca de esta app».
    ========================================================================= */
 const GALLERY_URL = 'https://spaceweathergallery.com/index.php';
-const APP_VERSION = '3.1';
+const APP_VERSION = '3.3';
 const I18N_EXTRA = {
   es: {
     'a11y.skip': 'Saltar al contenido principal',
@@ -1745,3 +1745,21 @@ const I18N_V31 = {
   de: { 'home.aria': 'Zurück zur Startseite des Portals' }
 };
 for (const l in I18N_V31) Object.assign(I18N[l], I18N_V31[l]);
+
+/* Versión 3.3 (p1): declaración de accesibilidad y licencia CC BY-SA 4.0 al pie, como en el resto del portal. */
+const LIC_A = (lang, txt) => '<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.' + lang + '" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0<span class="lic-sr"> ' + txt + '</span></a>';
+const I18N_V33 = {
+  es: { 'a11y.decl': 'Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA.',
+        'a11y.lic_html': 'Contenidos bajo licencia ' + LIC_A('es', '(se abre en una pestaña nueva)') + ', salvo que se indique otra cosa.' },
+  pt: { 'a11y.decl': 'Acessibilidade: nosso objetivo é cumprir as diretrizes WCAG 2.2, nível AA.',
+        'a11y.lic_html': 'Conteúdo sob licença ' + LIC_A('pt', '(abre em uma nova aba)') + ', salvo indicação em contrário.' },
+  en: { 'a11y.decl': 'Accessibility: our goal is to meet the WCAG 2.2 guidelines, level AA.',
+        'a11y.lic_html': 'Content licensed under ' + LIC_A('en', '(opens in a new tab)') + ', unless otherwise stated.' },
+  fr: { 'a11y.decl': 'Accessibilité : notre objectif est de respecter les règles WCAG 2.2, niveau AA.',
+        'a11y.lic_html': 'Contenus sous licence ' + LIC_A('fr', '(s’ouvre dans un nouvel onglet)') + ', sauf mention contraire.' },
+  it: { 'a11y.decl': 'Accessibilità: il nostro obiettivo è rispettare le linee guida WCAG 2.2, livello AA.',
+        'a11y.lic_html': 'Contenuti con licenza ' + LIC_A('it', '(si apre in una nuova scheda)') + ', salvo diversa indicazione.' },
+  de: { 'a11y.decl': 'Barrierefreiheit: Unser Ziel ist es, die Richtlinien WCAG 2.2, Stufe AA, zu erfüllen.',
+        'a11y.lic_html': 'Inhalte unter der Lizenz ' + LIC_A('de', '(öffnet in einem neuen Tab)') + ', sofern nicht anders angegeben.' }
+};
+for (const l in I18N_V33) Object.assign(I18N[l], I18N_V33[l]);

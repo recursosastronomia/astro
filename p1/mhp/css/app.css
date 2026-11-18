@@ -642,3 +642,27 @@ html[data-theme="dark"] .meter { background: #1c2d53; }
 @media (max-width: 23.99rem), (min-width: 56rem) and (max-width: 79.99rem) {
   .brand span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 }
+
+/* Licencia CC BY-SA 4.0 al pie (política de Uruguay Educa), en la misma franja que la declaración de accesibilidad */
+.a11y-declaracion.lic-linea { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.35rem 0.5rem; border-top: 0; padding-top: 0; font-size: 0.8125rem; }
+.lic-linea a { color: #ffd27a; font-weight: 700; }
+.lic-linea .lic-ico { flex: none; color: #a3a9b3; }
+.lic-linea .lic-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Alto contraste: la misma elección que el resto del portal (clave astro-contraste).
+   Parte del modo noche (data-theme="dark" queda puesto) y lleva todo a blanco y amarillo sobre negro.
+   Va al final para tener prioridad sobre el modo noche. */
+html[data-contrast="alto"] {
+  --ink: #000; --ink-deep: #000; --ink-soft: #000;
+  --paper: #000; --sheet: #000; --rule: #fff; --rule-strong: #fff;
+  --text: #fff; --muted: #fff; --link: #ffe14d; --on-ink: #fff; --on-ink-muted: #fff;
+  --flare: #ffb627; --k: #ffb627; --g: #8cc8ff; --s: #7dffb0;
+  --ok: #7dffb0; --warn: #ffe14d; --err: #ff9e9e;
+}
+html[data-contrast="alto"] body { background: #000; color: #fff; }
+html[data-contrast="alto"] a { color: #ffe14d; }
+html[data-contrast="alto"] .appbar { border-bottom: 2px solid #fff; }
+html[data-contrast="alto"] .btn.lang-btn { border: 2px solid #fff; background: #000; color: #fff; }
+html[data-contrast="alto"] .theme-btn[aria-pressed="true"] { background: #ffb627; border-color: #ffb627; color: #000; }
+html[data-contrast="alto"] .a11y-declaracion { background: #000; color: #fff; border-top-color: #fff; }
+html[data-contrast="alto"] .lic-linea .lic-ico { color: #fff; }

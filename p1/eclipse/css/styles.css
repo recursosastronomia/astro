@@ -675,3 +675,10 @@ nav.tabbar button.active .nav-txt { text-decoration: underline; text-underline-o
     .sim-stage video { position: absolute; top: 0; left: 0; }
     .timelapse video { height: auto; }
 }
+
+/* Declaración de accesibilidad y licencia CC BY-SA 4.0 al pie (como en el resto del portal) */
+.a11y-declaracion { text-align: center; font-size: .8rem; line-height: 1.4; margin: 1rem auto 0; padding: 0 1rem; max-width: 60rem; }
+.a11y-declaracion.lic-linea { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .35rem .5rem; margin-top: .4rem; }
+.lic-linea .lic-ico { flex: none; color: var(--fg-muted); }
+.lic-linea a { font-weight: 700; }
+.lic-linea .lic-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

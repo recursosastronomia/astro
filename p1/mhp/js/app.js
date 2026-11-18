@@ -36,27 +36,36 @@ window.addEventListener('hashchange', showRoute);
 // «Atrás» (caché del navegador) y cuando se cambia en otra pestaña. Copia de js/tema.js: Misión Helios
 // funciona sin conexión desde su propia carpeta.
 function initTheme() {
-  const btn = $('#theme-btn'), root = document.documentElement;
-  const leer = () => { try { return localStorage.getItem('astro-tema'); } catch (e) { return null; } };
+  // Alto contraste (localStorage "astro-contraste" = "1"): parte del modo noche y deja data-contrast="alto" en <html>.
+  const btn = $('#theme-btn'), btnHc = $('#hc-btn'), root = document.documentElement;
+  const leerK = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const guardar = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+  let memTema = null, memHc = null; // sin almacenamiento: la elección vale al menos en esta página
+  const leer = () => leerK('astro-tema') || memTema;
+  const hcOn = () => (leerK('astro-contraste') || memHc) === '1';
   const aplicar = () => {
-    const t = leer();
-    const noche = t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches);
+    const t = leer(), hc = hcOn();
+    const noche = hc || t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches);
     if (noche) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
-    if (btn) btn.setAttribute('aria-pressed', String(noche));
+    if (hc) root.setAttribute('data-contrast', 'alto'); else root.removeAttribute('data-contrast');
+    if (btn) btn.setAttribute('aria-pressed', String(noche && !hc));
+    if (btnHc) btnHc.setAttribute('aria-pressed', String(hc));
   };
   aplicar();
   window.addEventListener('pageshow', aplicar);
-  window.addEventListener('storage', e => { if (e.key === 'astro-tema') aplicar(); });
+  window.addEventListener('storage', e => { if (e.key === 'astro-tema' || e.key === 'astro-contraste') aplicar(); });
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (!leer()) aplicar(); });
-  if (!btn) return;
-  btn.addEventListener('click', () => {
-    const noche = root.getAttribute('data-theme') !== 'dark';
-    try { localStorage.setItem('astro-tema', noche ? 'noche' : 'dia'); } catch (e) {}
+  if (btn) btn.addEventListener('click', () => {
+    // Desde alto contraste, «Modo noche» vuelve al modo noche normal
+    const noche = hcOn() ? true : root.getAttribute('data-theme') !== 'dark';
+    memTema = noche ? 'noche' : 'dia'; memHc = '0';
+    guardar('astro-tema', memTema); guardar('astro-contraste', '0');
     aplicar();
-    if (leer() === null) {
-      if (noche) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
-      btn.setAttribute('aria-pressed', String(noche));
-    }
+  });
+  if (btnHc) btnHc.addEventListener('click', () => {
+    memHc = hcOn() ? '0' : '1';
+    guardar('astro-contraste', memHc);
+    aplicar();
   });
 }
 

@@ -3,7 +3,7 @@
 Eclipses de Sol y de Luna (sin los penumbrales) entre 2020 y 2100, para escuchar desde cualquier lugar.
 Funciona sin conexión una vez abierta (PWA). Seis idiomas embebidos: es, en, pt, fr, it, de.
 
-DGES – EDyTIC – Contenidistas de Astronomía 2026 · recursosastronomia@gmail.com
+DGES – EDyTIC – Contenidistas de Astronomía 2026 · recursosastronomia@uruguayeduca.edu.uy
 
 ## Estructura
 

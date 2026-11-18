@@ -1,0 +1,17 @@
+Librerías externas guardadas en el sitio (ue/vendor/)
+=====================================================
+Copias locales para que las páginas no dependan de servidores externos (CDN)
+y funcionen sin conexión. Se obtuvieron del registro npm el 18/11/2026.
+
+- tailwindcss/tailwindcss-play-3.4.5.js
+    Tailwind CSS «Play CDN» v3.4.5 (la misma que servía https://cdn.tailwindcss.com).
+    Licencia MIT — https://github.com/tailwindlabs/tailwindcss
+    Origen: paquete npm tailwindcss-cdn@3.4.10 (copia literal de cdn.tailwindcss.com).
+- xlsx/xlsx.full.min.js — SheetJS Community Edition 0.18.5. Licencia Apache 2.0 (ver xlsx/LICENSE).
+- three/three.min.js y three/OrbitControls.js — three.js r128. Licencia MIT (ver three/LICENSE).
+- fontawesome/ — Font Awesome Free 6.4.0 (css/all.min.css + webfonts/).
+    Íconos CC BY 4.0, fuentes SIL OFL 1.1, código MIT (ver fontawesome/LICENSE.txt).
+- publicalbum/embed-ui.min.js — Public Album embed 1.3.4 (licencia ISC, Pavel Machacek).
+    Nota: el álbum de fotos en sí se sigue cargando desde internet (Google Fotos).
+
+Para actualizar una librería, reemplazar el archivo y mantener el mismo nombre.

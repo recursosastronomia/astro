@@ -518,6 +518,8 @@ blockquote.attribution { margin: .6rem 0; padding: .6rem .8rem; border-left: 4px
 .license-row img { width: 88px; height: 31px; flex: 0 0 auto; }
 .license-row p { flex: 1 1 220px; margin: 0; font-size: .94rem; }
 .app-version { text-align: center; font-size: .88rem; color: var(--fg-muted); margin: .5rem 0; }
+/* Declaración de accesibilidad al pie (misma frase que en el resto del portal) */
+.a11y-declaracion { text-align: center; font-size: .8rem; line-height: 1.4; margin: 1rem auto 0; padding: 0 1rem; max-width: 60rem; }
 
 /* ---------- Aviso de instalación ---------- */
 .install-bar {

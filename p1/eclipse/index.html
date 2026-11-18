@@ -19,7 +19,7 @@
 
     <link rel="preload" href="fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="css/styles.css?v=3.1">
+    <link rel="stylesheet" href="css/styles.css?v=3.3">
     <!-- Si el idioma guardado no es español, se oculta la página por un
          instante hasta que el script cambia los textos: así no «salta» al traducirse.
          Límite de seguridad: se muestra igual a los 3 segundos. -->
@@ -28,7 +28,14 @@
         (function () {
             // Tema guardado (o preferencia del sistema): se aplica antes de pintar
             var th = null, hc = null;
-            try { th = localStorage.getItem('eclipse.theme'); hc = localStorage.getItem('eclipse.hc'); } catch (e) {}
+            // La elección vale para todo el portal (claves astro-tema y astro-contraste, como js/tema.js);
+            // si todavía no existe, se toma la que esta app guardaba antes (eclipse.theme y eclipse.hc).
+            try {
+                var at = localStorage.getItem('astro-tema');
+                th = at === 'noche' ? 'dark' : at === 'dia' ? 'light' : localStorage.getItem('eclipse.theme');
+                hc = localStorage.getItem('astro-contraste'); if (hc === null) hc = localStorage.getItem('eclipse.hc');
+            } catch (e) {}
+            if (th !== 'dark' && th !== 'light') th = null;
             var mm = window.matchMedia ? window.matchMedia.bind(window) : function () { return { matches: false }; };
             if (hc === null && mm('(prefers-contrast: more)').matches) hc = '1';
             if (!th) th = mm('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -525,11 +532,14 @@
 
             <p class="app-version" id="app-version"></p>
         </section>
+        <!-- Declaración de accesibilidad y licencia, como en el resto del portal; dentro de <main> para no quedar bajo la barra de pestañas -->
+        <p class="a11y-declaracion" data-i18n="a11y.decl">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA.</p>
+        <p class="a11y-declaracion lic-linea"><svg class="lic-ico" viewBox="0 0 66 20" width="56" height="17" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8.6"/><circle cx="33" cy="10" r="8.6"/><circle cx="56" cy="10" r="8.6"/><path d="M8.6 7.6a2.6 2.6 0 1 0 0 4.8M13.4 7.6a2.6 2.6 0 1 0 0 4.8" stroke-width="1.5"/><path d="M52.4 10a3.6 3.6 0 1 0 1.1-2.6" stroke-width="1.6"/></g><g fill="currentColor"><circle cx="33" cy="5.4" r="1.6"/><path d="M30.6 8.2h4.8a.8.8 0 0 1 .8.8v3.6h-1.4v3.6h-3.6v-3.6h-1.4V9a.8.8 0 0 1 .8-.8z"/><path d="M51.2 6.9l2.9 0.9-0.9 2.7z"/></g></svg><span data-i18n="a11y.lic_html">Contenidos bajo licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0<span class="lic-sr"> (se abre en una pestaña nueva)</span></a>, salvo que se indique otra cosa.</span></p>
     </main>
 
-    <script src="js/i18n.js?v=3.1"></script>
-    <script src="js/eclipse.js?v=3.1"></script>
-    <script src="js/app.js?v=3.1"></script>
+    <script src="js/i18n.js?v=3.3"></script>
+    <script src="js/eclipse.js?v=3.3"></script>
+    <script src="js/app.js?v=3.3"></script>
     <!-- Estadísticas de uso anónimas (GoatCounter: sin cookies ni datos personales).
          Se carga de forma asíncrona, sin frenar la app; sin conexión simplemente no cuenta. -->
     <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>

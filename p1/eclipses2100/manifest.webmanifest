@@ -1,0 +1,17 @@
+{
+  "name": "Sombras sonoras — eclipses 2020–2100",
+  "short_name": "Sombras sonoras",
+  "description": "Escuchar los eclipses de Sol y de Luna visibles desde cualquier lugar entre 2020 y 2100.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#14264b",
+  "theme_color": "#14264b",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

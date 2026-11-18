@@ -15,6 +15,7 @@
   <script>
     // Modo noche recordado (antes de pintar, para que no parpadee)
     try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+    try { if (localStorage.getItem('astro-contraste') === '1') { document.documentElement.setAttribute('data-theme', 'dark'); document.documentElement.setAttribute('data-contrast', 'alto'); } } catch (e) {}
   </script>
 </head>
 <body>
@@ -53,6 +54,9 @@
         <a class="l-medallas" href="medallero.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 3h8l-2 6h-4z"/><circle cx="12" cy="15" r="6"/><path d="M12 12.2l.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2-1.45-1.4 2-.3z"/></svg><span class="l-tema-txt">Mi medallero</span></a>
         <button type="button" class="l-tema" id="tema" aria-pressed="false">
           <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+        </button>
+        <button type="button" class="l-tema" id="contraste" aria-pressed="false">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg><span class="l-tema-txt">Alto contraste</span>
         </button>
         <a class="barra-link" href="https://edytic.ces.edu.uy/index.php/inicio" target="_blank" rel="noopener noreferrer">
           <span><span class="largo">Portal </span>EDyTIC</span>
@@ -185,6 +189,12 @@
             <span class="entrada-foto"><img src="eclipse/img/fotos/anillo-hinode-2011.jpg" width="800" height="800" alt="Anillo de fuego: un aro de luz anaranjada rodea por completo el disco negro de la Luna." loading="lazy" decoding="async"></span>
             <h3><a href="eclipse/index.html">Eclipse sonoro 2027<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></h3>
             <p>El 6 de febrero de 2027 habrá un eclipse anular de Sol. Escúchalo: el tono cambia a medida que la Luna cubre el Sol, con relato por voz y horarios para tu ciudad. Pensada para personas ciegas y con baja visión.</p>
+            <ul class="datos" aria-label="Datos"><li class="dato dato-nuevo" hidden>Nuevo</li><li class="dato">Accesible</li><li class="dato">6 idiomas</li></ul>
+          </li>
+          <li class="entrada" data-new-until="2027-01-31">
+            <span class="entrada-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="12" r="6.5"/><path d="M11.5 6.5a6.5 6.5 0 0 1 0 11" fill="currentColor" stroke="none"/><path d="M18 9a4.5 4.5 0 0 1 0 6M20.5 6.5a8 8 0 0 1 0 11"/></svg></span>
+            <h3><a href="eclipses2100/index.html">Sombras sonoras hasta 2100<svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></h3>
+            <p>Escucha todos los eclipses de Sol y de Luna visibles desde cualquier lugar del mundo entre 2020 y 2100. La melodía se vuelve más grave a medida que el astro se cubre y un sonido propio marca el comienzo, el máximo y el final. Pensada para personas ciegas y con baja visión.</p>
             <ul class="datos" aria-label="Datos"><li class="dato dato-nuevo" hidden>Nuevo</li><li class="dato">Accesible</li><li class="dato">6 idiomas</li></ul>
           </li>
           <li class="entrada" data-new-until="2026-12-31">
@@ -346,6 +356,7 @@
       <div>
         <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
         <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA.</p>
+        <p class="sitio-pie-lic"><svg class="lic-ico" viewBox="0 0 66 20" width="56" height="17" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8.6"/><circle cx="33" cy="10" r="8.6"/><circle cx="56" cy="10" r="8.6"/><path d="M8.6 7.6a2.6 2.6 0 1 0 0 4.8M13.4 7.6a2.6 2.6 0 1 0 0 4.8" stroke-width="1.5"/><path d="M52.4 10a3.6 3.6 0 1 0 1.1-2.6" stroke-width="1.6"/></g><g fill="currentColor"><circle cx="33" cy="5.4" r="1.6"/><path d="M30.6 8.2h4.8a.8.8 0 0 1 .8.8v3.6h-1.4v3.6h-3.6v-3.6h-1.4V9a.8.8 0 0 1 .8-.8z"/><path d="M51.2 6.9l2.9 0.9-0.9 2.7z"/></g></svg><span>Contenidos bajo licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="license noopener noreferrer" title="Creative Commons Atribución-CompartirIgual 4.0 Internacional">CC BY-SA 4.0<span class="lic-sr"> (se abre en una pestaña nueva)</span></a>, salvo que se indique otra cosa.</span></p>
         <p class="sitio-pie-a11y">Fotografías de ESO, NASA y fotógrafos de Wikimedia Commons, con licencias libres. <a href="creditos.html">Ver créditos de las fotos</a></p>
       </div>
     </div>

@@ -120,6 +120,9 @@
 /* ---------- Tipografía común ---------- */
 h1, h2, h3, h4, .ue-display { font-family: var(--ue-font-display); letter-spacing: -0.005em; }
 .ue-ui, .ue-appbar, .ue-appbar *, .ue-tool { font-family: var(--ue-font-ui); }
+/* Los íconos de Font Awesome dentro de la barra conservan su propia tipografía (si no, se ven como cuadrados) */
+.ue-appbar .fa-solid, .ue-appbar .fa-regular, .ue-appbar .fas, .ue-appbar .far { font-family: "Font Awesome 6 Free"; }
+.ue-appbar .fa-brands, .ue-appbar .fab { font-family: "Font Awesome 6 Brands"; }
 
 /* ---------- Barra superior común ---------- */
 :root .ue-appbar, .ue-appbar {

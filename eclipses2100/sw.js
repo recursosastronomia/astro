@@ -1,6 +1,6 @@
 /* Sombras sonoras — service worker: guarda la app para que funcione sin conexión.
    Al cambiar cualquier archivo, subir VERSION: así se instala la versión nueva y aparece el aviso «Actualizar». */
-const VERSION = 'sombras-1.4.2';
+const VERSION = 'sombras-1.4.3';
 const SHELL = [
   './', 'index.html', 'manifest.webmanifest', 'css/app.css',
   'js/strings.js', 'js/cities.js', 'js/astronomy.browser.min.js', 'js/eclipses.js', 'js/luna.js', 'js/audio.js', 'js/app.js', 'js/worker.js',

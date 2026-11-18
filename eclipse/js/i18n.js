@@ -643,7 +643,7 @@ const I18N = {
    de la simulación, institución y notas «Acerca de esta app».
    ========================================================================= */
 const GALLERY_URL = 'https://spaceweathergallery.com/index.php';
-const APP_VERSION = '3.2';
+const APP_VERSION = '3.3';
 const I18N_EXTRA = {
   es: {
     'a11y.skip': 'Saltar al contenido principal',
@@ -1745,3 +1745,14 @@ const I18N_V31 = {
   de: { 'home.aria': 'Zurück zur Startseite des Portals' }
 };
 for (const l in I18N_V31) Object.assign(I18N[l], I18N_V31[l]);
+
+/* Versión 3.3: declaración de accesibilidad al pie, igual que en el resto del portal. */
+const I18N_V33 = {
+  es: { 'a11y.decl': 'Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Noviembre de 2026.' },
+  pt: { 'a11y.decl': 'Acessibilidade: cumpre as diretrizes WCAG 2.2, nível AA. Novembro de 2026.' },
+  en: { 'a11y.decl': 'Accessibility: meets WCAG 2.2 guidelines, level AA. November 2026.' },
+  fr: { 'a11y.decl': 'Accessibilité : conforme aux règles WCAG 2.2, niveau AA. Novembre 2026.' },
+  it: { 'a11y.decl': 'Accessibilità: conforme alle linee guida WCAG 2.2, livello AA. Novembre 2026.' },
+  de: { 'a11y.decl': 'Barrierefreiheit: erfüllt die Richtlinien WCAG 2.2, Stufe AA. November 2026.' }
+};
+for (const l in I18N_V33) Object.assign(I18N[l], I18N_V33[l]);

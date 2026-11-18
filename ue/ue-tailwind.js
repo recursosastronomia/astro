@@ -1,7 +1,7 @@
 /* =========================================================================
    Astronomía para todos — ajustes compartidos para las páginas con Tailwind
    -------------------------------------------------------------------------
-   Se carga DESPUÉS de https://cdn.tailwindcss.com y ANTES de «tailwind.config».
+   Se carga DESPUÉS de ue/vendor/tailwindcss/tailwindcss-play-3.4.5.js (copia local del Play CDN) y ANTES de «tailwind.config».
    Uso en la página:
        tailwind.config = UE_TW.config();                      // lo habitual
        tailwind.config = UE_TW.config({ neutral: ['slate', 'gray', 'blue'] });

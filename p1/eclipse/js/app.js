@@ -242,16 +242,32 @@
         setI18n(btnTheme, toLight ? 'theme.toLight' : 'theme.toDark');
         setI18n(btnContrast, highContrast ? 'contrast.toStd' : 'contrast.toHigh');
     }
+    /* La elección se guarda para todo el portal (astro-tema: «noche» | «dia»; astro-contraste: «1» | «0»),
+       igual que js/tema.js: al volver a la portada o abrir otra sección se mantiene el mismo modo.
+       Se conservan también las claves propias de la app (eclipse.theme, eclipse.hc) por compatibilidad. */
+    function saveTheme() {
+        store.set('astro-tema', themeBase === 'dark' ? 'noche' : 'dia'); store.set('astro-contraste', highContrast ? '1' : '0');
+        store.set('eclipse.theme', themeBase); store.set('eclipse.hc', highContrast ? '1' : '0');
+    }
+    /* Si el modo cambió en otra pestaña del portal, o se vuelve con «Atrás», esta página lo acompaña */
+    function syncTheme() {
+        const at = store.get('astro-tema'), hc = store.get('astro-contraste');
+        if (at === 'noche') themeBase = 'dark'; else if (at === 'dia') themeBase = 'light';
+        if (hc === '1' || hc === '0') highContrast = hc === '1';
+        applyTheme();
+    }
+    window.addEventListener('storage', e => { if (e.key === 'astro-tema' || e.key === 'astro-contraste') syncTheme(); });
+    window.addEventListener('pageshow', e => { if (e.persisted) syncTheme(); });
     btnTheme.addEventListener('click', () => {
-        if (highContrast) { highContrast = false; themeBase = 'dark'; store.set('eclipse.hc', '0'); }
+        if (highContrast) { highContrast = false; themeBase = 'dark'; }
         else themeBase = themeBase === 'dark' ? 'light' : 'dark';
-        store.set('eclipse.theme', themeBase);
+        saveTheme();
         applyTheme();
         announce(t(themeBase === 'dark' ? 'theme.nowDark' : 'theme.nowLight'));
     });
     btnContrast.addEventListener('click', () => {
         highContrast = !highContrast;
-        store.set('eclipse.hc', highContrast ? '1' : '0');
+        saveTheme();
         applyTheme();
         announce(t(highContrast ? 'theme.nowHc' : (themeBase === 'dark' ? 'theme.nowDark' : 'theme.nowLight')));
     });

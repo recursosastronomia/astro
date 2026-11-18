@@ -108,6 +108,12 @@ Fallas, correcciones o sugerencias: recursosastronomia@uruguayeduca.edu.uy, con 
   (TalkBack, VoiceOver, NVDA), que ninguna herramienta automática reemplaza.
 - Las cifras de Lighthouse de más abajo son de la versión 1.6 y no se volvieron a medir.
 
+## Versión 3.3 (noviembre de 2026, versión p1 del portal)
+- El modo claro, el modo noche y el alto contraste se guardan con las claves comunes del portal p1
+  (`astro-tema` y `astro-contraste`, las mismas de `js/tema.js`): la elección se mantiene al ir y volver de la portada.
+  Si no existen, se toman las anteriores de la app (`eclipse.theme`, `eclipse.hc`).
+- Al pie: declaración de accesibilidad (WCAG 2.2, nivel AA) y licencia CC BY-SA 4.0, en los seis idiomas.
+
 ## Versión 3.1 (noviembre de 2026)
 - La app vive en `p1/eclipse/` y la portada `p1/index.html` la enlaza desde «Laboratorios y juegos», con la
   etiqueta «Nuevo» hasta el 6 de febrero de 2027.

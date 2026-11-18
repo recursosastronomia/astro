@@ -130,7 +130,7 @@ a { color: var(--link); text-underline-offset: 0.18em; }
 /* En pantallas angostas el botón «Inicio» ocupa el lugar del ícono del álbum */
 @media (max-width: 479px) { .brand img { display: none; } }
 
-/* Pausar / reanudar animaciones (WCAG 2.2.2) */
+/* Botones de modo noche y alto contraste (encabezado) */
 .icon-btn {
     display: inline-flex; align-items: center; justify-content: center; flex: none;
     width: 2.75rem; height: 2.75rem; border-radius: 8px;
@@ -138,9 +138,7 @@ a { color: var(--link); text-underline-offset: 0.18em; }
     transition: background-color 0.2s, border-color 0.2s;
 }
 .icon-btn:hover { background: rgba(255, 255, 255, 0.07); border-color: var(--on-ink-muted); }
-.icon-btn .icon--play, .icon-btn[aria-pressed="true"] .icon--pause { display: none; }
-.icon-btn[aria-pressed="true"] .icon--play { display: block; }
-.icon-btn .icon--play { fill: currentColor; }
+.icon-btn[aria-pressed="true"] { background: var(--amber); border-color: var(--amber); color: var(--ink-deep); }
 
 /* Instalar: botón fantasma sobre tinta; en celulares chicos queda solo el ícono */
 .chip-btn {
@@ -547,4 +545,27 @@ html[data-theme="dark"] .sw { border-top-color: #8fa2ff; }
 .motion-off *, .motion-off *::before, .motion-off *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 
 /* Declaración de accesibilidad (mismo pie que el resto del portal) */
-.a11y-declaracion { max-width: 72rem; margin: 0.75rem auto 0; padding: 0 1rem calc(2.5rem + var(--safe-bottom)); text-align: center; font-size: 0.8125rem; color: var(--muted); }
+.a11y-declaracion { max-width: 72rem; margin: 0.75rem auto 0; padding: 0 1rem; text-align: center; font-size: 0.8125rem; color: var(--muted); }
+
+/* Licencia CC BY-SA 4.0 al pie (política de Uruguay Educa) */
+.lic-linea { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.35rem 0.5rem; max-width: 72rem; margin: 0.4rem auto 0; padding: 0 1rem calc(2.5rem + var(--safe-bottom)); text-align: center; font-size: 0.8125rem; color: var(--muted); }
+.lic-linea a { color: var(--link); font-weight: 700; }
+.lic-linea .lic-ico { flex: none; color: var(--muted); }
+
+/* Alto contraste: la misma elección que el resto del portal (clave astro-contraste).
+   Parte del modo noche y lleva todo a blanco y amarillo sobre negro. */
+html[data-contrast="alto"] {
+    --ink-deep: #000; --ink: #000; --ink-soft: #000; --ink-line: #fff;
+    --on-ink: #fff; --on-ink-muted: #fff;
+    --paper: #000; --sheet: #000; --rule: #fff; --rule-strong: #fff; --chip-wash: #000;
+    --text: #fff; --muted: #fff; --link: #ffe14d; --slot: #fff;
+    --amber-wash: #000; --ok: #7dffb0; --err: #ff9e9e;
+    color-scheme: dark;
+}
+html[data-contrast="alto"] a { color: #ffe14d; text-decoration: underline; }
+html[data-contrast="alto"] .header { border-bottom: 2px solid #fff; }
+html[data-contrast="alto"] .icon-btn { border: 2px solid #fff; }
+html[data-contrast="alto"] .icon-btn[aria-pressed="true"] { background: #ffb627; border-color: #ffb627; color: #000; }
+html[data-contrast="alto"] .lic-linea .lic-ico { color: #fff; }
+html[data-contrast="alto"] .code-input { background: #000; color: #fff; border-color: #fff; }
+html[data-contrast="alto"] .code-input::placeholder { color: #fff; opacity: .8; }

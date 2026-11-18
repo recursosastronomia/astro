@@ -1227,3 +1227,48 @@ html[data-theme="dark"] .sitio-pie-logo { background: #fff; padding: 0.4rem 0.6r
 .l-repaso-sec li { break-inside: avoid; }
 .l-repaso-accion { text-align: center; margin: 0.5rem 0 0 !important; }
 .l-repaso-accion .l-btn { text-decoration: none; display: inline-flex; }
+
+/* =====================================================================
+   LICENCIA AL PIE (todas las páginas): CC BY-SA 4.0, política de Uruguay Educa
+   ===================================================================== */
+.sitio-pie .sitio-pie-lic { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; font-size: 0.8125rem; }
+.sitio-pie-lic .lic-ico { flex: none; color: var(--muted); }
+.sitio-pie-lic a { font-weight: 700; }
+.sitio-pie-lic .lic-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* =====================================================================
+   ALTO CONTRASTE EN TODO EL SITIO (html[data-contrast="alto"], js/tema.js)
+   Parte del modo noche (data-theme="dark" queda puesto) y lleva todo al
+   máximo contraste: fondo negro, texto blanco, enlaces amarillos subrayados,
+   bordes blancos y el ámbar del Sol para los acentos. Va al final de la hoja
+   para que tenga prioridad sobre el modo noche.
+   ===================================================================== */
+html[data-contrast="alto"] {
+  --paper: #000; --sheet: #000; --grid: #000;
+  --rule: #fff; --rule-strong: #fff;
+  --text: #fff; --muted: #fff; --link: #ffe14d; --star-blue: #ffe14d;
+  --ink: #000; --ink-deep: #000; --ink-soft: #000; --ink-line: #fff;
+  --on-ink: #fff; --on-ink-muted: #fff;
+  --amber-wash: #000; --flare: #ffb627;
+  color-scheme: dark;
+}
+html.lectura[data-contrast="alto"] {
+  --bg: #000; --surface: #000; --fg: #fff; --fg-muted: #fff;
+  --line: #fff; --line-soft: #fff; --num: #ffb627; --link-c: #ffe14d;
+  --mark: transparent; --ok-bg: #000; --err-bg: #000; --ok-fg: #7dffb0; --err-fg: #ff9e9e;
+}
+html[data-contrast="alto"] body { background: #000; color: #fff; }
+html[data-contrast="alto"] a { color: #ffe14d; text-decoration: underline; }
+html[data-contrast="alto"] .btn-primary, html[data-contrast="alto"] .l-btn,
+html[data-contrast="alto"] .l-medallas, html[data-contrast="alto"] .barra-link, html[data-contrast="alto"] .ue-home { text-decoration: none; }
+html[data-contrast="alto"] .l-medallas { background: #000; border: 2px solid #fff; color: #fff; }
+html[data-contrast="alto"] .hoja,
+html[data-contrast="alto"] .entrada,
+html[data-contrast="alto"] .l-repaso { border: 1px solid #fff; box-shadow: none; }
+html[data-contrast="alto"] .l-barra, html[data-contrast="alto"] .barra { border-bottom: 2px solid #fff; }
+html[data-contrast="alto"] .sitio-pie { border-top: 2px solid #fff; }
+html[data-contrast="alto"] .sitio-pie-lic .lic-ico { color: #fff; }
+html[data-contrast="alto"] .lectura strong, html[data-contrast="alto"] strong { background: none; text-decoration: underline; text-decoration-thickness: 2px; }
+/* Botones de modo: el elegido, en ámbar con texto negro */
+html[data-contrast="alto"] .l-tema { background: #000; border: 2px solid #fff; color: #fff; }
+html[data-contrast="alto"] .l-tema[aria-pressed="true"] { background: #ffb627; border-color: #ffb627; color: #000; }

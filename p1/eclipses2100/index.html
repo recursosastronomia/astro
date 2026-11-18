@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="es-UY">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sombras sonoras — eclipses de Sol y de Luna 2020–2100 para escuchar</title>
+  <meta name="description" content="Sombras sonoras: escuchar los eclipses de Sol y de Luna visibles desde cualquier lugar del mundo entre 2020 y 2100. Accesible, sin conexión y en seis idiomas.">
+  <meta name="theme-color" content="#14264b">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Sombras sonoras">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <!-- App instalada (pantalla de inicio): se oculta el botón «Inicio» del portal -->
+  <script>
+    (function () {
+      var mm = window.matchMedia ? window.matchMedia.bind(window) : function () { return { matches: false }; };
+      if (navigator.standalone === true || mm('(display-mode: standalone)').matches || mm('(display-mode: fullscreen)').matches) {
+        document.documentElement.classList.add('is-installed');
+      }
+    })();
+  </script>
+  <!-- Modo noche y alto contraste: la misma elección que el resto del portal p1 (astro-tema, astro-contraste).
+       Se aplica antes de pintar para que no parpadee; los botones los maneja js/tema.js. -->
+  <script>
+    (function () {
+      var r = document.documentElement, t = null, hc = null;
+      try { t = localStorage.getItem('astro-tema'); hc = localStorage.getItem('astro-contraste'); } catch (e) {}
+      var noche = hc === '1' || t === 'noche' || (!t && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+      if (noche) r.setAttribute('data-theme', 'dark');
+      if (hc === '1') r.setAttribute('data-contrast', 'alto');
+      r.setAttribute('data-ue-theme', hc === '1' ? 'hc' : (noche ? 'dark' : 'light'));
+    })();
+  </script>
+  <!-- Tipografías y paleta de p1, guardadas en la carpeta de la app para funcionar sin conexión -->
+  <link rel="preload" href="fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="js/tema.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
+
+  <div id="update-bar" class="banner" role="status" hidden>
+    <span data-i18n="update_msg"></span>
+    <button type="button" id="update-btn" class="btn btn-primary btn-small" data-i18n="update_btn"></button>
+  </div>
+
+  <header class="ue-appbar appbar">
+    <div class="wrap appbar-in">
+      <a href="../index.html" class="ue-home" data-i18n-attr="aria-label:home_aria;title:home_aria">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+      </a>
+      <a class="brand ue-keep" href="#/">
+        <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <circle cx="16" cy="16" r="13" fill="#ffb627"/><circle cx="19.5" cy="13.5" r="11" fill="#14264b"/>
+          <path d="M5 23c3-1.6 3 1.6 6 0s3 1.6 6 0" fill="none" stroke="#ffb627" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-txt"><span class="brand-name" data-i18n="app_name">Sombras sonoras</span><span class="brand-tag" data-i18n="app_tag"></span></span>
+      </a>
+      <div class="appbar-tools">
+        <label class="lang">
+          <span class="ue-sr" data-i18n="lang_label">Idioma</span>
+          <svg class="lang-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>
+          <select id="lang-select"></select>
+        </label>
+        <div class="ue-tools">
+          <button type="button" id="tema-btn" class="ue-tool" aria-pressed="false" data-i18n-attr="aria-label:mode_night;title:mode_night" aria-label="Modo noche" title="Modo noche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+          <button type="button" id="hc-btn" class="ue-tool" aria-pressed="false" data-i18n-attr="aria-label:mode_hc;title:mode_hc" aria-label="Alto contraste" title="Alto contraste"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- ================= 1. LUGAR ================= -->
+    <section class="view" data-view="place" aria-labelledby="place-h">
+      <div class="wrap-narrow">
+        <h1 id="place-h" tabindex="-1" data-i18n="place_h"></h1>
+        <p class="lead" data-i18n="place_lead"></p>
+
+        <button type="button" id="gps-btn" class="btn btn-primary btn-block">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="8" fill="none"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3" fill="none"/></svg>
+          <span data-i18n="gps_btn"></span>
+        </button>
+        <p class="note" id="gps-msg" role="status" aria-live="polite" data-i18n="gps_note"></p>
+
+        <div class="search">
+          <label for="city-search" class="field-label" data-i18n="search_label"></label>
+          <input id="city-search" type="text" role="combobox" autocomplete="off" spellcheck="false"
+                 aria-autocomplete="list" aria-expanded="false" aria-controls="city-results" data-i18n-attr="placeholder:search_ph">
+          <ul id="city-results" class="results" role="listbox" data-i18n-attr="aria-label:search_label" hidden></ul>
+          <p id="search-status" class="ue-sr" role="status" aria-live="polite"></p>
+        </div>
+
+        <section class="quick" id="recent-wrap" hidden aria-labelledby="recent-h">
+          <h2 id="recent-h" class="small-h" data-i18n="recent_h"></h2>
+          <ul class="chips" id="recent-list"></ul>
+        </section>
+        <section class="quick" id="country-wrap" hidden aria-labelledby="country-h">
+          <h2 id="country-h" class="small-h"></h2>
+          <ul class="chips" id="country-list"></ul>
+        </section>
+
+        <details class="fold" id="by-country">
+          <summary data-i18n="by_country"></summary>
+          <div class="fold-body two-selects">
+            <div>
+              <label for="country-select" class="field-label" data-i18n="country_label"></label>
+              <select id="country-select"></select>
+            </div>
+            <div>
+              <label for="city-select" class="field-label" data-i18n="city_label"></label>
+              <select id="city-select" disabled></select>
+            </div>
+            <button type="button" id="country-go" class="btn btn-secondary" disabled data-i18n="go"></button>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ================= 2. EVENTOS ================= -->
+    <section class="view" data-view="events" hidden aria-labelledby="ev-h">
+      <div class="wrap-narrow">
+        <div class="view-top">
+          <h1 id="ev-h" tabindex="-1" data-i18n="ev_h"></h1>
+          <p class="place-line"><span id="ev-place"></span> <a href="#/" class="link-btn" data-i18n="change_place"></a></p>
+        </div>
+        <fieldset class="seg" id="filter">
+          <legend class="ue-sr" data-i18n="filter_label"></legend>
+          <label><input type="radio" name="filter" value="all" checked><span data-i18n="f_all"></span></label>
+          <label><input type="radio" name="filter" value="sun"><span data-i18n="f_sun"></span></label>
+          <label><input type="radio" name="filter" value="moon"><span data-i18n="f_moon"></span></label>
+        </fieldset>
+        <p id="ev-status" class="note" role="status" aria-live="polite"></p>
+        <h2 class="small-h" id="next-h" data-i18n="next_h"></h2>
+        <ul class="ev-list" id="ev-next" aria-labelledby="next-h"></ul>
+        <p class="note" id="ev-none" hidden data-i18n="none_next"></p>
+        <details class="fold" id="past-wrap">
+          <summary id="past-sum"></summary>
+          <ul class="ev-list fold-body" id="ev-past"></ul>
+        </details>
+        <p class="note" data-i18n="time_note"></p>
+      </div>
+    </section>
+
+    <!-- ================= 3. ESCUCHAR ================= -->
+    <section class="view" data-view="listen" hidden aria-labelledby="ls-h">
+      <div class="wrap-narrow">
+        <a href="#/eclipses" class="back-link"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg><span data-i18n="ev_h"></span></a>
+        <h1 id="ls-h" tabindex="-1"></h1>
+        <p class="place-line" id="ls-sub"></p>
+
+        <fieldset class="seg seg-mode" id="mode">
+          <legend data-i18n="mode_label"></legend>
+          <label><input type="radio" name="mode" value="sim" checked><span data-i18n="mode_sim"></span></label>
+          <label><input type="radio" name="mode" value="live"><span class="mode-live" data-i18n="mode_live"></span></label>
+        </fieldset>
+        <p class="note mode-hint" id="mode-hint"></p>
+
+        <section class="live-panel" id="live-panel" hidden aria-labelledby="live-h">
+          <h2 id="live-h" class="small-h" data-i18n="live_h"></h2>
+          <p class="live-state" id="live-state"></p>
+          <p class="countdown" id="countdown" role="timer" aria-atomic="true"></p>
+          <p class="note" id="live-start"></p>
+          <dl class="live-src">
+            <div><dt data-i18n="live_clock"></dt><dd id="live-clock"></dd></div>
+            <div><dt data-i18n="live_place"></dt><dd><span id="live-place"></span> <button type="button" class="link-btn" id="live-gps" data-i18n="live_use_gps"></button></dd></div>
+          </dl>
+          <p class="note" id="live-gps-msg" role="status"></p>
+          <p class="note" id="live-tz" hidden></p>
+          <p class="note" id="live-armed" role="status"></p>
+          <details class="fold live-tips">
+            <summary data-i18n="live_tips_h"></summary>
+            <div class="fold-body">
+              <ul>
+                <li data-i18n="live_tip_1"></li>
+                <li data-i18n="live_tip_2"></li>
+                <li data-i18n="live_tip_3"></li>
+                <li id="live-tip-wake" data-i18n="live_tip_wake" hidden></li>
+              </ul>
+            </div>
+          </details>
+          <button type="button" class="btn btn-secondary" id="ics-btn">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+            <span data-i18n="ics_btn"></span>
+          </button>
+        </section>
+
+        <div class="stage">
+          <figure class="disc-fig">
+            <svg id="disc" viewBox="-130 -130 260 260" aria-hidden="true" focusable="false">
+              <defs>
+                <clipPath id="clip-sun"><circle r="100"/></clipPath>
+                <clipPath id="clip-moon"><circle r="100"/></clipPath>
+                <radialGradient id="moon-shade" cx="40%" cy="38%" r="70%"><stop offset="0" stop-color="#e9e6df"/><stop offset="1" stop-color="#a9a59c"/></radialGradient>
+              </defs>
+              <g id="g-sun">
+                <circle class="sun-base" r="100"/>
+                <g clip-path="url(#clip-sun)"><image id="sun-img" href="img/sol/sol-respaldo.jpg" x="-106" y="-106" width="212" height="212" preserveAspectRatio="none"/></g>
+                <circle id="moon-over" class="moon-over" r="100" cx="-500"/>
+                <!-- Luna nueva: imagen real de la Luna, orientada y oscurecida al 85 % (js/luna.js) -->
+                <g id="moon-new" transform="translate(-500 0)"><g clip-path="url(#clip-moon)"><image id="moon-new-img" x="-100" y="-100" width="200" height="200" preserveAspectRatio="none"/></g></g>
+              </g>
+              <g id="g-moon" hidden>
+                <circle r="100" fill="url(#moon-shade)"/>
+                <g clip-path="url(#clip-moon)"><image id="moon-img" x="-100" y="-100" width="200" height="200" preserveAspectRatio="none"/></g>
+                <g clip-path="url(#clip-moon)">
+                  <circle id="penumbra" class="penumbra" r="200" cx="-500"/>
+                  <circle id="umbra" class="umbra" r="140" cx="-500"/>
+                </g>
+              </g>
+            </svg>
+            <figcaption id="disc-cap" class="note"></figcaption>
+          </figure>
+          <div class="readout">
+            <p class="pct" id="pct" aria-hidden="true">0%</p>
+            <p class="phase" id="phase"></p>
+            <p class="clock" id="clock"></p>
+            <span class="badge badge-live" id="live-badge" hidden data-i18n="live_badge"></span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button type="button" id="play" class="btn btn-primary btn-play" aria-pressed="false">
+            <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4.5v15l13-7.5z"/></svg>
+            <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 4.5h4.5v15H6zM13.5 4.5H18v15h-4.5z"/></svg>
+            <span id="play-txt"></span>
+          </button>
+          <button type="button" id="restart" class="btn btn-secondary" data-i18n="restart"></button>
+        </div>
+
+        <div class="timeline" id="timeline">
+          <label for="scrub" class="ue-sr" data-i18n="timeline_label"></label>
+          <input id="scrub" type="range" min="0" max="1000" step="1" value="0">
+          <div class="ticks" id="marks" aria-hidden="true"></div>
+        </div>
+
+        <div class="opts">
+          <fieldset class="seg" id="speed">
+            <legend data-i18n="speed_label"></legend>
+            <label><input type="radio" name="speed" value="60" checked><span data-i18n="sp_1m"></span></label>
+            <label><input type="radio" name="speed" value="180"><span data-i18n="sp_3m"></span></label>
+            <label><input type="radio" name="speed" value="real"><span data-i18n="sp_real"></span></label>
+          </fieldset>
+          <div class="opt-row">
+            <label for="instr" class="field-label" data-i18n="instr_label"></label>
+            <select id="instr">
+              <option value="piano" data-i18n="i_piano"></option>
+              <option value="harp" data-i18n="i_harp"></option>
+              <option value="xylo" data-i18n="i_xylo"></option>
+              <option value="violin" data-i18n="i_violin"></option>
+            </select>
+          </div>
+          <label class="check"><input type="checkbox" id="opt-voice"><span data-i18n="voice_label"></span></label>
+          <details class="fold">
+            <summary data-i18n="more_opts"></summary>
+            <div class="fold-body">
+              <label class="check"><input type="checkbox" id="opt-ticks" checked><span data-i18n="ticks_label"></span></label>
+              <label class="check"><input type="checkbox" id="opt-vibrate" checked><span data-i18n="vibrate_label"></span></label>
+            </div>
+          </details>
+          <p class="note" data-i18n="sound_hint"></p>
+        </div>
+
+        <section class="moments" aria-labelledby="mom-h">
+          <h2 id="mom-h" class="small-h" data-i18n="times_h"></h2>
+          <dl id="moments"></dl>
+        </section>
+
+        <p class="callout" id="sun-safety" hidden>
+          <span data-i18n="safety_banner"></span>
+          <a href="#/seguridad" data-i18n="safety_link"></a>
+        </p>
+        <p class="callout callout-calm" id="moon-safety" hidden data-i18n="moon_safe"></p>
+        <p><a href="#/eclipse" class="link-btn" id="what-link" data-i18n="what_btn"></a></p>
+
+        <nav class="prevnext" data-i18n-attr="aria-label:ev_h">
+          <button type="button" id="prev-ev" class="btn btn-secondary"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg><span data-i18n="prev_ev"></span></button>
+          <button type="button" id="next-ev" class="btn btn-secondary"><span data-i18n="next_ev"></span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ================= ¿QUÉ ES UN ECLIPSE? ================= -->
+    <section class="view" data-view="info" hidden aria-labelledby="info-h">
+      <div class="wrap-narrow prose">
+        <h1 id="info-h" tabindex="-1" data-i18n="info_h"></h1>
+        <section id="info-sun" aria-labelledby="sun-h">
+          <h2 id="sun-h"><svg class="h-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="#ffb627"/><circle cx="15" cy="10" r="7.5" fill="currentColor" opacity=".85"/></svg><span data-i18n="sun_h"></span></h2>
+          <p data-i18n="sun_d"></p>
+          <ul class="kinds">
+            <li id="k-sun-total" data-i18n-html="sun_total"></li>
+            <li id="k-sun-annular" data-i18n-html="sun_annular"></li>
+            <li id="k-sun-partial" data-i18n-html="sun_partial"></li>
+            <li data-i18n-html="sun_hybrid"></li>
+          </ul>
+          <p class="callout"><span data-i18n="safety_banner"></span> <a href="#/seguridad" data-i18n="safety_link"></a></p>
+        </section>
+        <section id="info-moon" aria-labelledby="moon-h">
+          <h2 id="moon-h"><svg class="h-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="#c4643c"/></svg><span data-i18n="moon_h"></span></h2>
+          <p data-i18n="moon_d"></p>
+          <ul class="kinds">
+            <li id="k-moon-total" data-i18n-html="moon_total"></li>
+            <li id="k-moon-partial" data-i18n-html="moon_partial"></li>
+          </ul>
+          <p class="note" data-i18n="moon_pen"></p>
+        </section>
+        <section aria-labelledby="listen-h">
+          <h2 id="listen-h" data-i18n="listen_h"></h2>
+          <p data-i18n="listen_d"></p>
+        </section>
+      </div>
+    </section>
+
+    <!-- ================= OBSERVAR SIN RIESGO ================= -->
+    <section class="view" data-view="safety" hidden aria-labelledby="safe-h">
+      <div class="wrap-narrow prose">
+        <h1 id="safe-h" tabindex="-1" data-i18n="safe_h"></h1>
+        <p class="callout" data-i18n="safe_lead"></p>
+        <figure class="photo">
+          <img src="img/seguridad/lentes.jpg" width="960" height="720" loading="lazy" decoding="async" data-i18n-attr="alt:safe_glasses_alt" alt="">
+          <figcaption data-i18n="safe_glasses_cap"></figcaption>
+        </figure>
+        <figure class="photo">
+          <img src="img/seguridad/proyeccion.jpg" width="1000" height="750" loading="lazy" decoding="async" data-i18n-attr="alt:safe_proj_alt" alt="">
+          <figcaption data-i18n="safe_proj_cap"></figcaption>
+        </figure>
+        <figure class="diagram">
+          <svg viewBox="0 0 360 150" role="img" aria-labelledby="diag-t">
+            <title id="diag-t" data-i18n="safe_diag_alt"></title>
+            <circle cx="34" cy="62" r="22" class="d-sun"/>
+            <path d="M58 52 L178 72 L300 56 M58 72 L178 72 L300 92" class="d-ray"/>
+            <rect x="174" y="22" width="8" height="100" rx="2" class="d-sheet"/>
+            <circle cx="178" cy="72" r="2.6" class="d-hole"/>
+            <rect x="300" y="22" width="8" height="100" rx="2" class="d-sheet"/>
+            <circle cx="304" cy="74" r="12" class="d-img"/>
+            <text x="34" y="112" text-anchor="middle" class="d-txt" data-i18n="safe_diag_sun"></text>
+            <text x="178" y="140" text-anchor="middle" class="d-txt" data-i18n="safe_diag_hole"></text>
+            <text x="300" y="140" text-anchor="middle" class="d-txt" data-i18n="safe_diag_img"></text>
+          </svg>
+        </figure>
+        <figure class="photo">
+          <img src="img/seguridad/telescopio-filtro.jpg" width="1000" height="883" loading="lazy" decoding="async" data-i18n-attr="alt:safe_tel_alt" alt="">
+          <figcaption data-i18n="safe_tel_cap"></figcaption>
+        </figure>
+        <p class="note-box" data-i18n="safe_total"></p>
+      </div>
+    </section>
+
+    <!-- ================= ACERCA DE ================= -->
+    <section class="view" data-view="about" hidden aria-labelledby="about-h">
+      <div class="wrap-narrow prose">
+        <h1 id="about-h" tabindex="-1" data-i18n="about_h"></h1>
+        <section class="about-sec"><h2 data-i18n="about_what_t"></h2><p data-i18n="about_what_d"></p><p data-i18n="about_a11y_d"></p></section>
+        <section class="about-sec">
+          <dl class="kv">
+            <div><dt data-i18n="about_web_t"></dt><dd><a href="https://edytic.ces.edu.uy/" target="_blank" rel="noopener">https://edytic.ces.edu.uy/</a></dd></div>
+            <div><dt data-i18n="about_inst_t"></dt><dd>DGES - EDyTIC - Contenidistas de Astronomía 2026</dd></div>
+            <div><dt data-i18n="about_contact_t"></dt><dd><a id="contact-link" href="mailto:recursosastronomia@uruguayeduca.edu.uy?subject=Sombras%20sonoras">recursosastronomia@uruguayeduca.edu.uy</a></dd></div>
+          </dl>
+        </section>
+
+        <section class="about-sec" id="about-ls">
+          <h2 data-i18n="about_ls_t"></h2>
+          <p data-i18n="about_ls_d"></p>
+          <ul class="credits">
+            <li data-i18n="about_ls_f1"></li>
+            <li data-i18n="about_ls_f2"></li>
+            <li data-i18n="about_ls_f3"></li>
+            <li data-i18n="about_ls_f4"></li>
+            <li data-i18n="about_ls_f5"></li>
+          </ul>
+          <p data-i18n="about_ls_diff"></p>
+          <p><span data-i18n="about_ls_visit"></span> <a href="https://astrolab.fas.harvard.edu/LightSound.html" target="_blank" rel="noopener" lang="en">astrolab.fas.harvard.edu/LightSound.html</a></p>
+        </section>
+        <section class="about-sec"><h2 data-i18n="about_calc_t"></h2><p data-i18n="about_calc_d"></p><p data-i18n="about_pen_d"></p></section>
+        <section class="about-sec">
+          <h2 data-i18n="about_img_t"></h2>
+          <ul class="credits">
+            <li><span data-i18n="cred_sun"></span> <a href="https://sdo.gsfc.nasa.gov/" target="_blank" rel="noopener">sdo.gsfc.nasa.gov</a></li>
+            <li><span data-i18n="cred_moon"></span> <a href="https://svs.gsfc.nasa.gov/4720" target="_blank" rel="noopener">svs.gsfc.nasa.gov/4720</a></li>
+            <li><span data-i18n="cred_glasses"></span> <a href="https://commons.wikimedia.org/wiki/File:Eclipse_Safety_Imagery_2023_(SVS14447_-_14447_013_IMG_8047).jpg" target="_blank" rel="noopener" data-i18n="cred_link"></a></li>
+            <li><span data-i18n="cred_proj"></span> <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener license">CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Partial_solar_eclipse_pinhole_projector.jpg" target="_blank" rel="noopener" data-i18n="cred_link"></a></li>
+            <li><span data-i18n="cred_tel"></span> <a href="https://commons.wikimedia.org/wiki/File:2024_Total_Solar_Eclipse_(NHQ202404080207).jpg" target="_blank" rel="noopener" data-i18n="cred_link"></a></li>
+          </ul>
+        </section>
+        <section class="about-sec"><h2 data-i18n="about_privacy_t"></h2><p data-i18n="about_privacy_d"></p></section>
+        <section class="about-sec">
+          <h2 data-i18n="about_install_t"></h2>
+          <p data-i18n="about_install_d"></p>
+          <button type="button" id="install-btn" class="btn btn-secondary" hidden data-i18n="install_btn"></button>
+        </section>
+        <section class="ai-note" aria-labelledby="ai-h">
+          <h2 id="ai-h" data-i18n="about_ai_t"></h2>
+          <p class="ai-lead" data-i18n="about_ai_lead"></p>
+          <div class="ai-cols">
+            <div><h3 data-i18n="about_ai_did_t"></h3><ul><li data-i18n="about_ai_did_1"></li><li data-i18n="about_ai_did_2"></li><li data-i18n="about_ai_did_3"></li></ul></div>
+            <div><h3 data-i18n="about_ai_human_t"></h3><ul><li data-i18n="about_ai_human_1"></li><li data-i18n="about_ai_human_2"></li><li data-i18n="about_ai_human_3"></li></ul></div>
+          </div>
+          <p class="ai-close" data-i18n="about_ai_close"></p>
+        </section>
+        <p class="version" id="about-version"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <nav class="wrap foot-nav" data-i18n-attr="aria-label:app_name">
+      <a href="#/eclipse" data-i18n="nav_info"></a>
+      <a href="#/seguridad" data-i18n="nav_safety"></a>
+      <a href="#/acerca" data-i18n="nav_about"></a>
+    </nav>
+    <p class="a11y-declaracion" data-i18n="a11y_decl">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Noviembre de 2026.</p>
+    <p class="lic-linea"><svg class="lic-ico" viewBox="0 0 66 20" width="56" height="17" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8.6"/><circle cx="33" cy="10" r="8.6"/><circle cx="56" cy="10" r="8.6"/><path d="M8.6 7.6a2.6 2.6 0 1 0 0 4.8M13.4 7.6a2.6 2.6 0 1 0 0 4.8" stroke-width="1.5"/><path d="M52.4 10a3.6 3.6 0 1 0 1.1-2.6" stroke-width="1.6"/></g><g fill="currentColor"><circle cx="33" cy="5.4" r="1.6"/><path d="M30.6 8.2h4.8a.8.8 0 0 1 .8.8v3.6h-1.4v3.6h-3.6v-3.6h-1.4V9a.8.8 0 0 1 .8-.8z"/><path d="M51.2 6.9l2.9 0.9-0.9 2.7z"/></g></svg><span data-i18n-html="lic_html">Contenidos bajo licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0<span class="ue-sr"> (se abre en una pestaña nueva)</span></a>, salvo que se indique otra cosa.</span></p>
+  </footer>
+
+  <!-- Avisos para lectores de pantalla (momentos del eclipse, cambios de lugar) -->
+  <div id="live" class="ue-sr" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="js/strings.js"></script>
+  <script src="js/cities.js"></script>
+  <script src="js/astronomy.browser.min.js"></script>
+  <script src="js/eclipses.js"></script>
+  <script src="js/luna.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/app.js"></script>
+  <!-- Estadísticas de uso anónimas (GoatCounter: sin cookies ni datos personales), como en el resto del portal.
+       Se carga de forma asíncrona; sin conexión simplemente no cuenta. -->
+  <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

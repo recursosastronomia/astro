@@ -26,10 +26,17 @@ window.ASTRO_RAIZ = window.ASTRO_RAIZ || ((document.currentScript && document.cu
   a.className = 'l-medallas';
   a.href = raiz + 'medallero.html';
   a.innerHTML = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 3h8l-2 6h-4z"/><circle cx="12" cy="15" r="6"/><path d="M12 12.2l.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2-1.45-1.4 2-.3z"/></svg><span class="l-tema-txt">Mi medallero</span>';
-  const acciones = document.createElement('div');
-  acciones.className = 'l-barra-acciones';
-  tema.replaceWith(acciones);
-  acciones.append(a, tema);
+  // Los botones de modo noche y alto contraste ya vienen agrupados en .l-barra-acciones
+  let acciones = tema.closest('.l-barra-acciones');
+  if (!acciones) {
+    acciones = document.createElement('div');
+    acciones.className = 'l-barra-acciones';
+    tema.replaceWith(acciones);
+    acciones.append(tema);
+    const hc = document.getElementById('contraste');
+    if (hc) acciones.append(hc);
+  }
+  acciones.prepend(a);
 })();
 
 /* ---------- Progreso de lectura e índice ---------- */

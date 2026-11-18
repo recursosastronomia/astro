@@ -108,6 +108,11 @@ Fallas, correcciones o sugerencias: recursosastronomia@uruguayeduca.edu.uy, con 
   (TalkBack, VoiceOver, NVDA), que ninguna herramienta automática reemplaza.
 - Las cifras de Lighthouse de más abajo son de la versión 1.6 y no se volvieron a medir.
 
+## Versión 3.3 (noviembre de 2026): declaración de accesibilidad al pie
+- Al final de la página, junto al aviso de licencia CC BY-SA 4.0, se agrega la frase común a todo el portal:
+  «Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Noviembre de 2026.» (en los seis idiomas, clave `a11y.decl`).
+- Se mantienen las tipografías propias en `fonts/` para que la app funcione como aplicación independiente.
+
 ## Versión 3.2 (noviembre de 2026): un solo modo visual para todo el portal
 - **Modo heredado entre secciones:** el modo claro, el modo noche y el alto contraste se guardan ahora con las
   claves comunes del portal (`ue.theme` y `ue.hc`, ver `../ue/ue.js`). Si se elige un modo en la portada o en otra

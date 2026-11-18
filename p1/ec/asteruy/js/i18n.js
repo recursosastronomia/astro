@@ -12,7 +12,8 @@ const I18N = {
         label: 'Español',
         ui: {
             appTitle: 'Uruguayos en el espacio', appSub: 'Álbum de asteroides', language: 'Idioma',
-            install: 'Instalar', progressAria: 'Progreso del álbum', homeAria: 'Volver al inicio del portal', motionAria: 'Pausar animaciones',
+            install: 'Instalar', progressAria: 'Progreso del álbum', homeAria: 'Volver al inicio del portal', themeAria: 'Modo noche', hcAria: 'Alto contraste',
+            licenseHtml: 'Contenidos bajo licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, salvo que se indique otra cosa.',
             codeLabel: 'Código misterio de 4 letras', open: 'Abrir',
             codeHelp: 'Escribe aquí los códigos misterio que te dio tu docente o que encontraste en una feria de ciencias para descubrir asteroides.',
             offline: 'Sin conexión: el álbum funciona igual', filtersAria: 'Filtrar por categoría', all: 'Todos',
@@ -73,7 +74,8 @@ const I18N = {
         label: 'English',
         ui: {
             appTitle: 'Uruguayans in Space', appSub: 'Asteroid sticker album', language: 'Language',
-            install: 'Install', progressAria: 'Album progress', homeAria: 'Back to the portal home page', motionAria: 'Pause animations',
+            install: 'Install', progressAria: 'Album progress', homeAria: 'Back to the portal home page', themeAria: 'Night mode', hcAria: 'High contrast',
+            licenseHtml: 'Content licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0<span class="sr-only"> (opens in a new tab)</span></a>, unless otherwise stated.',
             codeLabel: '4-letter mystery code', open: 'Open',
             codeHelp: 'Look for the mystery codes at the fair and type them here to discover asteroids.',
             offline: 'Offline: the album still works', filtersAria: 'Filter by category', all: 'All',
@@ -198,7 +200,8 @@ const I18N = {
         label: 'Français',
         ui: {
             appTitle: 'Des Uruguayens dans l’espace', appSub: 'Album d’astéroïdes', language: 'Langue',
-            install: 'Installer', progressAria: 'Progression de l’album', homeAria: 'Retour à l’accueil du portail', motionAria: 'Mettre les animations en pause',
+            install: 'Installer', progressAria: 'Progression de l’album', homeAria: 'Retour à l’accueil du portail', themeAria: 'Mode nuit', hcAria: 'Contraste élevé',
+            licenseHtml: 'Contenus sous licence <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0<span class="sr-only"> (s’ouvre dans un nouvel onglet)</span></a>, sauf mention contraire.',
             codeLabel: 'Code mystère de 4 lettres', open: 'Ouvrir',
             codeHelp: 'Cherchez les codes mystère dans la foire et saisissez-les ici pour découvrir des astéroïdes.',
             offline: 'Hors ligne : l’album fonctionne quand même', filtersAria: 'Filtrer par catégorie', all: 'Tous',
@@ -323,7 +326,8 @@ const I18N = {
         label: 'Português',
         ui: {
             appTitle: 'Uruguaios no espaço', appSub: 'Álbum de asteroides', language: 'Idioma',
-            install: 'Instalar', progressAria: 'Progresso do álbum', homeAria: 'Voltar ao início do portal', motionAria: 'Pausar animações',
+            install: 'Instalar', progressAria: 'Progresso do álbum', homeAria: 'Voltar ao início do portal', themeAria: 'Modo noite', hcAria: 'Alto contraste',
+            licenseHtml: 'Conteúdo sob licença <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.pt" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0<span class="sr-only"> (abre em uma nova aba)</span></a>, salvo indicação em contrário.',
             codeLabel: 'Código mistério de 4 letras', open: 'Abrir',
             codeHelp: 'Procure os códigos mistério na feira e digite-os aqui para descobrir asteroides.',
             offline: 'Sem conexão: o álbum funciona do mesmo jeito', filtersAria: 'Filtrar por categoria', all: 'Todos',
@@ -448,7 +452,8 @@ const I18N = {
         label: 'Italiano',
         ui: {
             appTitle: 'Uruguaiani nello spazio', appSub: 'Album di asteroidi', language: 'Lingua',
-            install: 'Installa', progressAria: 'Avanzamento dell’album', homeAria: 'Torna alla home del portale', motionAria: 'Metti in pausa le animazioni',
+            install: 'Installa', progressAria: 'Avanzamento dell’album', homeAria: 'Torna alla home del portale', themeAria: 'Modalità notte', hcAria: 'Alto contrasto',
+            licenseHtml: 'Contenuti con licenza <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.it" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0<span class="sr-only"> (si apre in una nuova scheda)</span></a>, salvo diversa indicazione.',
             codeLabel: 'Codice misterioso di 4 lettere', open: 'Apri',
             codeHelp: 'Cerca i codici misteriosi nella fiera e scrivili qui per scoprire gli asteroidi.',
             offline: 'Offline: l’album funziona lo stesso', filtersAria: 'Filtra per categoria', all: 'Tutte',
@@ -573,7 +578,8 @@ const I18N = {
         label: 'Deutsch',
         ui: {
             appTitle: 'Uruguayer im Weltraum', appSub: 'Asteroiden-Sammelalbum', language: 'Sprache',
-            install: 'Installieren', progressAria: 'Fortschritt des Albums', homeAria: 'Zurück zur Startseite des Portals', motionAria: 'Animationen anhalten',
+            install: 'Installieren', progressAria: 'Fortschritt des Albums', homeAria: 'Zurück zur Startseite des Portals', themeAria: 'Nachtmodus', hcAria: 'Hoher Kontrast',
+            licenseHtml: 'Inhalte unter der Lizenz <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.de" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0<span class="sr-only"> (öffnet in einem neuen Tab)</span></a>, sofern nicht anders angegeben.',
             codeLabel: 'Geheimcode mit 4 Buchstaben', open: 'Öffnen',
             codeHelp: 'Suche die Geheimcodes auf der Messe und gib sie hier ein, um Asteroiden zu entdecken.',
             offline: 'Offline: Das Album funktioniert trotzdem', filtersAria: 'Nach Kategorie filtern', all: 'Alle',

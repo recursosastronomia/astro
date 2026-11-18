@@ -1,0 +1,153 @@
+/* =========================================================================
+   Sombras sonoras (versión p1 del portal) — capa base propia
+   -------------------------------------------------------------------------
+   Reemplaza a la capa compartida ../ue/ue.css de la versión actual del sitio:
+   la versión p1 no usa la carpeta ue/, y cada app guarda sus propias
+   tipografías para funcionar sin conexión desde su carpeta.
+   - Tipografías de p1: Bricolage Grotesque (títulos) y Atkinson Hyperlegible (texto).
+   - Paleta de p1 (tinta y papel, un único color vivo: el ámbar del Sol).
+   - Modo noche y alto contraste con las mismas claves que el resto de p1
+     (astro-tema, astro-contraste; ver js/tema.js). El <head> publica en <html>:
+       data-theme="dark"      modo noche o alto contraste
+       data-contrast="alto"   alto contraste
+       data-ue-theme          "light" | "dark" | "hc" (lo usa css/app.css)
+   ========================================================================= */
+
+@font-face { font-family: "Bricolage Grotesque"; src: url("../fonts/bricolage-grotesque-latin-opsz-normal.woff2") format("woff2"); font-weight: 200 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("../fonts/atkinson-hyperlegible-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("../fonts/atkinson-hyperlegible-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("../fonts/atkinson-hyperlegible-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+
+/* ---------- Tokens (modo claro) ---------- */
+:root {
+  --ue-ink: #14264b;
+  --ue-ink-deep: #0b1730;
+  --ue-ink-soft: #243a68;
+  --ue-ink-line: #2e4472;
+  --ue-on-ink: #eef2fa;
+  --ue-on-ink-muted: #b4c0d9;
+  --ue-amber: #ffb627;
+  --ue-amber-press: #f0a00a;
+
+  --ue-bg: #f1f3f6;
+  --ue-surface: #ffffff;
+  --ue-surface-2: #e6eaf1;
+  --ue-fg: #14264b;
+  --ue-muted: #3b4a66;
+  --ue-line: #cbd2de;
+  --ue-control-line: #66758f;
+  --ue-link: #1b4fa8;
+  --ue-accent-text: #8a5300;
+  --ue-flare: #c2410c;
+  --ue-ok: #0c7561;
+  --ue-ok-bg: #e3f4ee;
+  --ue-err: #b3261e;
+  --ue-err-bg: #fbe6e4;
+  --ue-wash: #fff3d6;
+  --ue-focus: #1b4fa8;
+
+  --ue-primary-bg: var(--ue-amber);
+  --ue-primary-fg: var(--ue-ink-deep);
+  --ue-selected-bg: var(--ue-ink);
+  --ue-selected-fg: var(--ue-on-ink);
+
+  --ue-bar-bg: var(--ue-ink-deep);
+  --ue-bar-fg: var(--ue-on-ink);
+  --ue-bar-fg-muted: var(--ue-on-ink-muted);
+  --ue-bar-line: var(--ue-ink-line);
+
+  --ue-font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --ue-font-ui: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --ue-radius: 10px;
+  color-scheme: light;
+}
+
+/* ---------- Modo noche (mismos valores que css/astro.css de p1) ---------- */
+:root[data-ue-theme="dark"] {
+  --ue-bg: #0b1730;
+  --ue-surface: #14264b;
+  --ue-surface-2: #1c2d53;
+  --ue-fg: #eef2fa;
+  --ue-muted: #b4c0d9;
+  --ue-line: #2e4472;
+  --ue-control-line: #8f9bb3;
+  --ue-link: #8cc0ff;
+  --ue-accent-text: #ffb627;
+  --ue-flare: #ffb627;
+  --ue-ok: #6dd5b9;
+  --ue-ok-bg: rgba(61, 187, 155, 0.16);
+  --ue-err: #ef8f86;
+  --ue-err-bg: rgba(229, 100, 90, 0.16);
+  --ue-wash: rgba(255, 182, 39, 0.14);
+  --ue-focus: #ffffff;
+  --ue-selected-bg: var(--ue-amber);
+  --ue-selected-fg: var(--ue-ink-deep);
+  color-scheme: dark;
+}
+
+/* ---------- Alto contraste (mismo criterio que css/astro.css de p1) ----------
+   Fondo negro, texto blanco, enlaces amarillos, bordes blancos y el ámbar del Sol
+   para lo elegido y los botones principales. */
+:root[data-ue-theme="hc"] {
+  --ue-ink: #000; --ue-ink-deep: #000; --ue-ink-soft: #000; --ue-ink-line: #fff;
+  --ue-on-ink: #fff; --ue-on-ink-muted: #fff;
+  --ue-bg: #000; --ue-surface: #000; --ue-surface-2: #000;
+  --ue-fg: #fff; --ue-muted: #fff; --ue-line: #fff; --ue-control-line: #fff;
+  --ue-link: #ffe14d; --ue-accent-text: #ffb627; --ue-flare: #ffb627;
+  --ue-ok: #7dffb0; --ue-ok-bg: #000; --ue-err: #ff9e9e; --ue-err-bg: #000; --ue-wash: #000;
+  --ue-focus: #ffffff;
+  --ue-primary-bg: #ffb627; --ue-primary-fg: #000;
+  --ue-selected-bg: #ffb627; --ue-selected-fg: #000;
+  --ue-bar-bg: #000; --ue-bar-fg: #fff; --ue-bar-fg-muted: #fff; --ue-bar-line: #fff;
+  color-scheme: dark;
+}
+:root[data-ue-theme="hc"] a { color: var(--ue-link); text-decoration: underline; }
+:root[data-ue-theme="hc"] :focus-visible { outline: 3px solid #fff !important; outline-offset: 3px !important; box-shadow: none !important; }
+
+/* ---------- Tipografía común ---------- */
+h1, h2, h3, h4 { font-family: var(--ue-font-display); letter-spacing: -0.02em; }
+.ue-appbar, .ue-appbar *, .ue-tool { font-family: var(--ue-font-ui); }
+
+/* ---------- Barra superior (tinta en todos los modos) ---------- */
+.ue-appbar {
+  background: var(--ue-bar-bg);
+  color: var(--ue-bar-fg);
+  border-bottom: 1px solid var(--ue-bar-line);
+}
+:root[data-ue-theme="hc"] .ue-appbar { border-bottom-width: 2px; }
+.ue-home {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 2.75rem; height: 2.75rem; border-radius: var(--ue-radius);
+  color: var(--ue-bar-fg); background: var(--ue-ink); border: 1px solid var(--ue-bar-line);
+  text-decoration: none; transition: background-color .2s, border-color .2s;
+}
+.ue-home:hover { background: var(--ue-ink-soft); border-color: var(--ue-amber); }
+.ue-home svg { width: 1.25rem; height: 1.25rem; display: block; }
+:root[data-ue-theme="hc"] .ue-home { border: 2px solid #fff; color: #fff; text-decoration: none; }
+
+/* ---------- Botones de modo noche y alto contraste ---------- */
+.ue-tools { display: flex; flex-wrap: nowrap; align-items: center; gap: .4rem; flex: none; }
+.ue-tool {
+  display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
+  min-height: 2.75rem; min-width: 2.75rem; padding: .35rem; margin: 0;
+  border-radius: 8px; border: 1px solid var(--ue-bar-line);
+  background: var(--ue-ink); color: var(--ue-bar-fg);
+  font-size: .875rem; font-weight: 700; line-height: 1.1;
+  cursor: pointer; touch-action: manipulation; transition: background-color .2s, border-color .2s;
+}
+.ue-tool:hover { border-color: var(--ue-amber); }
+.ue-tool svg { width: 1.15rem; height: 1.15rem; flex: none; display: block; }
+.ue-tool[aria-pressed="true"] { background: var(--ue-amber); color: var(--ue-ink-deep); border-color: var(--ue-amber); }
+:root[data-ue-theme="hc"] .ue-tool { background: #000; color: #fff; border: 2px solid #fff; }
+:root[data-ue-theme="hc"] .ue-tool[aria-pressed="true"] { background: #ffb627; color: #000; border-color: #ffb627; }
+.ue-home:focus-visible, .ue-tool:focus-visible { outline: 3px solid var(--ue-amber) !important; outline-offset: 2px !important; box-shadow: none !important; }
+@media (prefers-reduced-motion: reduce) { .ue-home, .ue-tool { transition: none; } }
+
+.ue-sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Licencia CC BY-SA 4.0 al pie (política de Uruguay Educa) ---------- */
+.lic-linea { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .35rem .5rem; margin: .35rem auto 0; padding: 0 1rem; font-size: .8125rem; line-height: 1.4; text-align: center; color: var(--ue-muted); }
+.lic-linea .lic-ico { flex: none; color: var(--ue-muted); }
+.lic-linea a { color: var(--ue-link); font-weight: 700; }
+
+@media (forced-colors: active) { .ue-home, .ue-tool { border: 1px solid CanvasText; } }

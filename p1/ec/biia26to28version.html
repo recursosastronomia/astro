@@ -12,6 +12,7 @@
   <script>
     // Modo noche recordado (antes de pintar, para que no parpadee)
     try { var t = localStorage.getItem('astro-tema'); if (t === 'noche' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+    try { if (localStorage.getItem('astro-contraste') === '1') { document.documentElement.setAttribute('data-theme', 'dark'); document.documentElement.setAttribute('data-contrast', 'alto'); } } catch (e) {}
   </script>
   <link rel="preload" href="../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -57,9 +58,14 @@
           </span>
         </div>
       </div>
-      <button type="button" class="l-tema" id="tema" aria-pressed="false">
-        <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
-      </button>
+      <div class="l-barra-acciones">
+        <button type="button" class="l-tema" id="tema" aria-pressed="false">
+          <svg class="ico" aria-hidden="true"><use href="#i-noche"/></svg><span class="l-tema-txt">Modo noche</span>
+        </button>
+        <button type="button" class="l-tema" id="contraste" aria-pressed="false">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg><span class="l-tema-txt">Alto contraste</span>
+        </button>
+      </div>
     </div>
     <span class="l-progreso" id="progreso" aria-hidden="true"></span>
   </header>
@@ -171,6 +177,7 @@
       <div>
         <p>Portal Uruguay Educa (ANEP · DGES · EDyTIC). Contenidistas de Astronomía 2026. Herramienta educativa de uso libre, desarrollada con asistencia de IA.</p>
         <p class="sitio-pie-a11y">Accesibilidad: nuestro objetivo es cumplir las pautas WCAG 2.2, nivel AA. <a href="../index.html">Volver a la portada</a></p>
+        <p class="sitio-pie-lic"><svg class="lic-ico" viewBox="0 0 66 20" width="56" height="17" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8.6"/><circle cx="33" cy="10" r="8.6"/><circle cx="56" cy="10" r="8.6"/><path d="M8.6 7.6a2.6 2.6 0 1 0 0 4.8M13.4 7.6a2.6 2.6 0 1 0 0 4.8" stroke-width="1.5"/><path d="M52.4 10a3.6 3.6 0 1 0 1.1-2.6" stroke-width="1.6"/></g><g fill="currentColor"><circle cx="33" cy="5.4" r="1.6"/><path d="M30.6 8.2h4.8a.8.8 0 0 1 .8.8v3.6h-1.4v3.6h-3.6v-3.6h-1.4V9a.8.8 0 0 1 .8-.8z"/><path d="M51.2 6.9l2.9 0.9-0.9 2.7z"/></g></svg><span>Contenidos bajo licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="license noopener noreferrer" title="Creative Commons Atribución-CompartirIgual 4.0 Internacional">CC BY-SA 4.0<span class="lic-sr"> (se abre en una pestaña nueva)</span></a>, salvo que se indique otra cosa.</span></p>
         <p class="sitio-pie-a11y">Fotos de Wikimedia Commons con licencias libres: Pittigrilli (CC0); Joshua Strang, Fuerza Aérea de EE. UU. (Dominio público); C-M (CC BY-SA 3.0); Jan Ainali (CC BY 3.0); Jamen Percy (CC BY-SA 4.0). Texto basado en «Big Ideas in Astronomy» (UAI, CC BY 4.0). <a href="../creditos.html#biia26to28">Créditos de las fotos y referencias</a></p>
       </div>
     </div>
