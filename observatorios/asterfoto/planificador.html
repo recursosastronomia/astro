@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Planificador de asteroides · Astronomía para todos</title>
+  <meta name="description" content="¿Qué asteroides puedo fotografiar esta noche desde mi lugar, con mi cámara y durante cuánto tiempo? Planificador de observación fotográfica con cálculo en el navegador.">
+  <meta name="theme-color" content="#0b1730">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="../../ue/ue.css">
+  <script src="../../ue/ue.js"></script>
+  <link rel="stylesheet" href="css/app.css?v=2.3">
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
+
+  <header class="ue-appbar ue-appbar-auto">
+    <div class="ue-appbar-in">
+      <div class="ue-brand-row">
+        <a href="index.html" class="ue-home" data-i18n-attr="aria-label:homeLabel;title:homeLabel" aria-label="Volver al inicio" title="Volver al inicio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text"><span class="ue-brand-title">Astronomía para todos</span><span class="ue-brand-sub">DGES - EDyTIC</span></span>
+        </div>
+      </div>
+      <div class="tools-wrap">
+        <button type="button" class="ue-tool" id="btn-lang" lang="en" aria-label="English version">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          <span class="ue-tool-txt" id="btn-lang-txt">English</span>
+        </button>
+        <div data-ue-tools></div>
+      </div>
+    </div>
+  </header>
+  <nav class="subnav" data-i18n-attr="aria-label:nav.label" aria-label="Secciones del planificador">
+    <ul>
+      <li><a href="index.html" data-i18n="nav.home">Inicio</a></li>
+      <li><a href="planificador.html" aria-current="page" data-i18n="nav.plan">Planificar la observación</a></li>
+      <li><a href="comparador.html" data-i18n="nav.blink">Comparar mis fotos</a></li>
+    </ul>
+  </nav>
+
+  <main id="main" tabindex="-1">
+    <section class="hero">
+      <p class="kicker" data-i18n="kicker">Observatorios · Planificador de asteroides</p>
+      <h1 data-i18n="title">¿Qué asteroides puedo fotografiar esta noche?</h1>
+      <p class="lead" data-i18n="lead">Elige tu lugar, la fecha y tu cámara. La aplicación busca los asteroides que vas a poder fotografiar, te dice hacia dónde mirar y cuánto esperar entre fotos para ver cómo se mueven entre las estrellas.</p>
+      <details class="howto">
+        <summary data-i18n="howto.s">¿Cómo se usa? (3 pasos)</summary>
+        <ol>
+          <li data-i18n-html="howto.1"><strong>Lugar y fecha.</strong> Toca «Usar mi ubicación» en el celular o elige la ciudad más cercana.</li>
+          <li data-i18n-html="howto.2"><strong>Tu equipo.</strong> Elige el tipo de cámara. Eso fija hasta qué brillo se buscan asteroides.</li>
+          <li data-i18n-html="howto.3"><strong>Buscar.</strong> Elige un asteroide de la lista: verás hacia qué punto cardinal mirar, a qué altura sobre el horizonte y un plan de 3 o 5 fotos.</li>
+        </ol>
+      </details>
+    </section>
+
+    <form id="planner" class="panel" novalidate>
+      <h2 class="step"><span class="num" aria-hidden="true">1</span> <span data-i18n="s1">¿Dónde y cuándo?</span></h2>
+      <div class="grid2">
+        <div class="field">
+          <span class="label" id="lbl-place" data-i18n="place">Lugar de observación</span>
+          <button type="button" class="btn" id="btn-gps">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg>
+            <span data-i18n="gps">Usar mi ubicación (GPS)</span>
+          </button>
+          <label for="city" class="sublabel" data-i18n="cityLabel">o elige la ciudad más cercana</label>
+          <select id="city"></select>
+          <p class="hint" id="place-info" aria-live="polite"></p>
+          <details class="mini">
+            <summary data-i18n="coords">Coordenadas exactas</summary>
+            <div class="row">
+              <label><span data-i18n="lat">Latitud</span> <input type="number" id="lat" step="0.001" min="-90" max="90" inputmode="decimal"></label>
+              <label><span data-i18n="lon">Longitud</span> <input type="number" id="lon" step="0.001" min="-180" max="180" inputmode="decimal"></label>
+            </div>
+            <p class="hint" data-i18n="coordsHint">Sur y Oeste van con signo menos. Ejemplo, Montevideo: −34,905 y −56,191.</p>
+          </details>
+        </div>
+        <div class="field">
+          <label for="date" class="label" data-i18n="date">Noche del</label>
+          <input type="date" id="date" required>
+          <p class="hint" data-i18n="dateHint">La noche que empieza la tarde de ese día y termina al amanecer siguiente.</p>
+        </div>
+      </div>
+
+      <h2 class="step"><span class="num" aria-hidden="true">2</span> <span data-i18n="s2">Tu equipo</span></h2>
+      <div class="field">
+        <label for="profile" class="label" data-i18n="profile">Tipo de cámara</label>
+        <select id="profile">
+          <option value="celular" data-i18n="p.celular">Celular en trípode (modo noche)</option>
+          <option value="normal" data-i18n="p.normal">Cámara réflex o mirrorless con lente de 50 mm, en trípode</option>
+          <option value="tele" data-i18n="p.tele">Cámara réflex o mirrorless con teleobjetivo de 300 mm, en montura con seguimiento</option>
+          <option value="telescopio" data-i18n="p.telescopio">Telescopio de 800 mm con cámara astronómica</option>
+          <option value="custom" data-i18n="p.custom">Mi equipo (lo configuro yo)</option>
+        </select>
+        <p class="hint" id="profile-hint"></p>
+        <details class="mini" id="gear-details">
+          <summary data-i18n="gear">Ajustar los datos del equipo</summary>
+          <div class="gear">
+            <label><span data-i18n="g.f">Distancia focal (mm)</span> <input type="number" id="g-f" min="1" max="10000" step="0.1" inputmode="decimal"></label>
+            <label><span data-i18n="g.pix">Tamaño del píxel (µm)</span> <input type="number" id="g-pix" min="0.5" max="30" step="0.01" inputmode="decimal"></label>
+            <label><span data-i18n="g.w">Ancho de la foto (píxeles)</span> <input type="number" id="g-w" min="100" max="20000" step="1" inputmode="numeric"></label>
+            <label><span data-i18n="g.h">Alto de la foto (píxeles)</span> <input type="number" id="g-h" min="100" max="20000" step="1" inputmode="numeric"></label>
+            <label><span data-i18n="g.exp">Exposición de cada foto (s)</span> <input type="number" id="g-exp" min="0.1" max="1800" step="0.1" inputmode="decimal"></label>
+          </div>
+          <p class="hint" id="gear-out" aria-live="polite"></p>
+        </details>
+      </div>
+
+      <h2 class="step"><span class="num" aria-hidden="true">3</span> <span data-i18n="s3">¿Qué buscar?</span></h2>
+      <div class="grid2">
+        <div class="field">
+          <label for="mag" class="label"><span data-i18n="mag">Magnitud límite (hasta qué brillo buscar)</span>: <output id="mag-out" for="mag"></output></label>
+          <input type="range" id="mag" min="5" max="16" step="0.5" aria-describedby="mag-help">
+          <div class="scale" aria-hidden="true"><span data-i18n="magBright">Más brillantes</span><span data-i18n="magFaint">Más débiles</span></div>
+          <p class="hint" id="mag-help" data-i18n="magHelp">Cuanto mayor el número, más débil el asteroide. Se muestran los que tienen una magnitud igual o menor.</p>
+        </div>
+        <div class="field">
+          <label for="minalt" class="label"><span data-i18n="minalt">Altura mínima sobre el horizonte</span>: <output id="minalt-out" for="minalt"></output></label>
+          <input type="range" id="minalt" min="10" max="60" step="5" aria-describedby="minalt-help">
+          <p class="hint" id="minalt-help" data-i18n="minaltHelp">Cerca del horizonte hay más bruma, edificios y árboles. 20° son dos puños con el brazo extendido.</p>
+          <label class="check"><input type="checkbox" id="neo"> <span data-i18n="neoOnly">Solo asteroides cercanos a la Tierra (NEO)</span></label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn primary" id="btn-search" disabled>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <span data-i18n="search">Buscar asteroides</span>
+        </button>
+        <p class="hint" id="data-status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+
+    <section id="night" class="panel" hidden aria-labelledby="night-h">
+      <h2 id="night-h" data-i18n="nightH">La noche elegida</h2>
+      <div id="night-body"></div>
+    </section>
+
+    <section id="close" class="panel" hidden aria-labelledby="close-h">
+      <h2 id="close-h" data-i18n="ca.h">Pasajes cercanos a la Tierra</h2>
+      <p data-i18n="ca.intro"></p>
+      <p id="close-status" role="status" aria-live="polite"></p>
+      <ol id="close-list" class="cards"></ol>
+      <p class="note" data-i18n-html="ca.note"></p>
+    </section>
+
+    <section id="results" class="panel" hidden aria-labelledby="results-h">
+      <div class="results-head">
+        <h2 id="results-h" data-i18n="resultsH">Asteroides que puedes fotografiar</h2>
+        <label class="sort"><span data-i18n="sort">Ordenar por</span>
+          <select id="sort">
+            <option value="V" data-i18n="sort.V">Más brillante primero</option>
+            <option value="alt" data-i18n="sort.alt">Más alto en el cielo</option>
+            <option value="rate" data-i18n="sort.rate">Se mueve más rápido</option>
+            <option value="time" data-i18n="sort.time">Hora del mejor momento</option>
+          </select>
+        </label>
+      </div>
+      <p id="results-status" role="status" aria-live="polite"></p>
+      <ol id="results-list" class="cards"></ol>
+      <button type="button" class="btn" id="btn-more" hidden data-i18n="more">Mostrar más</button>
+      <p class="note" data-i18n="estimateNote">Los brillos son estimaciones: un asteroide puede verse hasta una magnitud más débil o más brillante de lo calculado.</p>
+    </section>
+
+    <section id="detail" class="panel detail" hidden aria-labelledby="detail-h" tabindex="-1">
+      <div class="detail-head">
+        <button type="button" class="btn ghost noprint" id="btn-back">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 18 9 12l6-6"/></svg>
+          <span data-i18n="back">Volver a la lista</span>
+        </button>
+        <h2 id="detail-h"></h2>
+        <p class="print-only" id="print-meta"></p>
+      </div>
+
+      <div class="timebox noprint">
+        <label for="tsel" class="label"><span data-i18n="tsel">Hora de la observación</span>: <output id="tsel-out" for="tsel"></output></label>
+        <input type="range" id="tsel" min="0" max="10" step="1">
+        <button type="button" class="btn small" id="btn-best" data-i18n="bestBtn">Ir al mejor momento</button>
+      </div>
+
+      <h3 data-i18n="where">Dónde apuntar</h3>
+      <p class="say" id="say" aria-live="polite"></p>
+      <div class="pointing">
+        <figure>
+          <svg id="rose" class="rose" viewBox="0 0 320 320" role="img" aria-labelledby="rose-t"><title id="rose-t"></title></svg>
+          <figcaption data-i18n="roseCap">Rumbo: el punto cardinal hacia donde mirar</figcaption>
+        </figure>
+        <figure>
+          <svg id="arc" class="arc" viewBox="0 0 320 320" role="img" aria-labelledby="arc-t"><title id="arc-t"></title></svg>
+          <figcaption data-i18n="arcCap">Altura: cuánto levantar la vista desde el horizonte</figcaption>
+        </figure>
+      </div>
+      <p class="noprint"><button type="button" class="btn" id="btn-compass">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>
+        <span data-i18n="compassBtn">Buscar el rumbo con la brújula del celular</span></button></p>
+
+      <h3 data-i18n="chartH">Carta del cielo</h3>
+      <div class="chart-tools noprint" role="group" data-i18n-attr="aria-label:chartOrient" aria-label="Orientación de la carta">
+        <button type="button" class="btn small" id="orient-face" aria-pressed="true" data-i18n="orientFace">Mirando hacia el asteroide</button>
+        <button type="button" class="btn small" id="orient-north" aria-pressed="false" data-i18n="orientNorth">Norte arriba</button>
+      </div>
+      <figure class="chart-fig">
+        <svg id="chart" class="chart" viewBox="0 0 640 640" role="img" aria-labelledby="chart-t chart-d"><title id="chart-t"></title><desc id="chart-d"></desc></svg>
+        <figcaption id="chart-cap"></figcaption>
+      </figure>
+      <p class="say" id="chart-say"></p>
+      <details class="mini">
+        <summary data-i18n="trackTable">Ver las posiciones hora por hora (tabla)</summary>
+        <div class="tablewrap"><table id="track-table"></table></div>
+      </details>
+
+      <h3 data-i18n="moveH">Hacia dónde se mueve</h3>
+      <div class="pointing">
+        <figure>
+          <svg id="frame" class="frame" viewBox="0 0 400 300" role="img" aria-labelledby="frame-t"><title id="frame-t"></title></svg>
+          <figcaption id="frame-cap"></figcaption>
+        </figure>
+        <figure>
+          <svg id="zoom" class="zoom" viewBox="0 0 300 300" role="img" aria-labelledby="zoom-t"><title id="zoom-t"></title></svg>
+          <figcaption id="zoom-cap"></figcaption>
+        </figure>
+      </div>
+      <p class="say" id="move-say"></p>
+
+      <h3 data-i18n="planH">Plan de fotos</h3>
+      <div class="plan-tools noprint">
+        <fieldset class="seg">
+          <legend data-i18n="nShots">Cantidad de fotos</legend>
+          <label><input type="radio" name="nshots" value="3"> 3</label>
+          <label><input type="radio" name="nshots" value="5" checked> 5</label>
+        </fieldset>
+        <div class="field">
+          <label for="pxmove" class="label"><span data-i18n="pxmove">Desplazamiento entre fotos</span>: <output id="pxmove-out" for="pxmove"></output></label>
+          <input type="range" id="pxmove" min="5" max="20" step="1" value="10" aria-describedby="pxmove-help">
+          <p class="hint" id="pxmove-help" data-i18n="pxmoveHelp">Cuántos píxeles de tu foto queremos que avance el asteroide entre una toma y la siguiente. Con menos de 5 casi no se nota; con más de 20 puede salirse del encuadre.</p>
+        </div>
+      </div>
+      <div id="plan" class="plan"></div>
+
+      <h3 data-i18n="dataH">Datos técnicos</h3>
+      <div class="tablewrap"><table id="data-table" class="kv"></table></div>
+
+      <div class="actions noprint">
+        <button type="button" class="btn" id="btn-csv">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 19h16"/></svg>
+          <span data-i18n="csv">Descargar las posiciones (CSV)</span></button>
+        <button type="button" class="btn" id="btn-print">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M8 14h8v7H8z"/></svg>
+          <span data-i18n="print">Imprimir la carta y el plan</span></button>
+        <a class="btn" id="lnk-compare" href="comparador.html"><span data-i18n="p.compare">Comparar mis fotos de este asteroide</span></a>
+        <a class="btn" id="lnk-stellarium" target="_blank" rel="noopener"><span data-i18n="stellarium">Abrir en Stellarium Web</span><span class="ue-sr" data-i18n="newTab">(se abre en otra pestaña)</span></a>
+        <a class="btn" id="lnk-jpl" target="_blank" rel="noopener"><span data-i18n="jpl">Ficha en JPL (NASA)</span><span class="ue-sr" data-i18n="newTab">(se abre en otra pestaña)</span></a>
+      </div>
+    </section>
+
+    <section class="panel help" aria-labelledby="help-h">
+      <h2 id="help-h" data-i18n="helpH">Para entender los datos</h2>
+      <dl>
+        <dt data-i18n="h.alt.t">Altura</dt>
+        <dd data-i18n-html="h.alt.d">Es el ángulo entre el horizonte (0°) y el punto que está justo sobre tu cabeza, el cenit (90°). Truco: con el brazo extendido, un puño cerrado tapa unos 10° y la palma abierta, unos 20°.</dd>
+        <dt data-i18n="h.az.t">Rumbo y azimut</dt>
+        <dd data-i18n-html="h.az.d">El rumbo es el punto cardinal hacia donde mirar (Norte, Noreste, Este…). El azimut es el mismo dato en grados: 0° es el Norte, 90° el Este, 180° el Sur y 270° el Oeste. En Uruguay, al mediodía el Sol está hacia el Norte.</dd>
+        <dt data-i18n="h.mag.t">Magnitud</dt>
+        <dd data-i18n-html="h.mag.d">Mide el brillo. Cuanto <strong>menor</strong> el número, <strong>más brillante</strong>. A simple vista, en un cielo oscuro, se llega a magnitud 6; con un celular en trípode, a 7 u 8; con un teleobjetivo, a 11 o 12; con un telescopio, a 15 o más.</dd>
+        <dt data-i18n="h.move.t">Movimiento</dt>
+        <dd data-i18n-html="h.move.d">Los asteroides cambian de lugar entre las estrellas. Se mide en segundos de arco por minuto (″/min). Un segundo de arco es 1/3600 de grado: la Luna llena mide unos 1800″.</dd>
+        <dt data-i18n="h.neo.t">NEO</dt>
+        <dd data-i18n-html="h.neo.d">Asteroide cercano a la Tierra (en inglés <span lang="en">Near-Earth Object</span>). Suelen moverse más rápido y cambiar de brillo de una noche a otra.</dd>
+        <dt data-i18n="h.chart.t">Cómo usar la carta del cielo</dt>
+        <dd data-i18n-html="h.chart.d">El círculo es todo el cielo: el borde es el horizonte y el centro, el cenit. Ponte de frente al rumbo indicado y sostén la carta delante de ti con ese rumbo abajo: el Este y el Oeste quedan invertidos respecto de un mapa porque estás mirando hacia arriba.</dd>
+        <dt data-i18n="h.prec.t">Precisión</dt>
+        <dd data-i18n-html="h.prec.d">Las posiciones se calculan en tu dispositivo con los elementos orbitales de la NASA. El error típico es de 1 a 3 minutos de arco, mucho menos que el campo de cualquier cámara. Para un asteroide cercano a la Tierra que pasa muy cerca, el error puede ser mayor: consulta su ficha en JPL.</dd>
+      </dl>
+    </section>
+
+    <section class="panel credits" aria-labelledby="cred-h">
+      <h2 id="cred-h" data-i18n="credH">Fuentes y créditos</h2>
+      <ul>
+        <li data-i18n-html="cred.sbdb">Elementos orbitales: <a href="https://ssd-api.jpl.nasa.gov/doc/sbdb_query.html" target="_blank" rel="noopener">JPL Small-Body Database (NASA/JPL-Caltech)</a>. Se incluyen los asteroides con magnitud absoluta H menor que 13 y los cercanos a la Tierra con H menor que 20.</li>
+        <li id="cred-epoch"></li>
+        <li data-i18n-html="cred.stars">Estrellas y constelaciones: <a href="https://github.com/ofrohn/d3-celestial" target="_blank" rel="noopener">d3-celestial</a>, de Olaf Frohn (licencia BSD-3), con datos del catálogo Hipparcos.</li>
+        <li data-i18n-html="cred.algo">Cálculo: elementos keplerianos aproximados de la Tierra de E. M. Standish (JPL); precesión, tiempo sidéreo y coordenadas horizontales según <cite>Astronomical Algorithms</cite> de Jean Meeus; Luna de baja precisión del <cite lang="en">Astronomical Almanac</cite>; magnitud con el sistema H-G (Bowell et al., 1989). Resultados comparados con <a href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noopener">JPL Horizons</a>.</li>
+        <li data-i18n-html="cred.contact">Fallas, correcciones o sugerencias: <a href="mailto:recursosastronomia@uruguayeduca.edu.uy?subject=Planificador%20de%20asteroides">recursosastronomia@uruguayeduca.edu.uy</a>.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="main-footer">
+    <a href="https://edytic.ces.edu.uy/" target="_blank" rel="noopener noreferrer" class="footer-card">
+      <img src="https://danielgastelu.github.io/web/logos/logoueblanco-removebg.png" alt="Logo Uruguay Educa" class="footer-logo" onerror="this.onerror=null;this.style.display='none';">
+      <p class="footer-text" data-i18n="footer">Portal Uruguay Educa (ANEP-DGES-EDyTIC) — Contenidistas de Astronomía 2026. Herramienta educativa interactiva de uso libre desarrollada con asistencia de IA.</p>
+    </a>
+  </footer>
+
+  <!-- Franja de accesibilidad del portal; ue/ue-licencia.js agrega debajo, con el mismo fondo, el aviso CC BY-SA 4.0 -->
+  <p class="a11y-declaracion" data-i18n="a11y">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Noviembre de 2026.</p>
+
+  <dialog id="compass" aria-labelledby="compass-h">
+    <h2 id="compass-h" data-i18n="compassH">Brújula</h2>
+    <p id="compass-target" class="say"></p>
+    <svg id="compass-svg" viewBox="0 0 300 300" role="img" aria-labelledby="compass-say"><title>Flecha</title></svg>
+    <p id="compass-say" class="big" role="status" aria-live="polite"></p>
+    <p id="compass-tilt" class="hint"></p>
+    <label class="decl"><span data-i18n="decl">Corrección magnética (°)</span> <input type="number" id="decl" step="1" min="-30" max="30" inputmode="numeric"></label>
+    <p class="hint" data-i18n="declHint">La brújula del celular señala el norte magnético. En Uruguay está unos 9° al oeste del norte verdadero (−9). Lejos de autos, rejas o parlantes funciona mejor.</p>
+    <div class="actions">
+      <button type="button" class="btn primary" id="btn-compass-start" data-i18n="compassStart">Activar la brújula</button>
+      <button type="button" class="btn" id="btn-compass-close" data-i18n="close">Cerrar</button>
+    </div>
+  </dialog>
+
+  <script src="js/i18n.js?v=2.3"></script>
+  <script src="js/i18n-extra.js?v=2.3"></script>
+  <script src="js/lugares.js?v=2.3"></script>
+  <script src="js/cielo.js?v=2.3"></script>
+  <script src="js/astro.js?v=2.3"></script>
+  <script src="js/app.js?v=2.3"></script>
+  <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

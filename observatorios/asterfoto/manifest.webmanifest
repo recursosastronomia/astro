@@ -1,0 +1,19 @@
+{
+  "name": "Planificador de asteroides",
+  "short_name": "Asteroides",
+  "description": "¿Qué asteroides puedo fotografiar esta noche? Rumbo, altura y plan de fotos calculados en el dispositivo.",
+  "id": "./",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b1730",
+  "theme_color": "#0b1730",
+  "lang": "es",
+  "categories": ["education", "science"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
