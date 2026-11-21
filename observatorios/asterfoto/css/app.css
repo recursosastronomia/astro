@@ -379,3 +379,62 @@ fieldset.plain legend { padding: 0; margin-bottom: .45rem; }
 
 /* Lo oculto siempre se oculta, aunque otra regla le dé display */
 [hidden] { display: none !important; }
+
+/* ---------- Celulares ---------- */
+main p, main li, main dd, main figcaption, .footer-text { overflow-wrap: break-word; }
+main a { overflow-wrap: anywhere; }
+.check input, .seg input { width: 1.5rem; height: 1.5rem; flex: none; }
+@media (max-width: 480px) {
+  main { padding: .6rem .7rem 1.5rem; }
+  .panel { padding: .9rem .9rem 1.1rem; }
+  .kpis { grid-template-columns: 1fr 1fr 1fr; gap: .4rem; }
+  .kpi .v { font-size: 1.25rem; }
+  .player .btn, .vctl .btn { flex: 1 1 auto; }
+}
+
+/* ---------- Fotografías de Wikimedia Commons ---------- */
+.photo-row { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1.2rem 0 .4rem; }
+@media (min-width: 620px) { .photo-row { grid-template-columns: repeat(3, 1fr); } }
+.photo { background: var(--ue-surface-2, var(--ue-bg)); border: 1px solid var(--ue-line); border-radius: var(--ue-radius); overflow: hidden; }
+.photo img { display: block; width: 100%; height: auto; background: #000; }
+.photo-row .photo img { aspect-ratio: 1 / 1; object-fit: cover; }
+.photo figcaption { padding: .55rem .7rem .7rem; font-size: .92rem; line-height: 1.45; }
+.photo .credit { display: block; margin-top: .3rem; font-size: .82rem; color: var(--ue-muted); overflow-wrap: anywhere; }
+.photo.wide { margin: 1rem 0; }
+
+/* ---------- Métodos y fuentes ---------- */
+.toc ul { list-style: none; padding: 0; margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .4rem .6rem; }
+.toc a { display: inline-block; padding: .3rem .6rem; border: 1px solid var(--ue-line); border-radius: 999px; text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+.table-wrap { overflow-x: auto; margin: .8rem 0; border: 1px solid var(--ue-line); border-radius: var(--ue-radius); }
+table.methods { width: 100%; border-collapse: collapse; font-size: .95rem; min-width: 34rem; }
+table.methods th, table.methods td { text-align: left; vertical-align: top; padding: .55rem .7rem; border-bottom: 1px solid var(--ue-line); }
+table.methods thead th { background: var(--ue-surface-2, var(--ue-bg)); font-weight: 700; }
+table.methods tbody th { font-weight: 700; width: 22%; }
+table.methods tbody tr:last-child > * { border-bottom: 0; }
+.biblio { padding-left: 1.8rem; }
+.biblio li { margin: .45rem 0; overflow-wrap: anywhere; }
+.biblio li:target { outline: 3px solid var(--ue-focus); outline-offset: 3px; }
+.recreate li { margin: .35rem 0; }
+.fuentes code { overflow-wrap: anywhere; }
+@media print { .photo img { max-height: 8cm; object-fit: contain; } .table-wrap { overflow: visible; border: 0; } }
+@media (max-width: 640px) {
+  .table-wrap { overflow: visible; border: 0; }
+  table.methods { min-width: 0; }
+  table.methods thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  table.methods, table.methods tbody, table.methods tr, table.methods th, table.methods td { display: block; width: auto; }
+  table.methods tr { border: 1px solid var(--ue-line); border-radius: var(--ue-radius); margin: 0 0 .8rem; background: var(--ue-surface); }
+  table.methods tbody th { width: auto; background: var(--ue-surface-2); }
+  table.methods th, table.methods td { border-bottom: 0; }
+  table.methods td[data-label]::before { content: attr(data-label); display: block; font-weight: 700; font-size: .82rem; color: var(--ue-muted); }
+}
+
+/* ---------- Período de varias noches ---------- */
+.daterange .row { margin-top: .1rem; }
+.daterange input[type=date] { width: 100%; min-width: 0; }
+.nights-box { margin: .4rem 0 1rem; }
+table.nights-tbl tr.on > * { background: color-mix(in srgb, var(--ue-amber) 22%, transparent); }
+table.nights-tbl td:last-child { text-align: right; }
+table.nights-tbl button[aria-pressed="true"] { font-weight: 700; }
+#night .table-wrap { margin-top: .6rem; }
+@media (max-width: 640px) { table.nights-tbl td:last-child { text-align: left; } }

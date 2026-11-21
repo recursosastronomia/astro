@@ -9,11 +9,12 @@ Todo se calcula en el navegador, también sin conexión. No hace falta un servid
 
 | Página | Para qué |
 |---|---|
-| `index.html` | Portada en español e inglés: finalidad, qué son los asteroides y los NEO, cómo se detecta un asteroide con fotos, guía paso a paso de 11 pasos (incluye pasajes cercanos e identificación del campo), invitación a compartir los resultados (#asterfoto), 14 preguntas frecuentes, cálculos y datos, nota de transparencia sobre el uso de IA (con el pedido de reportar errores a recursosastronomia@uruguayeduca.edu.uy) y fuentes |
+| `index.html` | Portada en español e inglés: finalidad, qué son los asteroides y los NEO, cómo se detecta un asteroide con fotos, guía paso a paso de 11 pasos (incluye pasajes cercanos e identificación del campo), invitación a compartir los resultados (#asterfoto), 16 preguntas frecuentes, cálculos y datos, nota de transparencia sobre el uso de IA (con el pedido de reportar errores a recursosastronomia@uruguayeduca.edu.uy) y fuentes |
 | `planificador.html` | Planificador de la observación (detallado abajo) |
 | `comparador.html` | Comparador de parpadeo: alinea de 2 a 8 fotos de una sesión y las muestra en secuencia |
+| `fuentes.html` | Métodos y fuentes científicas: datos, cada algoritmo con su referencia, validación con JPL Horizons, cómo rehacer la propuesta, créditos de imágenes, licencias y 21 referencias bibliográficas |
 
-El idioma elegido se recuerda en las tres páginas (`localStorage` `asterfoto.lang`).
+El idioma elegido se recuerda en las cuatro páginas (`localStorage` `asterfoto.lang`).
 
 ## Comparador de fotos
 
@@ -36,7 +37,10 @@ El idioma elegido se recuerda en las tres páginas (`localStorage` `asterfoto.la
 ## Qué hace el planificador
 
 - **Lugar:** GPS del celular, la ciudad más cercana (Uruguay y América del Sur) o coordenadas exactas.
-- **Noche:** puesta y salida del Sol, la noche cerrada (Sol a más de 18° bajo el horizonte), y la fase y las horas de la Luna.
+- **Fechas:** «Desde la noche del» y «Hasta el amanecer del». Al cambiar «Desde», «Hasta» pasa al día siguiente (una noche). Se puede extender hasta 31 noches; si «Hasta» queda antes de «Desde» o el período pasa de 31 noches, se corrige y se avisa.
+- **Noche:** puesta y salida del Sol, la noche cerrada (Sol a más de 18° bajo el horizonte), y la fase y las horas de la Luna. Con varias noches, una tabla con la oscuridad y la Luna de cada una.
+- **Varias noches:** cada asteroide aparece una sola vez, con su noche recomendada (la de mayor brillo; para un NEO, la de menor distancia a la Tierra). Al abrirlo, la tabla «Noche por noche» lista las noches en que se puede fotografiar (hora, rumbo, altura, brillo, velocidad y, para los NEO, distancia) y el botón «Ver» cambia el plan a esa noche. Con 31 noches y el perfil de telescopio, la búsqueda tarda alrededor de 1 s.
+- **Plan para NEO:** nunca «una foto por noche». La serie se hace en la misma noche; si el tiempo en que el NEO está alto no alcanza para el desplazamiento pedido, se ajusta el intervalo y se sugiere una focal mayor o la noche de mayor acercamiento. Se agregan la exposición máxima sin trazo (2 px), el aviso de confirmar la posición y un botón con las efemérides de JPL Horizons (API en texto) para esa noche y ese lugar. Con una sola noche, si el NEO pasa más cerca otro día, se avisa.
 - **Equipo:** cuatro perfiles (celular, réflex con 50 mm, réflex con 300 mm, telescopio de 800 mm) o datos propios. El perfil fija la magnitud límite inicial.
 - **Lista de asteroides:** brillo estimado, mejor momento, rumbo con 16 puntos cardinales, altura en grados y en «puños», movimiento en ″/min y ventana horaria.
 - **Para cada asteroide:**
@@ -53,7 +57,7 @@ El idioma elegido se recuerda en las tres páginas (`localStorage` `asterfoto.la
 
 | Archivo | Qué es |
 |---|---|
-| `index.html`, `planificador.html`, `comparador.html` | Las tres páginas |
+| `index.html`, `planificador.html`, `comparador.html`, `fuentes.html` | Las cuatro páginas |
 | `css/app.css` | Estilos propios (sobre `../../ue/ue.css`) |
 | `js/astro.js` | Motor de cálculo (Kepler, precesión, alt/az, Luna, crepúsculos, magnitud H-G) |
 | `js/app.js` | Interfaz del planificador |
@@ -107,14 +111,14 @@ Esos objetos son, en general, asteroides perdidos o transneptunianos. Con elemen
 
 Revisión del 21/11/2026: `sbdb_brillantes.json` tiene 16.291 filas y `sbdb_neo.json`, 4.810. Los dos coinciden con el `count` declarado por JPL y están en precisión completa. Se descartan 3 filas: 1 incompleta y 2 órbitas abiertas. Hay 1.532 objetos con época anterior a octubre de 2024, casi todos transneptunianos. La época principal es el 9 de junio de 2026.
 
-## Encabezado, pie y licencia (iguales en las tres páginas)
+## Encabezado, pie y licencia (iguales en las cuatro páginas)
 
 - **Encabezado:** la barra de EDyTIC del portal (`ue-appbar`), con el botón de inicio, el logo de Educación y TIC, «Astronomía para todos · DGES - EDyTIC», el botón de idioma y los botones de modo noche y alto contraste de `ue.js`.
 - **Pie:**
   - la tarjeta de Uruguay Educa;
   - la franja de accesibilidad (`.a11y-declaracion`, con el mismo estilo que `index.html` y `mhp` del portal);
   - debajo, con el mismo fondo, la línea **CC BY-SA 4.0** con sus íconos. La agrega `ue/ue-licencia.js`, que se carga desde `ue.js`.
-- **Botón de inicio:** por ahora lleva a la portada de esta herramienta (`index.html`), porque todavía no está integrada en la página de inicio de GithubUE. Al integrarla, cambiar en las tres páginas `href="index.html" class="ue-home"` por `href="../../index.html" class="ue-home"`, y en `js/i18n.js` el texto `homeLabel` por «Volver al inicio del portal».
+- **Botón de inicio:** por ahora lleva a la portada de esta herramienta (`index.html`), porque todavía no está integrada en la página de inicio de GithubUE. Al integrarla, cambiar en las cuatro páginas `href="index.html" class="ue-home"` por `href="../../index.html" class="ue-home"`, y en `js/i18n.js` el texto `homeLabel` por «Volver al inicio del portal».
 
 ## Video de demostración
 
@@ -165,3 +169,25 @@ Revisión del 21/11/2026: `sbdb_brillantes.json` tiene 16.291 filas y `sbdb_neo.
 ## Idioma
 
 Los textos en español usan tuteo neutro, sin voseo (por ejemplo «elige», «mira», «puedes»).
+
+## Imágenes de Wikimedia Commons
+
+Se muestran directamente desde `upload.wikimedia.org` (carga diferida, con texto alternativo y pie con autoría, licencia y enlace a la ficha). Todas son de dominio público; licencias verificadas en la API de Commons el 21/11/2026.
+
+| Imagen | Dónde | Autoría | Ficha |
+|---|---|---|---|
+| (1) Ceres, Dawn 2015 | Portada, «¿Qué es un asteroide?» | NASA/JPL-Caltech/UCLA/MPS/DLR/IDA | `File:PIA19562-Ceres-DwarfPlanet-Dawn-RC3-image19-20150506.jpg` |
+| (4) Vesta, Dawn 2012 | Portada, ídem | NASA/JPL-Caltech/UCLA/MPS/DLR/IDA | `File:Vesta_full_mosaic.jpg` |
+| (433) Eros, NEAR 2001 | Portada, ídem | NASA/NEAR Project (JHU/APL) | `File:433eros.jpg` |
+| Dimorphos, DART 2022 | Portada, «Asteroides cercanos a la Tierra» | NASA/Johns Hopkins APL | `File:All_dimorphos_dart_0401930040_12262_01_iof_imagedisplay-final.png` |
+| Placas del descubrimiento de Plutón, 1930 | Portada, «¿Cómo se ve?», y comparador | Clyde Tombaugh, Observatorio Lowell | `File:Pluto_discovery_plates.png` |
+
+- El service worker no guarda imágenes de otro origen. Sin conexión, cada figura se oculta sola (`onerror`).
+- Los créditos están en tres lugares: el pie de cada figura, «Créditos y fuentes» de la portada (y del comparador) y la sección 6 de `fuentes.html`.
+
+## Métodos y fuentes (`fuentes.html`)
+
+- Un bloque por idioma (`.lang-block[data-lang]`); `js/pagina.js` muestra el que corresponde.
+- Las referencias se numeran por orden alfabético. Si se agrega una, conviene regenerar la numeración de las citas `[n]` (cada cita enlaza a `#es-r-…` o `#en-r-…`).
+- En pantallas angostas las tablas de métodos se ven como tarjetas (cada celda lleva `data-label`).
+- Al cambiar un algoritmo en `js/astro.js` o `js/comparador.js`, actualizar también su fila en `fuentes.html`.

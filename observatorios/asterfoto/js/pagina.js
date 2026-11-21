@@ -1,4 +1,4 @@
-/* Idioma compartido por las páginas (portada y comparador). El planificador usa la misma clave. */
+/* Idioma compartido por las páginas (portada, comparador y fuentes). El planificador usa la misma clave. */
 (function () {
   'use strict';
   var KEY = 'asterfoto.lang', subs = [];
@@ -23,6 +23,8 @@
     document.querySelectorAll('[data-i18n-attr]').forEach(function (el) {
       el.getAttribute('data-i18n-attr').split(';').forEach(function (p) { var kv = p.split(':'); el.setAttribute(kv[0], t(kv[1])); });
     });
+    // páginas con un bloque por idioma (fuentes.html)
+    document.querySelectorAll('.lang-block').forEach(function (el) { el.hidden = el.getAttribute('data-lang') !== lang; });
     var other = lang === 'es' ? 'en' : 'es', b = document.getElementById('btn-lang');
     if (b) {
       b.setAttribute('lang', other);

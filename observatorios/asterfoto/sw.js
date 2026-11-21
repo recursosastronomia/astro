@@ -1,12 +1,12 @@
 /* Service worker — Planificador de asteroides
    Cambiar CACHE_VERSION cada vez que se publiquen cambios (también al actualizar los archivos sbdb_*.json).
    El número ?v= de estilos y scripts debe ser el mismo que en index.html. */
-const CACHE_VERSION = 'asterfoto-v13';
+const CACHE_VERSION = 'asterfoto-v17';
 const SHELL = [
-  './', './index.html', './planificador.html', './comparador.html', './manifest.webmanifest',
-  './css/app.css?v=2.3',
-  './js/i18n.js?v=2.3', './js/i18n-extra.js?v=2.3', './js/pagina.js?v=2.3', './js/comparador.js?v=2.3', './js/vendor/mp4-muxer.js?v=5.2.2', './js/demo.js?v=2.3',
-  './js/lugares.js?v=2.3', './js/cielo.js?v=2.3', './js/astro.js?v=2.3', './js/app.js?v=2.3',
+  './', './index.html', './planificador.html', './comparador.html', './fuentes.html', './manifest.webmanifest',
+  './css/app.css?v=2.7',
+  './js/i18n.js?v=2.7', './js/i18n-extra.js?v=2.7', './js/pagina.js?v=2.7', './js/comparador.js?v=2.7', './js/vendor/mp4-muxer.js?v=5.2.2', './js/demo.js?v=2.7',
+  './js/lugares.js?v=2.7', './js/cielo.js?v=2.7', './js/astro.js?v=2.7', './js/app.js?v=2.7',
   './sbdb_brillantes.json', './sbdb_neo.json'
 ];
 const EXTRAS = [
@@ -32,6 +32,7 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
+  // Las imágenes de Wikimedia Commons (otro origen) tampoco se guardan: sin conexión, las figuras se ocultan
   // El video de demostración no se guarda para usar sin conexión (es grande y se pide por partes)
   if (req.headers.has('range') || /\/demo\//.test(new URL(req.url).pathname)) return;
   event.respondWith((async () => {

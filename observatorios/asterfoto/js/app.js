@@ -45,6 +45,7 @@
     $('btn-lang-txt').textContent = other === 'en' ? 'English' : 'Español';
     // Los botones del portal (modo claro/noche, alto contraste) siguen solos el atributo lang de <html> (ue.js)
     fillCities();
+    if ($('date').value) checkRange(false);
     updateProfileHint(); updateGearOut(); updateOutputs();
     if (S.catalog.length) dataStatusReady();
     if (S.night) renderNight();
@@ -222,40 +223,93 @@
     if (!$('results').hidden) { $('results-status').textContent = t('stale'); }
   }
 
+  /* ---------- Período de fechas (desde la noche de «date» hasta el amanecer de «date2») ---------- */
+  var MAX_NIGHTS = 31;
+  function addDays(str, n) {
+    var p = str.split('-').map(Number), d = new Date(Date.UTC(p[0], p[1] - 1, p[2] + n));
+    return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0') + '-' + String(d.getUTCDate()).padStart(2, '0');
+  }
+  function daysBetween(a, b) { var pa = a.split('-').map(Number), pb = b.split('-').map(Number); return Math.round((Date.UTC(pb[0], pb[1] - 1, pb[2]) - Date.UTC(pa[0], pa[1] - 1, pa[2])) / 86400000); }
+  function fmtDate(str, long) {   // fecha civil (sin hora), en el idioma elegido
+    var p = str.split('-').map(Number);
+    return new Intl.DateTimeFormat(S.lang === 'en' ? 'en-GB' : 'es-UY', long ? { weekday: 'long', day: 'numeric', month: 'long' } : { weekday: 'short', day: 'numeric', month: 'short' }).format(new Date(Date.UTC(p[0], p[1] - 1, p[2], 12)));
+  }
+  function checkRange(fromChanged) {
+    var a = $('date').value, b = $('date2').value, note = '';
+    if (!a) { $('date-info').textContent = ''; return; }
+    if (fromChanged || !b) b = addDays(a, 1);
+    var n = daysBetween(a, b);
+    if (n < 1) { b = addDays(a, 1); n = 1; note = t('rangeFix'); }
+    if (n > MAX_NIGHTS) { b = addDays(a, MAX_NIGHTS); n = MAX_NIGHTS; note = t('rangeMax', { n: MAX_NIGHTS }); }
+    $('date2').value = b; $('date2').min = addDays(a, 1); $('date2').max = addDays(a, MAX_NIGHTS);
+    $('date-info').textContent = (n === 1 ? t('range1', { a: fmtDate(a, true), b: fmtDate(b, true) }) : t('rangeN', { n: n, a: fmtDate(a, true), b: fmtDate(b, true) })) + (note ? ' ' + note : '');
+  }
+  function rangeDates() {
+    checkRange(false);
+    var a = $('date').value, n = daysBetween(a, $('date2').value), out = [];
+    for (var k = 0; k < n; k++) out.push(addDays(a, k));
+    return out;
+  }
+  function bestNeoNight(vis) {   // la noche en que pasa más cerca de la Tierra (a su mejor hora)
+    return vis.reduce(function (a, b) { return b.delta < a.delta ? b : a; });
+  }
+  function mkm(au) { return au * 149.5978707; }
+  function fmtMkm(au) { var m = mkm(au); return nf(m, m < 100 ? 1 : 0); }
+  function multiNight() { return S.nights && S.nights.length > 1; }
+
   function search() {
     if (!S.site || !S.catalog.length) return;
-    var date = $('date').value; if (!date) return;
+    if (!$('date').value) return;
     var site = S.site, lim = +$('mag').value, minAlt = +$('minalt').value, neoOnly = $('neo').checked;
-    var N = A.night(date, site); S.night = N;
+    var nights = rangeDates().map(function (d) { var N = A.night(d, site); N.dateStr = d; return N; });
+    S.nights = nights;
+    var dark = nights.filter(function (N) { return N.kind !== 'none'; });
+    S.night = dark[0] || nights[0];
     renderNight();
     S.results = []; S.sel = null; $('detail').hidden = true;
-    if (N.kind === 'none') { renderResults(true); return; }
-    var step = 10 / 1440, samples = [];
-    for (var jd = N.start; jd <= N.end + 1e-9; jd += step) samples.push(jd);
-    if (samples[samples.length - 1] < N.end - 1e-6) samples.push(N.end);
-    var mid = N.mid, Emid = A.earth(mid + A.DT_DAYS);
+    if (!dark.length) { S.close = []; renderClose(); renderResults(true); return; }
+    // para cada noche: muestras cada 10 minutos (cada 20 si el período es largo) y la Tierra a mitad de la noche
+    var stepMin = nights.length > 7 ? 20 : 10;
+    var NS = nights.map(function (N) {
+      if (N.kind === 'none') return null;
+      var samples = [];
+      for (var jd = N.start; jd <= N.end + 1e-9; jd += stepMin / 1440) samples.push(jd);
+      if (samples[samples.length - 1] < N.end - 1e-6) samples.push(N.end);
+      return { N: N, samples: samples, mid: N.mid, Emid: A.earth(N.mid + A.DT_DAYS) };
+    });
+    var midAll = (dark[0].mid + dark[dark.length - 1].mid) / 2;
     var out = [];
     for (var k = 0; k < S.catalog.length; k++) {
       var o = S.catalog[k];
       if (neoOnly && !o.neo) continue;
-      if (Math.abs(mid - o.epoch) > MAX_AGE) continue;   // órbita muy vieja (objetos perdidos): posición poco confiable
-      var g = A.observe(o, mid, null, Emid);
-      if (g.V > lim + (o.neo ? 1.5 : 0.4) || g.elong < 35) continue;
-      var best = -1, bestAlt = -90, alts = new Array(samples.length);
-      var pd = o.neo ? null : A.precess(g.ra, g.dec, mid + A.DT_DAYS);
-      for (var s = 0; s < samples.length; s++) {
-        var h = o.neo ? A.observe(o, samples[s], site).alt : A.horizontal(pd.ra, pd.dec, samples[s], site.lat, site.lon).alt;
-        alts[s] = h;
-        if (h > bestAlt) { bestAlt = h; best = s; }
+      if (Math.abs(midAll - o.epoch) > MAX_AGE) continue;   // órbita muy vieja (objetos perdidos): posición poco confiable
+      var vis = [];
+      for (var ni = 0; ni < NS.length; ni++) {
+        var X = NS[ni]; if (!X) continue;
+        var g = A.observe(o, X.mid, null, X.Emid);
+        if (g.V > lim + (o.neo ? 1.5 : 0.4) || g.elong < 35) continue;
+        var samples = X.samples, best = -1, bestAlt = -90, alts = new Array(samples.length);
+        var pd = o.neo ? null : A.precess(g.ra, g.dec, X.mid + A.DT_DAYS);
+        for (var s = 0; s < samples.length; s++) {
+          var h = o.neo ? A.observe(o, samples[s], site).alt : A.horizontal(pd.ra, pd.dec, samples[s], site.lat, site.lon).alt;
+          alts[s] = h;
+          if (h > bestAlt) { bestAlt = h; best = s; }
+        }
+        if (bestAlt < minAlt) continue;
+        var tb = samples[best], ob = A.observe(o, tb, site);
+        if (ob.V > lim) continue;
+        var a0 = best, a1 = best;
+        while (a0 > 0 && alts[a0 - 1] >= minAlt) a0--;
+        while (a1 < samples.length - 1 && alts[a1 + 1] >= minAlt) a1++;
+        vis.push({ ni: ni, best: tb, alt: ob.alt, az: ob.az, V: ob.V, delta: ob.delta, w0: samples[a0], w1: samples[a1], obs: ob });
       }
-      if (bestAlt < minAlt) continue;
-      var tb = samples[best], ob = A.observe(o, tb, site);
-      if (ob.V > lim) continue;
-      var a0 = best, a1 = best;
-      while (a0 > 0 && alts[a0 - 1] >= minAlt) a0--;
-      while (a1 < samples.length - 1 && alts[a1 + 1] >= minAlt) a1++;
-      var mo = A.motion(o, tb, site);
-      out.push({ o: o, best: tb, alt: ob.alt, az: ob.az, V: ob.V, rate: mo.rate, pa: mo.pa, w0: samples[a0], w1: samples[a1], obs: ob });
+      if (!vis.length) continue;
+      // noche recomendada: para un NEO, la de mayor acercamiento a la Tierra (más desplazamiento entre fotos);
+      // para los demás, la de mayor brillo (y, a igual brillo, la de mayor altura)
+      var e = o.neo ? bestNeoNight(vis)
+        : vis.reduce(function (a, b) { return (b.V < a.V - 0.05 || (Math.abs(b.V - a.V) <= 0.05 && b.alt > a.alt)) ? b : a; });
+      var mo = A.motion(o, e.best, site);
+      out.push({ o: o, best: e.best, alt: e.alt, az: e.az, V: e.V, delta: e.delta, rate: mo.rate, pa: mo.pa, w0: e.w0, w1: e.w1, obs: e.obs, ni: e.ni, vis: vis });
     }
     S.results = out;
     sortResults();
@@ -273,10 +327,10 @@
     return g('year') + '-' + g('month') + '-' + g('day');
   }
   function closeApproaches() {
-    var N = S.night, site = S.site, lim = +$('mag').value, minAlt = +$('minalt').value;
+    var N = S.nights && S.nights[0], site = S.site, lim = +$('mag').value, minAlt = +$('minalt').value;
     S.close = []; S.closeSet = {};
     if (!N) { renderClose(); return; }
-    var days = 30, t0 = N.jdNoon + 0.5, Es = [];
+    var days = Math.max(30, S.nights.length), t0 = N.jdNoon + 0.5, Es = [];
     for (var d = 0; d <= days; d++) Es.push(A.earth(t0 + d + A.DT_DAYS));
     var found = [];
     S.catalog.forEach(function (o) {
@@ -310,7 +364,7 @@
   }
   function renderClose() {
     var sec = $('close'), ol = $('close-list');
-    if (!S.night || S.night.kind === 'none') { sec.hidden = true; return; }
+    if (!S.nights || !S.nights.some(function (N) { return N.kind !== 'none'; })) { sec.hidden = true; return; }
     sec.hidden = false; ol.innerHTML = '';
     $('close-status').textContent = S.close.length ? t('ca.found', { n: S.close.length, m: nf(+$('mag').value, 1) }) : t('ca.none', { m: nf(+$('mag').value, 1) });
     S.close.forEach(function (c) {
@@ -333,9 +387,13 @@
     });
   }
   function planNight(c) {
-    $('date').value = c.dateStr; search();
+    // si esa noche está dentro del período buscado, se abre directamente; si no, se busca solo esa noche
+    var inRange = S.nights && S.nights.some(function (N) { return N.dateStr === c.dateStr; });
+    if (!inRange) { $('date').value = c.dateStr; checkRange(true); search(); }
     var i = -1; S.results.forEach(function (r, k) { if (r.o.pdes === c.o.pdes) i = k; });
-    if (i >= 0) openDetail(i);
+    var ni = -1; S.nights.forEach(function (N, k) { if (N.dateStr === c.dateStr) ni = k; });
+    var hasNight = i >= 0 && S.results[i].vis.some(function (v) { return v.ni === ni; });
+    if (i >= 0) openDetail(i, hasNight ? ni : undefined);
     else { $('results-status').textContent = t('ca.notInList', { n: displayName(c.o) }); $('results-h').scrollIntoView({ block: 'start' }); }
   }
   function sortResults() {
@@ -367,8 +425,10 @@
     return m.waxing ? t('ph.wxg') : t('ph.wng');
   }
   function renderNight() {
+    if (multiNight()) { renderNights(); return; }
     var N = S.night, site = S.site, b = $('night-body');
     $('night').hidden = false;
+    $('night-h').textContent = t('nightH');
     var html = '<p class="nightday">' + t('nightOf', { d: dayLabel(N.jdNoon), place: site.name }) + '</p><ul class="facts">';
     if (N.events.sunsetDown) html += '<li><span class="k">' + t('sunset') + '</span> <span class="v">' + hm(N.events.sunsetDown) + '</span></li>';
     if (N.kind === 'astro') html += '<li><span class="k">' + t('dark') + '</span> <span class="v">' + t('fromTo', { a: hm(N.start), b: hm(N.end) }) + '</span></li>';
@@ -387,6 +447,28 @@
     b.innerHTML = html;
   }
 
+  function renderNights() {   // varias noches: una tabla con oscuridad y Luna de cada una
+    var site = S.site, b = $('night-body'), L = S.nights;
+    $('night').hidden = false;
+    $('night-h').textContent = t('nightsH');
+    var html = '<p class="nightday">' + t('nightsOf', { n: L.length, a: fmtDate(L[0].dateStr, true), b: fmtDate(addDays(L[L.length - 1].dateStr, 1), true), place: site.name }) + '</p>';
+    html += '<div class="table-wrap" role="region" tabindex="0" aria-label="' + t('nightsH') + '"><table class="methods nights-sum"><thead><tr><th scope="col">' + t('tn.night') + '</th><th scope="col">' + t('tn.dark') + '</th><th scope="col">' + t('tn.moon') + '</th></tr></thead><tbody>';
+    var bright = 0;
+    L.forEach(function (N) {
+      var dk = N.kind === 'none' ? t('tn.noDark') : t('fromTo', { a: hm(N.start), b: hm(N.end) }) + (N.kind === 'astro' ? '' : ' (' + t(N.kind === 'nautical' ? 'tn.naut' : 'tn.civil') + ')');
+      var mo = '';
+      if (N.kind !== 'none') {
+        var m = moonDuring(N, site);
+        if (m.illum > 0.6 && m.first != null) bright++;
+        mo = nf(m.illum * 100, 0) + ' % · ' + (m.first == null ? t('moonNo') : (m.all ? t('moonAll') : t('moonFromTo', { a: hm(m.first), b: hm(m.last) })));
+      }
+      html += '<tr><th scope="row">' + fmtDate(N.dateStr) + '</th><td data-label="' + t('tn.dark') + '">' + dk + '</td><td data-label="' + t('tn.moon') + '">' + mo + '</td></tr>';
+    });
+    html += '</tbody></table></div><p class="hint">' + t('darkHelp') + '</p>';
+    if (bright) html += '<p class="hint">' + t('moonBright') + '</p>';
+    b.innerHTML = html;
+  }
+
   /* ---------- Lista de resultados ---------- */
   function renderResults(reset) {
     var sec = $('results'); sec.hidden = false;
@@ -398,7 +480,8 @@
   }
   function updateStatus() {
     var n = S.results.length;
-    $('results-status').textContent = S.night && S.night.kind === 'none' ? t('noNightShort') :
+    var noDark = S.nights && !S.nights.some(function (N) { return N.kind !== 'none'; });
+    $('results-status').textContent = noDark ? t(multiNight() ? 'noNightRange' : 'noNightShort') :
       (n === 0 ? t('none', { m: nf(+$('mag').value, 1) }) : t('found', { n: nf(n, 0), s: nf(Math.min(S.shown, n), 0) }));
     $('btn-more').hidden = S.shown >= n;
   }
@@ -415,10 +498,10 @@
     if (mo.alt > 0 && mo.illum > 0.5 && A.separation(mo.raDate, mo.decDate, r.obs.raDate, r.obs.decDate) < 30) moonWarn = '<p class="warn">' + t('moonNear') + '</p>';
     li.innerHTML =
       '<h3>' + esc(displayName(r.o)) + neo + '</h3>' +
-      '<p class="lead">' + t('cardLead', { h: hm(r.best), dir: dirLong(r.az), alt: nf(r.alt, 0), word: altShort(r.alt) }) + '</p>' +
+      '<p class="lead">' + (multiNight() ? t(r.o.neo ? 'cardLeadNeo' : 'cardLeadDay', { d: fmtDate(S.nights[r.ni].dateStr), h: hm(r.best), dir: dirLong(r.az), alt: nf(r.alt, 0), word: altShort(r.alt) }) : t('cardLead', { h: hm(r.best), dir: dirLong(r.az), alt: nf(r.alt, 0), word: altShort(r.alt) })) + '</p>' +
       '<dl class="stats">' +
       stat(t('st.V'), nf(r.V, 1)) + stat(t('st.alt'), nf(r.alt, 0) + '°') + stat(t('st.dir'), dirShort(r.az) + ' · ' + nf(r.az, 0) + '°') +
-      stat(t('st.rate'), nf(r.rate, r.rate < 1 ? 2 : 1) + '″/min') + stat(t('st.win'), hm(r.w0) + '–' + hm(r.w1)) +
+      stat(t('st.rate'), nf(r.rate, r.rate < 1 ? 2 : 1) + '″/min') + stat(t('st.win'), hm(r.w0) + '–' + hm(r.w1)) + (multiNight() ? stat(t('st.nights'), t('nightsOfM', { n: r.vis.length, m: S.nights.length })) : '') + (r.o.neo ? stat(t('st.dist'), t('mkmUnit', { d: fmtMkm(r.delta) })) : '') +
       '</dl>' + moonWarn;
     var b = document.createElement('button'); b.type = 'button'; b.className = 'btn primary';
     b.innerHTML = '<span>' + t('open') + '</span><span class="ue-sr">: ' + esc(displayName(r.o)) + '</span>';
@@ -430,19 +513,56 @@
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
   /* ---------- Detalle ---------- */
-  function openDetail(i) {
+  function openDetail(i, ni, keepFocus) {
     var r = S.results[i]; S.sel = r; S.selIdx = i;
+    if (ni == null) ni = r.ni;
+    var e = r.vis.filter(function (v) { return v.ni === ni; })[0] || r.vis[0];
+    S.selNi = e.ni; S.night = S.nights[e.ni]; S.selBest = e.best; S.selEntry = e;
     var N = S.night, tr = [];
     for (var jd = N.start; jd <= N.end + 1e-9; jd += 10 / 1440) {
       var ob = A.observe(r.o, jd, S.site); ob.jd = jd; tr.push(ob);
     }
     S.track = tr;
-    var bi = 0; tr.forEach(function (p, k) { if (Math.abs(p.jd - r.best) < Math.abs(tr[bi].jd - r.best)) bi = k; });
+    var bi = 0; tr.forEach(function (p, k) { if (Math.abs(p.jd - e.best) < Math.abs(tr[bi].jd - e.best)) bi = k; });
     S.bestIdx = bi; S.tIdx = bi;
     var ts = $('tsel'); ts.max = tr.length - 1; ts.value = bi;
     $('detail').hidden = false;
     renderDetail();
+    if (keepFocus) { var bt = document.querySelector('#nights-tbl button[data-ni="' + e.ni + '"]'); if (bt) bt.focus(); return; }
     $('detail').focus(); $('detail').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  /* Tabla «Noche por noche» del asteroide elegido (solo con un período de varias noches) */
+  function renderNightsTable() {
+    var r = S.sel, box = $('nights-box');
+    box.hidden = !multiNight();
+    if (box.hidden) return;
+    var neo = r.o.neo, rec = neo ? bestNeoNight(r.vis) : null, bri = r.vis.reduce(function (a, b) { return b.V < a.V ? b : a; });
+    $('pn-rec').hidden = !neo;
+    if (neo) {
+      var rr = rec.rate != null ? rec.rate : (rec.rate = A.motion(r.o, rec.best, S.site).rate);
+      var first = r.vis[0], last = r.vis[r.vis.length - 1];
+      var rtxt = t('pn.rec', { d: fmtDate(S.nights[rec.ni].dateStr, true), h: hm(rec.best), km: fmtMkm(rec.delta), ld: nf(rec.delta / LD, rec.delta / LD < 10 ? 1 : 0), r: nf(rr, rr < 10 ? 1 : 0) });
+      if (r.vis.length < S.nights.length) rtxt += ' ' + t('pn.window', { n: r.vis.length, a: fmtDate(S.nights[first.ni].dateStr), b: fmtDate(S.nights[last.ni].dateStr) });
+      if (rec.ni === 0 || rec.ni === S.nights.length - 1) rtxt += ' ' + t('pn.edge');
+      $('pn-rec').innerHTML = rtxt;
+    }
+    var html = '<thead><tr><th scope="col">' + t('tn.night') + '</th><th scope="col">' + t('tn.best') + '</th><th scope="col">' + t('st.dir') + '</th><th scope="col">' + t('st.alt') + '</th><th scope="col">' + t('st.V') + '</th><th scope="col">' + t('st.rate') + '</th>' + (neo ? '<th scope="col">' + t('st.dist') + '</th>' : '') + '<th scope="col"><span class="ue-sr">' + t('tn.choose') + '</span></th></tr></thead><tbody>';
+    r.vis.forEach(function (v) {
+      if (v.rate == null) v.rate = A.motion(r.o, v.best, S.site).rate;
+      var on = v.ni === S.selNi, d = fmtDate(S.nights[v.ni].dateStr);
+      var tags = (neo && v === rec ? ' <span class="badge badge-close">' + t('tn.closest') + '</span>' : '') + (v === bri && (!neo || v !== rec) ? ' <span class="badge">' + t('tn.brightest') + '</span>' : '');
+      html += '<tr' + (on ? ' class="on"' : '') + '><th scope="row">' + d + tags + '</th><td data-label="' + t('tn.best') + '">' + hm(v.best) + '</td><td data-label="' + t('st.dir') + '">' + dirShort(v.az) + ' · ' + nf(v.az, 0) + '°</td><td data-label="' + t('st.alt') + '">' + nf(v.alt, 0) + '°</td><td data-label="' + t('st.V') + '">' + nf(v.V, 1) + '</td><td data-label="' + t('st.rate') + '">' + nf(v.rate, v.rate < 1 ? 2 : 1) + '″/min</td>' + (neo ? '<td data-label="' + t('st.dist') + '">' + t('mkmUnit', { d: fmtMkm(v.delta) }) + '</td>' : '') +
+        '<td><button type="button" class="btn small" data-ni="' + v.ni + '" aria-pressed="' + on + '">' + (on ? t('tn.shown') : t('tn.show')) + '<span class="ue-sr">: ' + d + '</span></button></td></tr>';
+    });
+    $('nights-tbl').innerHTML = html + '</tbody>';
+  }
+  /* Efemérides de JPL Horizons (texto) para la noche y el lugar elegidos: ascensión recta y declinación, azimut y altura, magnitud */
+  function horizonsUrl(o, N, site) {
+    var ut = function (jd) { return A.dateFromJd(jd).toISOString().slice(0, 16).replace('T', ' '); };
+    var cmd = /^\d+$/.test(o.pdes) ? o.pdes + ';' : 'DES=' + o.pdes + ';';
+    var q = { format: 'text', COMMAND: "'" + cmd + "'", OBJ_DATA: "'NO'", MAKE_EPHEM: "'YES'", EPHEM_TYPE: "'OBSERVER'", CENTER: "'coord@399'", COORD_TYPE: "'GEODETIC'",
+      SITE_COORD: "'" + site.lon.toFixed(4) + ',' + site.lat.toFixed(4) + ",0'", START_TIME: "'" + ut(N.start) + "'", STOP_TIME: "'" + ut(N.end) + "'", STEP_SIZE: "'" + (o.neo ? 10 : 30) + " m'", QUANTITIES: "'1,4,9'" };
+    return 'https://ssd.jpl.nasa.gov/api/horizons.api?' + Object.keys(q).map(function (k) { return k + '=' + encodeURIComponent(q[k]); }).join('&');
   }
   function cur() { return S.track[S.tIdx]; }
   function renderDetail() {
@@ -450,12 +570,13 @@
     $('detail-h').textContent = displayName(r.o) + (r.o.neo ? ' · NEO' : '');
     $('print-meta').textContent = t('printMeta', { place: S.site.name, d: dayLabel(S.night.jdNoon) });
     var p = cur();
-    $('tsel-out').textContent = hm(p.jd) + (S.tIdx === S.bestIdx ? ' · ' + t('bestTag') : '');
+    $('tsel-out').textContent = (multiNight() ? fmtDate(S.night.dateStr) + ', ' : '') + hm(p.jd) + (S.tIdx === S.bestIdx ? ' · ' + t('bestTag') : '');
     var low = p.alt < +$('minalt').value;
     var say = t(p.alt < 0 ? 'sayBelow' : 'say', { h: hm(p.jd), dir: dirLong(p.az), az: nf(p.az, 0), alt: nf(p.alt, 0), word: altWord(p.alt), f: fists(p.alt) });
     if (p.alt >= 0 && low) say += ' ' + t('sayLow');
     if (r.o.neo && p.delta < 0.3) say += ' ' + t('neoClose', { d: nf(p.delta * 149.5978707, 0) });
     $('say').textContent = say;
+    renderNightsTable();
     drawRose(p); drawArc(p); drawChart(); drawMotion(); renderPlan(); renderData(); renderTrackTable(); links();
   }
 
@@ -709,8 +830,27 @@
     var interval = niceMinutes(Math.max(raw, minGap));
     var total = interval * (n - 1);
     var N = S.night, nightMin = (N.end - N.start) * 1440;
-    var multi = total > Math.min(nightMin * 0.8, 360);
-    var shots = [], warn = [];
+    var shots = [], warn = [], notes = [];
+    var neo = !!r.o.neo, short = false;
+    if (neo) {
+      // Un NEO cambia de campo de una noche a otra: la serie se hace en la misma noche, cada pocos minutos.
+      // Si no alcanza el tiempo para el desplazamiento pedido, se usa el tiempo disponible y se avisa.
+      var e = S.selEntry || {}, avail = e.w1 && e.w0 ? (e.w1 - e.w0) * 1440 : nightMin * 0.8;
+      avail = Math.max(10, Math.min(avail, 360));
+      if (total > avail) {
+        var iv = avail / (n - 1);   // redondeo hacia abajo, para que la serie entre en el tiempo disponible
+        interval = iv >= 10 ? Math.floor(iv / 5) * 5 : (iv >= 1 ? Math.floor(iv) : Math.max(0.5, Math.floor(iv * 2) / 2));
+        interval = Math.max(interval, Math.ceil(minGap * 2) / 2);
+        total = interval * (n - 1); short = true;
+        warn.push(t('w.neoShort', { px: nf(pxPerMin * interval, 1), want: px, f: nf(Math.ceil(g.f * px / Math.max(0.01, pxPerMin * interval) / 10) * 10, 0) }));
+      }
+      var expMax = pxPerMin > 0 ? 2 / pxPerMin * 60 : 1e9;
+      notes.push(expMax < 600 ? t('neo.exp', { s: nf(expMax < 10 ? expMax : Math.floor(expMax), expMax < 10 ? 1 : 0) }) : t('neo.expAny'));
+      var fov0 = Math.min.apply(null, fov(g)) * 60;   // minutos de arco
+      notes.push(t(fov0 < 20 ? 'neo.checkSmall' : 'neo.check', { f: fov0 < 120 ? nf(fov0, 0) + '′' : nf(fov0 / 60, 1) + '°' }));
+      notes.push(t('neo.sameNight'));
+    }
+    var multi = !neo && total > Math.min(nightMin * 0.8, 360);
     if (multi) {
       // una foto por noche, a la misma hora: avanza rate × 1440 min
       var perDayPx = pxPerMin * 1440;
@@ -728,7 +868,7 @@
     var totalPx = pxPerMin * total, side = Math.min(g.w, g.h);
     if (totalPx > side * 0.4) warn.push(t('w.frame'));
     if (raw < minGap) warn.push(t('w.fast'));
-    return { multi: false, n: n, interval: interval, total: total, shots: shots, warn: warn, pxPerMin: pxPerMin, sc: sc, g: g };
+    return { multi: false, n: n, interval: interval, total: total, shots: shots, warn: warn, notes: notes, short: short, pxPerMin: pxPerMin, sc: sc, g: g };
   }
   function renderPlan() {
     var P = computePlan(), box = $('plan'), html = '';
@@ -749,6 +889,8 @@
     }
     html += '<p class="hint">' + t('planWhy', { rate: nf(P.pxPerMin * P.sc, 2), s: nf(P.sc, P.sc < 10 ? 2 : 1), px: S.px, ppm: nf(P.pxPerMin, 2) }) + '</p>';
     P.warn.forEach(function (w) { html += '<p class="warn">' + w + '</p>'; });
+    if (P.notes && P.notes.length) html += '<div class="box neo-notes"><p><strong>' + t('neo.h') + '</strong></p><ul>' + P.notes.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>';
+    if (S.sel && S.sel.o.neo && !multiNight()) { var cc = (S.close || []).filter(function (c) { return c.o.pdes === S.sel.o.pdes; })[0]; if (cc && Math.abs(cc.jdCa - S.night.mid) > 1) html += '<p class="hint">' + t('neo.extend', { d: dayShort(cc.jdCa), km: fmtMkm(cc.dmin) }) + '</p>'; }
     html += '<p class="hint">' + t('planTip') + '</p>';
     box.innerHTML = html;
     S.plan = P;
@@ -784,6 +926,7 @@
     $('lnk-compare').href = 'comparador.html?ast=' + encodeURIComponent(displayName(r.o)) + '&pdes=' + encodeURIComponent(r.o.pdes) +
       '&lat=' + S.site.lat + '&lon=' + S.site.lon + '&f=' + g.f + '&pix=' + g.pix;
     $('lnk-jpl').href = 'https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=' + encodeURIComponent(r.o.pdes);
+    $('lnk-horizons').href = horizonsUrl(r.o, S.night, S.site);
   }
 
   /* ---------- CSV ---------- */
@@ -804,7 +947,7 @@
     lines.push((es ? '# Lugar: ' : '# Site: ') + S.site.name + ' (' + S.site.lat + ', ' + S.site.lon + ') · ' + (es ? 'Cálculo propio con elementos de JPL SBDB; valores estimados.' : 'Computed from JPL SBDB elements; estimated values.'));
     var blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
     var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = 'asteroide-' + (r.o.name || r.o.pdes).replace(/[^\w-]+/g, '_') + '-' + $('date').value + '.csv';
+    a.download = 'asteroide-' + (r.o.name || r.o.pdes).replace(/[^\w-]+/g, '_') + '-' + (S.night.dateStr || $('date').value) + '.csv';
     document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
   }
 
@@ -888,7 +1031,7 @@
     document.querySelector('input[name="nshots"][value="' + S.nshots + '"]').checked = true;
     $('pxmove').value = S.px;
     $('decl').value = st.decl != null && st.decl !== '' ? st.decl : -9;
-    $('date').value = todayStr();
+    $('date').value = todayStr(); checkRange(true);
     if (st.gps && st.lat && st.lon) {
       $('lat').value = st.lat; $('lon').value = st.lon; manualCoords();
     } else {
@@ -901,7 +1044,9 @@
     $('btn-gps').addEventListener('click', useGps);
     $('city').addEventListener('change', function () { if (this.value !== 'gps') { setCity(+this.value); save(); invalidate(); } });
     $('lat').addEventListener('change', manualCoords); $('lon').addEventListener('change', manualCoords);
-    $('date').addEventListener('change', invalidate);
+    $('date').addEventListener('change', function () { checkRange(true); invalidate(); });
+    $('date2').addEventListener('change', function () { checkRange(false); invalidate(); });
+    $('nights-tbl').addEventListener('click', function (ev) { var b = ev.target.closest('button[data-ni]'); if (b && S.sel) openDetail(S.selIdx, +b.getAttribute('data-ni'), true); });
     $('profile').addEventListener('change', function () { if (this.value !== 'custom') setProfile(this.value, false); updateProfileHint(); if (this.value === 'custom') $('gear-details').open = true; save(); if (S.sel) renderDetail(); });
     ['g-f', 'g-pix', 'g-w', 'g-h', 'g-exp'].forEach(function (id) { $(id).addEventListener('input', function () { $('profile').value = 'custom'; updateProfileHint(); updateGearOut(); save(); if (S.sel) { drawMotion(); renderPlan(); } }); });
     ['mag', 'minalt'].forEach(function (id) { $(id).addEventListener('input', function () { updateOutputs(); save(); }); });
