@@ -39,6 +39,7 @@ El idioma elegido se recuerda en las cuatro páginas (`localStorage` `asterfoto.
 - **Lugar:** GPS del celular, la ciudad más cercana (Uruguay y América del Sur) o coordenadas exactas.
 - **Fechas:** «Desde la noche del» y «Hasta el amanecer del». Al cambiar «Desde», «Hasta» pasa al día siguiente (una noche). Se puede extender hasta 31 noches; si «Hasta» queda antes de «Desde» o el período pasa de 31 noches, se corrige y se avisa.
 - **Noche:** puesta y salida del Sol, la noche cerrada (Sol a más de 18° bajo el horizonte), y la fase y las horas de la Luna. Con varias noches, una tabla con la oscuridad y la Luna de cada una.
+- **Planetas enanos:** Ceres, Plutón, Haumea, Eris y Makemake están en el catálogo de cuerpos menores. En la lista llevan la etiqueta «Planeta enano» y, en el detalle, la aclaración «Actualmente recategorizado como planeta enano». En todos los textos donde se los nombra se agrega esa aclaración.
 - **Varias noches:** cada asteroide aparece una sola vez, con su noche recomendada (la de mayor brillo; para un NEO, la de menor distancia a la Tierra). Al abrirlo, la tabla «Noche por noche» lista las noches en que se puede fotografiar (hora, rumbo, altura, brillo, velocidad y, para los NEO, distancia) y el botón «Ver» cambia el plan a esa noche. Con 31 noches y el perfil de telescopio, la búsqueda tarda alrededor de 1 s.
 - **Plan para NEO:** nunca «una foto por noche». La serie se hace en la misma noche; si el tiempo en que el NEO está alto no alcanza para el desplazamiento pedido, se ajusta el intervalo y se sugiere una focal mayor o la noche de mayor acercamiento. Se agregan la exposición máxima sin trazo (2 px), el aviso de confirmar la posición y un botón con las efemérides de JPL Horizons (API en texto) para esa noche y ese lugar. Con una sola noche, si el NEO pasa más cerca otro día, se avisa.
 - **Equipo:** cuatro perfiles (celular, réflex con 50 mm, réflex con 300 mm, telescopio de 800 mm) o datos propios. El perfil fija la magnitud límite inicial.
@@ -89,7 +90,7 @@ El parámetro `full-prec=1` es importante. Sin él, JPL redondea los elementos y
 
 | Objeto | Error de posición | Error de magnitud | Error del movimiento |
 |---|---|---|---|
-| (1) Ceres, (4) Vesta | 0,15′ (9″) | ≤ 0,01 | < 1 % |
+| (1) Ceres (actualmente recategorizado como planeta enano), (4) Vesta | 0,15′ (9″) | ≤ 0,01 | < 1 % |
 | (433) Eros | 0,11′ (7″) | 0,00 | < 1 % |
 | (217628) Lugh, NEO a 0,09 UA | 2,5′ | 0,01 | 1 % |
 
@@ -107,7 +108,7 @@ Al cargar los archivos, la app descarta:
 - las órbitas abiertas (e ≥ 1, como los objetos interestelares);
 - en cada búsqueda, los objetos cuyos elementos tienen más de 3 años de antigüedad respecto de la fecha elegida.
 
-Esos objetos son, en general, asteroides perdidos o transneptunianos. Con elementos tan viejos, y sin las perturbaciones de los planetas, su posición calculada no es confiable. Eso deja afuera, por ejemplo, a Plutón: su época en la SBDB es de 2016.
+Esos objetos son, en general, asteroides perdidos o transneptunianos. Con elementos tan viejos, y sin las perturbaciones de los planetas, su posición calculada no es confiable. Eso deja afuera, por ejemplo, a Plutón (actualmente recategorizado como planeta enano): su época en la SBDB es de 2016.
 
 Revisión del 21/11/2026: `sbdb_brillantes.json` tiene 16.291 filas y `sbdb_neo.json`, 4.810. Los dos coinciden con el `count` declarado por JPL y están en precisión completa. Se descartan 3 filas: 1 incompleta y 2 órbitas abiertas. Hay 1.532 objetos con época anterior a octubre de 2024, casi todos transneptunianos. La época principal es el 9 de junio de 2026.
 
@@ -176,11 +177,11 @@ Se muestran directamente desde `upload.wikimedia.org` (carga diferida, con texto
 
 | Imagen | Dónde | Autoría | Ficha |
 |---|---|---|---|
-| (1) Ceres, Dawn 2015 | Portada, «¿Qué es un asteroide?» | NASA/JPL-Caltech/UCLA/MPS/DLR/IDA | `File:PIA19562-Ceres-DwarfPlanet-Dawn-RC3-image19-20150506.jpg` |
+| (1) Ceres (actualmente recategorizado como planeta enano), Dawn 2015 | Portada, «¿Qué es un asteroide?» | NASA/JPL-Caltech/UCLA/MPS/DLR/IDA | `File:PIA19562-Ceres-DwarfPlanet-Dawn-RC3-image19-20150506.jpg` |
 | (4) Vesta, Dawn 2012 | Portada, ídem | NASA/JPL-Caltech/UCLA/MPS/DLR/IDA | `File:Vesta_full_mosaic.jpg` |
 | (433) Eros, NEAR 2001 | Portada, ídem | NASA/NEAR Project (JHU/APL) | `File:433eros.jpg` |
 | Dimorphos, DART 2022 | Portada, «Asteroides cercanos a la Tierra» | NASA/Johns Hopkins APL | `File:All_dimorphos_dart_0401930040_12262_01_iof_imagedisplay-final.png` |
-| Placas del descubrimiento de Plutón, 1930 | Portada, «¿Cómo se ve?», y comparador | Clyde Tombaugh, Observatorio Lowell | `File:Pluto_discovery_plates.png` |
+| Placas del descubrimiento de Plutón (actualmente recategorizado como planeta enano), 1930 | Portada, «¿Cómo se ve?», y comparador | Clyde Tombaugh, Observatorio Lowell | `File:Pluto_discovery_plates.png` |
 
 - El service worker no guarda imágenes de otro origen. Sin conexión, cada figura se oculta sola (`onerror`).
 - Los créditos están en tres lugares: el pie de cada figura, «Créditos y fuentes» de la portada (y del comparador) y la sección 6 de `fuentes.html`.

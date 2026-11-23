@@ -255,6 +255,9 @@
   }
   function mkm(au) { return au * 149.5978707; }
   function fmtMkm(au) { var m = mkm(au); return nf(m, m < 100 ? 1 : 0); }
+  // Planetas enanos reconocidos por la UAI que están en el catálogo de cuerpos menores
+  var DWARF = { '1': 1, '134340': 1, '136108': 1, '136199': 1, '136472': 1 };
+  function isDwarf(o) { return !!DWARF[o.pdes]; }
   function multiNight() { return S.nights && S.nights.length > 1; }
 
   function search() {
@@ -492,7 +495,7 @@
   }
   function card(r, i) {
     var li = document.createElement('li'); li.className = 'card';
-    var neo = (r.o.neo ? ' <span class="badge">NEO</span>' : '') + (S.closeSet && S.closeSet[r.o.pdes] ? ' <span class="badge badge-close">' + t('ca.badge') + '</span>' : '');
+    var neo = (r.o.neo ? ' <span class="badge">NEO</span>' : '') + (isDwarf(r.o) ? ' <span class="badge badge-dwarf">' + t('dwarf.badge') + '</span>' : '') + (S.closeSet && S.closeSet[r.o.pdes] ? ' <span class="badge badge-close">' + t('ca.badge') + '</span>' : '');
     var moonWarn = '';
     var mo = A.moon(r.best, S.site);
     if (mo.alt > 0 && mo.illum > 0.5 && A.separation(mo.raDate, mo.decDate, r.obs.raDate, r.obs.decDate) < 30) moonWarn = '<p class="warn">' + t('moonNear') + '</p>';
@@ -568,6 +571,7 @@
   function renderDetail() {
     var r = S.sel; if (!r) return;
     $('detail-h').textContent = displayName(r.o) + (r.o.neo ? ' · NEO' : '');
+    $('detail-dwarf').hidden = !isDwarf(r.o);
     $('print-meta').textContent = t('printMeta', { place: S.site.name, d: dayLabel(S.night.jdNoon) });
     var p = cur();
     $('tsel-out').textContent = (multiNight() ? fmtDate(S.night.dateStr) + ', ' : '') + hm(p.jd) + (S.tIdx === S.bestIdx ? ' · ' + t('bestTag') : '');

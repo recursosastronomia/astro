@@ -1,12 +1,12 @@
 /* Service worker — Planificador de asteroides
    Cambiar CACHE_VERSION cada vez que se publiquen cambios (también al actualizar los archivos sbdb_*.json).
    El número ?v= de estilos y scripts debe ser el mismo que en index.html. */
-const CACHE_VERSION = 'asterfoto-v17';
+const CACHE_VERSION = 'asterfoto-v18';
 const SHELL = [
   './', './index.html', './planificador.html', './comparador.html', './fuentes.html', './manifest.webmanifest',
-  './css/app.css?v=2.7',
-  './js/i18n.js?v=2.7', './js/i18n-extra.js?v=2.7', './js/pagina.js?v=2.7', './js/comparador.js?v=2.7', './js/vendor/mp4-muxer.js?v=5.2.2', './js/demo.js?v=2.7',
-  './js/lugares.js?v=2.7', './js/cielo.js?v=2.7', './js/astro.js?v=2.7', './js/app.js?v=2.7',
+  './css/app.css?v=2.8',
+  './js/i18n.js?v=2.8', './js/i18n-extra.js?v=2.8', './js/pagina.js?v=2.8', './js/comparador.js?v=2.8', './js/vendor/mp4-muxer.js?v=5.2.2', './js/demo.js?v=2.8',
+  './js/lugares.js?v=2.8', './js/cielo.js?v=2.8', './js/astro.js?v=2.8', './js/app.js?v=2.8',
   './sbdb_brillantes.json', './sbdb_neo.json'
 ];
 const EXTRAS = [

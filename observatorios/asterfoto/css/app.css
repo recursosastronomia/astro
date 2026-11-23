@@ -438,3 +438,4 @@ table.nights-tbl td:last-child { text-align: right; }
 table.nights-tbl button[aria-pressed="true"] { font-weight: 700; }
 #night .table-wrap { margin-top: .6rem; }
 @media (max-width: 640px) { table.nights-tbl td:last-child { text-align: left; } }
+.badge-dwarf { background: var(--ue-teal, #0f766e); color: #fff; }
