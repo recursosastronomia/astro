@@ -194,6 +194,10 @@
     .vid-frame:-webkit-full-screen { width: 100vw; height: 100vh; }
     .vid-foot { padding: .6rem 1.1rem .8rem; font-size: .85rem; color: var(--ue-muted); }
     .vid-foot a { color: var(--ue-link); font-weight: 700; }
+    .vid-dlg.es-doc .vid-frame { aspect-ratio: auto; height: calc(100vh - 11rem); min-height: 320px; background: #525659; }
+    .vid-foot [hidden] { display: none; }
+    .vid-head .btn[hidden] { display: none; }
+    .vid-foot button { padding: 0; border: 0; background: none; color: var(--ue-link); font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
     body.dlg-abierto { overflow: hidden; }
 
     /* Pie */
@@ -337,13 +341,17 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
         <span class="txt">Pantalla completa</span><span class="ue-sr"> (pantalla completa)</span>
       </button>
+      <a class="btn" id="vid-desc" href="#" target="_blank" rel="noopener noreferrer" download hidden title="Descargar el documento">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+        <span class="txt">Descargar</span><span class="ue-sr"> (descargar el documento)</span>
+      </a>
       <button type="button" class="btn" id="vid-cerrar" title="Cerrar (Esc)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
         <span class="txt">Cerrar</span><span class="ue-sr"> (cerrar el video)</span>
       </button>
     </div>
     <div class="vid-frame" id="vid-frame"></div>
-    <p class="vid-foot">Si el video no se reproduce aquí, <a id="vid-ext" href="#" target="_blank" rel="noopener noreferrer">abrilo en su sitio original<span class="ue-sr"> (se abre en una pestaña nueva)</span></a>.</p>
+    <p class="vid-foot"><span id="vid-foot-video">Si el video no se reproduce aquí, <a class="vid-ext" href="#" target="_blank" rel="noopener noreferrer">abrilo en su sitio original<span class="ue-sr"> (se abre en una pestaña nueva)</span></a>.</span><span id="vid-foot-doc" hidden>Podés recorrerlo, buscar dentro y ampliarlo sin descargarlo. Si no se ve, <button type="button" id="vid-recargar">recargá el visor</button> o <a class="vid-ext" href="#" target="_blank" rel="noopener noreferrer">abrilo en una pestaña nueva<span class="ue-sr"> (se abre en una pestaña nueva)</span></a>.</span></p>
   </dialog>
 
   <!-- PIE (el mismo de la portada) -->
@@ -384,7 +392,7 @@
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function sinTildes(s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
   function clave(s) { return sinTildes(s).replace(/[^a-z0-9]/g, ''); }
-  function limpio(s) { return String(s == null ? '' : s).replace(/\*\*/g, '').replace(/^#+\s*/gm, '').trim(); }
+  function limpio(s) { return String(s == null ? '' : s).replace(/\*\*/g, '').replace(/^#{1,6}\s+/gm, '').trim(); }
   function vacio(v) { v = sinTildes(v).trim(); return !v || v === 's/d' || v === 'n/a' || v === 'sin dato' || v === 'sd' || v === '-'; }
   var colator = new Intl.Collator('es', { sensitivity: 'base', numeric: true });
 
@@ -455,6 +463,16 @@
     var d = idDrive(u); if (d) return 'https://drive.google.com/file/d/' + d + '/preview';
     var v = (u.match(/vimeo\.com\/(?:video\/)?(\d+)/) || [])[1]; if (v) return 'https://player.vimeo.com/video/' + v + '?autoplay=1';
     return '';
+  }
+
+  /* Visor de documentos dentro de la página: archivos de Drive (vista previa) y PDF con enlace directo.
+     Devuelve { embed, descarga } o null si el enlace no es un documento que se pueda mostrar. */
+  function visorDocDe(u) {
+    u = String(u || '');
+    var d = (u.match(/drive\.google\.com\/file\/d\/([\w-]{20,})/) || [])[1];
+    if (d) return { embed: 'https://drive.google.com/file/d/' + d + '/preview', descarga: 'https://drive.google.com/uc?export=download&id=' + d };
+    if (/\.pdf([?#]|$)/i.test(u)) return { embed: 'https://docs.google.com/viewer?embedded=true&url=' + encodeURIComponent(u), descarga: u };
+    return null;
   }
 
   /* Origen de un enlace (para la sección Recursos, que no trae columna de fuente) */
@@ -634,8 +652,12 @@
     var acciones = '';
     if (r.audio) acciones += '<audio controls preload="none" src="' + esc(r.enlace) + '" aria-label="Escuchar: ' + esc(r.titulo) + '"></audio>';
     var emb = r.sec.id === 'videos' ? embedDe(r.enlace) : '';
-    if (emb) acciones += '<button type="button" class="btn btn-primary ver-video" aria-haspopup="dialog" data-embed="' + esc(emb) + '" data-url="' + esc(r.enlace) + '" data-titulo="' + esc(r.titulo) + '">' +
+    var doc = !emb && !r.audio ? visorDocDe(r.enlace) : null;
+    if (emb) acciones += '<button type="button" class="btn btn-primary ver-video" aria-haspopup="dialog" data-tipo="video" data-embed="' + esc(emb) + '" data-url="' + esc(r.enlace) + '" data-titulo="' + esc(r.titulo) + '">' +
       '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>' + esc(r.sec.accion) + '<span class="ue-sr"> «' + esc(r.titulo) + '»</span></button>';
+    else if (doc) acciones += '<button type="button" class="btn btn-primary ver-video" aria-haspopup="dialog" data-tipo="doc" data-embed="' + esc(doc.embed) + '" data-descarga="' + esc(doc.descarga) + '" data-url="' + esc(r.enlace) + '" data-titulo="' + esc(r.titulo) + '">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>' +
+      esc(r.sec.id === 'libros' ? r.sec.accion : 'Ver el documento') + '<span class="ue-sr"> «' + esc(r.titulo) + '»</span></button>';
     else if (r.enlace) acciones += '<a class="btn btn-primary" href="' + esc(r.enlace) + '" target="_blank" rel="noopener noreferrer">' + esc(r.audio ? 'Descargar el audio' : r.sec.accion) + ICO.ext + '<span class="ue-sr"> «' + esc(r.titulo) + '» (se abre en una pestaña nueva)</span></a>';
     return '<li><article class="card">' +
       '<div class="thumb"><span class="ph" aria-hidden="true">' + r.sec.icono + '</span>' + img + '<span class="badge-sec">' + esc(r.sec.nombre) + '</span></div>' +
@@ -781,9 +803,13 @@
   var dlg = $('vid-dlg'), vidOrigen = null;
   function abrirVideo(btn) {
     vidOrigen = btn;
+    var esDoc = btn.dataset.tipo === 'doc';
     $('vid-titulo').textContent = btn.dataset.titulo;
-    $('vid-ext').href = btn.dataset.url;
-    $('vid-frame').innerHTML = '<iframe src="' + esc(btn.dataset.embed) + '" title="Reproductor: ' + esc(btn.dataset.titulo) + '"' +
+    document.querySelectorAll('#vid-dlg .vid-ext').forEach(function (a) { a.href = btn.dataset.url; });
+    dlg.classList.toggle('es-doc', esDoc);
+    $('vid-foot-video').hidden = esDoc; $('vid-foot-doc').hidden = !esDoc;
+    $('vid-desc').hidden = !esDoc; $('vid-desc').href = esDoc ? btn.dataset.descarga : '#';
+    $('vid-frame').innerHTML = '<iframe src="' + esc(btn.dataset.embed) + '" title="' + (esDoc ? 'Visor del documento: ' : 'Reproductor: ') + esc(btn.dataset.titulo) + '"' +
       ' allow="autoplay; encrypted-media; picture-in-picture; fullscreen; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
     document.body.classList.add('dlg-abierto');
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
@@ -798,6 +824,10 @@
   });
   dlg.addEventListener('click', function (e) { if (e.target === dlg) cerrarVideo(); });   // clic fuera del reproductor
   $('vid-cerrar').addEventListener('click', cerrarVideo);
+  $('vid-recargar').addEventListener('click', function () {
+    // El visor de Google a veces queda en blanco la primera vez: se vuelve a cargar el mismo documento
+    var ifr = $('vid-frame').querySelector('iframe'); if (ifr) { var u = ifr.src; ifr.src = 'about:blank'; setTimeout(function () { ifr.src = u; }, 60); }
+  });
   $('vid-full').addEventListener('click', function () {
     var f = $('vid-frame'), pedir = f.requestFullscreen || f.webkitRequestFullscreen;
     if (pedir) pedir.call(f);
