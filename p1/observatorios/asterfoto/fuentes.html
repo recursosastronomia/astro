@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es" class="astro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Métodos y fuentes · Asteroides a la vista · Astronomía para todos</title>
+  <meta name="description" content="Datos, algoritmos y referencias científicas del planificador de asteroides asterfoto, para evaluar y recrear la propuesta.">
+  <meta name="theme-color" content="#0b1730">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../img/apple-touch-icon.png">
+  <!-- Modo noche y alto contraste: la misma elección que el resto del portal p1 (astro-tema, astro-contraste).
+       Se aplica antes de pintar para que no parpadee; los botones #tema y #contraste los maneja ../../js/tema.js. -->
+  <script>
+    (function () {
+      var r = document.documentElement, t = null, hc = null;
+      try { t = localStorage.getItem('astro-tema'); hc = localStorage.getItem('astro-contraste'); } catch (e) {}
+      var noche = hc === '1' || t === 'noche' || (!t && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+      if (noche) r.setAttribute('data-theme', 'dark');
+      if (hc === '1') r.setAttribute('data-contrast', 'alto');
+    })();
+  </script>
+  <!-- Estilos, tipografías e imágenes compartidos de p1 (css/astro.css, fonts/, img/) y el puente de la app -->
+  <link rel="preload" href="../../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../css/astro.css">
+  <link rel="stylesheet" href="css/p1.css?v=2.8">
+  <script src="js/p1-modo.js?v=2.8"></script>
+  <link rel="stylesheet" href="css/app.css?v=2.8">
+</head>
+<body data-doc-title="m.doc">
+  <a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
+
+  <header class="l-barra">
+    <div class="l-barra-in af-wrap">
+      <div class="ue-brand-row">
+        <a href="index.html" class="ue-home" data-i18n-attr="aria-label:homeLabel;title:homeLabel" aria-label="Volver al inicio" title="Volver al inicio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text"><span class="ue-brand-title">Astronomía para todos</span><span class="ue-brand-sub">DGES · EDyTIC</span></span>
+        </div>
+      </div>
+      <div class="l-barra-acciones">
+        <button type="button" class="l-tema" id="btn-lang" lang="en" aria-label="English version">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          <span class="l-tema-txt" id="btn-lang-txt">English</span>
+        </button>
+        <button type="button" class="l-tema" id="tema" aria-pressed="false">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><span class="l-tema-txt" data-i18n="p1.night">Modo noche</span>
+        </button>
+        <button type="button" class="l-tema" id="contraste" aria-pressed="false">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg><span class="l-tema-txt" data-i18n="p1.hc">Alto contraste</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <nav class="subnav" data-i18n-attr="aria-label:nav.label" aria-label="Secciones del planificador">
+    <ul>
+      <li><a href="index.html" data-i18n="nav.home">Inicio</a></li>
+      <li><a href="planificador.html" data-i18n="nav.plan">Planificar la observación</a></li>
+      <li><a href="comparador.html" data-i18n="nav.blink">Comparar mis fotos</a></li>
+      <li><a href="fuentes.html" aria-current="page" data-i18n="nav.src">Métodos y fuentes</a></li>
+    </ul>
+  </nav>
+
+  <main id="main" tabindex="-1" class="fuentes">
+    <div class="lang-block" data-lang="es" lang="es">
+    <section class="hero">
+      <p class="kicker">Observatorios · Métodos y fuentes</p>
+      <h1>Métodos y fuentes científicas</h1>
+      <p class="lead">Aquí están los datos, las fórmulas y las referencias que usa asterfoto. Con esta información cualquiera puede revisar los cálculos, comprobarlos con otra herramienta o volver a construir la propuesta desde cero.</p>
+      <nav class="toc" aria-label="Contenido de esta página">
+        <ul>
+          <li><a href="#es-datos">1. Datos</a></li>
+          <li><a href="#es-plan">2. Cálculos del planificador</a></li>
+          <li><a href="#es-comp">3. Procesamiento de las fotos</a></li>
+          <li><a href="#es-val">4. Validación y precisión</a></li>
+          <li><a href="#es-rehacer">5. Cómo rehacer la propuesta</a></li>
+          <li><a href="#es-img">6. Imágenes</a></li>
+          <li><a href="#es-soft">7. Programas y licencias</a></li>
+          <li><a href="#es-ref">8. Referencias</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <section class="panel" id="es-datos" aria-labelledby="es-datos-h">
+      <h2 id="es-datos-h">1. Datos</h2>
+      <h3>Elementos orbitales de los asteroides</h3>
+      <p>Provienen de la <a href="https://ssd-api.jpl.nasa.gov/doc/sbdb_query.html" target="_blank" rel="noopener">API de consultas de la JPL Small-Body Database</a> (Solar System Dynamics, NASA/JPL-Caltech) [<a href="#es-r-sbdb">13</a>]. Son elementos osculadores heliocéntricos referidos a la eclíptica y al equinoccio J2000: época, excentricidad <var>e</var>, semieje mayor <var>a</var>, inclinación <var>i</var>, longitud del nodo ascendente <var>Ω</var>, argumento del perihelio <var>ω</var>, anomalía media <var>M</var>, magnitud absoluta <var>H</var> y parámetro de pendiente <var>G</var>.</p>
+      <ul>
+        <li><code>sbdb_brillantes.json</code>: asteroides con <var>H</var> &lt; 13 (16.291 filas, descarga del 21/11/2026).</li>
+        <li><code>sbdb_neo.json</code>: asteroides cercanos a la Tierra con <var>H</var> &lt; 20 (4.810 filas, misma fecha).</li>
+        <li>Consulta: <code>fields=pdes,name,epoch,e,a,i,om,w,ma,H,G,neo,class&amp;sb-kind=a&amp;full-prec=1</code>, con el filtro <code>H|LT|13</code> o <code>sb-group=neo</code> y <code>H|LT|20</code>. Las direcciones completas están en <a href="LEEME.md">LEEME.md</a>.</li>
+        <li>El parámetro <code>full-prec=1</code> es imprescindible: sin él los elementos llegan redondeados y la posición de un NEO cercano puede errar en medio grado.</li>
+        <li>Se descartan las filas con elementos vacíos, las órbitas abiertas (<var>e</var> ≥ 1) y, en cada búsqueda, los objetos cuya época tiene más de 3 años de diferencia con la fecha elegida.</li>
+        <li>Si un objeto no trae <var>G</var>, se usa <var>G</var> = 0,15, el valor adoptado por la UAI para el sistema H-G [<a href="#es-r-bowell">1</a>].</li>
+      </ul>
+      <h3>Estrellas</h3>
+      <ul>
+        <li>Carta del cielo: estrellas hasta magnitud 6, líneas y nombres de constelaciones de <a href="https://github.com/ofrohn/d3-celestial" target="_blank" rel="noopener">d3-celestial</a> (Olaf Frohn, licencia BSD-3) [<a href="#es-r-d3">7</a>].</li>
+        <li>Identificación del campo de las fotos: 41.411 estrellas hasta magnitud ~8 del mismo proyecto, derivadas del catálogo Hipparcos de la ESA [<a href="#es-r-hip">6</a>]. Posiciones J2000; no se aplica movimiento propio, que en 30 años es menor que 1″ para casi todas.</li>
+      </ul>
+      <h3>Lugares</h3>
+      <p>Las capitales departamentales de Uruguay y las capitales de América del Sur tienen coordenadas aproximadas del centro de la localidad (±1 km) y la zona horaria de la base de datos IANA. Se pueden verificar en cualquier mapa, por ejemplo <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a>.</p>
+      <h3>Datos citados en la portada</h3>
+      <ul>
+        <li>Definición de NEO (perihelio menor que 1,3 UA): <a href="https://cneos.jpl.nasa.gov/about/neo_groups.html" target="_blank" rel="noopener">NASA CNEOS</a>.</li>
+        <li>Cantidad de NEO conocidos: <a href="https://neo.ssa.esa.int/" target="_blank" rel="noopener">Centro de Coordinación de NEO de la ESA</a>, boletín de julio de 2026.</li>
+        <li>Cantidad de cuerpos menores: <a href="https://www.minorplanetcenter.net/" target="_blank" rel="noopener">Minor Planet Center</a> (UAI).</li>
+        <li>Misión DART: Daly et al. (2023) [<a href="#es-r-daly">4</a>] y Thomas et al. (2023) [<a href="#es-r-thomas">18</a>].</li>
+        <li>Declinación magnética en Uruguay (unos 9° al oeste): <a href="https://www.ncei.noaa.gov/products/world-magnetic-model" target="_blank" rel="noopener">Modelo Magnético Mundial WMM2025</a> [<a href="#es-r-wmm">14</a>].</li>
+      </ul>
+    </section>
+
+    <section class="panel" id="es-plan" aria-labelledby="es-plan-h">
+      <h2 id="es-plan-h">2. Cálculos del planificador</h2>
+      <p>Todo está en <code>js/astro.js</code> (posiciones) y <code>js/app.js</code> (equipo y plan de fotos). Los cálculos se hacen en el navegador, sin conexión.</p>
+      <div class="table-wrap" role="region" aria-label="Tabla de métodos del planificador">
+      <table class="methods">
+        <thead><tr><th scope="col">Qué se calcula</th><th scope="col">Método</th><th scope="col">Origen</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Fecha juliana y escalas de tiempo</th><td data-label="Método">Día juliano desde la fecha UTC. TT = UT + ΔT, con ΔT ≈ 69,2 s (valor observado para 2025–2027).</td><td data-label="Origen">Meeus, cap. 7 y 10 [<a href="#es-r-meeus">12</a>]; <a href="https://www.iers.org/" target="_blank" rel="noopener">IERS</a></td></tr>
+          <tr><th scope="row">Posición del asteroide</th><td data-label="Método">Problema de dos cuerpos: anomalía media propagada con el movimiento medio <var>n</var> = <var>k</var>/<var>a</var><sup>3/2</sup> (<var>k</var> = 0,01720209895, constante de Gauss); ecuación de Kepler <var>M</var> = <var>E</var> − <var>e</var> sen <var>E</var> resuelta por Newton; vectores P y Q del plano orbital.</td><td data-label="Origen">Meeus, cap. 30 y 33 [<a href="#es-r-meeus">12</a>]; Danby [<a href="#es-r-danby">5</a>]</td></tr>
+          <tr><th scope="row">Posición de la Tierra y del Sol</th><td data-label="Método">Elementos keplerianos aproximados del baricentro Tierra-Luna con sus variaciones seculares (Tabla 1, válida de 1800 a 2050). El Sol es el vector opuesto.</td><td data-label="Origen">Standish [<a href="#es-r-standish">15</a>]; Standish y Williams [<a href="#es-r-sw">16</a>]</td></tr>
+          <tr><th scope="row">Tiempo de luz</th><td data-label="Método">La posición del asteroide se toma en <var>t</var> − Δ/<var>c</var> (0,0057755 días por UA), con una iteración.</td><td data-label="Origen">Meeus, cap. 33 [<a href="#es-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Eclíptica → ecuador</th><td data-label="Método">Giro por la oblicuidad de J2000, ε₀ = 23,4392911°.</td><td data-label="Origen">Sistema de constantes UAI 1976; Meeus, cap. 13 y 22 [<a href="#es-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Paralaje del lugar</th><td data-label="Método">Se resta el vector geocéntrico del observador sobre el elipsoide terrestre (<var>b</var>/<var>a</var> = 0,99664719).</td><td data-label="Origen">Meeus, cap. 11 [<a href="#es-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Precesión J2000 → fecha</th><td data-label="Método">Ángulos ζ, <var>z</var>, θ de la precesión UAI 1976.</td><td data-label="Origen">Lieske et al. (1977) [<a href="#es-r-lieske">11</a>]; Meeus, cap. 21 [<a href="#es-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Tiempo sidéreo</th><td data-label="Método">Tiempo sidéreo medio de Greenwich (ecuación 12.4).</td><td data-label="Origen">Meeus, cap. 12 [<a href="#es-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Altura y azimut</th><td data-label="Método">Coordenadas horizontales desde el ángulo horario; azimut medido desde el Norte hacia el Este. Rumbo en 16 puntos cardinales; altura también en «puños» (un puño ≈ 10°).</td><td data-label="Origen">Meeus, cap. 13 [<a href="#es-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Refracción atmosférica</th><td data-label="Método"><var>R</var> = 1,02′ / tan(<var>h</var> + 10,3/(<var>h</var> + 5,11)), con <var>h</var> en grados, para 1010 hPa y 10 °C.</td><td data-label="Origen">Sæmundsson (1986) [<a href="#es-r-saem">17</a>]; Meeus, cap. 16 [<a href="#es-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Brillo del asteroide</th><td data-label="Método">Sistema H-G: <var>V</var> = <var>H</var> + 5 log(<var>r</var>Δ) − 2,5 log[(1−<var>G</var>)Φ₁ + <var>G</var>Φ₂], con Φ<sub>i</sub> = exp(−<var>A</var><sub>i</sub> tan<sup><var>B</var><sub>i</sub></sup>(α/2)), <var>A</var> = 3,33 y 1,87, <var>B</var> = 0,63 y 1,22.</td><td data-label="Origen">Bowell et al. (1989) [<a href="#es-r-bowell">1</a>]</td></tr>
+          <tr><th scope="row">Movimiento en el cielo</th><td data-label="Método">Diferencia de posición en 30 minutos, en ″/min, y ángulo de posición desde el Norte hacia el Este.</td><td data-label="Origen">Diferencias finitas</td></tr>
+          <tr><th scope="row">Luna</th><td data-label="Método">Fórmulas de baja precisión (seis términos en longitud, cuatro en latitud y cinco en paralaje; precisión ≈ 0,3°). Fracción iluminada (1 − cos ψ)/2 a partir de la elongación ψ.</td><td data-label="Origen"><cite lang="en">The Astronomical Almanac</cite>, sección D [<a href="#es-r-aa">19</a>]; Meeus, cap. 48 [<a href="#es-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Noche y crepúsculos</th><td data-label="Método">Altura del Sol cada 5 minutos, con interpolación lineal en los cruces de −0,833° (puesta y salida), −6°, −12° y −18° (crepúsculos civil, náutico y astronómico).</td><td data-label="Origen">Convención del <cite lang="en">Explanatory Supplement</cite> [<a href="#es-r-sw">16</a>]; Meeus, cap. 15 [<a href="#es-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Campo de la cámara</th><td data-label="Método">Escala = 206,265 × píxel (µm) / focal (mm) en ″/px. Campo = 2 arctan(tamaño del sensor / 2<var>f</var>).</td><td data-label="Origen">Óptica geométrica</td></tr>
+          <tr><th scope="row">Intervalo entre fotos</th><td data-label="Método">Tiempo para que el asteroide avance la cantidad de píxeles elegida, nunca menor que la exposición más 30 s, redondeado. Si el plan supera la noche, se propone una foto por noche, salvo para los NEO: para ellos la serie es siempre en la misma noche, ajustada al tiempo en que el objeto está alto, con la exposición máxima sin trazo (2 px / velocidad en px/min).</td><td data-label="Origen">Criterio propio de la herramienta</td></tr>
+          <tr><th scope="row">Pasajes cercanos</th><td data-label="Método">Distancia Tierra-NEO día por día durante 30 días, refinada hora por hora en el mínimo; se listan los que bajan de 0,1 UA y alcanzan la magnitud límite.</td><td data-label="Origen">Criterio propio; contraste con <a href="https://cneos.jpl.nasa.gov/ca/" target="_blank" rel="noopener">NASA CNEOS</a> y JPL Horizons [<a href="#es-r-giorgini">8</a>]</td></tr>
+          <tr><th scope="row">Período de varias noches</th><td data-label="Método">De 1 a 31 noches. Cada noche se evalúa por separado (muestras cada 10 minutos, o cada 20 si el período pasa de 7 noches). Cada asteroide se muestra una vez, con su noche recomendada: la de mayor brillo o, para un NEO, la de menor distancia a la Tierra (mayor desplazamiento entre fotos).</td><td data-label="Origen">Criterio propio</td></tr>
+          <tr><th scope="row">Control con JPL Horizons</th><td data-label="Método">Enlace a la API de Horizons con el objeto, el lugar (coordenadas geodésicas) y la noche elegida, en pasos de 10 min (NEO) o 30 min: ascensión recta y declinación, azimut y altura, magnitud.</td><td data-label="Origen">Giorgini et al. (1996) [<a href="#es-r-giorgini">8</a>]</td></tr>
+          <tr><th scope="row">Magnitud límite inicial</th><td data-label="Método">Valores de partida por perfil: celular 8, 50 mm 9,5, 300 mm 12, telescopio de 800 mm 15. Son estimaciones prácticas; cada persona puede cambiarlas.</td><td data-label="Origen">Criterio propio (experiencia de observación)</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p><strong>Qué no se incluye:</strong> perturbaciones de los planetas, nutación, aberración anual y deflexión de la luz. Para encuadrar una foto el efecto es pequeño (ver la sección 4). Quien necesite más precisión puede integrar las órbitas numéricamente o pedir la efeméride a JPL Horizons.</p>
+    </section>
+
+    <section class="panel" id="es-comp" aria-labelledby="es-comp-h">
+      <h2 id="es-comp-h">3. Procesamiento de las fotos (comparador)</h2>
+      <p>Todo está en <code>js/comparador.js</code>. Las fotos se procesan en el navegador y no se envían a ningún servidor.</p>
+      <div class="table-wrap" role="region" aria-label="Tabla de métodos del comparador">
+      <table class="methods">
+        <thead><tr><th scope="col">Paso</th><th scope="col">Método</th><th scope="col">Origen</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Lectura y hora</th><td data-label="Método">Fotos JPG, PNG o WebP reducidas a 1600 px de lado mayor; luminancia 0,299 R + 0,587 G + 0,114 B. Hora de la toma desde la etiqueta EXIF <code>DateTimeOriginal</code>.</td><td data-label="Origen">Recomendación UIT-R BT.601; norma Exif (CIPA DC-008)</td></tr>
+          <tr><th scope="row">Fondo del cielo</th><td data-label="Método">Media local en una ventana de 51 × 51 px calculada con una imagen integral (tabla de áreas sumadas).</td><td data-label="Origen">Crow (1984) [<a href="#es-r-crow">3</a>]</td></tr>
+          <tr><th scope="row">Ruido y detección</th><td data-label="Método">σ = 1,4826 × mediana de |residuo| (desviación absoluta mediana); máximos locales de más de 5σ en 7 × 7 px; centroide ponderado en 5 × 5 px; hasta 80 estrellas.</td><td data-label="Origen">Hampel (1974) [<a href="#es-r-hampel">10</a>]</td></tr>
+          <tr><th scope="row">Alineación</th><td data-label="Método">Votación sobre pares de estrellas con igual separación (invariante ante giro y corrimiento) y ajuste del giro y el corrimiento por mínimos cuadrados con las estrellas coincidentes.</td><td data-label="Origen">Idea de Groth (1986) [<a href="#es-r-groth">9</a>], con pares en lugar de triángulos; ajuste según Umeyama (1991) [<a href="#es-r-umeyama">20</a>]</td></tr>
+          <tr><th scope="row">Normalización de brillo y contraste</th><td data-label="Método">Resta del fondo local (65 × 65 px, solo sobre píxeles con imagen) e igualación del contraste con la foto 1 usando la mediana del cociente de brillo de las mismas estrellas.</td><td data-label="Origen">Fotometría diferencial (principio general)</td></tr>
+          <tr><th scope="row">«Resaltar cambios»</th><td data-label="Método">Cada foto menos la mediana de todas, suavizada 3 × 3, umbral de 4σ y puntos agrandados.</td><td data-label="Origen">Imagen de diferencias con referencia por mediana</td></tr>
+          <tr><th scope="row">Secuencia</th><td data-label="Método">Como máximo 3 fotos por segundo y nunca arranca sola.</td><td data-label="Origen">WCAG 2.2, criterio 2.3.1 [<a href="#es-r-wcag">21</a>]</td></tr>
+          <tr><th scope="row">Identificación del campo</th><td data-label="Método">Proyección gnomónica (tangente) de las estrellas del catálogo alrededor de la posición calculada del asteroide; búsqueda de la semejanza (escala ±20 %, cualquier giro, imagen directa o espejada) por votación de pares y ajuste por mínimos cuadrados en números complejos. Se acepta si coinciden al menos 5 estrellas.</td><td data-label="Origen">Calabretta y Greisen (2002) [<a href="#es-r-cg">2</a>]; Groth (1986) [<a href="#es-r-groth">9</a>]; Umeyama (1991) [<a href="#es-r-umeyama">20</a>]</td></tr>
+          <tr><th scope="row">¿Coincide con lo previsto?</th><td data-label="Método">Mediana de la distancia entre las marcas y la posición calculada en cada foto; «¡Coincide!» por debajo de 90″.</td><td data-label="Origen">Criterio propio</td></tr>
+          <tr><th scope="row">Video MP4</th><td data-label="Método">Codificación H.264 con la API WebCodecs y archivo armado con mp4-muxer; si no hay WebCodecs, MediaRecorder.</td><td data-label="Origen">W3C WebCodecs; <a href="https://github.com/Vanilagy/mp4-muxer" target="_blank" rel="noopener">mp4-muxer</a> (MIT)</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>La técnica de fondo es la del <strong>comparador de parpadeo</strong>: alternar fotos del mismo campo para que lo que se mueve salte a la vista. Con ella Clyde Tombaugh descubrió Plutón (actualmente recategorizado como planeta enano) en 1930 en placas del Observatorio Lowell.</p>
+    </section>
+
+    <section class="panel" id="es-val" aria-labelledby="es-val-h">
+      <h2 id="es-val-h">4. Validación y precisión</h2>
+      <p>Las posiciones se compararon con el servicio de efemérides <a href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noopener">JPL Horizons</a> [<a href="#es-r-giorgini">8</a>], que integra numéricamente las órbitas con todas las perturbaciones. Lugar: Montevideo; fecha: 22/11/2026.</p>
+      <div class="table-wrap" role="region" aria-label="Tabla de validación">
+      <table class="methods">
+        <thead><tr><th scope="col">Objeto</th><th scope="col">Error de posición</th><th scope="col">Error de magnitud</th><th scope="col">Error del movimiento</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">(1) Ceres (actualmente recategorizado como planeta enano), (4) Vesta</th><td data-label="Error de posición">0,15′ (9″)</td><td data-label="Error de magnitud">≤ 0,01</td><td data-label="Error del movimiento">&lt; 1 %</td></tr>
+          <tr><th scope="row">(433) Eros</th><td data-label="Error de posición">0,11′ (7″)</td><td data-label="Error de magnitud">0,00</td><td data-label="Error del movimiento">&lt; 1 %</td></tr>
+          <tr><th scope="row">(217628) Lugh, NEO a 0,09 UA</th><td data-label="Error de posición">2,5′</td><td data-label="Error de magnitud">0,01</td><td data-label="Error del movimiento">1 %</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <ul>
+        <li>Pasajes cercanos (21/11/2026): (217628) Lugh a 0,071 UA el 28/11 y 2016 NV a 0,037 UA el 9/12, en coincidencia con Horizons en fecha, distancia y brillo máximo.</li>
+        <li>Comparador: con las fotos de ejemplo (cielo real alrededor de Lugh, 11,1″/px) se reconocieron 11 estrellas, la escala medida fue exacta y las marcas quedaron a 3 px de la posición prevista.</li>
+        <li>Límites: el brillo real puede diferir en alrededor de una magnitud (forma, rotación y <var>G</var> real del asteroide). Para pasajes a menos de 0,02 UA la gravedad de la Tierra curva la órbita y la app pide confirmar con Horizons. Los elementos envejecen: conviene descargarlos cada seis meses.</li>
+      </ul>
+      <p><strong>Cómo repetir la prueba:</strong> en Horizons elige el objeto, «Observer Table», el lugar con sus coordenadas, los ítems 1 (ascensión recta y declinación astrométricas), 4 (azimut y altura) y 9 (magnitud), y compara con la tabla CSV que exporta el planificador para la misma hora.</p>
+    </section>
+
+    <section class="panel" id="es-rehacer" aria-labelledby="es-rehacer-h">
+      <h2 id="es-rehacer-h">5. Cómo rehacer la propuesta</h2>
+      <ol class="recreate">
+        <li>Descarga los elementos orbitales de la SBDB con las consultas de la sección 1 (precisión completa).</li>
+        <li>Para cada asteroide y cada instante: resuelve la ecuación de Kepler, pasa a coordenadas heliocéntricas eclípticas J2000 y réstale la posición de la Tierra (Standish, Tabla 1) corregida por tiempo de luz.</li>
+        <li>Pasa al ecuador con ε₀, resta el vector del observador, aplica la precesión a la fecha y calcula el ángulo horario con el tiempo sidéreo.</li>
+        <li>Obtén altura y azimut, suma la refracción y estima el brillo con el sistema H-G.</li>
+        <li>Filtra por magnitud límite, altura mínima y noche cerrada; ordena por brillo y altura.</li>
+        <li>Calcula el intervalo entre fotos con la escala de la cámara y el movimiento en ″/min.</li>
+        <li>Para el comparador: detecta estrellas, alinea por votación de pares y mínimos cuadrados, y muestra la secuencia; para identificar el campo, proyecta el catálogo alrededor de la posición calculada.</li>
+        <li>Valida con JPL Horizons como en la sección 4.</li>
+      </ol>
+      <p>El código fuente completo, comentado en español, está en la carpeta de la herramienta (<code>js/astro.js</code>, <code>js/app.js</code>, <code>js/comparador.js</code>). <a href="LEEME.md">LEEME.md</a> explica los archivos, cómo actualizar los datos y las pruebas hechas.</p>
+    </section>
+
+    <section class="panel credits" id="es-img" aria-labelledby="es-img-h">
+      <h2 id="es-img-h">6. Imágenes</h2>
+      <p>Las fotografías de la portada y del comparador se muestran desde Wikimedia Commons. Todas son de dominio público; igual se indica su autoría.</p>
+      <ul>
+        <li><strong>(1) Ceres</strong> (actualmente recategorizado como planeta enano), cámara de encuadre de la misión Dawn, 4 de mayo de 2015. NASA/JPL-Caltech/UCLA/MPS/DLR/IDA. Dominio público. <a href="https://commons.wikimedia.org/wiki/File:PIA19562-Ceres-DwarfPlanet-Dawn-RC3-image19-20150506.jpg" target="_blank" rel="noopener">Ficha en Wikimedia Commons</a> (original: <a href="https://photojournal.jpl.nasa.gov/catalog/PIA19562" target="_blank" rel="noopener">PIA19562</a>).</li>
+        <li><strong>(4) Vesta</strong>, mosaico de la misión Dawn, 2012. NASA/JPL-Caltech/UCLA/MPS/DLR/IDA. Dominio público. <a href="https://commons.wikimedia.org/wiki/File:Vesta_full_mosaic.jpg" target="_blank" rel="noopener">Ficha en Wikimedia Commons</a> (original: <a href="https://photojournal.jpl.nasa.gov/catalog/PIA15678" target="_blank" rel="noopener">PIA15678</a>).</li>
+        <li><strong>(433) Eros</strong>, nave NEAR Shoemaker, 14 de febrero de 2001. NASA/NEAR Project (JHU/APL). Dominio público. <a href="https://commons.wikimedia.org/wiki/File:433eros.jpg" target="_blank" rel="noopener">Ficha en Wikimedia Commons</a>.</li>
+        <li><strong>Dimorphos 11 segundos antes del impacto de DART</strong>, cámara DRACO, 26 de septiembre de 2022. NASA/Johns Hopkins APL. Dominio público. <a href="https://commons.wikimedia.org/wiki/File:All_dimorphos_dart_0401930040_12262_01_iof_imagedisplay-final.png" target="_blank" rel="noopener">Ficha en Wikimedia Commons</a>.</li>
+        <li><strong>Placas del descubrimiento de Plutón</strong> (actualmente recategorizado como planeta enano), 23 y 29 de enero de 1930, Observatorio Lowell. Clyde Tombaugh. Dominio público. <a href="https://commons.wikimedia.org/wiki/File:Pluto_discovery_plates.png" target="_blank" rel="noopener">Ficha en Wikimedia Commons</a>.</li>
+        <li>Los esquemas del Sistema Solar y del parpadeo, la carta del cielo y las fotos de ejemplo del comparador son propios de asterfoto.</li>
+      </ul>
+    </section>
+
+    <section class="panel credits" id="es-soft" aria-labelledby="es-soft-h">
+      <h2 id="es-soft-h">7. Programas y licencias</h2>
+      <ul>
+        <li>asterfoto: contenido con licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-SA 4.0</a>, como el resto del portal <cite>Astronomía para todos</cite>.</li>
+        <li><a href="https://github.com/ofrohn/d3-celestial" target="_blank" rel="noopener">d3-celestial</a>, de Olaf Frohn: datos de estrellas y constelaciones, licencia BSD-3 (<a href="LICENCIA-d3-celestial.txt">texto</a>).</li>
+        <li><a href="https://github.com/Vanilagy/mp4-muxer" target="_blank" rel="noopener">mp4-muxer</a>, de Vanilagy: armado del archivo MP4, licencia MIT (<a href="js/vendor/LICENCIA-mp4-muxer.txt">texto</a>).</li>
+        <li>Estilos, tipografías y modos de visualización: hoja de estilos del portal (EDyTIC).</li>
+        <li>El código fue escrito con ayuda de inteligencia artificial y revisado por personas; ver la <a href="index.html#ai-h">nota de transparencia</a>. Si encuentras un error, escribe a <a href="mailto:recursosastronomia@uruguayeduca.edu.uy?subject=asterfoto%20-%20m%C3%A9todos">recursosastronomia@uruguayeduca.edu.uy</a>.</li>
+      </ul>
+    </section>
+
+    <section class="panel refs" id="es-ref" aria-labelledby="es-ref-h">
+      <h2 id="es-ref-h">8. Referencias</h2>
+      <ol class="biblio">
+        <li id="es-r-bowell">Bowell, E., Hapke, B., Domingue, D., Lumme, K., Peltoniemi, J. y Harris, A. W. (1989). Application of photometric models to asteroids. En R. P. Binzel, T. Gehrels y M. S. Matthews (eds.), <cite>Asteroids II</cite> (pp. 524–556). University of Arizona Press.</li>
+        <li id="es-r-cg">Calabretta, M. R. y Greisen, E. W. (2002). Representations of celestial coordinates in FITS. <cite>Astronomy &amp; Astrophysics</cite>, 395, 1077–1122. <a href="https://doi.org/10.1051/0004-6361:20021327" target="_blank" rel="noopener">doi:10.1051/0004-6361:20021327</a></li>
+        <li id="es-r-crow">Crow, F. C. (1984). Summed-area tables for texture mapping. <cite>Computer Graphics (SIGGRAPH '84)</cite>, 18(3), 207–212.</li>
+        <li id="es-r-daly">Daly, R. T. et al. (2023). Successful kinetic impact into an asteroid for planetary defence. <cite>Nature</cite>, 616, 443–447. <a href="https://doi.org/10.1038/s41586-023-05810-5" target="_blank" rel="noopener">doi:10.1038/s41586-023-05810-5</a></li>
+        <li id="es-r-danby">Danby, J. M. A. (1988). <cite>Fundamentals of Celestial Mechanics</cite> (2.ª ed.). Willmann-Bell.</li>
+        <li id="es-r-hip">ESA (1997). <cite>The Hipparcos and Tycho Catalogues</cite>. ESA SP-1200.</li>
+        <li id="es-r-d3">Frohn, O. <cite>d3-celestial</cite>. <a href="https://github.com/ofrohn/d3-celestial" target="_blank" rel="noopener">github.com/ofrohn/d3-celestial</a> (BSD-3).</li>
+        <li id="es-r-giorgini">Giorgini, J. D. et al. (1996). JPL's On-Line Solar System Data Service. <cite>Bulletin of the American Astronomical Society</cite>, 28, 1158. Servicio: <a href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noopener">JPL Horizons</a>.</li>
+        <li id="es-r-groth">Groth, E. J. (1986). A pattern-matching algorithm for two-dimensional coordinate lists. <cite>The Astronomical Journal</cite>, 91, 1244–1248. <a href="https://doi.org/10.1086/114099" target="_blank" rel="noopener">doi:10.1086/114099</a></li>
+        <li id="es-r-hampel">Hampel, F. R. (1974). The influence curve and its role in robust estimation. <cite>Journal of the American Statistical Association</cite>, 69(346), 383–393.</li>
+        <li id="es-r-lieske">Lieske, J. H., Lederle, T., Fricke, W. y Morando, B. (1977). Expressions for the precession quantities based upon the IAU (1976) System of Astronomical Constants. <cite>Astronomy &amp; Astrophysics</cite>, 58, 1–16.</li>
+        <li id="es-r-meeus">Meeus, J. (1998). <cite>Astronomical Algorithms</cite> (2.ª ed.). Willmann-Bell.</li>
+        <li id="es-r-sbdb">NASA/JPL-Caltech, Solar System Dynamics. <cite>SBDB Query API</cite>. <a href="https://ssd-api.jpl.nasa.gov/doc/sbdb_query.html" target="_blank" rel="noopener">ssd-api.jpl.nasa.gov/doc/sbdb_query.html</a></li>
+        <li id="es-r-wmm">NOAA NCEI Geomagnetic Modeling Team y British Geological Survey (2024). <cite>World Magnetic Model 2025</cite>. <a href="https://doi.org/10.25921/aqfd-sd83" target="_blank" rel="noopener">doi:10.25921/aqfd-sd83</a></li>
+        <li id="es-r-standish">Standish, E. M. <cite>Keplerian Elements for Approximate Positions of the Major Planets</cite>. JPL Solar System Dynamics. <a href="https://ssd.jpl.nasa.gov/planets/approx_pos.html" target="_blank" rel="noopener">ssd.jpl.nasa.gov/planets/approx_pos.html</a></li>
+        <li id="es-r-sw">Standish, E. M. y Williams, J. G. Orbital ephemerides of the Sun, Moon, and planets. En S. E. Urban y P. K. Seidelmann (eds.), <cite>Explanatory Supplement to the Astronomical Almanac</cite> (3.ª ed., cap. 8). University Science Books.</li>
+        <li id="es-r-saem">Sæmundsson, Þ. (1986). Atmospheric refraction. <cite>Sky &amp; Telescope</cite>, 72, 70.</li>
+        <li id="es-r-thomas">Thomas, C. A. et al. (2023). Orbital period change of Dimorphos due to the DART kinetic impact. <cite>Nature</cite>, 616, 448–451.</li>
+        <li id="es-r-aa">U.S. Naval Observatory y HM Nautical Almanac Office. <cite>The Astronomical Almanac</cite>, sección D: fórmulas de baja precisión para la Luna.</li>
+        <li id="es-r-umeyama">Umeyama, S. (1991). Least-squares estimation of transformation parameters between two point patterns. <cite>IEEE Transactions on Pattern Analysis and Machine Intelligence</cite>, 13(4), 376–380. <a href="https://doi.org/10.1109/34.88573" target="_blank" rel="noopener">doi:10.1109/34.88573</a></li>
+        <li id="es-r-wcag">W3C (2023). <cite lang="en">Web Content Accessibility Guidelines (WCAG) 2.2</cite>. <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener">w3.org/TR/WCAG22</a></li>
+      </ol>
+    </section>
+    </div>
+
+    <div class="lang-block" data-lang="en" lang="en" hidden>
+    <section class="hero">
+      <p class="kicker">Observatories · Methods and sources</p>
+      <h1>Scientific methods and sources</h1>
+      <p class="lead">This page gathers the data, formulas and references used by asterfoto. With it, anyone can review the calculations, check them against another tool or rebuild the project from scratch.</p>
+      <nav class="toc" aria-label="Contents of this page">
+        <ul>
+          <li><a href="#en-datos">1. Data</a></li>
+          <li><a href="#en-plan">2. Planner calculations</a></li>
+          <li><a href="#en-comp">3. Photo processing</a></li>
+          <li><a href="#en-val">4. Validation and accuracy</a></li>
+          <li><a href="#en-rehacer">5. How to rebuild the project</a></li>
+          <li><a href="#en-img">6. Images</a></li>
+          <li><a href="#en-soft">7. Software and licences</a></li>
+          <li><a href="#en-ref">8. References</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <section class="panel" id="en-datos" aria-labelledby="en-datos-h">
+      <h2 id="en-datos-h">1. Data</h2>
+      <h3>Asteroid orbital elements</h3>
+      <p>They come from the <a href="https://ssd-api.jpl.nasa.gov/doc/sbdb_query.html" target="_blank" rel="noopener">JPL Small-Body Database Query API</a> (Solar System Dynamics, NASA/JPL-Caltech) [<a href="#en-r-sbdb">13</a>]. They are heliocentric osculating elements referred to the J2000 ecliptic and equinox: epoch, eccentricity <var>e</var>, semi-major axis <var>a</var>, inclination <var>i</var>, longitude of the ascending node <var>Ω</var>, argument of perihelion <var>ω</var>, mean anomaly <var>M</var>, absolute magnitude <var>H</var> and slope parameter <var>G</var>.</p>
+      <ul>
+        <li><code>sbdb_brillantes.json</code>: asteroids with <var>H</var> &lt; 13 (16,291 rows, downloaded 21 Nov 2026).</li>
+        <li><code>sbdb_neo.json</code>: near-Earth asteroids with <var>H</var> &lt; 20 (4,810 rows, same date).</li>
+        <li>Query: <code>fields=pdes,name,epoch,e,a,i,om,w,ma,H,G,neo,class&amp;sb-kind=a&amp;full-prec=1</code>, with the filter <code>H|LT|13</code>, or <code>sb-group=neo</code> and <code>H|LT|20</code>. The full URLs are in <a href="LEEME.md">LEEME.md</a>.</li>
+        <li>The <code>full-prec=1</code> parameter is essential: without it the elements are rounded and the position of a close NEO can be off by half a degree.</li>
+        <li>Rows with empty elements, open orbits (<var>e</var> ≥ 1) and, in each search, objects whose epoch is more than 3 years from the chosen date are discarded.</li>
+        <li>When an object has no <var>G</var>, <var>G</var> = 0.15 is used, the value adopted by the IAU for the H-G system [<a href="#en-r-bowell">1</a>].</li>
+      </ul>
+      <h3>Stars</h3>
+      <ul>
+        <li>Sky chart: stars to magnitude 6, constellation lines and names from <a href="https://github.com/ofrohn/d3-celestial" target="_blank" rel="noopener">d3-celestial</a> (Olaf Frohn, BSD-3 licence) [<a href="#en-r-d3">7</a>].</li>
+        <li>Photo field identification: 41,411 stars to magnitude ~8 from the same project, derived from ESA's Hipparcos catalogue [<a href="#en-r-hip">6</a>]. J2000 positions; proper motion is not applied, since over 30 years it is below 1″ for almost all of them.</li>
+      </ul>
+      <h3>Places</h3>
+      <p>Uruguay's departmental capitals and the capitals of South America have approximate coordinates of the town centre (±1 km) and the IANA time zone. They can be checked on any map, for example <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a>.</p>
+      <h3>Figures quoted on the home page</h3>
+      <ul>
+        <li>NEO definition (perihelion below 1.3 AU): <a href="https://cneos.jpl.nasa.gov/about/neo_groups.html" target="_blank" rel="noopener">NASA CNEOS</a>.</li>
+        <li>Number of known NEOs: <a href="https://neo.ssa.esa.int/" target="_blank" rel="noopener">ESA NEO Coordination Centre</a>, July 2026 newsletter.</li>
+        <li>Number of minor bodies: <a href="https://www.minorplanetcenter.net/" target="_blank" rel="noopener">Minor Planet Center</a> (IAU).</li>
+        <li>DART mission: Daly et al. (2023) [<a href="#en-r-daly">4</a>] and Thomas et al. (2023) [<a href="#en-r-thomas">18</a>].</li>
+        <li>Magnetic declination in Uruguay (about 9° west): <a href="https://www.ncei.noaa.gov/products/world-magnetic-model" target="_blank" rel="noopener">World Magnetic Model WMM2025</a> [<a href="#en-r-wmm">14</a>].</li>
+      </ul>
+    </section>
+
+    <section class="panel" id="en-plan" aria-labelledby="en-plan-h">
+      <h2 id="en-plan-h">2. Planner calculations</h2>
+      <p>Everything is in <code>js/astro.js</code> (positions) and <code>js/app.js</code> (equipment and shooting plan). The calculations run in the browser, offline.</p>
+      <div class="table-wrap" role="region" aria-label="Table of planner methods">
+      <table class="methods">
+        <thead><tr><th scope="col">What is computed</th><th scope="col">Method</th><th scope="col">Source</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Julian date and time scales</th><td data-label="Method">Julian day from the UTC date. TT = UT + ΔT, with ΔT ≈ 69.2 s (observed value for 2025–2027).</td><td data-label="Source">Meeus, ch. 7 and 10 [<a href="#en-r-meeus">12</a>]; <a href="https://www.iers.org/" target="_blank" rel="noopener">IERS</a></td></tr>
+          <tr><th scope="row">Asteroid position</th><td data-label="Method">Two-body problem: mean anomaly propagated with the mean motion <var>n</var> = <var>k</var>/<var>a</var><sup>3/2</sup> (<var>k</var> = 0.01720209895, Gaussian constant); Kepler's equation <var>M</var> = <var>E</var> − <var>e</var> sin <var>E</var> solved by Newton's method; orbital-plane vectors P and Q.</td><td data-label="Source">Meeus, ch. 30 and 33 [<a href="#en-r-meeus">12</a>]; Danby [<a href="#en-r-danby">5</a>]</td></tr>
+          <tr><th scope="row">Earth and Sun position</th><td data-label="Method">Approximate Keplerian elements of the Earth-Moon barycentre with their secular rates (Table 1, valid 1800–2050). The Sun is the opposite vector.</td><td data-label="Source">Standish [<a href="#en-r-standish">16</a>]; Standish and Williams [<a href="#en-r-sw">15</a>]</td></tr>
+          <tr><th scope="row">Light time</th><td data-label="Method">The asteroid position is taken at <var>t</var> − Δ/<var>c</var> (0.0057755 days per AU), with one iteration.</td><td data-label="Source">Meeus, ch. 33 [<a href="#en-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Ecliptic → equator</th><td data-label="Method">Rotation by the J2000 obliquity, ε₀ = 23.4392911°.</td><td data-label="Source">IAU 1976 system of constants; Meeus, ch. 13 and 22 [<a href="#en-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Site parallax</th><td data-label="Method">The observer's geocentric vector on the Earth ellipsoid (<var>b</var>/<var>a</var> = 0.99664719) is subtracted.</td><td data-label="Source">Meeus, ch. 11 [<a href="#en-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Precession J2000 → date</th><td data-label="Method">IAU 1976 precession angles ζ, <var>z</var>, θ.</td><td data-label="Source">Lieske et al. (1977) [<a href="#en-r-lieske">11</a>]; Meeus, ch. 21 [<a href="#en-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Sidereal time</th><td data-label="Method">Greenwich mean sidereal time (equation 12.4).</td><td data-label="Source">Meeus, ch. 12 [<a href="#en-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Altitude and azimuth</th><td data-label="Method">Horizontal coordinates from the hour angle; azimuth measured from North towards East. Direction on 16 compass points; altitude also in “fists” (one fist ≈ 10°).</td><td data-label="Source">Meeus, ch. 13 [<a href="#en-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Atmospheric refraction</th><td data-label="Method"><var>R</var> = 1.02′ / tan(<var>h</var> + 10.3/(<var>h</var> + 5.11)), with <var>h</var> in degrees, for 1010 hPa and 10 °C.</td><td data-label="Source">Sæmundsson (1986) [<a href="#en-r-saem">17</a>]; Meeus, ch. 16 [<a href="#en-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Asteroid brightness</th><td data-label="Method">H-G system: <var>V</var> = <var>H</var> + 5 log(<var>r</var>Δ) − 2.5 log[(1−<var>G</var>)Φ₁ + <var>G</var>Φ₂], with Φ<sub>i</sub> = exp(−<var>A</var><sub>i</sub> tan<sup><var>B</var><sub>i</sub></sup>(α/2)), <var>A</var> = 3.33 and 1.87, <var>B</var> = 0.63 and 1.22.</td><td data-label="Source">Bowell et al. (1989) [<a href="#en-r-bowell">1</a>]</td></tr>
+          <tr><th scope="row">Motion on the sky</th><td data-label="Method">Position difference over 30 minutes, in ″/min, and position angle from North towards East.</td><td data-label="Source">Finite differences</td></tr>
+          <tr><th scope="row">Moon</th><td data-label="Method">Low-precision formulae (six terms in longitude, four in latitude and five in parallax; accuracy ≈ 0.3°). Illuminated fraction (1 − cos ψ)/2 from the elongation ψ.</td><td data-label="Source"><cite>The Astronomical Almanac</cite>, section D [<a href="#en-r-aa">19</a>]; Meeus, ch. 48 [<a href="#en-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Night and twilight</th><td data-label="Method">Sun altitude every 5 minutes, with linear interpolation at the crossings of −0.833° (sunset and sunrise), −6°, −12° and −18° (civil, nautical and astronomical twilight).</td><td data-label="Source"><cite>Explanatory Supplement</cite> convention [<a href="#en-r-sw">15</a>]; Meeus, ch. 15 [<a href="#en-r-meeus">12</a>]</td></tr>
+          <tr><th scope="row">Camera field</th><td data-label="Method">Scale = 206.265 × pixel (µm) / focal length (mm) in ″/px. Field = 2 arctan(sensor size / 2<var>f</var>).</td><td data-label="Source">Geometrical optics</td></tr>
+          <tr><th scope="row">Interval between shots</th><td data-label="Method">Time for the asteroid to move the chosen number of pixels, never less than the exposure plus 30 s, rounded. If the plan is longer than the night, one shot per night is suggested, except for NEOs: for them the series is always on the same night, fitted to the time the object is high, with the longest exposure without a streak (2 px / speed in px/min).</td><td data-label="Source">The tool's own criterion</td></tr>
+          <tr><th scope="row">Close approaches</th><td data-label="Method">Earth–NEO distance day by day for 30 days, refined hour by hour at the minimum; those below 0.1 AU that reach the limiting magnitude are listed.</td><td data-label="Source">Own criterion; checked against <a href="https://cneos.jpl.nasa.gov/ca/" target="_blank" rel="noopener">NASA CNEOS</a> and JPL Horizons [<a href="#en-r-giorgini">8</a>]</td></tr>
+          <tr><th scope="row">Multi-night period</th><td data-label="Method">From 1 to 31 nights. Each night is evaluated separately (samples every 10 minutes, or every 20 if the period exceeds 7 nights). Each asteroid is shown once, with its recommended night: the brightest one or, for a NEO, the one closest to Earth (largest shift between photos).</td><td data-label="Source">Own criterion</td></tr>
+          <tr><th scope="row">Check with JPL Horizons</th><td data-label="Method">Link to the Horizons API with the object, the site (geodetic coordinates) and the chosen night, in 10-min (NEO) or 30-min steps: right ascension and declination, azimuth and altitude, magnitude.</td><td data-label="Source">Giorgini et al. (1996) [<a href="#en-r-giorgini">8</a>]</td></tr>
+          <tr><th scope="row">Initial limiting magnitude</th><td data-label="Method">Starting values per profile: phone 8, 50 mm 9.5, 300 mm 12, 800 mm telescope 15. They are practical estimates; anyone can change them.</td><td data-label="Source">Own criterion (observing experience)</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p><strong>Not included:</strong> planetary perturbations, nutation, annual aberration and light deflection. For framing a photo the effect is small (see section 4). Anyone needing more accuracy can integrate the orbits numerically or request the ephemeris from JPL Horizons.</p>
+    </section>
+
+    <section class="panel" id="en-comp" aria-labelledby="en-comp-h">
+      <h2 id="en-comp-h">3. Photo processing (comparator)</h2>
+      <p>Everything is in <code>js/comparador.js</code>. Photos are processed in the browser and are not sent to any server.</p>
+      <div class="table-wrap" role="region" aria-label="Table of comparator methods">
+      <table class="methods">
+        <thead><tr><th scope="col">Step</th><th scope="col">Method</th><th scope="col">Source</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Reading and time</th><td data-label="Method">JPG, PNG or WebP photos reduced to 1600 px on the long side; luminance 0.299 R + 0.587 G + 0.114 B. Capture time from the EXIF <code>DateTimeOriginal</code> tag.</td><td data-label="Source">ITU-R Recommendation BT.601; Exif standard (CIPA DC-008)</td></tr>
+          <tr><th scope="row">Sky background</th><td data-label="Method">Local mean in a 51 × 51 px window computed with an integral image (summed-area table).</td><td data-label="Source">Crow (1984) [<a href="#en-r-crow">3</a>]</td></tr>
+          <tr><th scope="row">Noise and detection</th><td data-label="Method">σ = 1.4826 × median of |residual| (median absolute deviation); local maxima above 5σ in 7 × 7 px; weighted centroid in 5 × 5 px; up to 80 stars.</td><td data-label="Source">Hampel (1974) [<a href="#en-r-hampel">10</a>]</td></tr>
+          <tr><th scope="row">Alignment</th><td data-label="Method">Voting on star pairs with equal separation (invariant under rotation and shift) and least-squares fit of rotation and shift with the matched stars.</td><td data-label="Source">Idea from Groth (1986) [<a href="#en-r-groth">9</a>], with pairs instead of triangles; fit after Umeyama (1991) [<a href="#en-r-umeyama">20</a>]</td></tr>
+          <tr><th scope="row">Brightness and contrast normalisation</th><td data-label="Method">Local background subtracted (65 × 65 px, only over pixels with image) and contrast matched to photo 1 using the median brightness ratio of the same stars.</td><td data-label="Source">Differential photometry (general principle)</td></tr>
+          <tr><th scope="row">“Highlight changes”</th><td data-label="Method">Each photo minus the median of all, smoothed 3 × 3, 4σ threshold and enlarged dots.</td><td data-label="Source">Difference imaging with a median reference</td></tr>
+          <tr><th scope="row">Sequence</th><td data-label="Method">At most 3 photos per second, and it never starts by itself.</td><td data-label="Source">WCAG 2.2, criterion 2.3.1 [<a href="#en-r-wcag">21</a>]</td></tr>
+          <tr><th scope="row">Field identification</th><td data-label="Method">Gnomonic (tangent-plane) projection of catalogue stars around the computed asteroid position; search for the similarity transform (scale ±20%, any rotation, normal or mirrored) by pair voting and least-squares fit in complex numbers. Accepted when at least 5 stars match.</td><td data-label="Source">Calabretta and Greisen (2002) [<a href="#en-r-cg">2</a>]; Groth (1986) [<a href="#en-r-groth">9</a>]; Umeyama (1991) [<a href="#en-r-umeyama">20</a>]</td></tr>
+          <tr><th scope="row">Does it match the prediction?</th><td data-label="Method">Median distance between the marks and the computed position in each photo; “It matches!” below 90″.</td><td data-label="Source">Own criterion</td></tr>
+          <tr><th scope="row">MP4 video</th><td data-label="Method">H.264 encoding with the WebCodecs API and file built with mp4-muxer; MediaRecorder when WebCodecs is missing.</td><td data-label="Source">W3C WebCodecs; <a href="https://github.com/Vanilagy/mp4-muxer" target="_blank" rel="noopener">mp4-muxer</a> (MIT)</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>The underlying technique is the <strong>blink comparator</strong>: alternating photos of the same field so that whatever moves stands out. Clyde Tombaugh used it to discover Pluto (currently reclassified as a dwarf planet) in 1930 on Lowell Observatory plates.</p>
+    </section>
+
+    <section class="panel" id="en-val" aria-labelledby="en-val-h">
+      <h2 id="en-val-h">4. Validation and accuracy</h2>
+      <p>Positions were compared with the <a href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noopener">JPL Horizons</a> ephemeris service [<a href="#en-r-giorgini">8</a>], which integrates the orbits numerically with all perturbations. Site: Montevideo; date: 22 Nov 2026.</p>
+      <div class="table-wrap" role="region" aria-label="Validation table">
+      <table class="methods">
+        <thead><tr><th scope="col">Object</th><th scope="col">Position error</th><th scope="col">Magnitude error</th><th scope="col">Motion error</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">(1) Ceres (currently reclassified as a dwarf planet), (4) Vesta</th><td data-label="Position error">0.15′ (9″)</td><td data-label="Magnitude error">≤ 0.01</td><td data-label="Motion error">&lt; 1%</td></tr>
+          <tr><th scope="row">(433) Eros</th><td data-label="Position error">0.11′ (7″)</td><td data-label="Magnitude error">0.00</td><td data-label="Motion error">&lt; 1%</td></tr>
+          <tr><th scope="row">(217628) Lugh, NEO at 0.09 AU</th><td data-label="Position error">2.5′</td><td data-label="Magnitude error">0.01</td><td data-label="Motion error">1%</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <ul>
+        <li>Close approaches (21 Nov 2026): (217628) Lugh at 0.071 AU on 28 Nov and 2016 NV at 0.037 AU on 9 Dec, matching Horizons in date, distance and peak brightness.</li>
+        <li>Comparator: with the sample photos (real sky around Lugh, 11.1″/px) 11 stars were recognised, the measured scale was exact and the marks fell within 3 px of the predicted position.</li>
+        <li>Limits: actual brightness can differ by about one magnitude (shape, rotation and the asteroid's true <var>G</var>). For approaches closer than 0.02 AU, Earth's gravity bends the orbit and the app asks you to confirm with Horizons. Elements age: download them every six months.</li>
+      </ul>
+      <p><strong>How to repeat the test:</strong> in Horizons choose the object, “Observer Table”, the site with its coordinates, items 1 (astrometric right ascension and declination), 4 (azimuth and altitude) and 9 (magnitude), and compare with the CSV table exported by the planner for the same time.</p>
+    </section>
+
+    <section class="panel" id="en-rehacer" aria-labelledby="en-rehacer-h">
+      <h2 id="en-rehacer-h">5. How to rebuild the project</h2>
+      <ol class="recreate">
+        <li>Download the SBDB orbital elements with the queries in section 1 (full precision).</li>
+        <li>For each asteroid and each instant: solve Kepler's equation, convert to J2000 heliocentric ecliptic coordinates and subtract the Earth's position (Standish, Table 1) corrected for light time.</li>
+        <li>Rotate to the equator with ε₀, subtract the observer vector, apply precession to the date and compute the hour angle from sidereal time.</li>
+        <li>Get altitude and azimuth, add refraction and estimate brightness with the H-G system.</li>
+        <li>Filter by limiting magnitude, minimum altitude and full darkness; sort by brightness and altitude.</li>
+        <li>Compute the interval between shots from the camera scale and the motion in ″/min.</li>
+        <li>For the comparator: detect stars, align by pair voting and least squares, and show the sequence; to identify the field, project the catalogue around the computed position.</li>
+        <li>Validate against JPL Horizons as in section 4.</li>
+      </ol>
+      <p>The full source code, commented in Spanish, is in the tool's folder (<code>js/astro.js</code>, <code>js/app.js</code>, <code>js/comparador.js</code>). <a href="LEEME.md">LEEME.md</a> explains the files, how to update the data and the tests carried out.</p>
+    </section>
+
+    <section class="panel credits" id="en-img" aria-labelledby="en-img-h">
+      <h2 id="en-img-h">6. Images</h2>
+      <p>The photographs on the home page and in the comparator are shown from Wikimedia Commons. All are in the public domain; their authorship is still credited.</p>
+      <ul>
+        <li><strong>(1) Ceres</strong> (currently reclassified as a dwarf planet), Dawn mission framing camera, 4 May 2015. NASA/JPL-Caltech/UCLA/MPS/DLR/IDA. Public domain. <a href="https://commons.wikimedia.org/wiki/File:PIA19562-Ceres-DwarfPlanet-Dawn-RC3-image19-20150506.jpg" target="_blank" rel="noopener">Wikimedia Commons page</a> (original: <a href="https://photojournal.jpl.nasa.gov/catalog/PIA19562" target="_blank" rel="noopener">PIA19562</a>).</li>
+        <li><strong>(4) Vesta</strong>, Dawn mission mosaic, 2012. NASA/JPL-Caltech/UCLA/MPS/DLR/IDA. Public domain. <a href="https://commons.wikimedia.org/wiki/File:Vesta_full_mosaic.jpg" target="_blank" rel="noopener">Wikimedia Commons page</a> (original: <a href="https://photojournal.jpl.nasa.gov/catalog/PIA15678" target="_blank" rel="noopener">PIA15678</a>).</li>
+        <li><strong>(433) Eros</strong>, NEAR Shoemaker spacecraft, 14 February 2001. NASA/NEAR Project (JHU/APL). Public domain. <a href="https://commons.wikimedia.org/wiki/File:433eros.jpg" target="_blank" rel="noopener">Wikimedia Commons page</a>.</li>
+        <li><strong>Dimorphos 11 seconds before DART's impact</strong>, DRACO camera, 26 September 2022. NASA/Johns Hopkins APL. Public domain. <a href="https://commons.wikimedia.org/wiki/File:All_dimorphos_dart_0401930040_12262_01_iof_imagedisplay-final.png" target="_blank" rel="noopener">Wikimedia Commons page</a>.</li>
+        <li><strong>Pluto discovery plates</strong> (Pluto is currently reclassified as a dwarf planet), 23 and 29 January 1930, Lowell Observatory. Clyde Tombaugh. Public domain. <a href="https://commons.wikimedia.org/wiki/File:Pluto_discovery_plates.png" target="_blank" rel="noopener">Wikimedia Commons page</a>.</li>
+        <li>The Solar System and blink diagrams, the sky chart and the comparator's sample photos were made for asterfoto.</li>
+      </ul>
+    </section>
+
+    <section class="panel credits" id="en-soft" aria-labelledby="en-soft-h">
+      <h2 id="en-soft-h">7. Software and licences</h2>
+      <ul>
+        <li>asterfoto: content under a <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a> licence, like the rest of the <cite lang="es">Astronomía para todos</cite> portal.</li>
+        <li><a href="https://github.com/ofrohn/d3-celestial" target="_blank" rel="noopener">d3-celestial</a> by Olaf Frohn: star and constellation data, BSD-3 licence (<a href="LICENCIA-d3-celestial.txt">text</a>).</li>
+        <li><a href="https://github.com/Vanilagy/mp4-muxer" target="_blank" rel="noopener">mp4-muxer</a> by Vanilagy: MP4 file assembly, MIT licence (<a href="js/vendor/LICENCIA-mp4-muxer.txt">text</a>).</li>
+        <li>Styles, fonts and display modes: the portal stylesheet (EDyTIC).</li>
+        <li>The code was written with the help of artificial intelligence and reviewed by people; see the <a href="index.html#ai-h">transparency note</a>. If you find an error, write to <a href="mailto:recursosastronomia@uruguayeduca.edu.uy?subject=asterfoto%20-%20methods">recursosastronomia@uruguayeduca.edu.uy</a>.</li>
+      </ul>
+    </section>
+
+    <section class="panel refs" id="en-ref" aria-labelledby="en-ref-h">
+      <h2 id="en-ref-h">8. References</h2>
+      <ol class="biblio">
+        <li id="en-r-bowell">Bowell, E., Hapke, B., Domingue, D., Lumme, K., Peltoniemi, J. and Harris, A. W. (1989). Application of photometric models to asteroids. In R. P. Binzel, T. Gehrels and M. S. Matthews (eds.), <cite>Asteroids II</cite> (pp. 524–556). University of Arizona Press.</li>
+        <li id="en-r-cg">Calabretta, M. R. and Greisen, E. W. (2002). Representations of celestial coordinates in FITS. <cite>Astronomy &amp; Astrophysics</cite>, 395, 1077–1122. <a href="https://doi.org/10.1051/0004-6361:20021327" target="_blank" rel="noopener">doi:10.1051/0004-6361:20021327</a></li>
+        <li id="en-r-crow">Crow, F. C. (1984). Summed-area tables for texture mapping. <cite>Computer Graphics (SIGGRAPH '84)</cite>, 18(3), 207–212.</li>
+        <li id="en-r-daly">Daly, R. T. et al. (2023). Successful kinetic impact into an asteroid for planetary defence. <cite>Nature</cite>, 616, 443–447. <a href="https://doi.org/10.1038/s41586-023-05810-5" target="_blank" rel="noopener">doi:10.1038/s41586-023-05810-5</a></li>
+        <li id="en-r-danby">Danby, J. M. A. (1988). <cite>Fundamentals of Celestial Mechanics</cite> (2nd ed.). Willmann-Bell.</li>
+        <li id="en-r-hip">ESA (1997). <cite>The Hipparcos and Tycho Catalogues</cite>. ESA SP-1200.</li>
+        <li id="en-r-d3">Frohn, O. <cite>d3-celestial</cite>. <a href="https://github.com/ofrohn/d3-celestial" target="_blank" rel="noopener">github.com/ofrohn/d3-celestial</a> (BSD-3).</li>
+        <li id="en-r-giorgini">Giorgini, J. D. et al. (1996). JPL's On-Line Solar System Data Service. <cite>Bulletin of the American Astronomical Society</cite>, 28, 1158. Service: <a href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noopener">JPL Horizons</a>.</li>
+        <li id="en-r-groth">Groth, E. J. (1986). A pattern-matching algorithm for two-dimensional coordinate lists. <cite>The Astronomical Journal</cite>, 91, 1244–1248. <a href="https://doi.org/10.1086/114099" target="_blank" rel="noopener">doi:10.1086/114099</a></li>
+        <li id="en-r-hampel">Hampel, F. R. (1974). The influence curve and its role in robust estimation. <cite>Journal of the American Statistical Association</cite>, 69(346), 383–393.</li>
+        <li id="en-r-lieske">Lieske, J. H., Lederle, T., Fricke, W. and Morando, B. (1977). Expressions for the precession quantities based upon the IAU (1976) System of Astronomical Constants. <cite>Astronomy &amp; Astrophysics</cite>, 58, 1–16.</li>
+        <li id="en-r-meeus">Meeus, J. (1998). <cite>Astronomical Algorithms</cite> (2nd ed.). Willmann-Bell.</li>
+        <li id="en-r-sbdb">NASA/JPL-Caltech, Solar System Dynamics. <cite>SBDB Query API</cite>. <a href="https://ssd-api.jpl.nasa.gov/doc/sbdb_query.html" target="_blank" rel="noopener">ssd-api.jpl.nasa.gov/doc/sbdb_query.html</a></li>
+        <li id="en-r-wmm">NOAA NCEI Geomagnetic Modeling Team and British Geological Survey (2024). <cite>World Magnetic Model 2025</cite>. <a href="https://doi.org/10.25921/aqfd-sd83" target="_blank" rel="noopener">doi:10.25921/aqfd-sd83</a></li>
+        <li id="en-r-sw">Standish, E. M. and Williams, J. G. Orbital ephemerides of the Sun, Moon, and planets. In S. E. Urban and P. K. Seidelmann (eds.), <cite>Explanatory Supplement to the Astronomical Almanac</cite> (3rd ed., ch. 8). University Science Books.</li>
+        <li id="en-r-standish">Standish, E. M. <cite>Keplerian Elements for Approximate Positions of the Major Planets</cite>. JPL Solar System Dynamics. <a href="https://ssd.jpl.nasa.gov/planets/approx_pos.html" target="_blank" rel="noopener">ssd.jpl.nasa.gov/planets/approx_pos.html</a></li>
+        <li id="en-r-saem">Sæmundsson, Þ. (1986). Atmospheric refraction. <cite>Sky &amp; Telescope</cite>, 72, 70.</li>
+        <li id="en-r-thomas">Thomas, C. A. et al. (2023). Orbital period change of Dimorphos due to the DART kinetic impact. <cite>Nature</cite>, 616, 448–451.</li>
+        <li id="en-r-aa">U.S. Naval Observatory and HM Nautical Almanac Office. <cite>The Astronomical Almanac</cite>, section D: low-precision formulae for the Moon.</li>
+        <li id="en-r-umeyama">Umeyama, S. (1991). Least-squares estimation of transformation parameters between two point patterns. <cite>IEEE Transactions on Pattern Analysis and Machine Intelligence</cite>, 13(4), 376–380. <a href="https://doi.org/10.1109/34.88573" target="_blank" rel="noopener">doi:10.1109/34.88573</a></li>
+        <li id="en-r-wcag">W3C (2023). <cite>Web Content Accessibility Guidelines (WCAG) 2.2</cite>. <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener">w3.org/TR/WCAG22</a></li>
+      </ol>
+    </section>
+    </div>
+
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../../img/logo-uruguay-educa.webp" width="360" height="115" data-i18n-attr="alt:p1.logoAlt" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p data-i18n="footer"></p>
+        <p class="sitio-pie-a11y" data-i18n="a11y">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Noviembre de 2026.</p>
+        <p class="sitio-pie-lic"><svg class="lic-ico" viewBox="0 0 66 20" width="56" height="17" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8.6"/><circle cx="33" cy="10" r="8.6"/><circle cx="56" cy="10" r="8.6"/><path d="M8.6 7.6a2.6 2.6 0 1 0 0 4.8M13.4 7.6a2.6 2.6 0 1 0 0 4.8" stroke-width="1.5"/><path d="M52.4 10a3.6 3.6 0 1 0 1.1-2.6" stroke-width="1.6"/></g><g fill="currentColor"><circle cx="33" cy="5.4" r="1.6"/><path d="M30.6 8.2h4.8a.8.8 0 0 1 .8.8v3.6h-1.4v3.6h-3.6v-3.6h-1.4V9a.8.8 0 0 1 .8-.8z"/><path d="M51.2 6.9l2.9 0.9-0.9 2.7z"/></g></svg><span data-i18n-html="lic">Contenidos bajo licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0<span class="lic-sr"> (se abre en una pestaña nueva)</span></a>, salvo que se indique otra cosa.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/tema.js"></script>
+  <script src="js/i18n.js?v=2.8"></script>
+  <script src="js/i18n-extra.js?v=2.8"></script>
+  <script src="js/pagina.js?v=2.8"></script>
+  <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cartas Astronómicas | Sistema Solar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0c10; --ink:#eceae4; --mute:#8d8c88;
+  --cw:340px; --ch:476px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:'Archivo',sans-serif}
+body{min-height:100vh;
+  background:
+   radial-gradient(1px 1px at 12% 18%,#fff6 50%,transparent 51%),
+   radial-gradient(1px 1px at 72% 8%,#fff5 50%,transparent 51%),
+   radial-gradient(1px 1px at 38% 64%,#fff4 50%,transparent 51%),
+   radial-gradient(1px 1px at 88% 52%,#fff5 50%,transparent 51%),
+   radial-gradient(1px 1px at 22% 88%,#fff4 50%,transparent 51%),
+   var(--bg);
+  background-size:420px 420px, 380px 380px, 460px 460px, 300px 300px, 520px 520px, auto;
+}
+
+/* ---------- toolbar ---------- */
+.bar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;
+  padding:14px 28px;background:#0b0c10e6;backdrop-filter:blur(8px);border-bottom:1px solid #ffffff14}
+.bar .brand{font-weight:800;font-stretch:75%;letter-spacing:.14em;text-transform:uppercase;font-size:13px;margin-right:8px}
+.bar .brand b{color:oklch(0.82 0.13 65)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:600 12px/1 'Archivo';font-stretch:85%;letter-spacing:.04em;padding:8px 12px;border-radius:99px;
+  border:1px solid #ffffff22;background:transparent;color:var(--ink);cursor:pointer;display:flex;gap:7px;align-items:center}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.chip[aria-pressed=true]{background:var(--ink);color:#111;border-color:var(--ink)}
+.bar select{font:600 12px 'Archivo';background:#16171c;color:var(--ink);border:1px solid #ffffff22;border-radius:8px;padding:7px 10px}
+.bar .count{margin-left:auto;font:500 12px 'JetBrains Mono';color:var(--mute)}
+
+/* ---------- grid ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,var(--cw));gap:34px 28px;justify-content:center;padding:36px 28px 80px}
+
+/* ---------- card ---------- */
+.card{
+  --h:65; --acc:oklch(0.78 0.14 var(--h)); --accd:oklch(0.42 0.10 var(--h)); --accx:oklch(0.22 0.05 var(--h));
+  width:var(--cw);height:var(--ch);border-radius:18px;padding:9px;position:relative;cursor:pointer;
+  background:linear-gradient(150deg,var(--acc),var(--accd) 45%,var(--acc) 70%,var(--accd));
+  box-shadow:0 18px 40px -18px #000,0 0 0 1px #0008;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s;
+}
+.card:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:0 30px 60px -20px #000,0 0 40px -10px var(--acc)}
+.card-in{height:100%;border-radius:11px;background:linear-gradient(180deg,var(--accx),#0d0e12 60%);
+  display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+.c-top{display:flex;align-items:center;justify-content:space-between;padding:9px 12px 0}
+.c-no{font:700 11px 'JetBrains Mono';color:var(--acc);letter-spacing:.06em}
+.c-type{font:700 10px/1 'Archivo';font-stretch:80%;letter-spacing:.14em;text-transform:uppercase;
+  color:#111;background:var(--acc);padding:4px 7px 4px;border-radius:4px;white-space:nowrap}
+.c-name{padding:4px 12px 0;font-weight:800;font-stretch:72%;font-size:30px;line-height:.95;letter-spacing:-.005em;text-transform:uppercase;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-sub{padding:2px 12px 0;font:500 11px 'JetBrains Mono';color:var(--mute);height:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.c-img{margin:7px 10px 0;height:170px;border-radius:7px;position:relative;background-color:#000;
+  background-repeat:no-repeat;background-position:center;background-size:contain;
+  box-shadow:inset 0 0 0 1px #ffffff1a}
+.c-img::after{content:"";position:absolute;inset:0;border-radius:7px;
+  background:linear-gradient(180deg,transparent 70%,#0008);pointer-events:none}
+.c-art{position:absolute;left:7px;bottom:6px;z-index:1;font:600 9px 'JetBrains Mono';letter-spacing:.06em;
+  color:#ddd;background:#000a;border:1px solid #ffffff2a;padding:2px 5px;border-radius:3px;text-transform:uppercase}
+.c-host{position:absolute;right:7px;bottom:6px;z-index:1;font:600 9px 'JetBrains Mono';letter-spacing:.04em;
+  color:#111;background:var(--acc);padding:2px 5px;border-radius:3px;text-transform:uppercase}
+
+.c-stats{flex:1;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:1px;margin:8px 10px 0;
+  background:#ffffff14;border-radius:7px;overflow:hidden}
+.st{background:#101116;padding:4px 8px 3px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.st .l{font:700 8.5px/1.1 'Archivo';font-stretch:85%;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st .v{font:700 14.5px/1.2 'JetBrains Mono';color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.02em}
+.st .v small{font:500 9.5px 'JetBrains Mono';color:var(--mute);margin-left:3px;letter-spacing:0}
+.st .v sup{font-size:9px}
+.st .n{font:600 8px 'JetBrains Mono';color:var(--acc);margin-left:4px;text-transform:uppercase;letter-spacing:.04em}
+.st.hot .v{color:oklch(0.78 0.15 40)}
+.st.cold .v{color:oklch(0.82 0.09 230)}
+
+.c-foot{display:flex;justify-content:space-between;align-items:center;padding:6px 12px 7px;
+  font:500 8.5px 'JetBrains Mono';color:#ffffff55;letter-spacing:.06em;text-transform:uppercase}
+.c-foot .dots{display:flex;gap:3px}
+.c-foot .dots i{width:5px;height:5px;border-radius:50%;background:#ffffff22}
+.c-foot .dots i.on{background:var(--acc)}
+
+/* ---------- modal ---------- */
+.ov{position:fixed;inset:0;z-index:50;background:#05060acc;backdrop-filter:blur(6px);display:none;
+  align-items:center;justify-content:center;gap:28px}
+.ov.open{display:flex}
+.ov .stage{transform:scale(var(--z,1.45));transform-origin:center}
+.ov .card{cursor:default}
+.ov .card:hover{transform:none}
+.ov .nav{position:fixed;top:50%;translate:0 -50%;width:48px;height:48px;border-radius:50%;border:1px solid #ffffff33;
+  background:#111a;color:#fff;font:600 20px 'Archivo';cursor:pointer}
+.ov .prev{left:24px}.ov .next{right:24px}
+.ov .x{position:fixed;top:18px;right:22px;width:44px;height:44px;border-radius:50%;border:1px solid #ffffff33;background:#111a;color:#fff;font-size:20px;cursor:pointer}
+.ov .hint{position:fixed;bottom:18px;left:0;right:0;text-align:center;font:500 11px 'JetBrains Mono';color:var(--mute);letter-spacing:.06em}
+
+/* ---------- print: 63×88mm ---------- */
+@media print{
+  @page{size:A4;margin:8mm}
+  body{background:#fff}
+  .bar,.ov{display:none!important}
+  .grid{padding:0;gap:12px;grid-template-columns:repeat(3,340px);zoom:.68}
+  .card{break-inside:avoid;box-shadow:none}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="brand">Sistema Solar <b>·</b> 30 cartas</div>·</b>Docente Adrián Basedas</div>
+  <div class="chips" id="chips"></div>
+  <select name="select" id="sort" aria-label="Ordenar">
+    <option value="au">Orden: distancia al Sol</option>
+    <option value="orig">Orden: lista original</option>
+    <option value="m">Orden: masa</option>
+    <option value="d">Orden: diámetro</option>
+    <option value="T">Orden: temperatura</option>
+    <option value="g">Orden: gravedad</option>
+    <option value="vo">Orden: vel. orbital</option>
+  </select>
+  <div class="count" id="count"></div>
+</div>
+
+<main class="grid" id="grid"></main>
+
+<div class="ov" id="ov" role="dialog" aria-modal="true">
+  <button class="x" id="ovx" aria-label="Cerrar">✕</button>
+  <button class="nav prev" id="ovp" aria-label="Anterior">‹</button>
+  <div class="stage" id="stage"></div>
+  <button class="nav next" id="ovn" aria-label="Siguiente">›</button>
+  <div class="hint">← → para navegar · Esc para cerrar</div>
+</div>
+
+<script src="../../data.js"></script>
+<script>
+const A = ASTROS.map((a,i)=>({...a, idx:i}));
+const N = A.length;
+
+// "1.407,6" -> 1407.6 ; "2,2e-12" -> 2.2e-12
+const num = s => parseFloat(String(s).split('|')[0].replace(/\./g,'').replace(',','.'));
+
+function fmtVal(raw){
+  let [v,note] = String(raw).split('|');
+  if(v.includes('e')){
+    const [b,e] = v.split('e');
+    v = `${b}×10<sup>${e.replace('-','−')}</sup>`;
+  } else {
+    v = v.replace(/^-/,'−');
+  }
+  return {v, note};
+}
+
+// rarity dots by diameter (log scale) — a quick visual of size
+function sizeDots(d){
+  const x = Math.log10(num(d));         // ~ -0.3 .. 5.1
+  const k = Math.max(1, Math.min(5, Math.round((x+0.5)/1.1)));
+  return Array.from({length:5},(_,i)=>`<i class="${i<k?'on':''}"></i>`).join('');
+}
+
+function cardHTML(a, no){
+  const ty = TYPES[a.t];
+  const imgStyle = [
+    `background-image:url('../../img/${a.id}.jpg')`,
+    a.fit ? `background-size:${a.size||'cover'}` : '',
+    a.pos ? `background-position:${a.pos}` : ''
+  ].join(';');
+  const stats = STATS.map(s=>{
+    const {v,note} = fmtVal(a[s.k]);
+    let cls = '';
+    if(s.k==='T'){ const t=num(a.T); cls = t>100?'hot':t<-150?'cold':''; }
+    let extra = '';
+    if(s.k==='vo' && a.vo2){
+      return `<div class="st"><span class="l">${s.l} · ☉ / ${a.host}</span>
+        <span class="v">${v}<span class="n">/</span> ${a.vo2.replace(/^-/,'−')}<small>${s.u}</small></span></div>`;
+    }
+    const n = note ? `<span class="n">${note==='☉'?'☉':note}</span>` : '';
+    return `<div class="st ${cls}"><span class="l">${s.l}</span><span class="v">${v}<small>${s.u}</small>${n}</span></div>`;
+  }).join('');
+  return `
+  <article class="card" style="--h:${ty.h}" data-i="${a.idx}" data-screen-label="${String(no).padStart(2,'0')} ${a.n}">
+    <div class="card-in">
+      <div class="c-top"><span class="c-no">${String(no).padStart(2,'0')}/${N}</span><span class="c-type">${a.t}</span></div>
+      <h2 class="c-name" title="${a.n}">${a.n}</h2>
+      <div class="c-sub">${a.sub||''}</div>
+      <div class="c-img" style="${imgStyle}">
+        ${a.art?'<span class="c-art">Ilustración</span>':''}
+        ${a.host?`<span class="c-host">Orbita ${a.host}</span>`:''}
+      </div>
+      <div class="c-stats">${stats}</div>
+      <div class="c-foot"><span>${ty.code} · ${a.id.toUpperCase()}</span><span class="dots" title="Tamaño relativo">${sizeDots(a.d)}</span></div>
+    </div>
+  </article>`;
+}
+
+// ---------- state ----------
+const LS = 'astro-cards-v1';
+const st = Object.assign({type:'Todos', sort:'au'}, JSON.parse(localStorage.getItem(LS)||'{}'));
+let view = [];
+
+const chips = document.getElementById('chips');
+const types = ['Todos', ...Object.keys(TYPES)];
+chips.innerHTML = types.map(t=>{
+  const c = t==='Todos' ? '#eceae4' : `oklch(0.78 0.14 ${TYPES[t].h})`;
+  const n = t==='Todos' ? N : A.filter(a=>a.t===t).length;
+  return `<button class="chip" style="--c:${c}" data-t="${t}"><i></i>${t==='Objeto transneptuniano'?'Transneptuniano':t} <span style="opacity:.5">${n}</span></button>`;
+}).join('');
+chips.onclick = e=>{ const b=e.target.closest('.chip'); if(!b) return; st.type=b.dataset.t; render(); };
+const sortSel = document.getElementById('sort');
+sortSel.value = st.sort;
+sortSel.onchange = ()=>{ st.sort=sortSel.value; render(); };
+
+function render(){
+  localStorage.setItem(LS, JSON.stringify(st));
+  chips.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed', b.dataset.t===st.type));
+  view = A.filter(a=>st.type==='Todos'||a.t===st.type);
+  if(st.sort!=='orig'){
+    const dir = (st.sort==='au') ? 1 : -1;
+    view.sort((x,y)=>dir*(num(x[st.sort])-num(y[st.sort])) || x.idx-y.idx);
+  }
+  // card number = position by distance from the Sun across the full set (stable identity)
+  document.getElementById('grid').innerHTML = view.map(a=>cardHTML(a, a.no)).join('');
+  document.getElementById('count').textContent = `${view.length} / ${N} cartas`;
+}
+// stable card numbers: ordered by distance to the Sun
+[...A].sort((x,y)=>num(x.au)-num(y.au)||x.idx-y.idx).forEach((a,i)=>a.no=i+1);
+render();
+
+// ---------- modal ----------
+const ov = document.getElementById('ov'), stage = document.getElementById('stage');
+let cur = -1;
+function fitZoom(){
+  const z = Math.min(1.7, (innerHeight-90)/476, (innerWidth-150)/340);
+  stage.style.setProperty('--z', Math.max(.6,z));
+}
+function open(pos){
+  cur = (pos+view.length)%view.length;
+  const a = view[cur];
+  stage.innerHTML = cardHTML(a, a.no);
+  fitZoom(); ov.classList.add('open');
+}
+document.getElementById('grid').onclick = e=>{
+  const c = e.target.closest('.card'); if(!c) return;
+  open(view.findIndex(a=>a.idx==c.dataset.i));
+};
+const close = ()=>{ ov.classList.remove('open'); cur=-1; };
+document.getElementById('ovx').onclick = close;
+document.getElementById('ovp').onclick = ()=>open(cur-1);
+document.getElementById('ovn').onclick = ()=>open(cur+1);
+ov.onclick = e=>{ if(e.target===ov) close(); };
+addEventListener('resize', fitZoom);
+addEventListener('keydown', e=>{
+  if(cur<0) return;
+  if(e.key==='Escape') close();
+  if(e.key==='ArrowRight') open(cur+1);
+  if(e.key==='ArrowLeft') open(cur-1);
+});
+</script>
+</body>
+</html>

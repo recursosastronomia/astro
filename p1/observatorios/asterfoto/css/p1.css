@@ -1,0 +1,49 @@
+/* =========================================================================
+   Asteroides a la vista (asterfoto) — puente con los estilos de p1
+   -------------------------------------------------------------------------
+   La paleta, las tipografías, el modo noche, el alto contraste, la barra
+   (botón Inicio, marca EDyTIC, botones .l-tema) y el pie (.sitio-pie) vienen
+   de la hoja compartida de p1: ../../css/astro.css (con ../../fonts/ e
+   ../../img/). Aquí solo se traducen las variables --ue-* que usa
+   css/app.css a las variables de p1, y se agregan los pocos valores que
+   astro.css no define. Si cambia la paleta de p1, la app la sigue sola.
+   ========================================================================= */
+:root {
+  --ue-ink: var(--ink); --ue-ink-deep: var(--ink-deep); --ue-ink-soft: var(--ink-soft); --ue-ink-line: var(--ink-line);
+  --ue-on-ink: var(--on-ink); --ue-on-ink-muted: var(--on-ink-muted);
+  --ue-amber: var(--amber); --ue-amber-press: var(--amber-press);
+  --ue-bg: var(--paper); --ue-surface: var(--sheet); --ue-surface-2: var(--grid);
+  --ue-fg: var(--text); --ue-muted: var(--muted); --ue-line: var(--rule);
+  --ue-control-line: #66758f;                 /* bordes de campos: 3:1 sobre blanco */
+  --ue-link: var(--link); --ue-accent-text: #8a5300; --ue-flare: var(--flare);
+  --ue-ok: var(--ok); --ue-ok-bg: #e3f4ee; --ue-err: var(--err); --ue-err-bg: #fbe6e4;
+  --ue-wash: var(--amber-wash); --ue-focus: var(--link);
+  --ue-primary-bg: var(--amber); --ue-primary-fg: var(--ink-deep);
+  --ue-selected-bg: var(--ink); --ue-selected-fg: var(--on-ink);
+  --ue-font-display: var(--font-display); --ue-font-ui: var(--font-ui); --ue-radius: var(--radius);
+  color-scheme: light;
+}
+html[data-theme="dark"] {
+  --ue-control-line: var(--rule-strong); --ue-accent-text: var(--amber);
+  --ue-ok: #6dd5b9; --ue-ok-bg: rgba(61, 187, 155, .16); --ue-err: #ef8f86; --ue-err-bg: rgba(229, 100, 90, .16);
+  --ue-focus: #fff; --ue-selected-bg: var(--amber); --ue-selected-fg: var(--ink-deep);
+  color-scheme: dark;
+}
+html[data-contrast="alto"] {
+  --ue-control-line: #fff; --ue-accent-text: #ffb627;
+  --ue-ok: #7dffb0; --ue-ok-bg: #000; --ue-err: #ff9e9e; --ue-err-bg: #000; --ue-focus: #fff;
+  --ue-primary-bg: #ffb627; --ue-primary-fg: #000; --ue-selected-bg: #ffb627; --ue-selected-fg: #000;
+}
+
+/* Barra de p1 (.l-barra de astro.css) con el ancho de la app */
+.af-wrap { width: min(100% - 2rem, 72rem); margin-inline: auto; }
+.l-barra .l-barra-acciones { flex-wrap: nowrap; }
+.l-tema svg.ico { stroke-width: 2; }
+@media (max-width: 40rem) {
+  /* en pantallas chicas, la marca queda solo con el título y los botones, solo con íconos */
+  .l-barra .ue-brand-logo, .l-barra .ue-brand-sep { display: none; }
+  .l-tema { padding: .4rem .6rem; }
+  .l-tema .l-tema-txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+/* El pie de p1 deja aire después del contenido */
+.sitio-pie { margin-top: 2.5rem; }

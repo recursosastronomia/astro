@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Duelo de astros</title>
+<meta name="theme-color" content="#0b0d26">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: juego nocturno de observatorio, con datos serios para bachillerato
+   IDEA: naipes de catálogo astronómico, cada carta una ficha técnica de un astro real
+   PICTURE: la mesa de juego con las dos cartas enfrentadas y cada astro dibujado
+   COLOUR and TYPE: noche profunda fija, coral como acento, un color por familia; Oxanium + Atkinson Hyperlegible
+   LAYOUT: mesa arriba (tu carta | marcador | rival), resultado debajo; apila en móvil */
+:root{color-scheme:dark;--bg:#0b0d26;--bg2:#151a45;--ink:#eef0ff;--mut:#a9aed6;--acc:#ff7a59;--card:#f7f8ff;--cink:#14173a;
+--pla:#2fb8d6;--lun:#8f97b3;--ena:#a07cf0;--est:#ff9f43;--rem:#d64bd8}
+:root[data-theme=light],:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:radial-gradient(ellipse at 70% -10%,#26307a 0,transparent 55%),var(--bg);color:var(--ink);font:16px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif;overflow-x:clip;min-height:100vh}
+#sky{position:fixed;inset:0;z-index:-1;pointer-events:none}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding:18px max(5vw,16px) 6px;max-width:1240px;margin:auto}
+h1{font:700 clamp(26px,4vw,40px)/1.05 Oxanium,sans-serif;margin:0;letter-spacing:.01em}
+h1 span{color:var(--acc)}
+h2{font:700 24px/1.1 Oxanium,sans-serif;margin:0 0 12px}
+nav{display:flex;gap:6px;margin-inline-start:auto;flex-wrap:wrap}
+button{font:inherit;color:inherit;cursor:pointer}
+.tab,.btn{min-height:44px;padding:8px 16px;border-radius:10px;border:1px solid #3a4180;background:var(--bg2)}
+.tab[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.main{background:var(--acc);border-color:var(--acc);color:#1a0d08;font-weight:700}
+button:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+main{max-width:1240px;margin:auto;padding:8px max(5vw,16px) 48px}
+.view[hidden]{display:none}
+.table{display:grid;grid-template-columns:minmax(0,1fr) 190px minmax(0,1fr);gap:20px;align-items:start;margin-top:10px}
+.side h3{font:500 14px Oxanium,sans-serif;color:var(--mut);margin:0 0 8px;display:flex;justify-content:space-between}
+.mid{text-align:center;padding-top:34px;display:grid;gap:14px;justify-items:center}
+.score{font:700 44px/1 Oxanium,sans-serif}.score small{display:block;font:400 13px "Atkinson Hyperlegible";color:var(--mut);margin-top:4px}
+.pile{display:flex;gap:18px;justify-content:center}
+.dirlab{font-size:13px;color:var(--mut);margin-bottom:-8px}
+.card{background:var(--card);color:var(--cink);border-radius:18px;overflow:hidden;box-shadow:0 18px 40px #0008,0 0 0 1px #fff3 inset;max-width:400px;margin:auto;transition:transform .5s}
+.card .top{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;color:#fff;font:700 13px Oxanium,sans-serif}
+.card .art{height:150px;background:#070923;display:block;width:100%}
+.card .nm{font:700 24px/1.1 Oxanium,sans-serif;padding:12px 14px 2px}
+.card .ty{padding:0 14px 8px;font-size:13px;color:#555b80}
+.rows{display:grid;padding:0 8px 10px}
+.row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;min-height:44px;padding:6px 8px;border:0;border-top:1px solid #e1e3f2;background:transparent;text-align:start;border-radius:8px;color:inherit;font-size:15px}
+.row b{font-variant-numeric:tabular-nums;white-space:nowrap;text-align:end}
+button.row:hover{background:#ffe6de}
+.row.sel{background:#ffd6c9;outline:2px solid var(--acc)}
+.row.win{background:#d7f5e4}.row.lose{background:#f6dede}
+.fact{font-size:13px;color:#3b4068;padding:8px 14px 14px;margin:0;border-top:1px dashed #cfd2e8}
+.back{aspect-ratio:400/520;max-width:400px;margin:auto;border-radius:18px;background:repeating-linear-gradient(45deg,#1d2363 0 10px,#232a75 10px 20px);border:6px solid #f7f8ff;display:grid;place-items:center;box-shadow:0 18px 40px #0008}
+.back svg{width:45%}
+#msg{margin:22px auto 0;max-width:820px;background:var(--bg2);border:1px solid #3a4180;border-radius:14px;padding:16px 18px;min-height:72px}
+#msg p{margin:4px 0}
+#msg .big{font:700 20px/1.25 Oxanium,sans-serif}
+.cmp{margin:10px 0 4px;display:grid;gap:6px}
+.bar{display:grid;grid-template-columns:7.5em 1fr;gap:8px;align-items:center;font-size:13px}
+.bar i{display:block;height:12px;border-radius:6px;background:var(--acc)}
+.bar i.c{background:#7aa7ff}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.opts{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-top:8px;color:var(--mut);font-size:15px}
+select{font:inherit;min-height:44px;font-size:16px;border-radius:10px;background:var(--bg2);color:var(--ink);border:1px solid #3a4180;padding:6px 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px;margin-top:16px}
+.grid .card{max-width:none}
+.rank{counter-reset:r}
+.prose{max-width:70ch}
+.prose li{margin:6px 0}
+.note{font-size:13px;color:var(--mut)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14px;margin:10px 0}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--c);margin-inline-end:6px;vertical-align:-1px}
+.flip{animation:flip .5s}
+@keyframes flip{from{transform:rotateY(90deg)}to{transform:none}}
+@media(prefers-reduced-motion:reduce){.flip{animation:none}.card{transition:none}}
+@media(max-width:820px){.table{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.mid{grid-column:1/-1;grid-row:1;padding-top:0;grid-template-columns:auto auto 1fr;align-items:center;text-align:start}.mid .dirwrap{grid-column:1/-1}}
+@media(max-width:600px){.table{grid-template-columns:minmax(0,1fr)}.mid{grid-template-columns:1fr 1fr}.score{font-size:34px}nav{margin-inline-start:0}}
+.lobby{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;margin-top:14px}
+.panel{background:var(--bg2);border:1px solid #3a4180;border-radius:16px;padding:18px;display:grid;gap:12px;align-content:start}
+.panel h2{margin:0}
+.panel p{margin:0;color:var(--mut)}
+input{font:inherit;font-size:16px;min-height:44px;border-radius:10px;border:1px solid #3a4180;background:#0b0d26;color:var(--ink);padding:8px 12px;width:100%}
+input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.code{text-transform:uppercase;letter-spacing:.3em;font:700 22px Oxanium,sans-serif}
+label.f{display:grid;gap:6px;font-size:15px}
+.inv{border-color:var(--acc);background:#2a1d3f}
+.sala{display:grid;grid-template-columns:auto minmax(0,1fr);gap:28px;align-items:center;max-width:820px;margin:20px auto}
+#qr{background:#fff;padding:14px;border-radius:16px;width:max-content}
+#qr img,#qr canvas{display:block;width:240px;height:240px}
+.big-code{font:700 clamp(44px,9vw,72px)/1 Oxanium,sans-serif;letter-spacing:.12em;color:var(--acc)}
+.err{color:#ffb4a2;min-height:1.4em;margin:0}
+.wait{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--acc);margin-inline-end:8px;animation:pul 1.2s infinite}
+@keyframes pul{50%{opacity:.25}}
+details{color:var(--mut)}summary{cursor:pointer;min-height:44px;display:flex;align-items:center}
+.status{font-size:14px;color:var(--mut)}.status.ok{color:#8be0a8}
+@media(max-width:600px){.sala{grid-template-columns:1fr;justify-items:center;text-align:center}#qr img,#qr canvas{width:200px;height:200px}}
+@media(prefers-reduced-motion:reduce){.wait{animation:none}}
+</style>
+</head>
+<body>
+<svg id="sky" aria-hidden="true"></svg>
+<header>
+  <h1>Duelo de <span>astros</span></h1>
+  <nav role="tablist" aria-label="Secciones">
+    <button class="tab" role="tab" aria-selected="true" data-v="jugar">Jugar</button>
+    <button class="tab" role="tab" aria-selected="false" data-v="catalogo">Catálogo</button>
+    <button class="tab" role="tab" aria-selected="false" data-v="reglas">Cómo se juega</button>
+  </nav>
+</header>
+<main>
+<section class="view" id="v-jugar">
+  <!-- inicio -->
+  <div id="inicio">
+    <div class="panel inv" id="invitacion" hidden>
+      <h2>Te invitaron a la partida <span id="invcod"></span></h2>
+      <label class="f">Tu nombre<input id="nom2" maxlength="20" autocomplete="nickname"></label>
+      <button class="btn main" id="unirInv">Unirme a la partida</button>
+      <p class="err" id="errInv" role="alert"></p>
+    </div>
+    <div class="lobby">
+      <div class="panel">
+        <h2>Partida entre dos celulares</h2>
+        <label class="f">Tu nombre<input id="nom" maxlength="20" autocomplete="nickname" placeholder="Ej.: Lucía"></label>
+        <button class="btn main" id="crear">Crear partida e invitar</button>
+        <p class="err" id="errCrear" role="alert"></p>
+        <button class="btn" id="volver" hidden></button>
+      </div>
+      <div class="panel">
+        <h2>Unirme con un código</h2>
+        <p>Si no podés escanear el QR, escribí el código de 4 letras que muestra el otro celular.</p>
+        <input id="cod" class="code" maxlength="4" autocomplete="off" aria-label="Código de la partida" placeholder="ABCD">
+        <button class="btn main" id="unir">Unirme</button>
+        <p class="err" id="errUnir" role="alert"></p>
+      </div>
+      <div class="panel">
+        <h2>Práctica</h2>
+        <p>Una partida contra la computadora, en este mismo celular.</p>
+        <label class="f">Rival<select id="dif"><option value="f">Principiante</option><option value="d" selected>Astrónoma experta</option></select></label>
+        <button class="btn" id="practica">Practicar</button>
+      </div>
+    </div>
+    <details style="margin-top:22px"><summary>Conexión con la planilla</summary>
+      <div class="panel" style="margin-top:8px">
+        <p>URL de la aplicación web de Apps Script (termina en <code>/exec</code>). Se guarda en este celular y viaja dentro del QR, así el invitado no tiene que configurarla.</p>
+        <input id="apiUrl" inputmode="url" placeholder="https://script.google.com/macros/s/…/exec">
+        <button class="btn" id="guardarApi">Guardar y probar</button>
+        <p class="status" id="estadoApi" aria-live="polite"></p>
+      </div>
+    </details>
+  </div>
+  <!-- sala de espera -->
+  <div id="sala" hidden>
+    <div class="sala">
+      <div id="qr" aria-label="Código QR para unirse"></div>
+      <div>
+        <p class="status">Código de la partida</p>
+        <div class="big-code" id="salaCod"></div>
+        <p style="margin:14px 0"><span class="wait"></span>Esperando que el otro celular escanee el QR…</p>
+        <p class="note">Con la cámara del otro celular, apuntá al código. Se abre el juego y solo tiene que poner su nombre.</p>
+        <div class="actions"><button class="btn" id="cancelar">Cancelar partida</button></div>
+      </div>
+    </div>
+  </div>
+  <!-- mesa -->
+  <div id="mesa" hidden>
+    <div class="opts"><span id="vs"></span><button class="btn" id="salir" style="margin-inline-start:auto">Salir</button></div>
+    <div class="table">
+      <div class="side"><h3><span id="lblYo">Tu carta</span><span id="pn"></span></h3><div id="pcard"></div></div>
+      <div class="mid">
+        <div class="score" id="sp">0<small>tus cartas</small></div>
+        <div class="score" id="sc">0<small>rival</small></div>
+        <div class="dirwrap" style="display:grid;gap:12px;width:100%">
+          <div class="dirlab">Gana el valor más alto</div>
+          <div class="note" id="info"></div>
+        </div>
+      </div>
+      <div class="side"><h3><span id="lblRiv">Carta rival</span><span id="cn"></span></h3><div id="ccard"></div></div>
+    </div>
+    <div id="msg" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="view" id="v-catalogo" hidden>
+  <h2>Las cartas del mazo</h2>
+  <div class="opts"><label>Ordenar por <select id="orden"></select></label><label>Familia <select id="fam"><option value="">Todas</option></select></label></div>
+  <div class="legend" id="leg"></div>
+  <div class="grid" id="cat"></div>
+</section>
+<section class="view prose" id="v-reglas" hidden>
+  <h2>Cómo se juega</h2>
+  <ol>
+    <li>Un celular crea la partida y muestra un código QR. El otro lo escanea con la cámara, escribe su nombre y entra.</li>
+    <li>Se reparten todas las cartas lo más parejo posible. Cada jugador tiene su pila boca arriba, pero solo ve su primera carta; el rival no la ve.</li>
+    <li>Empieza un jugador elegido al azar: elige un dato de su carta, por ejemplo la masa. Se comparan los valores de ese dato en las dos cartas y <b>gana el valor más alto</b>.</li>
+    <li>Quien gana se lleva las dos cartas, las pone al fondo de su pila y elige el dato en la carta siguiente.</li>
+    <li>Si hay empate, las dos cartas van al centro de la mesa y sigue eligiendo el mismo jugador. Quien gane la próxima ronda se lleva también las cartas del centro.</li>
+    <li>Se juega hasta que alguien se queda sin cartas. <b>Gana quien junta todo el mazo.</b></li>
+  </ol>
+  <p class="note">Cada partida y cada jugada quedan registradas en la planilla del docente, en las hojas Partidas y Jugadas.</p>
+  <h2 style="margin-top:28px">Qué significa cada dato</h2>
+  <ul>
+    <li><b>Masa:</b> en masas terrestres (M⊕) para objetos chicos y en masas solares (M☉) para estrellas y remanentes.</li>
+    <li><b>Radio:</b> radio medio en km, o en radios solares (R☉) cuando es mayor a medio Sol. En los agujeros negros es el radio del horizonte de sucesos (radio de Schwarzschild).</li>
+    <li><b>Temperatura:</b> media de superficie en planetas y lunas (en los gigantes gaseosos, al nivel de 1 bar); temperatura efectiva en estrellas; temperatura de Hawking en agujeros negros, que es casi cero.</li>
+    <li><b>Distancia al Sol:</b> media de la órbita en unidades astronómicas (UA); las lunas usan la de su planeta. Fuera del Sistema Solar, en años luz.</li>
+    <li><b>Densidad:</b> masa dividida por volumen, calculada por el juego a partir de la masa y el radio. En los agujeros negros es un valor simbólico: la masa repartida dentro del horizonte.</li>
+  </ul>
+  <p class="note">Los valores son aproximados y redondeados. En estrellas como Betelgeuse o Antares la masa, el radio y la distancia tienen bastante incertidumbre, y en las estrellas de neutrones la masa y el radio se estiman con modelos.</p>
+  <h2 style="margin-top:28px">Ideas para clase</h2>
+  <ul>
+    <li>Antes de jugar, que cada equipo prediga cuál es el astro más denso y cuál el más caliente; después lo verifican en el Catálogo.</li>
+    <li>Hablar sobre qué dato conviene elegir con cada tipo de carta: un agujero negro gana casi siempre en masa, pero pierde siempre en temperatura.</li>
+    <li>Discutir por qué un agujero negro supermasivo puede tener una "densidad" menor que el aire, y por qué esa densidad no describe lo que hay adentro.</li>
+    <li>Calcular a mano la densidad de una carta con ρ = M / (4/3·π·R³) y compararla con la del juego.</li>
+  </ul>
+</section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+{
+/* ===== Configuración: si querés, pegá acá la URL /exec de Apps Script. También se puede cargar desde la app. ===== */
+const API_POR_DEFECTO = "";
+
+const MS=1.989e30,RS=695700,ME=5.972e24,UA=1.581e-5;
+const FAM={pla:["Planeta","var(--pla)"],lun:["Luna","var(--lun)"],ena:["Planeta enano","var(--ena)"],est:["Estrella","var(--est)"],rem:["Remanente estelar","var(--rem)"]};
+const ATTR=[["m","Masa"],["r","Radio"],["T","Temperatura"],["d","Distancia al Sol"],["rho","Densidad"]];
+const AN=Object.fromEntries(ATTR);
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const LS={get(k,d){try{const v=localStorage.getItem("astros-"+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("astros-"+k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem("astros-"+k)}catch(e){}}};
+let CARDS=[],BYID={},PARAMS={segundos_actualizacion:2,rondas_tope:300};
+
+/* ---------- mazo desde la planilla ---------- */
+function cargarCartas(lista){
+ CARDS=lista.map(r=>{let a={};try{a=JSON.parse(r.arte)}catch(e){}
+  const m=+r.masa_kg,rad=+r.radio_km;
+  return{id:+r.id,n:String(r.nombre),f:FAM[r.familia]?r.familia:"pla",t:String(r.tipo),a:a&&a.k?a:{k:"m",c:["#ccc","#777"]},x:String(r.dato||""),
+   v:{m,r:rad,T:+r.temp_K,d:+r.dist_al,rho:m*1000/(4/3*Math.PI*(rad*1e5)**3)}}});
+ BYID=Object.fromEntries(CARDS.map(c=>[c.id,c]));catalogo()}
+function api(accion,p={}){const url=getApi();if(!url)return Promise.reject(new Error("Falta conectar la planilla (abajo, en «Conexión con la planilla»)."));
+ return fetch(url+"?"+new URLSearchParams({accion,...p,_:Date.now()})).then(r=>{if(!r.ok)throw new Error("El servidor respondió "+r.status);return r.json()})
+  .catch(e=>{throw e instanceof SyntaxError||e.message==="Failed to fetch"?new Error("No se pudo conectar con la planilla. Revisá la URL y la conexión."):e})
+  .then(j=>{if(j.error)throw new Error(j.error);return j})}
+function getApi(){return LS.get("api","")||API_POR_DEFECTO}
+function traerMazo(){return api("mazo").then(j=>{LS.set("mazo",j.cartas);PARAMS={...PARAMS,...j.params};cargarCartas(j.cartas);
+ $("estadoApi").textContent=`Conectada: ${j.cartas.length} cartas en el mazo.`;$("estadoApi").className="status ok"})
+ .catch(e=>{$("estadoApi").textContent=e.message;$("estadoApi").className="status"})}
+
+/* ---------- vistas ---------- */
+function ver(v){document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.v===v));
+ document.querySelectorAll(".view").forEach(s=>s.hidden=s.id!=="v-"+v);if(v==="catalogo")catalogo()}
+function pantalla(p){["inicio","sala","mesa"].forEach(x=>$(x).hidden=x!==p);ver("jugar");window.scrollTo(0,0)}
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>ver(t.dataset.v));
+
+
+// formatos
+const sup=s=>s.replace(/[-0-9]/g,c=>"⁻⁰¹²³⁴⁵⁶⁷⁸⁹"["-0123456789".indexOf(c)]);
+const loc=(x,d=2)=>x.toLocaleString("es-UY",{maximumSignificantDigits:d+1});
+function num(x,d=2){if(x===0)return"0";const e=Math.floor(Math.log10(Math.abs(x)));if(e>=-2&&e<6)return loc(x,d);const m=x/10**e;return loc(m,d)+" × 10"+sup(String(e))}
+function fmt(k,v){
+ if(k==="m")return v<1e3*ME?num(v/ME)+" M⊕":num(v/MS)+" M☉";
+ if(k==="r")return v<.5*RS?num(v)+" km":num(v/RS)+" R☉";
+ if(k==="T")return num(v)+" K";
+ if(k==="d")return v===0?"0":v<.05?num(v/UA)+" UA":num(v)+" años luz";
+ return num(v)+" g/cm³"}
+function tcol(T){return T<3300?"#ff7a3d":T<4500?"#ffad5c":T<5400?"#ffd98a":T<6500?"#fff3d6":T<11000?"#e4ecff":"#a8c2ff"}
+// arte
+function art(c,uid){const a=c.a,g="g"+uid;let s=`<svg class="art" viewBox="0 0 400 150" role="img" aria-label="${c.n}"><defs>`;
+ const stars=[...Array(14)].map((_,i)=>`<circle cx="${(i*97+uid*31)%400}" cy="${(i*53+uid*17)%150}" r="${i%3?.7:1.2}" fill="#fff" opacity=".7"/>`).join("");
+ if(a.k==="p"||a.k==="m"){s+=`<radialGradient id="${g}" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="${a.c[0]}"/><stop offset="1" stop-color="${a.c[1]}"/></radialGradient><clipPath id="k${g}"><circle cx="200" cy="75" r="52"/></clipPath></defs>${stars}`;
+  if(a.r)s+=`<ellipse cx="200" cy="75" rx="96" ry="22" fill="none" stroke="#e8d6a8" stroke-width="7" opacity=".55"/>`;
+  s+=`<circle cx="200" cy="75" r="52" fill="url(#${g})"/>`;
+  if(a.b)s+=`<g clip-path="url(#k${g})" opacity=".35">${[0,1,2,3,4].map(i=>`<rect x="140" y="${36+i*17}" width="120" height="${5+i%2*4}" fill="${i%2?a.c[1]:"#fff"}"/>`).join("")}</g>`;
+  if(a.e)s+=`<g clip-path="url(#k${g})" fill="#4caf6a" opacity=".85"><ellipse cx="185" cy="62" rx="20" ry="13"/><ellipse cx="222" cy="96" rx="14" ry="18"/></g>`;
+  if(a.k==="m")s+=`<g fill="#000" opacity=".16"><circle cx="182" cy="60" r="9"/><circle cx="220" cy="84" r="12"/><circle cx="196" cy="102" r="6"/><circle cx="226" cy="54" r="5"/></g>`;
+  if(a.r)s+=`<path d="M104 75 A96 22 0 0 0 296 75" fill="none" stroke="#f6e8c0" stroke-width="7" opacity=".8"/>`;
+  s+=`<circle cx="200" cy="75" r="52" fill="none" stroke="#fff" stroke-opacity=".25"/>`}
+ else if(a.k==="s"){const col=tcol(c.v.T),R=Math.min(62,22+Math.log10(c.v.r/RS*10+1)*18);
+  s+=`<radialGradient id="${g}"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="${col}"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></radialGradient></defs>${stars}<circle cx="200" cy="75" r="${R*1.9}" fill="url(#${g})" opacity=".55"/><circle cx="200" cy="75" r="${R}" fill="${col}"/><circle cx="${200-R*.25}" cy="${75-R*.25}" r="${R*.55}" fill="#fff" opacity=".35"/>`}
+ else if(a.k==="w"){s+=`<radialGradient id="${g}"><stop offset="0" stop-color="#fff"/><stop offset=".3" stop-color="${tcol(c.v.T)}"/><stop offset="1" stop-color="#9cc0ff" stop-opacity="0"/></radialGradient></defs>${stars}<circle cx="200" cy="75" r="44" fill="url(#${g})"/><circle cx="200" cy="75" r="9" fill="#fff"/>`}
+ else if(a.k==="n"){s+=`<linearGradient id="${g}" x1="0" x2="1"><stop offset="0" stop-color="#7ab8ff" stop-opacity="0"/><stop offset=".5" stop-color="#bfe0ff"/><stop offset="1" stop-color="#7ab8ff" stop-opacity="0"/></linearGradient></defs>${stars}<g transform="rotate(-28 200 75)"><polygon points="200,75 180,-20 220,-20" fill="#bfe0ff" opacity=".45"/><polygon points="200,75 180,170 220,170" fill="#bfe0ff" opacity=".45"/></g><circle cx="200" cy="75" r="30" fill="#bfe0ff" opacity=".2"/><circle cx="200" cy="75" r="8" fill="#fff"/>`}
+ else{s+=`<radialGradient id="${g}"><stop offset=".45" stop-color="#ffcf7a"/><stop offset=".7" stop-color="#ff6a2a"/><stop offset="1" stop-color="#ff6a2a" stop-opacity="0"/></radialGradient></defs>${stars}<ellipse cx="200" cy="80" rx="110" ry="26" fill="url(#${g})"/><circle cx="200" cy="75" r="40" fill="none" stroke="#ffcf7a" stroke-width="5" opacity=".9"/><circle cx="200" cy="75" r="36" fill="#000"/><path d="M90 80 Q200 112 310 80" fill="none" stroke="#ffe0a0" stroke-width="5" opacity=".9"/>`}
+ return s+"</svg>"}
+function cardHTML(c,o={}){const[fn,fc]=FAM[c.f];
+ const rows=ATTR.map(([k,l])=>{const cls=o.mark&&o.mark.k===k?(o.mark.r):"";const tag=o.click?"button":"div";
+  return `<${tag} class="row ${cls}" ${o.click?`data-k="${k}" aria-label="${l}: ${fmt(k,c.v[k])}"`:""}><span>${l}</span><b>${fmt(k,c.v[k])}</b></${tag}>`}).join("");
+ return `<article class="card ${o.flip?"flip":""}"><div class="top" style="background:${fc}"><span>${fn}</span><span>N.º ${c.id+1}</span></div>${art(c,c.id+(o.u||0))}<div class="nm">${c.n}</div><div class="ty">${c.t}</div><div class="rows">${rows}</div><p class="fact">${c.x}</p></article>`}
+const BACK=`<div class="back" aria-label="Carta boca abajo"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="22" fill="#ff7a59"/><ellipse cx="50" cy="50" rx="44" ry="12" fill="none" stroke="#f7f8ff" stroke-width="4" transform="rotate(-20 50 50)"/></svg></div>`;
+
+/* ---------- mesa (común a práctica y en línea) ---------- */
+function mesa(o){// o: mia, suya(null=dorso), nYo,nRiv,pozo,ronda,max,elegir,mark,nomRiv,info
+ $("sp").firstChild.textContent=o.nYo;$("sc").firstChild.textContent=o.nRiv;$("sc").lastChild.textContent=o.nomRiv||"rival";
+ $("lblRiv").textContent=o.nomRiv?"Carta de "+o.nomRiv:"Carta rival";
+ $("pn").textContent=o.ronda?`Ronda ${o.ronda}`:"";$("cn").textContent=o.pozo?`Pozo: ${o.pozo}`:"";
+ $("pcard").innerHTML=o.mia?cardHTML(o.mia,{click:o.elegir,mark:o.mark&&{k:o.mark.k,r:o.mark.pr}}):"";
+ $("ccard").innerHTML=o.suya?cardHTML(o.suya,{flip:1,u:50,mark:o.mark&&{k:o.mark.k,r:o.mark.cr}}):BACK;
+ $("info").textContent=o.info||""}
+let onElegir=null;
+$("pcard").addEventListener("click",e=>{const b=e.target.closest("button.row");if(b&&onElegir)onElegir(b.dataset.k)});
+function ratio(a,b){if(Math.min(a,b)<=0)return null;const r=Math.max(a,b)/Math.min(a,b);return r<1.005?null:r}
+function resultado(u,nomRiv,fin,boton){// u: k,quien('yo'|'riv'),res('yo'|'riv'|'e'),pc,cc
+ const{k,pc,cc,res}=u,W=res==="yo"?pc:cc,L=res==="yo"?cc:pc,r=ratio(pc.v[k],cc.v[k]),nom=AN[k][0].toLowerCase()+AN[k].slice(1);
+ const exp=res==="e"?`Empate: las dos tienen la misma ${nom}. Las cartas van al centro de la mesa y ${u.quien==="yo"?"seguís eligiendo vos":esc(nomRiv)+" sigue eligiendo"}.`:
+  `${esc(W.n)} gana con ${fmt(k,W.v[k])} contra ${fmt(k,L.v[k])}.`+(r?` Su ${nom} es ${r>=1000?num(r,1):loc(r,1)} veces mayor.`:"")+(u.pozo?` También se lleva las ${u.pozo} cartas del centro.`:"");
+ const lg=v=>v<=0?0:Math.log10(v),mn=Math.min(lg(pc.v[k]),lg(cc.v[k]))-1,mx=Math.max(lg(pc.v[k]),lg(cc.v[k])),w=v=>v<=0?2:Math.max(4,(lg(v)-mn)/(mx-mn||1)*100);
+ const head=res==="yo"?"¡Ganaste la ronda!":res==="riv"?`La ronda es de ${esc(nomRiv)}`:"¡Empate!";
+ $("msg").innerHTML=`<p class="big">${head}</p><p>${u.quien==="yo"?"Elegiste":esc(nomRiv)+" eligió"} <b>${AN[k]}</b>. ${exp}</p>
+ <div class="cmp" aria-hidden="true"><div class="bar"><span>${esc(pc.n)}</span><i style="width:${w(pc.v[k])}%"></i></div><div class="bar"><span>${esc(cc.n)}</span><i class="c" style="width:${w(cc.v[k])}%"></i></div><span class="note">Barras en escala logarítmica</span></div>
+ <div class="actions"><button class="btn main" id="sig">${fin?"Ver resultado":"Siguiente ronda"}</button></div>`;
+ $("sig").onclick=boton;$("sig").focus({preventScroll:true});if(innerWidth<821)$("msg").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"})}
+function pantallaFinal(nYo,nRiv,nomRiv,extra){const t=nYo>nRiv?"¡Ganaste la partida!":nYo<nRiv?`Ganó ${esc(nomRiv)}`:"Partida empatada";
+ $("msg").innerHTML=`<p class="big">${t}</p><p>Terminás con ${nYo} cartas y ${esc(nomRiv)} con ${nRiv}.${extra||""}</p><div class="actions"><button class="btn main" id="otra">Volver al inicio</button><button class="btn" id="vcat">Repasar en el catálogo</button></div>`;
+ $("otra").onclick=()=>{salirMesa()};$("vcat").onclick=()=>ver("catalogo");$("otra").focus()}
+
+/* ---------- práctica contra la computadora ---------- */
+let P=null;const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+function practica(){if(!CARDS.length){$("errCrear").textContent="Primero hay que conectar la planilla para cargar el mazo.";return}
+ detenerOnline();const d=shuffle(CARDS.map(c=>c.id));
+ P={p:d.filter((_,i)=>i%2===0),c:d.filter((_,i)=>i%2===1),pot:[],turn:Math.random()<.5?"p":"c",round:0,max:PARAMS.rondas_tope||300,won:0,lost:0};
+ $("vs").textContent="Práctica contra la computadora";pantalla("mesa");turnoP()}
+function vistaP(){return{mia:BYID[P.p[0]],suya:null,nYo:P.p.length,nRiv:P.c.length,pozo:P.pot.length,ronda:Math.min(P.round+1,P.max),max:P.max,nomRiv:"la computadora"}}
+function turnoP(){const yo=P.turn==="p";onElegir=yo?k=>resolverP(k,"yo"):null;
+ mesa({...vistaP(),elegir:yo,info:yo?"Tocá el dato de tu carta con el que creés que ganás.":"Elige la computadora…"});
+ $("msg").innerHTML=yo?`<p class="big">Tu turno</p><p>Elegí el dato con el que creés que le ganás a la carta rival.</p>`:`<p class="big">Turno de la computadora</p><p><span class="wait"></span>Está mirando su carta…</p>`;
+ if(!yo)setTimeout(cpu,1100)}
+function cpu(){if(!P)return;const me=BYID[P.c[0]],pool=CARDS.filter(c=>!P.c.includes(c.id)),best=[];
+ for(const[k]of ATTR)best.push({k,w:pool.filter(o=>me.v[k]>o.v[k]).length/pool.length});
+ best.sort((a,b)=>b.w-a.w);const ch=$("dif").value==="d"?best[0]:best[Math.random()*5|0];resolverP(ch.k,"riv")}
+function resolverP(k,quien){onElegir=null;const pid=P.p.shift(),cid=P.c.shift(),pc=BYID[pid],cc=BYID[cid],diff=pc.v[k]-cc.v[k];
+ const res=diff>0?"yo":diff<0?"riv":"e",pozo=res==="e"?0:P.pot.length;P.round++;
+ if(res==="yo"){P.p.push(pid,cid,...P.pot);P.pot=[];P.turn="p";P.won++}else if(res==="riv"){P.c.push(cid,pid,...P.pot);P.pot=[];P.turn="c";P.lost++}else P.pot.push(pid,cid);
+ const fin=!P.p.length||!P.c.length||P.round>=P.max;
+ mesa({mia:pc,suya:cc,nYo:P.p.length,nRiv:P.c.length,pozo:P.pot.length,ronda:P.round,max:P.max,nomRiv:"la computadora",mark:{k,pr:res==="yo"?"win":res==="riv"?"lose":"sel",cr:res==="riv"?"win":res==="yo"?"lose":"sel"}});
+ resultado({k,quien,res,pc,cc,pozo},"la computadora",fin,fin?()=>{mesa({...vistaP(),mia:null});pantallaFinal(P.p.length,P.c.length,"la computadora",` Rondas ganadas: ${P.won} · perdidas: ${P.lost}.`)}:turnoP)}
+
+/* ---------- partida en línea entre dos celulares ---------- */
+let O=null,timer=null,pidiendo=false;
+function guardarSesion(){if(O)LS.set("sesion",{cod:O.cod,tok:O.tok})}
+function detenerOnline(){clearTimeout(timer);O=null;onElegir=null}
+function salirMesa(){detenerOnline();P=null;LS.del("sesion");mostrarVolver();pantalla("inicio")}
+function nombre(id){const v=$(id).value.trim();if(v)LS.set("nombre",v);return v}
+function arrancar(cod,tok,v){detenerOnline();P=null;O={cod,tok,visto:v.ult?v.ult.ronda:0,viendo:false,v:null};guardarSesion();dibujar(v);sondear()}
+function sondear(){clearTimeout(timer);if(!O)return;
+ timer=setTimeout(()=>{if(!O)return;if(document.hidden||pidiendo){sondear();return}
+  api("estado",{cod:O.cod,tok:O.tok}).then(j=>{if(O&&j.vista.ver!==O.v.ver)dibujar(j.vista)}).catch(()=>{}).finally(sondear)},(PARAMS.segundos_actualizacion||2)*1000)}
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&O)api("estado",{cod:O.cod,tok:O.tok}).then(j=>O&&dibujar(j.vista)).catch(()=>{})});
+function dibujar(v){O.v=v;
+ if(v.estado==="esperando"){mostrarSala(v.cod);return}
+ if(O.viendo)return;// se está mostrando un resultado; al continuar se dibuja lo nuevo
+ pantalla("mesa");const nomRiv=v.riv?v.riv.nom:"rival";$("vs").innerHTML=`Partida <b>${esc(v.cod)}</b> · ${esc(v.yo.nom)} contra ${esc(nomRiv)}`;
+ if(v.ult&&v.ult.ronda>O.visto){const u=v.ult,pc=BYID[u.mia],cc=BYID[u.suya];O.viendo=true;onElegir=null;
+  const fin=v.estado==="fin"&&u.ronda===v.ronda;
+  mesa({mia:pc,suya:cc,nYo:v.yo.n,nRiv:v.riv.n,pozo:v.pozo,ronda:u.ronda,max:v.max,nomRiv,mark:{k:u.k,pr:u.res==="yo"?"win":u.res==="riv"?"lose":"sel",cr:u.res==="riv"?"win":u.res==="yo"?"lose":"sel"}});
+  resultado({k:u.k,quien:u.quien,res:u.res,pc,cc,pozo:u.pozo},nomRiv,fin,()=>{O.visto=u.ronda;O.viendo=false;dibujar(O.v)});return}
+ if(v.estado==="fin"){mesa({mia:null,suya:null,nYo:v.yo.n,nRiv:v.riv?v.riv.n:0,pozo:v.pozo,ronda:v.ronda,max:v.max,nomRiv});
+  pantallaFinal(v.yo.n,v.riv?v.riv.n:0,nomRiv,v.yo.n&&v.riv&&v.riv.n?(v.ronda>=v.max?" Se llegó al tope de rondas: gana quien tiene más cartas.":" La partida se cerró antes de terminar."):"");clearTimeout(timer);LS.del("sesion");return}
+ const yo=v.turno==="yo";onElegir=yo?k=>jugar(k):null;
+ mesa({mia:BYID[v.yo.top],suya:null,nYo:v.yo.n,nRiv:v.riv.n,pozo:v.pozo,ronda:v.ronda+1,max:v.max,nomRiv,elegir:yo,info:yo?"Tocá el dato de tu carta con el que creés que ganás.":""});
+ $("msg").innerHTML=yo?`<p class="big">Tu turno</p><p>Elegí el dato con el que creés que le ganás a la carta de ${esc(nomRiv)}.</p>`:`<p class="big">Turno de ${esc(nomRiv)}</p><p><span class="wait"></span>Esperando que elija un dato de su carta…</p>`}
+function jugar(k){if(!O||pidiendo)return;onElegir=null;pidiendo=true;$("info").textContent="Enviando…";
+ api("jugar",{cod:O.cod,tok:O.tok,k}).then(j=>dibujar(j.vista))
+  .catch(e=>{$("info").textContent=e.message;onElegir=k=>jugar(k)}).finally(()=>pidiendo=false)}
+function mostrarSala(cod){pantalla("sala");$("salaCod").textContent=cod;const url=enlace(cod);
+ if($("qr").dataset.cod!==cod){$("qr").innerHTML="";$("qr").dataset.cod=cod;
+  try{new QRCode($("qr"),{text:url,width:480,height:480,correctLevel:QRCode.CorrectLevel.M})}catch(e){$("qr").innerHTML=`<p style="color:#000;max-width:240px">No se pudo dibujar el QR. Usá el código.</p>`}}}
+function enlace(cod){const u=new URL(location.href);u.search="";u.hash="";u.searchParams.set("sala",cod);if(getApi()&&getApi()!==API_POR_DEFECTO)u.searchParams.set("api",getApi());return u.toString()}
+function conBoton(btn,err,fn){const b=$(btn);b.disabled=true;$(err).textContent="";fn().catch(e=>$(err).textContent=e.message).finally(()=>b.disabled=false)}
+$("crear").onclick=()=>conBoton("crear","errCrear",()=>{const n=nombre("nom");if(!n)return Promise.reject(new Error("Escribí tu nombre."));
+ return (CARDS.length?Promise.resolve():traerMazo()).then(()=>api("crear",{nom:n})).then(j=>arrancar(j.vista.cod,j.tok,j.vista))});
+function unirse(cod,n,btn,err){conBoton(btn,err,()=>{if(!n)return Promise.reject(new Error("Escribí tu nombre."));if(!/^[A-Z0-9]{4}$/.test(cod))return Promise.reject(new Error("El código tiene 4 letras o números."));
+ return (CARDS.length?Promise.resolve():traerMazo()).then(()=>api("unir",{cod,nom:n})).then(j=>{history.replaceState(null,"",location.pathname);arrancar(cod,j.tok,j.vista)})})}
+$("unir").onclick=()=>unirse($("cod").value.trim().toUpperCase(),nombre("nom"),"unir","errUnir");
+$("unirInv").onclick=()=>unirse($("invcod").textContent,nombre("nom2"),"unirInv","errInv");
+$("practica").onclick=practica;
+$("cancelar").onclick=()=>{if(O)api("abandonar",{cod:O.cod,tok:O.tok}).catch(()=>{});salirMesa()};
+$("salir").onclick=()=>{if(O&&O.v&&O.v.estado!=="fin"){if(!$("salir").dataset.c){$("salir").dataset.c=1;$("salir").textContent="¿Seguro? Tocá otra vez";setTimeout(()=>{$("salir").textContent="Salir";delete $("salir").dataset.c},3000);return}
+  api("abandonar",{cod:O.cod,tok:O.tok}).catch(()=>{})}delete $("salir").dataset.c;$("salir").textContent="Salir";salirMesa()};
+$("guardarApi").onclick=()=>{const u=$("apiUrl").value.trim();LS.set("api",u);$("estadoApi").textContent="Probando…";traerMazo()};
+function mostrarVolver(){const s=LS.get("sesion",null),b=$("volver");b.hidden=!s;if(s){b.textContent=`Volver a la partida ${s.cod}`;
+ b.onclick=()=>conBoton("volver","errCrear",()=>(CARDS.length?Promise.resolve():traerMazo()).then(()=>api("estado",{cod:s.cod,tok:s.tok})).then(j=>arrancar(s.cod,s.tok,j.vista)).catch(e=>{LS.del("sesion");b.hidden=true;throw e}))}}
+
+/* ---------- catálogo ---------- */
+$("orden").innerHTML=`<option value="">Número de carta</option>`+ATTR.map(([k,l])=>`<option value="${k}">${l} (de mayor a menor)</option>`).join("");
+$("fam").innerHTML+=Object.entries(FAM).map(([k,[n]])=>`<option value="${k}">${n}</option>`).join("");
+$("leg").innerHTML=Object.values(FAM).map(([n,c])=>`<span style="--c:${c}">${n}</span>`).join("");
+function catalogo(){const k=$("orden").value,f=$("fam").value;let l=CARDS.filter(c=>!f||c.f===f);if(k)l=[...l].sort((a,b)=>b.v[k]-a.v[k]);
+ $("cat").innerHTML=l.length?l.map(c=>cardHTML(c,{u:100,mark:k&&{k,r:"sel"}})).join(""):`<p class="note">El mazo se carga desde la planilla. Conectala en la pestaña Jugar.</p>`}
+$("orden").onchange=catalogo;$("fam").onchange=catalogo;
+
+/* ---------- arranque ---------- */
+const sky=$("sky");sky.setAttribute("viewBox","0 0 1000 1000");sky.setAttribute("preserveAspectRatio","xMidYMid slice");
+sky.innerHTML=[...Array(160)].map(()=>`<circle cx="${Math.random()*1000}" cy="${Math.random()*1000}" r="${Math.random()*1.3+.2}" fill="#fff" opacity="${Math.random()*.6+.2}"/>`).join("");
+{const q=new URLSearchParams(location.search),api0=q.get("api");if(api0&&/^https:\/\/script\.google(usercontent)?\.com\//.test(api0))LS.set("api",api0);
+ $("nom").value=$("nom2").value=LS.get("nombre","");$("apiUrl").value=getApi();
+ const mz=LS.get("mazo",null);if(mz)cargarCartas(mz);
+ if(getApi())traerMazo();else{$("estadoApi").textContent="Todavía no hay planilla conectada.";document.querySelector("details").open=true}
+ const sala=(q.get("sala")||"").toUpperCase();if(/^[A-Z0-9]{4}$/.test(sala)){$("invitacion").hidden=false;$("invcod").textContent=sala;$("nom2").focus()}
+ mostrarVolver();catalogo()}
+try{if("serviceWorker"in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{})}catch(e){}
+
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es" class="astro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Asteroides a la vista · Astronomía para todos</title>
+  <meta name="description" content="Planificador de observación de asteroides mediante registros fotográficos: qué asteroides fotografiar esta noche, hacia dónde apuntar y cómo detectar su movimiento comparando fotos.">
+  <meta name="theme-color" content="#0b1730">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../img/apple-touch-icon.png">
+  <!-- Modo noche y alto contraste: la misma elección que el resto del portal p1 (astro-tema, astro-contraste).
+       Se aplica antes de pintar para que no parpadee; los botones #tema y #contraste los maneja ../../js/tema.js. -->
+  <script>
+    (function () {
+      var r = document.documentElement, t = null, hc = null;
+      try { t = localStorage.getItem('astro-tema'); hc = localStorage.getItem('astro-contraste'); } catch (e) {}
+      var noche = hc === '1' || t === 'noche' || (!t && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+      if (noche) r.setAttribute('data-theme', 'dark');
+      if (hc === '1') r.setAttribute('data-contrast', 'alto');
+    })();
+  </script>
+  <!-- Estilos, tipografías e imágenes compartidos de p1 (css/astro.css, fonts/, img/) y el puente de la app -->
+  <link rel="preload" href="../../fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../css/astro.css">
+  <link rel="stylesheet" href="css/p1.css?v=2.8">
+  <script src="js/p1-modo.js?v=2.8"></script>
+  <link rel="stylesheet" href="css/app.css?v=2.8">
+</head>
+<body data-doc-title="l.doc">
+  <a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
+
+  <header class="l-barra">
+    <div class="l-barra-in af-wrap">
+      <div class="ue-brand-row">
+        <a href="index.html" class="ue-home" data-i18n-attr="aria-label:homeLabel;title:homeLabel" aria-label="Volver al inicio" title="Volver al inicio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+        </a>
+        <div class="ue-brand">
+          <img class="ue-brand-logo" src="../../img/logo-edytic-marca.png" width="650" height="96" alt="Educación y TIC">
+          <span class="ue-brand-sep" aria-hidden="true"></span>
+          <span class="ue-brand-text"><span class="ue-brand-title">Astronomía para todos</span><span class="ue-brand-sub">DGES · EDyTIC</span></span>
+        </div>
+      </div>
+      <div class="l-barra-acciones">
+        <button type="button" class="l-tema" id="btn-lang" lang="en" aria-label="English version">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          <span class="l-tema-txt" id="btn-lang-txt">English</span>
+        </button>
+        <button type="button" class="l-tema" id="tema" aria-pressed="false">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><span class="l-tema-txt" data-i18n="p1.night">Modo noche</span>
+        </button>
+        <button type="button" class="l-tema" id="contraste" aria-pressed="false">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg><span class="l-tema-txt" data-i18n="p1.hc">Alto contraste</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <nav class="subnav" data-i18n-attr="aria-label:nav.label" aria-label="Secciones del planificador">
+    <ul>
+      <li><a href="index.html" aria-current="page" data-i18n="nav.home">Inicio</a></li>
+      <li><a href="planificador.html" data-i18n="nav.plan">Planificar la observación</a></li>
+      <li><a href="comparador.html" data-i18n="nav.blink">Comparar mis fotos</a></li>
+      <li><a href="fuentes.html" data-i18n="nav.src">Métodos y fuentes</a></li>
+    </ul>
+  </nav>
+
+  <main id="main" tabindex="-1" class="landing">
+    <section class="hero hero-landing">
+      <p class="kicker" data-i18n="l.kicker">Observatorios · Asteroides a la vista</p>
+      <h1 data-i18n="l.title">Fotografía un asteroide moviéndose entre las estrellas</h1>
+      <p class="lead" data-i18n="l.lead"></p>
+      <div class="actions">
+        <a class="btn primary big-btn" href="planificador.html">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>
+          <span data-i18n="l.cta1">Planificar mi observación</span></a>
+        <a class="btn big-btn" href="comparador.html">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="13" height="11" rx="1.5"/><path d="M8 19h13V9"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/></svg>
+          <span data-i18n="l.cta2">Comparar mis fotos</span></a>
+      </div>
+      <p class="hint" data-i18n="l.who"></p>
+      <p class="quicklinks"><a href="#guia" data-i18n="g.h">Guía paso a paso</a> · <a href="#preguntas" data-i18n="f.h">Preguntas frecuentes</a> · <a href="#compartir" data-i18n="sh.h">Comparte tus resultados</a> · <a href="#demo" data-i18n="v.ql">Video demostrativo</a></p>
+    </section>
+
+    <section class="panel" aria-labelledby="ast-h">
+      <h2 id="ast-h" data-i18n="l.ast.h">¿Qué es un asteroide?</h2>
+      <div class="two-col">
+        <div>
+          <p data-i18n-html="l.ast.p1"></p>
+          <p data-i18n-html="l.ast.p2"></p>
+          <p data-i18n-html="l.ast.p3"></p>
+        </div>
+        <figure class="solar">
+          <svg viewBox="0 0 420 420" aria-hidden="true" focusable="false">
+            <rect width="420" height="420" rx="14" class="ss-bg"/>
+            <g class="ss-orbit">
+              <circle cx="210" cy="210" r="52"/><circle cx="210" cy="210" r="78"/><circle cx="210" cy="210" r="186"/>
+            </g>
+            <g class="ss-belt" id="belt"></g>
+            <ellipse cx="270.6" cy="175" rx="110" ry="85" transform="rotate(-30 270.6 175)" class="ss-neo"/>
+            <circle cx="210" cy="210" r="14" class="ss-sun"/>
+            <circle cx="257" cy="186" r="6" class="ss-earth"/>
+            <circle cx="148" cy="258" r="5" class="ss-mars"/>
+            <circle cx="341" cy="78" r="11" class="ss-jup"/>
+            <circle cx="365" cy="160" r="4" class="ss-ast"/>
+            <text x="210" y="240" text-anchor="middle" class="ss-lbl" data-i18n="l.ast.lbl.sun">Sol</text>
+            <text x="267" y="180" class="ss-lbl" data-i18n="l.ast.lbl.earth">Tierra</text>
+            <text x="112" y="276" class="ss-lbl" data-i18n="l.ast.lbl.mars">Marte</text>
+            <text x="356" y="72" class="ss-lbl" data-i18n="l.ast.lbl.jup">Júpiter</text>
+            <text x="34" y="44" class="ss-lbl belt" data-i18n="l.ast.lbl.belt">Cinturón principal</text>
+            <text x="250" y="330" class="ss-lbl neo" data-i18n="l.ast.lbl.neo">Órbita de un NEO</text>
+          </svg>
+          <figcaption data-i18n="l.ast.fig"></figcaption>
+        </figure>
+      </div>
+
+      <div class="photo-row">
+        <figure class="photo"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/PIA19562-Ceres-DwarfPlanet-Dawn-RC3-image19-20150506.jpg" width="925" height="870" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-i18n-attr="alt:l.img.ceres.alt" alt="" onerror="this.closest('figure').hidden=true"><figcaption data-i18n-html="l.img.ceres"></figcaption></figure>
+        <figure class="photo"><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Vesta_full_mosaic.jpg" width="894" height="767" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-i18n-attr="alt:l.img.vesta.alt" alt="" onerror="this.closest('figure').hidden=true"><figcaption data-i18n-html="l.img.vesta"></figcaption></figure>
+        <figure class="photo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/433eros.jpg/500px-433eros.jpg" width="500" height="337" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-i18n-attr="alt:l.img.eros.alt" alt="" onerror="this.closest('figure').hidden=true"><figcaption data-i18n-html="l.img.eros"></figcaption></figure>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="neo-h">
+      <h2 id="neo-h" data-i18n="l.neo.h">¿Y los NEO?</h2>
+      <div class="two-col">
+        <div>
+          <p data-i18n-html="l.neo.p1"></p>
+          <p data-i18n-html="l.neo.p2"></p>
+          <p data-i18n-html="l.neo.p3"></p>
+        </div>
+        <figure class="photo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/All_dimorphos_dart_0401930040_12262_01_iof_imagedisplay-final.png/500px-All_dimorphos_dart_0401930040_12262_01_iof_imagedisplay-final.png" width="500" height="500" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-i18n-attr="alt:l.img.dimorphos.alt" alt="" onerror="this.closest('figure').hidden=true"><figcaption data-i18n-html="l.img.dimorphos"></figcaption></figure>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="how-h">
+      <h2 id="how-h" data-i18n="l.how.h">¿Cómo se «ve» un asteroide?</h2>
+      <p data-i18n-html="l.how.p1"></p>
+      <figure class="blinkdemo" aria-hidden="true">
+        <svg viewBox="0 0 360 140">
+          <g class="bd-frame"><rect x="4" y="4" width="108" height="132" rx="8"/><circle cx="30" cy="30" r="2.6"/><circle cx="80" cy="44" r="1.8"/><circle cx="50" cy="96" r="2.2"/><circle cx="92" cy="112" r="1.6"/><circle cx="24" cy="120" r="1.4"/><circle class="bd-ast" cx="44" cy="62" r="2.4"/></g>
+          <g class="bd-frame" transform="translate(124 0)"><rect x="4" y="4" width="108" height="132" rx="8"/><circle cx="30" cy="30" r="2.6"/><circle cx="80" cy="44" r="1.8"/><circle cx="50" cy="96" r="2.2"/><circle cx="92" cy="112" r="1.6"/><circle cx="24" cy="120" r="1.4"/><circle class="bd-ast" cx="60" cy="70" r="2.4"/></g>
+          <g class="bd-frame" transform="translate(248 0)"><rect x="4" y="4" width="108" height="132" rx="8"/><circle cx="30" cy="30" r="2.6"/><circle cx="80" cy="44" r="1.8"/><circle cx="50" cy="96" r="2.2"/><circle cx="92" cy="112" r="1.6"/><circle cx="24" cy="120" r="1.4"/><circle class="bd-ast" cx="76" cy="78" r="2.4"/></g>
+        </svg>
+      </figure>
+      <p data-i18n-html="l.how.p2"></p>
+      <figure class="photo wide"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Pluto_discovery_plates.png/960px-Pluto_discovery_plates.png" width="960" height="594" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-i18n-attr="alt:l.img.pluto.alt" alt="" onerror="this.closest('figure').hidden=true"><figcaption data-i18n-html="l.img.pluto"></figcaption></figure>
+      <h3 data-i18n="l.steps.h">Tres pasos</h3>
+      <ol class="steps3">
+        <li><h4 data-i18n="l.s1.h">1. Planificar</h4><p data-i18n="l.s1.p"></p><a href="planificador.html" data-i18n="l.cta1">Planificar mi observación</a></li>
+        <li><h4 data-i18n="l.s2.h">2. Fotografiar</h4><p data-i18n="l.s2.p"></p></li>
+        <li><h4 data-i18n="l.s3.h">3. Comparar</h4><p data-i18n="l.s3.p"></p><a href="comparador.html" data-i18n="l.cta2">Comparar mis fotos</a></li>
+      </ol>
+    </section>
+
+    <section class="panel guide" id="guia" aria-labelledby="g-h">
+      <h2 id="g-h" data-i18n="g.h">Guía paso a paso</h2>
+      <p data-i18n="g.intro"></p>
+      <h3 data-i18n="g.a">Antes de salir</h3>
+      <ol class="guide-list" start="1">
+        <li data-i18n-html="g.1"></li><li data-i18n-html="g.2"></li><li data-i18n-html="g.3"></li><li data-i18n-html="g.4"></li><li data-i18n-html="g.5"></li>
+      </ol>
+      <h3 data-i18n="g.b">Durante la observación</h3>
+      <ol class="guide-list" start="6">
+        <li data-i18n-html="g.6"></li><li data-i18n-html="g.7"></li><li data-i18n-html="g.8"></li>
+      </ol>
+      <h3 data-i18n="g.c">Después</h3>
+      <ol class="guide-list" start="9">
+        <li data-i18n-html="g.9"></li><li data-i18n-html="g.10"></li><li data-i18n-html="g.11"></li>
+      </ol>
+      <div class="actions">
+        <a class="btn primary" href="planificador.html" data-i18n="l.cta1">Planificar mi observación</a>
+        <a class="btn" href="comparador.html" data-i18n="l.cta2">Comparar mis fotos</a>
+      </div>
+    </section>
+
+    <section class="panel share" id="compartir" aria-labelledby="sh-h">
+      <h2 id="sh-h" data-i18n="sh.h">Comparte tus resultados</h2>
+      <p class="tags" aria-hidden="true">#asterfoto</p>
+      <p data-i18n-html="sh.p1"></p>
+      <p data-i18n="sh.p2"></p>
+      <p class="hint" data-i18n="sh.p3"></p>
+      <p><a class="btn" href="comparador.html" data-i18n="sh.cta">Ir al comparador y crear el video</a></p>
+    </section>
+
+    <section class="panel faq" id="preguntas" aria-labelledby="f-h">
+      <h2 id="f-h" data-i18n="f.h">Preguntas frecuentes</h2>
+      <details><summary data-i18n="f.1q"></summary><div data-i18n-html="f.1a"></div></details>
+      <details><summary data-i18n="f.11q"></summary><div data-i18n-html="f.11a"></div></details>
+      <details><summary data-i18n="f.12q"></summary><div data-i18n-html="f.12a"></div></details>
+      <details><summary data-i18n="f.2q"></summary><div data-i18n-html="f.2a"></div></details>
+      <details><summary data-i18n="f.3q"></summary><div data-i18n-html="f.3a"></div></details>
+      <details><summary data-i18n="f.4q"></summary><div data-i18n-html="f.4a"></div></details>
+      <details><summary data-i18n="f.13q"></summary><div data-i18n-html="f.13a"></div></details>
+      <details><summary data-i18n="f.14q"></summary><div data-i18n-html="f.14a"></div></details>
+      <details><summary data-i18n="f.15q"></summary><div data-i18n-html="f.15a"></div></details>
+      <details><summary data-i18n="f.16q"></summary><div data-i18n-html="f.16a"></div></details>
+      <details><summary data-i18n="f.5q"></summary><div data-i18n-html="f.5a"></div></details>
+      <details><summary data-i18n="f.6q"></summary><div data-i18n-html="f.6a"></div></details>
+      <details><summary data-i18n="f.7q"></summary><div data-i18n-html="f.7a"></div></details>
+      <details><summary data-i18n="f.8q"></summary><div data-i18n-html="f.8a"></div></details>
+      <details><summary data-i18n="f.9q"></summary><div data-i18n-html="f.9a"></div></details>
+      <details><summary data-i18n="f.10q"></summary><div data-i18n-html="f.10a"></div></details>
+    </section>
+
+    <section class="panel" aria-labelledby="calc-h">
+      <h2 id="calc-h" data-i18n="l.calc.h">Cálculos y datos</h2>
+      <p data-i18n="l.calc.p"></p>
+    </section>
+
+    <section class="panel ai-note" aria-labelledby="ai-h">
+      <h2 id="ai-h" data-i18n="l.ai.h">Nota de transparencia sobre el uso de inteligencia artificial</h2>
+      <p data-i18n="l.ai.p1"></p>
+      <ul>
+        <li data-i18n-html="l.ai.what"></li>
+        <li data-i18n-html="l.ai.people"></li>
+        <li data-i18n-html="l.ai.check"></li>
+        <li data-i18n-html="l.ai.run"></li>
+        <li data-i18n-html="l.ai.limits"></li>
+      </ul>
+      <p class="box" data-i18n-html="l.ai.report"></p>
+      <p class="hint" data-i18n="l.ai.date"></p>
+    </section>
+
+    <section class="panel credits" id="creditos" aria-labelledby="src-h">
+      <h2 id="src-h" data-i18n="l.src.h">Créditos y fuentes</h2>
+      <h3 data-i18n="l.src.data">Datos</h3>
+      <ul data-i18n-html="l.src.list"></ul>
+      <h3 data-i18n="l.src.imgh">Imágenes</h3>
+      <ul data-i18n-html="l.src.img"></ul>
+      <h3 data-i18n="l.src.methh">Métodos de cálculo</h3>
+      <p data-i18n-html="l.src.meth"></p>
+    </section>
+
+    <section class="panel demo" id="demo" aria-labelledby="v-h">
+      <h2 id="v-h" data-i18n="v.h">Mira la herramienta en acción</h2>
+      <p data-i18n="v.p"></p>
+      <figure class="demo-video">
+        <video id="demo-video" controls preload="none" playsinline poster="demo/asterfoto-demo-poster.jpg" width="1280" height="720" aria-describedby="demo-cap">
+          <source src="demo/asterfoto-demo-web.mp4" type="video/mp4">
+          <a href="demo/asterfoto-demo-web.mp4" data-i18n="v.fallback">Descargar el video</a>
+        </video>
+        <figcaption id="demo-cap" data-i18n="v.cap"></figcaption>
+      </figure>
+      <div class="vctl" role="group" data-i18n-attr="aria-label:v.ctl" aria-label="Controles del video">
+        <button type="button" class="btn primary" id="v-play" aria-pressed="false">
+          <svg id="v-ic-play" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false"><path d="M7 4v16l13-8z"/></svg>
+          <svg id="v-ic-pause" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false" hidden><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+          <span id="v-play-txt" data-i18n="v.play">Reproducir</span></button>
+        <button type="button" class="btn" id="v-back"><span aria-hidden="true">↺</span> <span data-i18n="v.back">10 s atrás</span></button>
+        <button type="button" class="btn" id="v-fwd"><span data-i18n="v.fwd">10 s adelante</span> <span aria-hidden="true">↻</span></button>
+        <label class="inline"><span data-i18n="v.speed">Velocidad</span>
+          <select id="v-rate">
+            <option value="0.5">0,5×</option><option value="0.75">0,75×</option><option value="1" selected>1×</option><option value="1.25">1,25×</option><option value="1.5">1,5×</option><option value="2">2×</option>
+          </select>
+        </label>
+        <output id="v-time" class="vtime" aria-live="off">0:00 / 2:48</output>
+      </div>
+      <div class="vchap">
+        <span class="label" data-i18n="v.chapters">Ir a:</span>
+        <button type="button" class="btn small" data-t="4.2" data-i18n="v.c1">1 · La portada</button>
+        <button type="button" class="btn small" data-t="61" data-i18n="v.c2">2 · El planificador</button>
+        <button type="button" class="btn small" data-t="104.6" data-i18n="v.c3">3 · El comparador</button>
+      </div>
+      <p><a href="demo/asterfoto-demo.mp4" download data-i18n="v.dl">Descargar el video en alta resolución (MP4, 1920 × 1080, 48 MB)</a></p>
+      <details class="mini">
+        <summary data-i18n="v.trs">Descripción del video en texto</summary>
+        <ol class="vtr" data-i18n-html="v.tr"></ol>
+      </details>
+    </section>
+
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie-in">
+      <a class="sitio-pie-logo" href="https://uruguayeduca.anep.edu.uy/" target="_blank" rel="noopener noreferrer"><img src="../../img/logo-uruguay-educa.webp" width="360" height="115" data-i18n-attr="alt:p1.logoAlt" alt="Uruguay Educa (se abre en una pestaña nueva)"></a>
+      <div>
+        <p data-i18n="footer"></p>
+        <p class="sitio-pie-a11y" data-i18n="a11y">Accesibilidad: cumple pautas WCAG 2.2, nivel AA. Noviembre de 2026.</p>
+        <p class="sitio-pie-lic"><svg class="lic-ico" viewBox="0 0 66 20" width="56" height="17" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8.6"/><circle cx="33" cy="10" r="8.6"/><circle cx="56" cy="10" r="8.6"/><path d="M8.6 7.6a2.6 2.6 0 1 0 0 4.8M13.4 7.6a2.6 2.6 0 1 0 0 4.8" stroke-width="1.5"/><path d="M52.4 10a3.6 3.6 0 1 0 1.1-2.6" stroke-width="1.6"/></g><g fill="currentColor"><circle cx="33" cy="5.4" r="1.6"/><path d="M30.6 8.2h4.8a.8.8 0 0 1 .8.8v3.6h-1.4v3.6h-3.6v-3.6h-1.4V9a.8.8 0 0 1 .8-.8z"/><path d="M51.2 6.9l2.9 0.9-0.9 2.7z"/></g></svg><span data-i18n-html="lic">Contenidos bajo licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0<span class="lic-sr"> (se abre en una pestaña nueva)</span></a>, salvo que se indique otra cosa.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/tema.js"></script>
+  <script src="js/i18n.js?v=2.8"></script>
+  <script src="js/i18n-extra.js?v=2.8"></script>
+  <script>
+    /* Cinturón de asteroides decorativo (puntos al azar, siempre los mismos) */
+    (function () {
+      var g = document.getElementById('belt'), s = 7;
+      function rnd() { s = (s * 9301 + 49297) % 233280; return s / 233280; }
+      for (var i = 0; i < 260; i++) {
+        var a = rnd() * Math.PI * 2, r = 104 + rnd() * 34;
+        var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        c.setAttribute('cx', (210 + r * Math.cos(a)).toFixed(1)); c.setAttribute('cy', (210 + r * Math.sin(a)).toFixed(1));
+        c.setAttribute('r', (0.6 + rnd() * 1.1).toFixed(2)); g.appendChild(c);
+      }
+    })();
+  </script>
+  <script src="js/pagina.js?v=2.8"></script>
+  <script src="js/demo.js?v=2.8"></script>
+  <script data-goatcounter="https://danielgastelu.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
