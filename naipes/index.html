@@ -32,11 +32,13 @@ button,select,input{font:inherit;color:inherit}
 [data-ue-theme=hc] .brand small{color:var(--ue-bar-fg)}
 .tabs{display:flex;gap:4px;margin-inline-start:auto;flex-wrap:wrap}
 .tab{min-height:40px;padding:.35rem .8rem;border-radius:10px;border:1px solid var(--ue-bar-line);background:rgba(255,255,255,.06);color:var(--ue-bar-fg);font-weight:700;font-size:.9rem;cursor:pointer}
-.tab[aria-selected=true]{background:var(--ue-amber);color:var(--ue-ink-deep);border-color:var(--ue-amber)}
-[data-ue-theme=hc] .tab[aria-selected=true]{background:#00ffff;border-color:#00ffff;color:#000}
+.tab[aria-current=page]{background:var(--ue-amber);color:var(--ue-ink-deep);border-color:var(--ue-amber)}
+[data-ue-theme=hc] .tab[aria-current=page]{background:#00ffff;border-color:#00ffff;color:#000}
 @media(max-width:700px){.appbar{position:static}.appbar [data-ue-tools]{margin-inline-start:auto}.tabs{order:3;width:100%;margin:0}.tab{flex:1;padding:.35rem .4rem}.brand small{display:none}.brand b{font-size:16px}.brand svg{width:28px;height:28px}.appbar-in{gap:.6rem .5rem}}
 
 /* ---------- comunes ---------- */
+@media(min-width:701px){html{scroll-padding-top:90px}}
+h1[tabindex="-1"]:focus{outline:none}
 main{max-width:72rem;margin:auto;padding:1.2rem 1rem 3rem}
 h1,h2,h3{font-family:var(--ue-font-display);line-height:1.1;margin:0 0 .6rem}
 h1{font-size:clamp(28px,4vw,40px)}h2{font-size:24px}
@@ -55,7 +57,7 @@ input,select{font-size:16px;min-height:44px;border-radius:var(--ue-radius);borde
 .status{font-size:14px;color:var(--ue-muted)}.status.ok{color:var(--ue-ok)}
 details{margin-top:20px}summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:700;color:var(--ue-muted)}
 .note{font-size:14px;color:var(--ue-muted)}
-.wait{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ue-accent-text);margin-inline-end:8px;animation:pul 1.2s infinite}
+.wait{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ue-accent-text);margin-inline-end:8px;animation:pul 1.2s 4}
 @keyframes pul{50%{opacity:.25}}
 .view[hidden],[hidden]{display:none!important}
 
@@ -84,8 +86,10 @@ details{margin-top:20px}summary{cursor:pointer;min-height:44px;display:flex;alig
 .slot{flex:0 0 var(--cw);scroll-snap-align:center;margin-inline:calc(var(--cw)*-0.05);transform-origin:center 40%;will-change:transform,opacity;position:relative}
 .slot .card{max-width:none;width:100%}
 .slot .tag{position:absolute;top:-12px;left:50%;translate:-50% 0;z-index:2;font:700 12px var(--ue-font-ui);padding:3px 10px;border-radius:99px;background:var(--ue-surface);color:var(--ue-muted);border:1px solid var(--ue-line);white-space:nowrap}
-.slot.top .tag{background:var(--ue-amber);color:var(--ue-ink-deep);border-color:var(--ue-amber)}
-[data-ue-theme=hc] .slot.top .tag{background:#00ffff;color:#000}
+.slot.activa .tag{background:var(--ue-amber);color:var(--ue-ink-deep);border-color:var(--ue-amber)}
+.slot:not(.activa){cursor:pointer}
+.slot:not(.activa) button.st{cursor:pointer}
+[data-ue-theme=hc] .slot.activa .tag{background:#00ffff;color:#000}
 .slot .back{max-width:none;width:100%}
 .nav{position:absolute;top:50%;translate:0 -50%;z-index:20;width:44px;height:44px;border-radius:50%;border:1px solid var(--ue-control-line);background:var(--ue-surface);color:var(--ue-fg);font:700 22px/1 var(--ue-font-ui);cursor:pointer;box-shadow:0 4px 14px #0003}
 .nav.prev{left:4px}.nav.next{right:4px}
@@ -93,7 +97,8 @@ details{margin-top:20px}summary{cursor:pointer;min-height:44px;display:flex;alig
 .puntos{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;max-width:260px}
 .puntos i{width:7px;height:7px;border-radius:50%;background:var(--ue-line);transition:background .2s,transform .2s}
 .puntos i.on{background:var(--ue-accent-text);transform:scale(1.35)}
-@media(max-width:600px){.nav{display:none}}
+.pie-nav{display:none;min-width:44px;font-size:22px;padding:0 12px}
+@media(max-width:600px){.nav{display:none}.pie-nav{display:inline-block}}
 
 /* enfrentamiento */
 .duelo{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:center;max-width:640px;margin:14px auto 0}
@@ -105,9 +110,9 @@ details{margin-top:20px}summary{cursor:pointer;min-height:44px;display:flex;alig
 .mini-img{height:clamp(96px,24vw,150px);background:#000 no-repeat center/contain}
 .mini-n{font:700 clamp(16px,4.4vw,22px)/1.1 var(--ue-font-display);padding:8px 6px 2px;color:#fff}
 .mini-k{font:700 11px var(--ue-font-ui);text-transform:uppercase;letter-spacing:.05em;color:#b9b8b2;padding:0 6px}
-.mini-v{font:700 clamp(18px,5vw,26px)/1.2 var(--ue-font-ui);padding:2px 6px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-v{font:700 clamp(18px,5vw,26px)/1.2 var(--ue-font-ui);padding:2px 6px 0;overflow-wrap:anywhere}
 .mini-v small{font-size:12px;font-weight:400;color:#b9b8b2;margin-left:3px}.mini-v sup{font-size:.55em}
-.lado.pierde .mini{filter:grayscale(.75);opacity:.72}
+.lado.pierde .mini{filter:grayscale(.8)}
 .lado.gana .mini{box-shadow:0 0 0 3px var(--ue-ok),0 12px 30px -10px #000}
 .badge{position:absolute;top:-16px;right:-8px;width:clamp(48px,13vw,68px);height:auto;z-index:3;filter:drop-shadow(0 4px 8px #0006)}
 .anim .lado.yo{animation:entraI .45s ease-out both}.anim .lado.riv{animation:entraD .45s ease-out both}
@@ -128,19 +133,21 @@ details{margin-top:20px}summary{cursor:pointer;min-height:44px;display:flex;alig
 .c-top{display:flex;align-items:center;justify-content:space-between;padding:9px 12px 0}
 .c-no{font:700 12px var(--ue-font-ui);color:var(--acc);letter-spacing:.06em}
 .c-type{font:700 11px/1 var(--ue-font-ui);letter-spacing:.08em;text-transform:uppercase;color:#111;background:var(--acc);padding:4px 7px;border-radius:4px;white-space:nowrap}
-.c-name{padding:6px 12px 0;font:700 28px/1 var(--ue-font-display);margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff}
-.c-sub{padding:2px 12px 0;font-size:13px;color:#b9b8b2;min-height:19px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-name{padding:6px 12px 0;font:700 clamp(22px,6.5vw,28px)/1.05 var(--ue-font-display);margin:0;overflow-wrap:anywhere;color:#fff}
+.c-sub{padding:2px 12px 0;font-size:13px;color:#b9b8b2;min-height:19px;overflow-wrap:anywhere}
 .c-img{margin:7px 10px 0;height:170px;border-radius:7px;position:relative;background:#000 no-repeat center/contain;box-shadow:inset 0 0 0 1px #ffffff1a}
 .c-art,.c-host{position:absolute;bottom:6px;font:700 10px var(--ue-font-ui);padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.04em}
 .c-art{left:7px;color:#ddd;background:#000b;border:1px solid #ffffff2a}.c-host{right:7px;color:#111;background:var(--acc)}
 .c-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:8px 10px 0;background:#ffffff1c;border-radius:7px;overflow:hidden}
 .st{background:#101116;padding:6px 8px;display:flex;flex-direction:column;justify-content:center;min-height:48px;border:0;text-align:start;color:inherit;font:inherit}
 .st .l{font:700 11px/1.15 var(--ue-font-ui);letter-spacing:.04em;text-transform:uppercase;color:#a9a8a3}
-.st .v{font:700 15px/1.25 var(--ue-font-ui);color:#f3f2ee;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st .v{font:700 15px/1.25 var(--ue-font-ui);color:#f3f2ee;overflow-wrap:anywhere}
 .st .v small{font-size:11px;font-weight:400;color:#a9a8a3;margin-left:3px}.st .v sup{font-size:10px}
 .st .n{font-size:10px;font-weight:700;color:var(--acc);margin-left:4px;text-transform:uppercase}
 .st.hot .v{color:#ffa07a}.st.cold .v{color:#9fd0ff}
 button.st{cursor:pointer}button.st:hover{background:#262833}
+.card :focus-visible,.card:focus-visible{outline:3px solid #ffb627;outline-offset:-3px}
+[data-ue-theme=hc] .card :focus-visible,[data-ue-theme=hc] .card:focus-visible{outline-color:#00ffff}
 .st.sel{background:#3a3220;box-shadow:inset 0 0 0 2px var(--ue-amber)}
 .st.win{background:#12402f;box-shadow:inset 0 0 0 2px #6dd5b9}.st.lose{background:#4a1d1a;box-shadow:inset 0 0 0 2px #ef8f86}
 .c-foot{display:flex;justify-content:space-between;align-items:center;padding:7px 12px 8px;font-size:11px;color:#ffffff88;letter-spacing:.06em;text-transform:uppercase}
@@ -152,6 +159,15 @@ button.st{cursor:pointer}button.st:hover{background:#262833}
 [data-ue-theme=hc] .st{background:#000}[data-ue-theme=hc] .c-type,[data-ue-theme=hc] .c-host{background:#ffff00;color:#000}
 [data-ue-theme=hc] .st.win{background:#000;box-shadow:inset 0 0 0 3px #00ff00}[data-ue-theme=hc] .st.lose{background:#000;box-shadow:inset 0 0 0 3px #ff8080}[data-ue-theme=hc] .st.sel{background:#000;box-shadow:inset 0 0 0 3px #00ffff}
 [data-ue-theme=hc] .back{border-color:#fff;background:#000}
+/* efecto de naipe: inclinación leve y brillo al pasar el mouse o tocar */
+.card,.mini{position:relative;transition:transform .35s ease,box-shadow .35s ease}
+.card::after,.mini::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s ease;
+ background:radial-gradient(circle at var(--gx,50%) var(--gy,25%),rgba(255,255,255,.32),rgba(255,255,255,.06) 35%,rgba(255,255,255,0) 60%);mix-blend-mode:soft-light}
+.card.tilt,.mini.tilt{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-3px);transition:transform .08s linear,box-shadow .2s;box-shadow:0 26px 50px -18px #000c,0 0 0 1px #0008}
+.card.tilt::after,.mini.tilt::after,.card:focus-within::after{opacity:1}
+[data-ue-theme=hc] .card::after,[data-ue-theme=hc] .mini::after{display:none}
+@media(prefers-reduced-motion:reduce){.card.tilt,.mini.tilt{transform:none}.card,.mini{transition:none}}
+@media print{.card::after{display:none}.card.tilt{transform:none}}
 .flip{animation:flip .45s}@keyframes flip{from{transform:rotateY(90deg)}to{transform:none}}
 
 /* ---------- ranking: créditos de película ---------- */
@@ -183,12 +199,14 @@ button.st{cursor:pointer}button.st:hover{background:#262833}
 .ini-form{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin-top:10px}
 .ini-form input{width:7.5em;text-transform:uppercase;letter-spacing:.35em;font:700 24px var(--ue-font-ui);text-align:center}
 .reloj{font-variant-numeric:tabular-nums;margin-inline-start:.5em;padding:1px 8px;border-radius:99px;background:rgba(0,0,0,.12)}
-.reloj.poco{background:var(--ue-err);color:#fff}
+.reloj.poco{background:#b3261e;color:#fff}
+.mas{margin-inline-start:.6em;min-height:32px;padding:2px 10px;border-radius:99px;border:2px solid currentColor;background:transparent;color:inherit;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
 
 /* ---------- catálogo ---------- */
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
 .chip{min-height:40px;padding:.3rem .8rem;border-radius:99px;border:1px solid var(--ue-control-line);background:var(--ue-surface);cursor:pointer;display:flex;gap:7px;align-items:center;font-weight:700;font-size:14px}
 .chip i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.chip .cnt{font-weight:400}
 .chip[aria-pressed=true]{background:var(--ue-selected-bg);color:var(--ue-selected-fg);border-color:var(--ue-selected-bg)}
 .cat-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
 .cat-tools label{max-width:280px}
@@ -233,11 +251,11 @@ dialog::backdrop{background:#05060acc}
       <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="4" width="16" height="22" rx="3" fill="#243a68" stroke="#b4c0d9" transform="rotate(-10 13 15)"/><rect x="11" y="6" width="16" height="22" rx="3" fill="#ffb627"/><circle cx="19" cy="15" r="4.2" fill="#14264b"/><ellipse cx="19" cy="15" rx="7" ry="2" fill="none" stroke="#14264b" stroke-width="1.2" transform="rotate(-20 19 15)"/></svg>
       <span><b>Cartas astronómicas</b><small>Sistema Solar · Duelo de datos</small></span>
     </div>
-    <nav class="tabs" role="tablist" aria-label="Secciones">
-      <button class="tab" role="tab" aria-selected="true" data-v="jugar">Jugar</button>
-      <button class="tab" role="tab" aria-selected="false" data-v="catalogo">Catálogo</button>
-      <button class="tab" role="tab" aria-selected="false" data-v="ranking">Ranking</button>
-      <button class="tab" role="tab" aria-selected="false" data-v="reglas">Cómo se juega</button>
+    <nav class="tabs" aria-label="Secciones">
+      <button class="tab" type="button" data-v="jugar" aria-current="page">Jugar</button>
+      <button class="tab" type="button" data-v="catalogo">Catálogo</button>
+      <button class="tab" type="button" data-v="ranking">Ranking</button>
+      <button class="tab" type="button" data-v="reglas">Cómo se juega</button>
     </nav>
     <div data-ue-tools></div>
   </div>
@@ -247,7 +265,7 @@ dialog::backdrop{background:#05060acc}
 <section class="view" id="v-jugar">
   <div id="inicio">
     <h1>Duelo de datos entre dos celulares</h1>
-    <p class="lead">Cada carta es un astro del Sistema Solar. Elegí un dato de tu carta: el valor más alto se lleva las cartas. Gana quien junta todo el mazo.</p>
+    <p class="lead">Cada carta es un astro del Sistema Solar. Recorré tu mano, dejá una carta en el centro y, cuando sea tu turno, atacá con un dato: el valor más alto se lleva las dos cartas. Gana quien junta todo el mazo.</p>
     <div class="panel inv" id="invitacion" hidden>
       <h2>Te invitaron a la partida <span id="invcod"></span></h2>
       <label class="f">Tu nombre<input id="nom2" maxlength="20" autocomplete="nickname"></label>
@@ -308,6 +326,7 @@ dialog::backdrop{background:#05060acc}
       <div class="score riv" id="sc">0<small>rival</small></div>
     </div>
     <p class="turno" id="turno" aria-live="polite" hidden></p>
+    <p class="ue-sr" id="relojSr" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"></p>
     <div id="zona"></div>
     <div id="msg" aria-live="polite"></div>
   </div>
@@ -341,16 +360,19 @@ dialog::backdrop{background:#05060acc}
 
 <section class="view prose" id="v-reglas" hidden>
   <h1>Cómo se juega</h1>
+  <p class="lead">Modo clásico con selección silenciosa: las reglas de siempre, pero con la mano en un carrusel. Cada celular resuelve solo y en silencio, sin mostrar las jugadas antes de tiempo.</p>
   <ol>
-    <li>Un celular crea la partida y muestra un código QR. El otro lo escanea con la cámara, escribe su nombre y entra.</li>
-    <li>Se reparten todas las cartas lo más parejo posible. Cada jugador tiene su pila boca arriba, pero solo ve su primera carta; el rival no la ve.</li>
-    <li>Empieza un jugador elegido al azar. Elige un dato de su carta, por ejemplo la masa. Se comparan los valores de ese dato en las dos cartas y <b>gana el valor más alto</b>.</li>
-    <li>Quien gana se lleva las dos cartas, las pone al fondo de su pila y elige el dato en la carta siguiente.</li>
-    <li>Si hay empate, las dos cartas van al centro de la mesa y sigue eligiendo el mismo jugador. Quien gane la próxima ronda se lleva también las cartas del centro.</li>
-    <li>Se juega hasta que alguien se queda sin cartas. <b>Gana quien junta todo el mazo.</b></li>
-    <li>Cada turno tiene un tiempo límite (30 segundos, salvo que el docente lo cambie). Si se acaba, se elige un dato al azar.</li>
-    <li>Quien gana juntando todas las cartas puede anotarse en el <b>ranking</b> con 3 iniciales.</li>
+    <li><b>Reparto y navegación libre.</b> Cada jugador recibe la mitad del mazo. Puede deslizar sus cartas hacia la izquierda o la derecha para ver sus datos y decidir cuál deja en el centro: esa es su <b>carta activa</b>. Ninguno ve las cartas del otro.</li>
+    <li><b>Jugada silenciosa del atacante.</b> Ataca quien tiene el turno: al principio se elige al azar y después es quien ganó la mano anterior. Deja su carta activa en el centro y toca directamente un dato en su pantalla, por ejemplo Masa. No lo dice en voz alta y el juego tampoco se lo muestra al rival todavía.</li>
+    <li><b>Resolución automática.</b> En el instante en que el atacante toca el dato, el juego toma la carta que el rival tiene en el centro de su pantalla, compara ese mismo dato y muestra el resultado en los dos celulares al mismo tiempo.</li>
+    <li><b>Consecuencia.</b> Gana el valor más alto. Quien gana se lleva las dos cartas, que pasan al final de su mano, y conserva o toma el turno para atacar otra vez.</li>
+    <li><b>Empate.</b> Las dos cartas van al centro de la mesa y sigue atacando el mismo jugador. Quien gane la próxima mano se lleva también las cartas del centro.</li>
+    <li><b>Final.</b> Gana quien junta todo el mazo. Quien lo logra puede anotarse en el <b>ranking</b> con 3 iniciales.</li>
   </ol>
+  <h2>Por qué funciona sin reglas extra</h2>
+  <p>El defensor no sabe qué dato va a elegir el atacante ni en qué segundo va a tocar. Por eso no conviene dejar una carta débil en el centro mientras piensa: hay que tener siempre una carta competitiva o pareja como activa, por si el ataque llega de inmediato.</p>
+  <h2>Tiempo</h2>
+  <p>El atacante tiene un tiempo para elegir (30 segundos, salvo que el docente lo cambie). Con el botón «+30 s» puede sumar más tiempo todas las veces que necesite. Si el tiempo se termina, se juega un dato al azar con la carta activa.</p>
   <h2>Los datos de cada carta</h2>
   <ul>
     <li><b>Masa:</b> comparada con la de la Tierra (Tierra = 1).</li>
@@ -365,6 +387,7 @@ dialog::backdrop{background:#05060acc}
   <ul>
     <li>Antes de jugar, predecir qué carta gana en cada dato y verificarlo en el Catálogo, ordenando por ese dato.</li>
     <li>Discutir qué dato conviene elegir con cada tipo de carta: un cometa casi siempre pierde en masa, pero puede ganar en duración del año.</li>
+    <li>Pensar qué carta conviene dejar activa mientras se defiende: ¿una muy fuerte en un solo dato o una pareja en todos?</li>
     <li>Cada partida y cada jugada quedan registradas en la planilla del docente, en las hojas Partidas y Jugadas.</li>
   </ul>
 </section>
@@ -446,44 +469,66 @@ function traerMazo(){return api("mazo").then(j=>{LS.set("mazo",j.cartas);PARAMS=
 const conMazo=()=>FUENTE==="planilla"?Promise.resolve():traerMazo();
 
 /* ---------- vistas ---------- */
-function ver(v){document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.v===v));
+function ver(v){document.querySelectorAll(".tab").forEach(t=>{if(t.dataset.v===v)t.setAttribute("aria-current","page");else t.removeAttribute("aria-current")});
  document.querySelectorAll(".view").forEach(s=>s.hidden=s.id!=="v-"+v)}
 function pantalla(p){["inicio","sala","mesa"].forEach(x=>$(x).hidden=x!==p);ver("jugar");window.scrollTo(0,0)}
-document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>ver(t.dataset.v));
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{ver(t.dataset.v);const h=document.querySelector(`#v-${t.dataset.v} h1:not([hidden])`);if(h&&h.offsetParent){h.setAttribute("tabindex","-1");h.focus({preventScroll:false})}});
+
+/* ---------- efecto de naipe (mouse y toque) ---------- */
+const lento0=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
+const tiltOK=()=>!lento0()&&document.documentElement.getAttribute("data-ue-theme")!=="hc";
+let tiltEl=null,tiltRaf=0;
+function tiltSet(el,x,y){const r=el.getBoundingClientRect();if(!r.width)return;const px=Math.min(1,Math.max(0,(x-r.left)/r.width)),py=Math.min(1,Math.max(0,(y-r.top)/r.height));
+ el.style.setProperty("--rx",((.5-py)*8).toFixed(2)+"deg");el.style.setProperty("--ry",((px-.5)*10).toFixed(2)+"deg");
+ el.style.setProperty("--gx",(px*100).toFixed(1)+"%");el.style.setProperty("--gy",(py*100).toFixed(1)+"%");el.classList.add("tilt")}
+function tiltOff(el){if(el)el.classList.remove("tilt")}
+document.addEventListener("pointermove",e=>{if(e.pointerType!=="mouse"||!tiltOK())return;const el=e.target.closest&&e.target.closest(".card,.mini");
+ if(el!==tiltEl){tiltOff(tiltEl);tiltEl=el}if(!el)return;cancelAnimationFrame(tiltRaf);tiltRaf=requestAnimationFrame(()=>tiltSet(el,e.clientX,e.clientY))},{passive:true});
+document.addEventListener("mouseleave",()=>{tiltOff(tiltEl);tiltEl=null});
+document.addEventListener("pointerdown",e=>{if(e.pointerType==="mouse"||!tiltOK())return;const el=e.target.closest&&e.target.closest(".card,.mini");if(!el)return;
+ tiltSet(el,e.clientX,e.clientY);setTimeout(()=>tiltOff(el),420)},{passive:true});
 
 /* ---------- mesa ---------- */
 const lento=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
 function marcador(o){$("sp").firstChild.textContent=o.nYo;$("sc").firstChild.textContent=o.nRiv;$("sc").lastChild.textContent=o.nomRiv;
  $("pn").textContent=o.ronda?`Ronda ${o.ronda}`:"";$("cn").textContent=o.pozo?`En el centro: ${o.pozo}`:""}
-let onElegir=null;
-/* Carrusel: muestra la pila del jugador. Solo la primera carta (en juego) tiene los datos para tocar. */
-function mostrarMano(ids,total,elegir){
- const slots=[];for(let i=0;i<total;i++){const c=ids[i]&&BYID[ids[i]];
-  const tag=i===0?"En juego":`${i+1}.ª de tu pila`;
-  slots.push(`<div class="slot${i===0?" top":""}" data-i="${i}"><span class="tag">${tag}</span>${c?cardHTML(c,{click:i===0&&elegir}):BACK}</div>`)}
+let onElegir=null;   // onElegir(dato, idCarta)
+/* Carrusel de la mano (modo clásico con selección silenciosa).
+   La carta del centro es la carta activa: el atacante juega con ella y, si sos defensor,
+   es la que se compara cuando el rival ataca. Cada vez que el carrusel se detiene,
+   el celular informa en silencio su carta activa. */
+const MANO={ids:[],idx:0,elegir:false,onActiva:null,enviada:"",t:0,ir:null};
+function mostrarMano(ids,elegir,start,onActiva){
+ MANO.ids=ids.slice();MANO.elegir=elegir;MANO.onActiva=onActiva||null;MANO.enviada="";
+ const total=ids.length;start=Math.max(0,Math.min(start||0,total-1));
+ const slots=ids.map((id,i)=>`<div class="slot" data-i="${i}"><span class="tag">N.º ${i+1}</span>${BYID[id]?cardHTML(BYID[id],{click:elegir}):BACK}</div>`).join("");
  const muchos=total>1;
- $("zona").innerHTML=`<div class="mano-wrap">${muchos?'<button class="nav prev" id="mPrev" aria-label="Carta anterior">‹</button>':""}
-  <div class="mano" id="mano" tabindex="0" role="region" aria-label="Tu pila de cartas. Deslizá para recorrerla.">${slots.join("")}</div>
-  ${muchos?'<button class="nav next" id="mNext" aria-label="Carta siguiente">›</button>':""}</div>
-  <div class="mano-pie">${muchos?`<span class="puntos" aria-hidden="true">${Array.from({length:Math.min(total,30)},()=>"<i></i>").join("")}</span><span id="manoPos"></span>`:""}
-  <button class="btn" id="aJuego" hidden>Volver a la carta en juego</button></div>`;
- const m=$("mano");m.scrollLeft=0;let raf=0;
- const paso=()=>{const s=m.querySelector(".slot");return s?s.offsetWidth*.9:300};
- const ir=i=>{const s=m.querySelectorAll(".slot")[i];if(s)m.scrollTo({left:s.offsetLeft+s.offsetWidth/2-m.clientWidth/2,behavior:lento()?"auto":"smooth"})};
- m.addEventListener("scroll",()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>escala(m,total))},{passive:true});
- m.addEventListener("keydown",e=>{if(e.key==="ArrowRight"){e.preventDefault();m.scrollBy({left:paso(),behavior:lento()?"auto":"smooth"})}if(e.key==="ArrowLeft"){e.preventDefault();m.scrollBy({left:-paso(),behavior:lento()?"auto":"smooth"})}});
- if($("mPrev")){$("mPrev").onclick=()=>m.scrollBy({left:-paso(),behavior:lento()?"auto":"smooth"});$("mNext").onclick=()=>m.scrollBy({left:paso(),behavior:lento()?"auto":"smooth"})}
- $("aJuego").onclick=()=>ir(0);
- requestAnimationFrame(()=>{m.scrollLeft=0;escala(m,total)})}
-function escala(m,total){const c=m.scrollLeft+m.clientWidth/2;let best=0,bd=1e9;
- m.querySelectorAll(".slot").forEach((s,i)=>{const sc=s.offsetLeft+s.offsetWidth/2,d=Math.abs(sc-c)/s.offsetWidth,k=Math.min(d,1.4);
-  s.style.transform=`scale(${(1-k*.2).toFixed(3)})`;s.style.opacity=(1-k*.45).toFixed(3);s.style.zIndex=String(100-Math.round(d*10));
+ $("zona").innerHTML=`<div class="mano-wrap">${muchos?'<button class="nav prev" id="mPrev" type="button" aria-label="Carta anterior">‹</button>':""}
+  <div class="mano" id="mano" tabindex="0" role="region" aria-label="Tu mano: ${total} cartas. La carta del centro es tu carta activa. Usá las flechas o deslizá para cambiarla.">${slots}</div>
+  ${muchos?'<button class="nav next" id="mNext" type="button" aria-label="Carta siguiente">›</button>':""}</div>
+  <div class="mano-pie">${muchos?`<button class="btn pie-nav" id="pPrev" type="button" aria-label="Carta anterior">‹</button><span class="puntos" aria-hidden="true">${Array.from({length:Math.min(total,30)},()=>"<i></i>").join("")}</span><span id="manoPos" aria-live="polite"></span><button class="btn pie-nav" id="pNext" type="button" aria-label="Carta siguiente">›</button>`:""}</div>`;
+ const m=$("mano");let raf=0;
+ const ir=(i,ya)=>{const s=m.querySelectorAll(".slot")[i];if(s)m.scrollTo({left:s.offsetLeft+s.offsetWidth/2-m.clientWidth/2,behavior:ya||lento()?"auto":"smooth"})};
+ MANO.ir=ir;
+ const mover=d=>ir(Math.max(0,Math.min(total-1,MANO.idx+d)));
+ m.addEventListener("scroll",()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>escala(m));clearTimeout(MANO.t);MANO.t=setTimeout(informar,350)},{passive:true});
+ m.addEventListener("keydown",e=>{if(e.target!==m)return;if(e.key==="ArrowRight"){e.preventDefault();mover(1)}if(e.key==="ArrowLeft"){e.preventDefault();mover(-1)}});
+ if(muchos){$("mPrev").onclick=$("pPrev").onclick=()=>mover(-1);$("mNext").onclick=$("pNext").onclick=()=>mover(1)}
+ requestAnimationFrame(()=>{ir(start,true);escala(m);informar()})}
+function informar(){const id=MANO.ids[MANO.idx];if(id&&MANO.onActiva&&id!==MANO.enviada){MANO.enviada=id;MANO.onActiva(id)}}
+function escala(m){const c=m.scrollLeft+m.clientWidth/2;let best=0,bd=1e9;const sl=m.querySelectorAll(".slot");
+ sl.forEach((s,i)=>{const sc=s.offsetLeft+s.offsetWidth/2,d=Math.abs(sc-c)/s.offsetWidth,k=Math.min(d,1.4);
+  s.style.transform=`scale(${(1-k*.2).toFixed(3)})`;s.style.zIndex=String(100-Math.round(d*10));
   if(Math.abs(sc-c)<bd){bd=Math.abs(sc-c);best=i}});
- const pos=$("manoPos");if(pos)pos.textContent=`${best+1} de ${total}`;
- document.querySelectorAll(".puntos i").forEach((p,i)=>p.classList.toggle("on",i===Math.min(best,29)));
- const v=$("aJuego");if(v)v.hidden=best===0||!onElegir}
-addEventListener("resize",()=>{const m=$("mano");if(m)escala(m,m.querySelectorAll(".slot").length)});
-$("zona").addEventListener("click",e=>{const b=e.target.closest(".slot.top button.st");if(b&&onElegir)onElegir(b.dataset.k)});
+ if(best!==MANO.idx||!m.querySelector(".slot.activa")){MANO.idx=best;
+  sl.forEach((s,i)=>{const on=i===best;s.classList.toggle("activa",on);s.querySelector(".tag").textContent=on?"Carta activa":`N.º ${i+1}`;
+   s.querySelectorAll("button.st").forEach(b=>{if(on)b.removeAttribute("aria-disabled");else b.setAttribute("aria-disabled","true")})})}
+ const pos=$("manoPos");if(pos)pos.textContent=`Carta activa: ${BYID[MANO.ids[best]]?BYID[MANO.ids[best]].n:""} (${best+1} de ${sl.length})`;
+ document.querySelectorAll(".puntos i").forEach((p,i)=>p.classList.toggle("on",i===Math.min(best,29)))}
+addEventListener("resize",()=>{const m=$("mano");if(m)escala(m)});
+$("zona").addEventListener("click",e=>{const slot=e.target.closest(".slot");if(!slot||!$("mano"))return;const i=+slot.dataset.i;
+ if(i!==MANO.idx){e.preventDefault();MANO.ir(i);return}
+ const b=e.target.closest("button.st");if(b&&onElegir&&b.getAttribute("aria-disabled")!=="true")onElegir(b.dataset.k,MANO.ids[i])});
 
 /* Enfrentamiento: las dos cartas cara a cara, con carita feliz para quien gana y cruz roja para quien pierde */
 const CARA=`<svg class="badge" viewBox="0 0 64 64" role="img" aria-label="Ganó"><circle cx="32" cy="32" r="29" fill="#ffd23f" stroke="#14264b" stroke-width="3"/><circle cx="22" cy="26" r="4.2" fill="#14264b"/><circle cx="42" cy="26" r="4.2" fill="#14264b"/><path d="M18 37q14 15 28 0" fill="none" stroke="#14264b" stroke-width="4.5" stroke-linecap="round"/></svg>`;
@@ -525,35 +570,50 @@ function pantallaFinal(nYo,nRiv,nomRiv,extra,gano,rank){conMsg();pararReloj();ga
  $("msg").innerHTML=`<p class="big">${t}</p><p>Terminás con ${nYo} cartas y ${esc(nomRiv)} con ${nRiv}.${extra||""}</p>${formRanking(rank)}<div class="actions"><button class="btn ${rank?"":"main"}" id="otra">Volver al inicio</button><button class="btn" id="vcat">Repasar en el catálogo</button></div>`;
  if(rank&&rank.tipo==="online"&&O){rank.cod=O.cod;rank.tok=O.tok}
  $("otra").onclick=salirMesa;$("vcat").onclick=()=>ver("catalogo");activarRanking(rank);(rank?$("ini"):$("otra")).focus()}
-const verMano=()=>PARAMS.ver_mano!==0;
 function aviso(html,mio){const t=$("turno");t.innerHTML=html;t.className="turno"+(mio?" mio":"");t.hidden=false;$("msg").hidden=true;$("msg").innerHTML=""}
 /* Reloj de turno: al terminar se elige un dato al azar */
 let reloj=null;
-function pararReloj(){clearInterval(reloj);reloj=null}
+function pararReloj(){clearInterval(reloj);reloj=null;const m=$("masTiempo");if(m)m.remove()}
 function iniciarReloj(alTerminar){pararReloj();const tot=Number(PARAMS.segundos_turno);if(!(tot>0))return;let t=tot;
+ // WCAG 2.2.1: se puede pedir más tiempo todas las veces que haga falta
+ let avisado=false;
  const pinta=()=>{const r=$("reloj");if(r){r.textContent=mmss(t);r.classList.toggle("poco",t<=10)}};
  $("turno").insertAdjacentHTML("beforeend",'<span class="reloj" id="reloj" aria-hidden="true"></span>');pinta();
- reloj=setInterval(()=>{t--;pinta();if(t<=0){pararReloj();if(onElegir){const k=STATS[Math.random()*STATS.length|0].k;aviso(`Se acabó el tiempo: se eligió ${esc(AN[k])} al azar.`,true);alTerminar(k)}}},1000)}
+ $("turno").insertAdjacentHTML("beforeend",'<button type="button" class="mas" id="masTiempo" aria-label="+30 s: más tiempo para elegir">+30 s</button>');
+ $("masTiempo").onclick=()=>{t+=30;pinta()};
+ reloj=setInterval(()=>{t--;pinta();if(t===20&&!avisado){avisado=true;const sr=$("relojSr");if(sr)sr.textContent="Quedan 20 segundos. Podés sumar más tiempo con el botón «+30 s»."}if(t<=0){pararReloj();if(onElegir){const k=STATS[Math.random()*STATS.length|0].k;aviso(`Se acabó el tiempo: se eligió ${esc(AN[k])} al azar.`,true);alTerminar(k)}}},1000)}
 function conMsg(){$("turno").hidden=true;$("msg").hidden=false}
 
-/* ---------- práctica ---------- */
+/* ---------- práctica (misma mecánica: carta activa y ataque silencioso) ---------- */
 let P=null;const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 function practica(){detenerOnline();const d=shuffle(CARDS.map(c=>c.id));
- P={p:d.filter((_,i)=>i%2===0),c:d.filter((_,i)=>i%2===1),pot:[],turn:Math.random()<.5?"p":"c",round:0,max:PARAMS.rondas_tope||300,won:0,lost:0,t0:Date.now(),nivel:$("dif").value};
+ P={p:d.filter((_,i)=>i%2===0),c:d.filter((_,i)=>i%2===1),pot:[],turn:Math.random()<.5?"p":"c",round:0,max:PARAMS.rondas_tope||300,won:0,lost:0,t0:Date.now(),nivel:$("dif").value,idx:0,cAct:null,tAtk:0};
  $("vs").textContent="Práctica contra la computadora";pantalla("mesa");turnoP()}
 const NOMCPU="la computadora";
-function turnoP(){const yo=P.turn==="p";onElegir=yo?k=>resolverP(k,"yo"):null;
+const quedanAfuera=()=>CARDS.filter(c=>!P.c.includes(c.id));
+/* Carta activa de la computadora cuando defiende: experta deja la más pareja, intermedia una buena, principiante cualquiera */
+function cpuDefensa(){const n=P.nivel;if(n==="f")return P.c[Math.random()*P.c.length|0];
+ const pool=quedanAfuera(),pje=c=>STATS.reduce((s,{k})=>s+pool.filter(o=>c.v[k]>o.v[k]).length,0);
+ const ord=P.c.map(id=>BYID[id]).sort((a,b)=>pje(b)-pje(a));
+ return (n==="d"?ord[0]:ord[Math.random()*Math.ceil(ord.length/2)|0]).id}
+/* Ataque de la computadora: experta busca la mejor carta y el mejor dato; intermedia el mejor dato de una carta al azar */
+function cpuAtaque(){const n=P.nivel;if(n==="f")return{id:P.c[Math.random()*P.c.length|0],k:STATS[Math.random()*STATS.length|0].k};
+ const pool=quedanAfuera(),cands=n==="d"?P.c:[P.c[Math.random()*P.c.length|0]];let best=null;
+ for(const id of cands)for(const{k}of STATS){const w=pool.filter(o=>BYID[id].v[k]>o.v[k]).length/pool.length+(n==="i"?Math.random()*.15:0);if(!best||w>best.w)best={id,k,w}}
+ return best}
+function turnoP(){const yo=P.turn==="p";
  marcador({nYo:P.p.length,nRiv:P.c.length,pozo:P.pot.length,ronda:P.round+1,nomRiv:NOMCPU});
- mostrarMano(verMano()?P.p:[P.p[0]],P.p.length,yo);
- aviso(yo?"Tu turno: tocá un dato de la carta en juego":'<span class="wait"></span>Turno de la computadora…',yo);if(yo)iniciarReloj(k=>resolverP(k,"yo"));
- if(!yo)setTimeout(cpu,1400)}
-function cpu(){if(!P)return;const me=BYID[P.c[0]],pool=CARDS.filter(c=>!P.c.includes(c.id)),best=STATS.map(({k})=>({k,w:pool.filter(o=>me.v[k]>o.v[k]).length/pool.length}));
- // experta: conoce qué cartas quedan afuera de su pila; intermedia: compara su carta con todo el mazo; principiante: al azar
- if($("dif").value==="i")best.forEach(b=>b.w=CARDS.filter(o=>me.v[b.k]>o.v[b.k]).length/CARDS.length+Math.random()*.15);
- best.sort((a,b)=>b.w-a.w);const ch=$("dif").value==="f"?best[Math.random()*best.length|0]:best[0];resolverP(ch.k,"riv")}
-function resolverP(k,quien){if(!P||(quien==="yo"&&!onElegir))return;onElegir=null;pararReloj();const pid=P.p.shift(),cid=P.c.shift(),pc=BYID[pid],cc=BYID[cid],diff=pc.v[k]-cc.v[k];
- const res=diff>0?"yo":diff<0?"riv":"e",pozo=res==="e"?0:P.pot.length;P.round++;
+ onElegir=yo?(k,id)=>resolverP(k,"yo",id):null;
+ mostrarMano(P.p,yo,P.idx,null);
+ if(yo){P.cAct=cpuDefensa();aviso("Tu turno: dejá en el centro la carta que quieras jugar y tocá un dato",true);iniciarReloj(k=>resolverP(k,"yo",MANO.ids[MANO.idx]))}
+ else{aviso(`<span class="wait"></span>Ataca ${NOMCPU}: mantené una carta fuerte en el centro…`,false);
+  P.tAtk=setTimeout(()=>{if(!P||P.turn!=="c")return;const a=cpuAtaque();resolverP(a.k,"riv",a.id)},2500+Math.random()*3500)}}
+function resolverP(k,quien,idAtk){if(!P)return;if(quien==="yo"&&!onElegir)return;onElegir=null;pararReloj();clearTimeout(P.tAtk);
+ const pid=quien==="yo"?idAtk:MANO.ids[MANO.idx],cid=quien==="yo"?P.cAct:idAtk;
+ P.idx=MANO.idx;P.p.splice(P.p.indexOf(pid),1);P.c.splice(P.c.indexOf(cid),1);
+ const pc=BYID[pid],cc=BYID[cid],diff=pc.v[k]-cc.v[k],res=diff>0?"yo":diff<0?"riv":"e",pozo=res==="e"?0:P.pot.length;P.round++;
  if(res==="yo"){P.p.push(pid,cid,...P.pot);P.pot=[];P.turn="p";P.won++}else if(res==="riv"){P.c.push(cid,pid,...P.pot);P.pot=[];P.turn="c";P.lost++}else P.pot.push(pid,cid);
+ P.idx=Math.max(0,Math.min(P.idx,P.p.length-1));
  const fin=!P.p.length||!P.c.length||P.round>=P.max;
  marcador({nYo:P.p.length,nRiv:P.c.length,pozo:P.pot.length,ronda:P.round,nomRiv:NOMCPU});
  const seg=Math.round((Date.now()-P.t0)/1000);
@@ -574,24 +634,25 @@ function dibujar(v){O.v=v;
  if(O.viendo)return;
  pantalla("mesa");const nomRiv=v.riv?v.riv.nom:"rival";$("vs").innerHTML=`Partida <b>${esc(v.cod)}</b> · ${esc(v.yo.nom)} contra ${esc(nomRiv)}`;
  if(v.ult&&v.ult.ronda>O.visto){const u=v.ult,pc=BYID[u.mia],cc=BYID[u.suya];
-  if(pc&&cc){O.viendo=true;onElegir=null;O.manoClave="";const fin=v.estado==="fin"&&u.ronda===v.ronda;
+  if(pc&&cc){O.viendo=true;onElegir=null;O.manoClave="";O.idxPrev=MANO.idx;const fin=v.estado==="fin"&&u.ronda===v.ronda;
    marcador({nYo:v.yo.n,nRiv:v.riv.n,pozo:v.pozo,ronda:u.ronda,nomRiv});
    resultado({k:u.k,quien:u.quien,res:u.res,pc,cc,pozo:u.pozo},nomRiv,fin,()=>{O.visto=u.ronda;O.viendo=false;dibujar(O.v)});return}
   O.visto=u.ronda}
  marcador({nYo:v.yo.n,nRiv:v.riv?v.riv.n:0,pozo:v.pozo,ronda:v.estado==="fin"?v.ronda:v.ronda+1,nomRiv});
  if(v.estado==="fin"){if(O.finMostrado)return;O.finMostrado=true;const mot=v.motivo==="tope de rondas"?" Se llegó al tope de rondas: gana quien tiene más cartas.":/^abandono/.test(v.motivo)?` La partida terminó por ${esc(v.motivo)}.`:"";
   pantallaFinal(v.yo.n,v.riv?v.riv.n:0,nomRiv,mot+(v.segundos?` ${v.ronda} jugadas en ${mmss(v.segundos)}.`:"")+" El resultado quedó guardado en la planilla.",v.gano||undefined,v.rankeable?{tipo:"online",jugadas:v.ronda,segundos:v.segundos}:null);clearTimeout(timer);LS.del("sesion");return}
- const yo=v.turno==="yo";onElegir=yo?k=>jugar(k):null;
+ const yo=v.turno==="yo";onElegir=yo?(k,id)=>jugar(k,id):null;
  const ids=v.yo.mano||[v.yo.top],clave=ids.join(",")+"|"+yo;
- if(clave!==O.manoClave){O.manoClave=clave;mostrarMano(ids,v.yo.n,yo)}
- aviso(yo?"Tu turno: tocá un dato de la carta en juego":`<span class="wait"></span>Turno de ${esc(nomRiv)}: está eligiendo un dato…`,yo);
- if(yo){if(O.relojDe!==v.ver){O.relojDe=v.ver;iniciarReloj(k=>jugar(k))}}else pararReloj()}
-function jugar(k){if(!O||pidiendo)return;onElegir=null;pidiendo=true;pararReloj();
- api("jugar",{cod:O.cod,tok:O.tok,k}).then(j=>dibujar(j.vista)).catch(e=>{aviso(esc(e.message)+" Probá de nuevo.",true);onElegir=jugar}).finally(()=>pidiendo=false)}
+ if(clave!==O.manoClave){O.manoClave=clave;const st=O.idxPrev!=null?Math.min(O.idxPrev,ids.length-1):0;
+  mostrarMano(ids,yo,st,id=>api("activa",{cod:O.cod,tok:O.tok,id}).catch(()=>{}))}
+ aviso(yo?"Tu turno: dejá en el centro la carta que quieras jugar y tocá un dato":`<span class="wait"></span>Ataca ${esc(nomRiv)}: mantené una carta fuerte en el centro…`,yo);
+ if(yo){if(O.relojDe!==v.ver){O.relojDe=v.ver;iniciarReloj(k=>jugar(k,MANO.ids[MANO.idx]))}}else pararReloj()}
+function jugar(k,id){if(!O||pidiendo)return;onElegir=null;pidiendo=true;pararReloj();
+ api("jugar",{cod:O.cod,tok:O.tok,k,carta:id||MANO.ids[MANO.idx]}).then(j=>dibujar(j.vista)).catch(e=>{aviso(esc(e.message)+" Probá de nuevo.",true);onElegir=(k,id)=>jugar(k,id)}).finally(()=>pidiendo=false)}
 function enlace(cod){const u=new URL(location.href);u.search="";u.hash="";u.searchParams.set("sala",cod);if(getApi()&&getApi()!==API_POR_DEFECTO)u.searchParams.set("api",getApi());return u.toString()}
 function mostrarSala(cod){pantalla("sala");$("salaCod").textContent=cod;
  if($("qr").dataset.cod!==cod){$("qr").innerHTML="";$("qr").dataset.cod=cod;
-  try{new QRCode($("qr"),{text:enlace(cod),width:480,height:480,correctLevel:QRCode.CorrectLevel.M})}catch(e){$("qr").innerHTML=`<p style="color:#000;max-width:240px;margin:0">No se pudo dibujar el QR. Usá el código.</p>`}}}
+  try{new QRCode($("qr"),{text:enlace(cod),width:480,height:480,correctLevel:QRCode.CorrectLevel.M});$("qr").querySelectorAll("img").forEach(i=>i.alt="");$("qr").querySelectorAll("canvas").forEach(c=>c.setAttribute("aria-hidden","true"));$("qr").removeAttribute("title")}catch(e){$("qr").innerHTML=`<p style="color:#000;max-width:240px;margin:0">No se pudo dibujar el QR. Usá el código.</p>`}}}
 function conBoton(btn,err,fn){const b=$(btn);b.disabled=true;$(err).textContent="";fn().catch(e=>$(err).textContent=e.message).finally(()=>b.disabled=false)}
 $("crear").onclick=()=>conBoton("crear","errCrear",()=>{const n=nombre("nom");if(!n)return Promise.reject(new Error("Escribí tu nombre."));
  return conMazo().then(()=>api("crear",{nom:n})).then(j=>arrancar(j.vista.cod,j.tok,j.vista))});
@@ -648,7 +709,7 @@ const st=Object.assign({type:"Todos",sort:"au"},LS.get("catalogo",{}));let vista
 $("sort").innerHTML=`<option value="orig">Lista original</option>`+STATS.map(s=>`<option value="${s.k}">${esc(s.l)}${s.k==="au"?" (del Sol hacia afuera)":" (de mayor a menor)"}</option>`).join("");
 function armarChips(){const tipos=["Todos",...Object.keys(TYPES)];
  $("chips").innerHTML=tipos.map(t=>{const n=t==="Todos"?CARDS.length:CARDS.filter(a=>a.t===t).length;const c=t==="Todos"?"var(--ue-fg)":`hsl(${hueOf(t)} 75% 55%)`;
-  return `<button class="chip" style="--c:${c}" data-t="${esc(t)}" aria-pressed="false"><i aria-hidden="true"></i>${esc(t==="Objeto transneptuniano"?"Transneptuniano":t)} <span style="opacity:.6">${n}</span></button>`}).join("")}
+  return `<button class="chip" style="--c:${c}" data-t="${esc(t)}" aria-pressed="false"><i aria-hidden="true"></i>${esc(t==="Objeto transneptuniano"?"Transneptuniano":t)} <span class="cnt">${n}</span></button>`}).join("")}
 $("chips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;st.type=b.dataset.t;catalogo()};
 $("sort").onchange=()=>{st.sort=$("sort").value;catalogo()};
 function catalogo(){LS.set("catalogo",st);$("sort").value=st.sort;

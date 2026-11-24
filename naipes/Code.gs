@@ -73,7 +73,8 @@ const MAPA_MAZO = [
 const COLS_MAZO = MAPA_MAZO.map(c => c[0]);
 const COLS_PART = ['codigo','estado','tope_rondas','ronda','turno','anfitrion','invitado',
   'n_anfitrion','n_invitado','mano_anfitrion','mano_invitado','pozo','ultima_jugada',
-  'ganador','motivo_fin','iniciales_ranking','creada','iniciada','finalizada','actualizada','version','token_anfitrion','token_invitado'];
+  'ganador','motivo_fin','iniciales_ranking','creada','iniciada','finalizada','actualizada','version',
+  'activa_anfitrion','activa_invitado','token_anfitrion','token_invitado'];
 const COLS_FIN = ['finalizada','codigo','anfitrion','invitado','cartas_anfitrion','cartas_invitado','rondas','ganador','motivo_fin','duracion_min'];
 const COLS_RANK = ['fecha','iniciales','modalidad','jugadas','segundos','codigo','rival'];
 const COLS_JUGADORES = ['nombre','partidas','ganadas','perdidas','empatadas','abandonadas','cartas_ganadas_total','ultima_partida','ultimo_codigo'];
@@ -82,8 +83,7 @@ const PARAMS_INICIALES = [
   ['rondas_tope', 300, 'Tope de seguridad: si nadie junta todas las cartas antes, gana quien tenga más'],
   ['segundos_actualizacion', 2, 'Cada cuántos segundos los celulares consultan la planilla'],
   ['segundos_cache_mazo', 30, 'Tiempo que tarda en verse un cambio hecho a mano en la hoja Mazo'],
-  ['segundos_turno', 30, 'Tiempo para elegir un dato; al terminar se elige uno al azar (0 = sin límite)'],
-  ['ver_mano', 1, '1 = cada jugador recorre toda su pila en el carrusel (solo juega la de arriba); 0 = solo ve la carta de arriba (regla clásica)']
+  ['segundos_turno', 30, 'Tiempo para elegir un dato; al terminar se elige uno al azar (0 = sin límite)']
 ];
 const ATTRS = ['m','d','au','rho','T','g','ve','day','yr','vo'];
 const NOM_ATTR = { m: 'Masa', d: 'Diámetro', au: 'Distancia al Sol', rho: 'Densidad media', T: 'Temperatura media',
@@ -119,7 +119,7 @@ function setup() {
     pa.autoResizeColumns(1, 3);
   }
   let p = ss.getSheetByName(HOJA_PART);
-  if (!p) { p = ss.insertSheet(HOJA_PART); encabezar(p, COLS_PART, '#14264b'); p.hideColumns(22, 2); }
+  if (!p) { p = ss.insertSheet(HOJA_PART); encabezar(p, COLS_PART, '#14264b'); p.hideColumns(COLS_PART.indexOf('token_anfitrion') + 1, 2); }
   let j = ss.getSheetByName('Jugadas');
   if (!j) { j = ss.insertSheet('Jugadas'); encabezar(j, COLS_JUG, '#243a68'); }
   let f = ss.getSheetByName('Finales');
@@ -194,7 +194,8 @@ function filaAPartida(r) {
     g: o.token_invitado ? { nom: String(o.invitado), tok: String(o.token_invitado) } : null,
     manos: { h: lista(o.mano_anfitrion), g: lista(o.mano_invitado) }, pot: lista(o.pozo), ult,
     ganador: String(o.ganador || ''), motivo: String(o.motivo_fin || ''), finalizada: o.finalizada || '',
-    iniciada: o.iniciada || '', rankIni: String(o.iniciales_ranking || '')
+    iniciada: o.iniciada || '', rankIni: String(o.iniciales_ranking || ''),
+    activa: { h: String(o.activa_anfitrion || '').trim().toLowerCase(), g: String(o.activa_invitado || '').trim().toLowerCase() }
   };
 }
 function textoUlt(S, mazo) {
@@ -206,7 +207,8 @@ function textoUlt(S, mazo) {
 function partidaAFila(S, mazo) {
   return [S.cod, S.estado, S.max, S.ronda, S.turno ? NOMROL[S.turno] : '', S.h.nom, S.g ? S.g.nom : '',
     S.manos.h.length, S.manos.g.length, S.manos.h.join(','), S.manos.g.join(','), S.pot.join(','),
-    textoUlt(S, mazo), S.ganador || '', S.motivo || '', S.rankIni || '', S.creada, S.iniciada || '', S.finalizada || '', new Date(), S.ver, S.h.tok, S.g ? S.g.tok : ''];
+    textoUlt(S, mazo), S.ganador || '', S.motivo || '', S.rankIni || '', S.creada, S.iniciada || '', S.finalizada || '', new Date(), S.ver,
+    (S.activa && S.activa.h) || '', (S.activa && S.activa.g) || '', S.h.tok, S.g ? S.g.tok : ''];
 }
 function hojaPart() { return libro().getSheetByName(HOJA_PART); }
 function buscar(cod) {
@@ -232,7 +234,7 @@ function vista(S, rol) {
   const v = {
     cod: S.cod, estado: S.estado, ver: S.ver, ronda: S.ronda, max: S.max, pozo: S.pot.length, rol,
     yo: { nom: S[rol].nom, n: S.manos[rol].length, top: S.manos[rol].length ? S.manos[rol][0] : null,
-          mano: leerParams().ver_mano === 0 ? null : S.manos[rol].slice() },
+          mano: S.manos[rol].slice() },
     riv: S[o] ? { nom: S[o].nom, n: S.manos[o].length } : null,
     turno: S.turno ? rel(S.turno) : null, ult: null, motivo: S.motivo || '',
     gano: S.estado !== 'fin' || !S.g ? null : S.ganador === 'empate' ? 'e' : S.ganador === S[rol].nom ? 'yo' : 'riv',
@@ -315,8 +317,18 @@ const ACC = {
     if (!ATTRS.includes(p.k)) throw new Error('Dato no válido');
     const mazo = leerMazo(), V = {};
     mazo.forEach(c => V[c.id] = valores(c));
-    const mia = S.manos[rol].shift(), suya = S.manos[o].shift(), enCentro = S.pot.length;
+    /* Selección silenciosa: el atacante juega la carta que tiene en el centro de su carrusel;
+       la del rival es la carta activa que su celular informó por última vez (si no hay, la primera de su mano). */
+    const carta = String(p.carta || '').toLowerCase();
+    const mia = S.manos[rol].includes(carta) ? carta : S.manos[rol][0];
+    const act = S.activa && S.activa[o];
+    const suya = act && S.manos[o].includes(act) ? act : S.manos[o][0];
+    S.manos[rol].splice(S.manos[rol].indexOf(mia), 1);
+    S.manos[o].splice(S.manos[o].indexOf(suya), 1);
+    const enCentro = S.pot.length;
     if (!V[mia] || !V[suya]) throw new Error('Hay una carta que ya no está en la hoja Mazo');
+    S.activa = S.activa || { h: '', g: '' };
+    S.activa[rol] = ''; if (!S.manos[o].includes(S.activa[o])) S.activa[o] = '';
     const diff = V[mia][p.k] - V[suya][p.k]; // gana el valor más alto
     const res = diff > 0 ? rol : diff < 0 ? o : 'e';
     if (res === 'e') S.pot.push(mia, suya);
@@ -330,6 +342,14 @@ const ACC = {
     libro().getSheetByName('Jugadas').appendRow([new Date(), S.cod, S.ronda, S[rol].nom, NOM_ATTR[p.k],
       nom(ch), String(mazo.find(c => c.id === ch)[p.k]), nom(cg), String(mazo.find(c => c.id === cg)[p.k]), res === 'e' ? 'empate' : 'gana ' + S[res].nom]);
     return { vista: vista(S, rol) };
+  },
+  /* Cada celular informa en silencio su carta activa (la del centro del carrusel). No cambia la versión:
+     el rival no se entera. */
+  activa(p) {
+    const { h, fila, S } = buscar(p.cod), rol = rolDe(S, p.tok), id = String(p.id || '').toLowerCase();
+    if (S.estado !== 'jugando' || !S.manos[rol].includes(id)) return { ok: false };
+    h.getRange(fila, COLS_PART.indexOf(rol === 'h' ? 'activa_anfitrion' : 'activa_invitado') + 1).setValue(id);
+    return { ok: true };
   },
   /* Ganador de una partida entre dos celulares: jugadas y tiempo los toma de la planilla */
   rankear(p) {
@@ -379,7 +399,7 @@ const ACC = {
 };
 
 function doGet(e) {
-  const p = e.parameter || {}, escribe = ['crear', 'unir', 'jugar', 'abandonar', 'rankear', 'rankear_practica'].includes(p.accion);
+  const p = e.parameter || {}, escribe = ['crear', 'unir', 'jugar', 'abandonar', 'rankear', 'rankear_practica', 'activa'].includes(p.accion);
   const lock = LockService.getScriptLock();
   let r;
   try {

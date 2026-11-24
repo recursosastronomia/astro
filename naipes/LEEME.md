@@ -24,7 +24,7 @@ Las dos versiones anteriores están en `versiones_anteriores/`: `cartas-astronom
 1. **Planilla.** Abrir la planilla, ir a *Extensiones › Apps Script*, borrar lo que haya y pegar todo `Code.gs`. Guardar.
 2. **Crear las hojas.** Elegir la función `setup` y tocar *Ejecutar*. Aceptar los permisos con tu cuenta. Se crean:
    - **Mazo**: las 30 cartas de Basedas, con los valores en el mismo formato que en las cartas impresas (`0,387`, `1.407,6`, `2,2e-12`). Una nota corta va después de `|`, por ejemplo `2,21|semieje`.
-   - **Parámetros**: `rondas_tope`, `segundos_actualizacion`, `segundos_cache_mazo`, `segundos_turno` (tiempo para elegir; al terminar se elige un dato al azar; 0 = sin límite) y `ver_mano` (1 = cada jugador recorre su pila en el carrusel; 0 = solo ve la carta de arriba, regla clásica).
+   - **Parámetros**: `rondas_tope`, `segundos_actualizacion`, `segundos_cache_mazo`, `segundos_turno` (tiempo para elegir; al terminar se elige un dato al azar; 0 = sin límite).
    - **Partidas**: una fila por partida (código, estado, turno, jugadores, cartas de cada uno, centro de la mesa, última jugada).
    - **Jugadas**: el historial de cada ronda, con los valores comparados.
    - **Finales**: una fila por partida terminada, con el ganador, el motivo (juntó todas las cartas, tope de rondas o abandono), las rondas y la duración.
@@ -38,12 +38,17 @@ Las dos versiones anteriores están en `versiones_anteriores/`: `cartas-astronom
 
 El juego tiene que estar publicado dentro del portal (por ejemplo `GithubUE/naipes/`), porque toma la barra, los modos y las tipografías de `../ue/`.
 
-## Una partida
+## Una partida (modo clásico con selección silenciosa)
 
 1. Primer celular: escribir el nombre y tocar **Crear partida e invitar**. Aparecen un QR y un código de 4 letras.
-2. Segundo celular: escanear el QR con la cámara. El juego se abre con la invitación y la conexión ya cargadas; solo hay que escribir el nombre. Sin cámara, se puede escribir el código.
-3. Se reparten todas las cartas. Quien tiene el turno toca un dato de su carta y **gana el valor más alto**. El ganador se lleva las dos cartas al fondo de su pila y vuelve a elegir. En empate, las cartas van al centro, sigue eligiendo el mismo jugador y el próximo ganador se las lleva.
-4. Gana quien junta todo el mazo. Si se llega a `rondas_tope`, gana quien tenga más cartas.
+2. Segundo celular: escanear el QR con la cámara y escribir el nombre (sin cámara, se puede escribir el código).
+3. **Reparto y navegación libre.** Cada jugador recibe la mitad del mazo y la recorre en un carrusel. La carta del centro es su **carta activa**. Ninguno ve las cartas del otro.
+4. **Jugada silenciosa del atacante.** Ataca quien tiene el turno (al azar al principio; después, quien ganó la mano anterior). Deja su carta activa en el centro y toca un dato.
+5. **Resolución automática.** En ese instante el juego toma la carta que el rival tiene en el centro de su pantalla, compara el mismo dato y muestra el resultado en los dos celulares a la vez. Cada celular informa a la planilla su carta activa cada vez que el carrusel se detiene (columnas ocultas `activa_anfitrion` y `activa_invitado`), sin que el rival la vea.
+6. **Consecuencia.** Gana el valor más alto: se lleva las dos cartas al final de su mano y ataca de nuevo. En empate, las cartas van al centro, sigue atacando el mismo jugador y el próximo ganador se las lleva.
+7. Gana quien junta todo el mazo. Si se llega a `rondas_tope`, gana quien tenga más cartas.
+
+El atacante tiene `segundos_turno` para elegir y puede sumar 30 segundos con el botón «+30 s» todas las veces que necesite (WCAG 2.2.1). Si el tiempo se termina, se juega un dato al azar con la carta activa.
 
 Si un celular se cierra o se recarga, en el inicio aparece **Volver a la partida XXXX**.
 
@@ -66,3 +71,11 @@ Si se cambia `Code.gs`: *Implementar › Gestionar implementaciones › Editar �
 ## Imprimir los naipes
 
 En *Catálogo › Imprimir naipes* se imprimen las 30 cartas en 63 × 88 mm, 9 por hoja A4 (4 hojas). Conviene activar "Gráficos de fondo" en el diálogo de impresión.
+
+## Accesibilidad (WCAG 2.2 AA)
+
+- Revisado con axe-core en todas las pantallas (inicio, sala con QR, mesa, enfrentamiento, final con iniciales, ranking, catálogo, carta ampliada y reglas), en modo claro, noche y alto contraste, en celular y computadora: sin fallas. Sin desplazamiento horizontal a 320 px.
+- Teclado: todo se maneja con Tab, Enter y las flechas (carrusel). Foco visible también sobre las cartas oscuras.
+- Movimiento: el efecto de naipe (inclinación y brillo) se desactiva con «reducir movimiento» del sistema y en alto contraste. El ranking tipo créditos tiene Pausar y Saltar. El punto de «esperando» se detiene a los 5 segundos.
+- Tiempo: botón «+30 s» ilimitado y aviso a los 20 segundos para lectores de pantalla.
+- Celular: botones ‹ › para recorrer la mano sin deslizar.
