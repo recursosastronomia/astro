@@ -1272,3 +1272,62 @@ html[data-contrast="alto"] .lectura strong, html[data-contrast="alto"] strong { 
 /* Botones de modo: el elegido, en ámbar con texto negro */
 html[data-contrast="alto"] .l-tema { background: #000; border: 2px solid #fff; color: #fff; }
 html[data-contrast="alto"] .l-tema[aria-pressed="true"] { background: #ffb627; border-color: #ffb627; color: #000; }
+
+/* =====================================================================
+   BUSCADOR DE RECURSOS: acceso con la lupa de la barra superior
+   (index.html y cualquier página con la barra; js/buscador-acceso.js).
+   La lupa despliega una cajita de texto; al enviarla se abre buscador.html
+   con la búsqueda ya hecha. Sin JavaScript, el formulario igual funciona.
+   ===================================================================== */
+.busca { position: relative; }
+.busca-btn .ico { color: var(--amber); }
+.busca-btn[aria-expanded="true"] { background: var(--amber); color: var(--ink-deep); border-color: var(--amber); }
+.busca-btn[aria-expanded="true"] .ico { color: var(--ink-deep); }
+.busca-panel {
+  position: absolute; top: calc(100% + 0.6rem); right: 0; z-index: 60;
+  width: min(24rem, calc(100vw - 2rem)); padding: 1rem;
+  background: var(--sheet); color: var(--text); border: 1px solid var(--rule); border-radius: 12px;
+  box-shadow: 0 24px 60px -12px rgba(11, 23, 48, 0.55);
+  font-family: var(--font-ui); font-size: 1rem; line-height: 1.45;
+}
+.busca-panel[hidden] { display: none; }
+.busca-panel label { display: block; font-weight: 700; margin: 0 0 0.4rem; color: var(--text); }
+.busca-fila { display: flex; gap: 0.5rem; }
+.busca-fila input {
+  flex: 1; min-width: 0; min-height: 2.9rem; padding: 0.5rem 0.8rem; border-radius: 8px;
+  border: 2px solid var(--rule-strong); background: var(--paper); color: var(--text);
+  font: 400 1.0625rem var(--font-ui);
+}
+.busca-fila input::placeholder { color: var(--muted); opacity: 1; }
+.busca-fila input:focus { border-color: var(--link); outline: none; }
+.busca-fila input[aria-invalid="true"] { border-color: var(--err); }
+.busca-ir {
+  display: inline-flex; align-items: center; justify-content: center; flex: none; width: 2.9rem; min-height: 2.9rem;
+  border: 0; border-radius: 8px; background: var(--amber); color: var(--ink-deep); cursor: pointer;
+}
+.busca-ir:hover { background: var(--amber-press); }
+.busca-ir .ico { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
+.busca-ayuda { margin: 0.5rem 0 0; font-size: var(--step--1); color: var(--muted); max-width: none; }
+.busca-ayuda[data-error="true"] { color: var(--err); font-weight: 700; }
+.busca-todo { display: inline-block; margin-top: 0.6rem; font-size: var(--step--1); font-weight: 700; color: var(--link); text-underline-offset: 0.18em; }
+@media (max-width: 40rem) {
+  /* En pantallas chicas el panel ocupa el ancho, justo debajo de la barra */
+  .busca { position: static; }
+  .barra-in, .l-barra-in { position: relative; }
+  .busca-panel { left: 1rem; right: 1rem; width: auto; top: calc(100% + 0.25rem); }
+}
+@media (max-width: 30rem) { .busca-btn .l-tema-txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); } }
+html[data-contrast="alto"] .busca-panel { background: #000; color: #fff; border: 2px solid #fff; box-shadow: none; }
+html[data-contrast="alto"] .busca-fila input { background: #000; color: #fff; border-color: #fff; }
+html[data-contrast="alto"] .busca-ir { background: #ffb627; color: #000; }
+html[data-contrast="alto"] .busca-btn[aria-expanded="true"] { background: #ffb627; border-color: #ffb627; color: #000; }
+html[data-contrast="alto"] .busca-btn[aria-expanded="true"] .ico { color: #000; }
+html[data-contrast="alto"] .busca-btn .ico { color: #fff; }
+/* Con la lupa, la barra de la portada suma un botón: en celulares se compactan los botones para que entren sin desbordar */
+@media (max-width: 30rem) {
+  .portal .barra-acciones { gap: 0.3rem; }
+  .portal .barra-acciones .l-tema, .portal .barra-acciones .l-medallas { padding-inline: 0.55rem; }
+  .portal .barra-link { padding-inline: 0.4rem; margin-right: -0.4rem; }
+  /* El enlace al Portal EDyTIC queda solo con su ícono; el nombre sigue disponible para lectores de pantalla */
+  .portal .barra-link > span:first-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
